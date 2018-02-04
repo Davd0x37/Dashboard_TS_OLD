@@ -1,5 +1,5 @@
-import Mutation from "./mutation.ts"
-import Query from "./query.ts"
+import Mutation from "./mutation"
+import Query from "./query"
 
 export default {
   Query,

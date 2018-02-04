@@ -1,5 +1,6 @@
 const path = require("path")
 var fs = require("fs")
+const BitBarWebpackProgressPlugin = require("bitbar-webpack-progress-plugin")
 
 var nodeModules = {}
 fs
@@ -25,12 +26,8 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        exclude: /(node_modules|bower_components)/,
         use: {
           loader: "ts-loader",
-          // options: {
-          //   presets: ['babel-preset-env']
-          // }
         },
       },
       {
@@ -41,4 +38,5 @@ module.exports = {
     ],
   },
   externals: nodeModules,
+  plugins: [new BitBarWebpackProgressPlugin()],
 }

@@ -26,7 +26,8 @@ Here you should say what actually happens when you execute the code above.
 Typescript 2.6.2 <br>
 Express 4.16.0 <br>
 GraphQL 0.12.3 <br>
-Apollo server express 1.3.2
+Apollo server express 1.3.2 <br>
+Argon2 | Argon-Node https://github.com/ranisalt/node-argon2
 
 ### Prerequisites
 
