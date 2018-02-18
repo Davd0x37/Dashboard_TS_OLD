@@ -1,0 +1,6 @@
+@import "../utils/_colors";
+
+#right_sidebar {
+    grid-area: right_sidebar;
+    background-color: $primary_dark;
+}

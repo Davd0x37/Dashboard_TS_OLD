@@ -13,30 +13,33 @@ fs
   })
 
 module.exports = {
-  entry: "./app/server.ts",
+  entry: "./app/app.ts",
   target: "node",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "app.js",
+    filename: "app.js"
   },
   resolve: {
-    extensions: [".ts", ".js", ".gql"],
+    extensions: [".ts", ".js", ".gql"]
   },
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: {
-          loader: "ts-loader",
-        },
+          loader: "ts-loader"
+        }
       },
       {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
-        loader: "raw-loader",
-      },
-    ],
+        loader: "raw-loader"
+      }
+    ]
+  },
+  watchOptions: {
+    poll: true
   },
   externals: nodeModules,
-  plugins: [new BitBarWebpackProgressPlugin()],
+  plugins: [new BitBarWebpackProgressPlugin()]
 }

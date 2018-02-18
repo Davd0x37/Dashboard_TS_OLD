@@ -1,0 +1,23 @@
+@import "../utils/_colors";
+
+header {
+    grid-area: header;
+    background-color: $primary;
+    display: grid;
+    grid-template-columns: $main_size_columns;
+    align-content: space-around;
+    
+    .logo {
+        grid-column: 1/2;
+    }
+
+    .menu {
+        display: flex;
+        grid-column: 2/3;
+        justify-content: space-around;
+    }
+
+    .profile {
+        grid-column: 3/4;
+    }
+}

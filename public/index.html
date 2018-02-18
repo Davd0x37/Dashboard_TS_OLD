@@ -5,11 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="js/main.ts"></script>
+    <!-- <script src="js/main.ts"></script> -->
+    <link rel="stylesheet" href="style/index.scss">
 </head>
 
 <body>
-
+    <header>
+        <div class="logo">
+            <!-- <img src="" alt="" srcset=""> -->
+            <input type="checkbox" name="left_sidebard_menu" id="left_sidebard_menu">
+        </div>
+        <div class="menu">
+            <div class="menu_search">
+                <input type="search" name="search" id="dashboard_search">
+            </div>
+            <div class="menu_notifications">
+                <span>+ Add Contact</span>
+                <button>Friends</button>
+                <button>Messages</button>
+                <button>Notification</button>
+            </div>
+        </div>
+        <div class="profile">
+            <!-- <img src="" alt="" srcset=""> -->
+            <span>Digital Nomad</span>
+            <button>Logout</button>
+        </div>
+    </header>
+    <aside id="left_sidebar">left sidebar</aside>
+    <main>main content</main>
+    <aside id="right_sidebar">right sidebar</aside>
 </body>
 
 </html>
