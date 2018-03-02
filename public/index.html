@@ -5,31 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <!-- Font Awesome -->
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
+    <script defer src="./vendor/fontawesome/fontawesome-all.min.js"></script>
     <!-- <script src="js/main.ts"></script> -->
     <link rel="stylesheet" href="style/index.scss">
 </head>
 
 <body>
     <header>
-        <div class="logo">
-            <!-- <img src="" alt="" srcset=""> -->
-            <input type="checkbox" name="left_sidebard_menu" id="left_sidebard_menu">
+        <div class="logo flex">
+            <img src="./img//logo_1x.png" alt="Logo" srcset="./img/logo_1x.png 1x">
+            <!-- <input type="checkbox" name="left_sidebar_menu" id="left_sidebar_menu">
+            <label for="left_sidebar_menu">
+                <i class="fas fa-bars"></i>
+            </label> -->
         </div>
-        <div class="menu">
+        <div class="menu flex">
             <div class="menu_search">
-                <input type="search" name="search" id="dashboard_search">
+                <input type="search" name="search" id="dashboard_search" placeholder="Search whatever you want...">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                    Search
+                </button>
             </div>
             <div class="menu_notifications">
-                <span>+ Add Contact</span>
-                <button>Friends</button>
-                <button>Messages</button>
-                <button>Notification</button>
+                <span class="add-contact" data-current-notification="Add Contact">+ Add Contact</span>
+                <i class="fas fa-users"></i>
+                <i class="fas fa-comments"></i>
+                <span class="fa-layers fa-fw">
+                    <i class="fas fa-bell"></i>
+                    <span class="fa-layers-counter"></span>
+                </span>
             </div>
         </div>
-        <div class="profile">
-            <!-- <img src="" alt="" srcset=""> -->
+        <div class="profile flex">
+            <img src="./img/avatar.jpg" alt="Avatar">
             <span>Digital Nomad</span>
-            <button>Logout</button>
+            <i class="fas fa-sign-out-alt"></i>
         </div>
     </header>
     <aside id="left_sidebar">left sidebar</aside>

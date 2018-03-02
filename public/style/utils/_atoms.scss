@@ -1,0 +1,8 @@
+.grid {
+    display: grid;
+    grid-template-columns: $main_size_columns;
+}
+
+.flex {
+    display: flex;
+}

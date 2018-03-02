@@ -1,23 +1,64 @@
-@import "../utils/_colors";
-
 header {
     grid-area: header;
-    background-color: $primary;
+    background-color: $header_primary;
     display: grid;
     grid-template-columns: $main_size_columns;
-    align-content: space-around;
-    
+    grid-template-areas: "header_logo header_menu header_profile";
     .logo {
-        grid-column: 1/2;
+        grid-area: header_logo;
+        border-right: $header_border solid 2px;
+        align-items: center;
+        justify-content: center;
+        img {
+            height: 54px;
+        }
     }
-
     .menu {
-        display: flex;
-        grid-column: 2/3;
+        grid-area: header_menu;
+        align-items: center;
         justify-content: space-around;
-    }
+        .menu_search {
+            #dashboard_search {
+                background: $primary_dark;
+                border: 1px solid $primary;
+                border-radius: 10px;
+                padding: 7px;
+                width: 350px;
+                overflow: hidden;
+            }
 
+            button[type="submit"] {
+                border: 1px solid $search_border;
+                border-radius: 15px;
+                padding: 7px 20px 7px 20px;
+                font-weight: bold;
+                background: none;
+
+                &:hover {
+                    background: $primary_dark;
+                    // border-color: 
+                }
+            }
+        }
+        .menu_notifications {
+            .add-contact::after {
+                content: '';
+                margin: 15px;
+                border: 1px solid;
+            } // Icons are converted to SVG from <i>
+            // i:hover does not work so we need use svg:hover
+            svg:hover {
+                color: $primary_accent;
+            }
+        }
+    }
     .profile {
-        grid-column: 3/4;
+        grid-area: header_profile;
+        align-items: center;
+        justify-content: space-around;
+        img {
+            width: 48px;
+            border-radius: 100%;
+        }
     }
 }

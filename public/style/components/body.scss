@@ -1,11 +1,15 @@
+* {
+    font-family: 'Roboto';
+}
+
 body {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  grid-template-columns: $main_size_columns;
-  grid-template-rows: $main_size_rows;
-  grid-gap: 1rem;
-  grid-template-areas:
-  "header header header"
-  "left_sidebar main right_sidebar";
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background-color: $background_color;
+    grid-template-columns: $main_size_columns;
+    grid-template-rows: $main_size_rows;
+    // grid-gap: $main_grip_gap;
+    grid-template-areas: "header header header" "left_sidebar main right_sidebar";
+    color: $primary_text;
 }
