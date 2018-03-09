@@ -14,23 +14,23 @@
 
 <body>
     <header>
-        <div class="logo flex">
+        <div class="logo">
             <img src="./img//logo_1x.png" alt="Logo" srcset="./img/logo_1x.png 1x">
-            <!-- <input type="checkbox" name="left_sidebar_menu" id="left_sidebar_menu">
-            <label for="left_sidebar_menu">
+            <input type="checkbox" name="leftSidebar__menu" id="leftSidebar__menu">
+            <label for="leftSidebar__menu">
                 <i class="fas fa-bars"></i>
-            </label> -->
+            </label>
         </div>
-        <div class="menu flex">
-            <div class="menu_search">
-                <input type="search" name="search" id="dashboard_search" placeholder="Search whatever you want...">
-                <button type="submit">
+        <div class="menu">
+            <div class="search">
+                <input type="search" name="search__input" id="search__input" placeholder="Search whatever you want...">
+                <button type="submit" class="search__button">
                     <i class="fa fa-search"></i>
-                    Search
+                    <p>Search</p>
                 </button>
             </div>
-            <div class="menu_notifications">
-                <span class="add-contact" data-current-notification="Add Contact">+ Add Contact</span>
+            <div class="notifications">
+                <span class="notifications__addContact" data-current-notification="Add Contact">+ Add Contact</span>
                 <i class="fas fa-users"></i>
                 <i class="fas fa-comments"></i>
                 <span class="fa-layers fa-fw">
@@ -39,15 +39,49 @@
                 </span>
             </div>
         </div>
-        <div class="profile flex">
-            <img src="./img/avatar.jpg" alt="Avatar">
-            <span>Digital Nomad</span>
+        <div class="profile">
+            <img src="./img/avatar.jpg" class="profile__avatar" alt="Avatar">
+            <p>Digital Nomad</p>
             <i class="fas fa-sign-out-alt"></i>
         </div>
     </header>
-    <aside id="left_sidebar">left sidebar</aside>
+    <aside id="leftSidebar">
+        <div class="profile">
+            <input type="checkbox" name="profile__checkbox" id="profile__checkbox">
+            <label for="profile__checkbox">
+                <p>Profile</p>
+                <i class="fa fa-arrow-down"></i>
+            </label>
+            <div class="profile__content">
+                <a href="#">
+                    <img src="./img/avatar.jpg" class="profile__avatar" alt="Avatar">
+                    <p>Digital Nomad</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    <p>Profile</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-lock" aria-hidden="true"></i>
+                    <p>Privacy</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-folder" aria-hidden="true"></i>
+                    <p>Portfolio</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-cog" aria-hidden="true"></i>
+                    <p>Settings</p>
+                </a>
+            </div>
+        </div>
+        <div class="main"></div>
+        <div class="tools"></div>
+        <div class="info"></div>
+        <div class="channels"></div>
+    </aside>
     <main>main content</main>
-    <aside id="right_sidebar">right sidebar</aside>
+    <aside id="rightSidebar">right sidebar</aside>
 </body>
 
 </html>
