@@ -1,0 +1,36 @@
+#main__content {
+    grid-area: main;
+    display: grid;
+    padding: 25px 50px 25px 50px;
+    grid-template-areas: "title_news title_timeline" "news timeline";
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 0.1fr 1fr;
+    grid-gap: 15px;
+    .title_news {
+        grid-area: title_news;
+    }
+    .title_timeline {
+        grid-area: title_timeline;
+    }
+    .title_news,
+    .title_timeline {
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        p {
+            margin: 0;
+        }
+        svg {
+            margin-right: 10px;
+        }
+    }
+    article {
+        display: flex;
+        flex-direction: column;
+        background: $primary_dark;
+        border-radius: 10px;
+        box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);
+    }
+    @import "./news";
+    @import "./timeline";
+}

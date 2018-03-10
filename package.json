@@ -8,44 +8,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "web_dev": "parcel public -p 3030",
-    "web_build": "parcel build public",
-    "node_dev": "webpack --watch",
-    "node_build": "webpack",
-    "web_test": "ava test/web",
-    "node_test": "ava test/node"
+    "dev": "parcel app -p 3030",
+    "build": "parcel build public"
   },
   "devDependencies": {
-    "@types/body-parser": "latest",
-    "@types/dotenv": "latest",
-    "@types/express": "latest",
-    "@types/graphql": "latest",
-    "@types/morgan": "latest",
-    "@types/rethinkdb": "latest",
-    "@types/webpack": "latest",
-    "ava": "latest",
-    "bitbar-webpack-progress-plugin": "latest",
-    "dotenv": "latest",
-    "node-sass": "^4.7.2",
-    "nodemon": "latest",
+    "node-sass": "latest",
     "parcel-bundler": "latest",
-    "raw-loader": "latest",
-    "ts-loader": "latest",
-    "ts-node": "latest",
     "tslint": "latest",
     "tslint-config-prettier": "latest",
-    "typescript": "latest",
-    "webpack": "latest"
-  },
-  "dependencies": {
-    "apollo-server-express": "latest",
-    "argon2": "latest",
-    "body-parser": "latest",
-    "eslint": "latest",
-    "express": "latest",
-    "graphql": "latest",
-    "graphql-tools": "latest",
-    "morgan": "latest",
-    "rethinkdb": "latest"
+    "typescript": "latest"
   }
 }

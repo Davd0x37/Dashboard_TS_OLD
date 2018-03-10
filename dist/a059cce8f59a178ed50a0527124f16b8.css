@@ -1,0 +1,200 @@
+@import url("854d30d7d52436361dd9c582aad5d38c.css");
+.profile__avatar {
+  width: 48px;
+  border-radius: 100%; }
+
+.hidden {
+  visibility: hidden; }
+
+.display_none {
+  display: none; }
+
+* {
+  font-family: "Roboto"; }
+  * a:visited {
+    color: inherit; }
+
+body {
+  font-weight: bold;
+  display: grid;
+  color: #b9b7c5;
+  background-color: #1d1f31;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 0.1fr 1fr;
+  grid-template-areas: "header header header" "leftSidebar main rightSidebar"; }
+
+header {
+  background-color: #55458b;
+  grid-area: header;
+  display: flex;
+  flex-wrap: wrap; }
+  header .logo,
+  header .menu,
+  header .profile {
+    display: inherit;
+    justify-content: space-around;
+    align-items: center; }
+  header .logo {
+    flex-grow: 1; }
+    header .logo img {
+      height: 64px; }
+  header .menu {
+    flex-grow: 3; }
+    header .menu__notifications {
+      display: inherit;
+      align-items: inherit; }
+      header .menu__notifications .current_notification::after {
+        content: '|';
+        padding: 0 15px 0 15px; }
+      header .menu__notifications > .fa-layers {
+        cursor: pointer;
+        margin: 0 5px 0 5px; }
+        header .menu__notifications > .fa-layers:hover > svg path {
+          color: #7872a3; }
+    header .menu__search .search__button,
+    header .menu__search .search__input {
+      padding: 13px;
+      border-radius: 30px;
+      font-weight: bold; }
+    header .menu__search .search__input {
+      background-color: #2b2a49;
+      border: 2px solid rgba(85, 69, 139, 0.5);
+      color: #58557d;
+      padding-right: 150px; }
+    header .menu__search .search__button {
+      transition: background 177ms linear;
+      background-color: transparent;
+      border: 2px solid #7398fe; }
+      header .menu__search .search__button:hover {
+        background-color: #2b2a49; }
+  header .profile {
+    flex-grow: 1; }
+
+#left_sidebar {
+  grid-area: leftSidebar;
+  background-color: #2b2a49;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; }
+  #left_sidebar .content > a, #left_sidebar label {
+    display: flex;
+    align-items: center;
+    text-decoration: none; }
+    #left_sidebar .content > a > img, #left_sidebar .content > a > svg, #left_sidebar label > img, #left_sidebar label > svg {
+      margin-right: 10px; }
+    #left_sidebar .content > a > img, #left_sidebar label > img {
+      width: 32px; }
+    #left_sidebar .content > a > a, #left_sidebar label > a {
+      color: #7873a5; }
+  #left_sidebar .content > a {
+    display: flex; }
+    #left_sidebar .content > a img, #left_sidebar .content > a svg {
+      flex: 1 auto; }
+    #left_sidebar .content > a p {
+      flex: 2 auto; }
+  #left_sidebar #profile__dropdown:checked + .sidebar__action > svg {
+    transform: rotateX(180deg); }
+  #left_sidebar #profile__dropdown:checked ~ .content {
+    transform: translateY(-30px); }
+  #left_sidebar .sidebar__action {
+    justify-content: space-between; }
+
+#main__content {
+  grid-area: main;
+  display: grid;
+  padding: 25px 50px 25px 50px;
+  grid-template-areas: "title_news title_timeline" "news timeline";
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 0.1fr 1fr;
+  grid-gap: 15px; }
+  #main__content .title_news {
+    grid-area: title_news; }
+  #main__content .title_timeline {
+    grid-area: title_timeline; }
+  #main__content .title_news,
+  #main__content .title_timeline {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center; }
+    #main__content .title_news p,
+    #main__content .title_timeline p {
+      margin: 0; }
+    #main__content .title_news svg,
+    #main__content .title_timeline svg {
+      margin-right: 10px; }
+  #main__content article {
+    display: flex;
+    flex-direction: column;
+    background: #2b2a49;
+    border-radius: 10px;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3); }
+  #main__content .news article {
+    margin: 0 0 25px 0;
+    padding: 10px;
+    min-height: 30%; }
+    #main__content .news article .info, #main__content .news article .content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+      #main__content .news article .info p, #main__content .news article .content p {
+        margin: 0; }
+    #main__content .news article .content {
+      flex: 2;
+      color: #7873a5;
+      font-weight: normal; }
+      #main__content .news article .content img {
+        margin-right: 10px; }
+    #main__content .news article .info {
+      flex: 1; }
+      #main__content .news article .info p {
+        color: #7872a3; }
+      #main__content .news article .info a {
+        color: #576cb6;
+        text-decoration: none;
+        align-self: end;
+        padding: 0 15px 5px 0; }
+  #main__content .timeline {
+    grid-area: timeline; }
+    #main__content .timeline article .content,
+    #main__content .timeline article .actions {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around; }
+    #main__content .timeline article .content img {
+      margin: 0 20px 0 10px; }
+    #main__content .timeline article .content input {
+      flex-grow: 2;
+      border: none;
+      background: none; }
+    #main__content .timeline article .content button {
+      border-radius: 100%;
+      background: rgba(85, 69, 139, 0.3);
+      border: 1px solid rgba(85, 69, 139, 0.3);
+      padding: 8px;
+      margin: 7px; }
+    #main__content .timeline article .actions {
+      background: rgba(85, 69, 139, 0.3); }
+      #main__content .timeline article .actions input, #main__content .timeline article .actions label {
+        flex-grow: 1; }
+      #main__content .timeline article .actions select {
+        flex-grow: 3;
+        border-radius: 25px;
+        border: 1px solid #7873a5;
+        padding: 8px;
+        background: none; }
+      #main__content .timeline article .actions .location {
+        flex-grow: 0.5;
+        background: none;
+        border: none; }
+      #main__content .timeline article .actions .send {
+        border: 1px solid #7B9FFB;
+        color: white;
+        border-radius: 100%;
+        padding: 8px;
+        margin: 0 10px 0 50px;
+        background: #7B9FFB; }
+
+#right_sidebar {
+  grid-area: rightSidebar;
+  background-color: #2b2a49; }

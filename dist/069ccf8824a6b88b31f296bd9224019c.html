@@ -1,0 +1,149 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <!-- Font Awesome -->
+    <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
+    <script defer="" src="/dist/7fe3ad7ec77b786a4f3354622893dda9.js"></script>
+    <!-- <script src="js/main.ts"></script> -->
+    <link rel="stylesheet" href="/dist/a059cce8f59a178ed50a0527124f16b8.css">
+<script src="/dist/a059cce8f59a178ed50a0527124f16b8.js"></script></head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/dist/1577a4d70a9660a15992220f1dc3e66d.png" alt="Logo">
+        </div>
+        <div class="menu">
+            <div class="menu__search">
+                <input type="text" name="search" class="search__input" placeholder="Search what you want!">
+                <button class="search__button">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+            </div>
+            <div class="menu__notifications">
+                <p class="current_notification" data-current-notification="+ Add Contact">+ Add Contact</p>
+                <span class="fa-layers fa-fw">
+                    <i class="fas fa-users"></i>
+                    <span class="fa-layers-counter hidden"></span>
+                </span>
+                <span class="fa-layers fa-fw">
+                    <i class="fas fa-comments"></i>
+                    <span class="fa-layers-counter hidden"></span>
+                </span>
+                <span class="fa-layers fa-fw">
+                    <i class="fas fa-bell"></i>
+                    <span class="fa-layers-counter"></span>
+                </span>
+            </div>
+        </div>
+        <div class="profile">
+            <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Avatar">
+            <p class="profile__name">DigitalNomad</p>
+            <a href="#">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </div>
+    </header>
+    <aside id="left_sidebar">
+        <div class="profile">
+            <input type="checkbox" class="display_none" name="profile__dropdown" id="profile__dropdown">
+            <label class="sidebar__action" for="profile__dropdown">
+                <p>Profile</p>
+                <i class="fas fa-arrow-up"></i>
+            </label>
+            <nav class="content">
+                <a href="#">
+                    <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Avatar">
+                    <p>DigitalNomad</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-pencil-alt"></i>
+                    <p>Profile</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-lock"></i>
+                    <p>Privacy</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-folder"></i>
+                    <p>Portfolio</p>
+                </a>
+                <a href="#">
+                    <i class="fas fa-cogs"></i>
+                    <p>Settings</p>
+                </a>
+            </nav>
+        </div>
+    </aside>
+    <main id="main__content">
+        <span class="title_news">
+            <i class="fas fa-newspaper"></i>
+            <p>News</p>
+        </span>
+        <span class="title_timeline">
+            <i class="fas fa-flag"></i>
+            <p>Timeline</p>
+        </span>
+        <aside class="news">
+            <article>
+                <main class="content">
+                    <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Image">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </main>
+                <aside class="info">
+                    <p>10:32AM</p>
+                    <a href="#">Read</a>
+                </aside>
+            </article>
+            <article>
+                <main class="content">
+                    <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Image">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </main>
+                <aside class="info">
+                    <p>10:32AM</p>
+                    <a href="#">Read</a>
+                </aside>
+            </article>
+            <article>
+                <main class="content">
+                    <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Image">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </main>
+                <aside class="info">
+                    <p>10:32AM</p>
+                    <a href="#">Read</a>
+                </aside>
+            </article>
+        </aside>
+        <aside class="timeline">
+            <article>
+                <main class="content">
+                    <img src="/dist/da18c18ffb2a663b4b4853d5c8fc6b15.jpg" class="profile__avatar" alt="Image">
+                    <input type="text" name="Timeline" id="timeline_input" placeholder="Write something">
+                    <button><i class="fas fa-search"></i></button>
+                    <button><i class="fas fa-link"></i></button>
+                </main>
+                <footer class="actions">
+                    <input type="checkbox" name="Anonymously" id="input_checkbox_anonymously">
+                    <label for="input_checkbox_anonymously">Anonymously</label>
+                    <select name="whocansee" id="select_options">
+                        <option value="me">Only me</option>
+                        <option value="friends">Friends</option>
+                        <option value="everyone">Everyone</option>
+                    </select>
+                    <button class="location"><i class="fas fa-map-marker"></i></button>
+                    <button class="send"><i class="fas fa-paper-plane"></i></button>
+                </footer>
+            </article>
+        </aside>
+    </main>
+    <aside id="right_sidebar"></aside>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+* {
+    font-family: "Roboto";
+    a:visited {
+        color: inherit;
+    }
+}
+
+body {
+    font-weight: bold;
+    display: grid;
+    color: $primary_text;
+    // width: 100vw;
+    // height: 100vh;
+    background-color: $background_color;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
+    grid-template-areas: "header header header" "leftSidebar main rightSidebar";
+}

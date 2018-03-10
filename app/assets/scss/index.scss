@@ -1,0 +1,10 @@
+@import "../vendor/normalize.css";
+@import "./utils/_colors";
+@import "./utils/_atoms";
+
+@import "./bootstrap";
+
+@import "./components/header/index";
+@import "./components/left_sidebar/index";
+@import "./components/main/index";
+@import "./components/right_sidebar/index";
