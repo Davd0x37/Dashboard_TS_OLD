@@ -1,32 +1,37 @@
+.logo,
+.menu,
+.profile {
+    display: inherit;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo {
+    flex-grow: 1;
+    img {
+        height: 64px;
+    }
+}
+
 .menu {
-    flex-grow: 3;
-    // menu__notification
+    flex-grow: 3; // menu__notification
     &__notifications {
         display: inherit;
         align-items: inherit;
-
         .current_notification {
             &::after {
                 content: '|';
                 padding: 0 15px 0 15px;
             }
-        }
-
-        // Icons
-        & > .fa-layers {
+        } // Icons
+        &>.fa-layers {
             cursor: pointer;
             margin: 0 5px 0 5px;
-
-            &:hover > svg path {
+            &:hover>svg path {
                 color: $primary_text_dark_hover;
-            }
-            
-
-            // & > span - Counters
+            } // & > span - Counters
         }
-    }
-
-    // menu__search
+    } // menu__search
     &__search {
         .search__button,
         .search__input {
@@ -44,10 +49,13 @@
             transition: background 177ms linear;
             background-color: rgba(0, 0, 0, 0);
             border: 2px solid $search_border;
-            
             &:hover {
                 background-color: $primary_dark;
             }
         }
     }
+}
+
+.profile {
+    flex-grow: 1;
 }

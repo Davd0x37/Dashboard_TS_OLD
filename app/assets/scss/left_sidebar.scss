@@ -1,0 +1,25 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    &__action {
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: $primary_text;
+    }
+    &__avatar {
+        height: 36px;
+        width: 36px;
+        overflow: hidden;
+    }
+    &__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        svg {
+            margin-right: 15px;
+        }
+    }
+}

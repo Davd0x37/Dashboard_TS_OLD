@@ -16,3 +16,31 @@ body {
     grid-template-rows: 0.1fr 1fr;
     grid-template-areas: "header header header" "leftSidebar main rightSidebar";
 }
+
+#header {
+  background-color: $primary;
+  grid-area: header;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#main__content {
+  grid-area: main;
+  display: grid;
+  padding: 25px 50px 25px 50px;
+  grid-template-areas: "title_news title_timeline" "news timeline";
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 0.1fr 1fr;
+  grid-gap: 15px;
+}
+
+#left_sidebar {
+  grid-area: leftSidebar;
+  background-color: $primary_dark;
+  padding: 20px;
+}
+
+#right_sidebar {
+  grid-area: rightSidebar;
+  background-color: $primary_dark;
+}

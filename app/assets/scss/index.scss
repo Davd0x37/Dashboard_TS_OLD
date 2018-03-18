@@ -4,7 +4,7 @@
 
 @import "./bootstrap";
 
-@import "./components/header/index";
-@import "./components/left_sidebar/index";
-@import "./components/main/index";
-@import "./components/right_sidebar/index";
+@import "./header";
+@import "./left_sidebar";
+@import "./main";
+@import "./right_sidebar";
