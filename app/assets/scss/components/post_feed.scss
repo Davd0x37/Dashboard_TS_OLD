@@ -1,0 +1,71 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  background: rgba(85, 69, 139, 0.2);
+  border-radius: 10px;
+  .feed__header {
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    .feed__image {
+      padding-right: 20px;
+    }
+    .feed__title {
+      flex: 1;
+      font-weight: 200;
+    }
+    .feed__title-color {
+      color: rgba(172, 165, 227, 1);
+    }
+    .feed__date {
+      font-size: 0.8em;
+      font-weight: bold;
+      padding-left: 20px;
+      display: inherit;
+      align-items: center;
+
+      &::before {
+        content: '';
+        padding-right: 20px;
+        border: 1px solid rgba(91, 87, 117, 1);
+        transform: rotate(-90deg);
+        width: 5px;
+      }
+    }
+    .feed__date-color {
+      margin: 0;
+      color: rgba(93, 88, 134, 1); //rgba(90, 87, 117, 1)
+    }
+  }
+  .feed__content {
+  }
+  .feed__footer {
+    .feed__action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      padding: 0 15px 0 15px;
+
+      .feed__action-name {
+        color: rgba(93, 87, 134, 1);
+        padding-left: 10px;
+      }
+      .feed__action-counter {
+        padding-left: 5px;
+        font-weight: bold;
+        color: rgba(114, 111, 138, 1);
+      }
+    }
+  }
+  .feed__append {
+  }
+
+  .feed__header, .feed__footer {
+    display: flex;
+    background: rgba(85, 69, 139, 0.2);
+  }
+
+  .feed__header, .feed__content, .feed__footer {
+    padding: 10px 20px 10px 20px;
+  }
+}

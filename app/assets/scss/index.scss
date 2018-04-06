@@ -2,9 +2,14 @@
 @import "./utils/_colors";
 @import "./utils/_atoms";
 
+
 @import "./bootstrap";
 
-@import "./header";
+// Components
+@import "./components/post_feed";
+
+
+@import "header";
 @import "./left_sidebar";
 @import "./main";
 @import "./right_sidebar";

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet"> 
   <!-- Font Awesome -->
   <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
   <script defer src="./assets/vendor/fontawesome/fontawesome-all.min.js"></script>
@@ -16,6 +17,7 @@
   <header id="header">
     <div class="logo">
       <img src="./assets/img/logo_1x.png" alt="Logo" class="logo__img">
+      <p class="logo__title">Dashboard</p>
     </div>
     <div class="menu">
       <div class="search">
@@ -126,36 +128,41 @@
           </button>
         </footer>
       </article>
-      <article>
-        <header>
-          <img src="./assets/img/avatar.jpg" class="header__image profile__avatar" alt="Image">
-          <p class="header__title">Lorem ipsum dolor asldasldalsldasldalsldalsd</p>
-          <span class="header__date">4:33AM</span>
+      <article class="feed">
+        <header class="feed__header">
+          <div class="feed__image">
+            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
+          </div>
+          <div class="feed__title">
+            <p class="feed__title-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempore eligendi dolorem! Delectus nesciunt perferendis quo, repellendus, laudantium sint, distinctio id saepe nulla sequi amet enim voluptates! Perferendis, sit sint.</p>
+          </div>
+          <div class="feed__date">
+            <p class="feed__date-color">10:34AM</p>
+          </div>
         </header>
-        <main>
-          <span class="main__option">
-            <input type="checkbox" name="vote" id="vote">
-            <label for="vote" class="option__details">
-              <p class="details__title">i.e. john-smith.com</p>
-              <progress value="0.75" class="details__progress">Votes</progress>
-              <p class="details__info-percent">75%</p>
-            </label>
-          </span>
+        <main class="feed__content">
+          <h1>Something boring</h1>
         </main>
-        <footer>
-          <button class="footer__action">
+        <footer class="feed__footer">
+          <a href="" class="feed__action">
             <i class="fas fa-heart"></i>
-            <span>Like (3.5k)</span>
-          </button>
-          <button class="footer__action">
+            <p class="feed__action-name">Like</p>
+            <p class="feed__action-counter">(3.5k)</p>
+          </a>
+          <a href="" class="feed__action">
             <i class="fas fa-comment"></i>
-            <span>Comment (0)</span>
-          </button>
-          <button class="footer__action">
+            <p class="feed__action-name">Comment</p>
+            <p class="feed__action-counter">(0)</p>
+          </a>
+          <a href="" class="feed__action">
             <i class="fas fa-share"></i>
-            <span>Share (632)</span>
-          </button>
+            <p class="feed__action-name">Share</p>
+            <p class="feed__action-counter">(1k)</p>
+          </a>
         </footer>
+        <div class="feed_append">
+
+        </div>
       </article>
     </aside>
   </main>
