@@ -3,6 +3,21 @@
   flex-direction: column;
   background: rgba(85, 69, 139, 0.2);
   border-radius: 10px;
+  margin-bottom: 20px;
+
+  .feed__header,
+  .feed__footer {
+    display: flex;
+    background: rgba(85, 69, 139, 0.2);
+  }
+
+  .feed__header,
+  .feed__content,
+  .feed__footer {
+    padding: 10px 20px 10px 20px;
+  }
+
+
   .feed__header {
     align-items: center;
     border-radius: 10px 10px 0 0;
@@ -11,7 +26,7 @@
     }
     .feed__title {
       flex: 1;
-      font-weight: 200;
+      font-weight: bold;
     }
     .feed__title-color {
       color: rgba(172, 165, 227, 1);
@@ -24,7 +39,7 @@
       align-items: center;
 
       &::before {
-        content: '';
+        content: "";
         padding-right: 20px;
         border: 1px solid rgba(91, 87, 117, 1);
         transform: rotate(-90deg);
@@ -35,16 +50,28 @@
       margin: 0;
       color: rgba(93, 88, 134, 1); //rgba(90, 87, 117, 1)
     }
+    .feed__activity {
+      background: none;
+      border: none;
+      height: 40px;
+      width: 100%;
+      color: rgba(91, 87, 117, 1);
+    }
+  }
+  .feed__header-activity {
+    background: none;
   }
   .feed__content {
   }
   .feed__footer {
+    border-radius: 0 0 10px 10px;
     .feed__action {
       display: flex;
       align-items: center;
       justify-content: space-between;
       text-decoration: none;
       padding: 0 15px 0 15px;
+      font-size: 0.9em;
 
       .feed__action-name {
         color: rgba(93, 87, 134, 1);
@@ -58,14 +85,5 @@
     }
   }
   .feed__append {
-  }
-
-  .feed__header, .feed__footer {
-    display: flex;
-    background: rgba(85, 69, 139, 0.2);
-  }
-
-  .feed__header, .feed__content, .feed__footer {
-    padding: 10px 20px 10px 20px;
   }
 }

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Dashboard</title>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet">
   <!-- Font Awesome -->
   <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
   <script defer src="./assets/vendor/fontawesome/fontawesome-all.min.js"></script>
@@ -101,32 +101,19 @@
       </article>
     </aside>
     <aside class="timeline">
-      <article>
-        <main class="timeline__activity">
-          <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="Image">
-          <input type="text" name="activity" id="activity__input" placeholder="Write something">
-          <button class="activity__search">
-            <i class="fas fa-search"></i>
-          </button>
-          <button class="activity__link">
-            <i class="fas fa-link"></i>
-          </button>
-        </main>
-        <footer>
-          <input type="checkbox" class="display_none" name="Anonymously" id="input_checkbox_anonymously">
-          <label for="input_checkbox_anonymously">Anonymously</label>
-          <select name="whocansee" id="select_options">
-            <option value="me">Only me</option>
-            <option value="friends">Friends</option>
-            <option value="everyone">Everyone</option>
-          </select>
-          <button class="location">
-            <i class="fas fa-map-marker"></i>
-          </button>
-          <button class="send">
-            <i class="fas fa-paper-plane"></i>
-          </button>
-        </footer>
+      <article class="feed">
+        <header class="feed__header feed__header-activity">
+          <div class="feed__image">
+            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
+          </div>
+          <div class="feed__title">
+            <textarea name="feed__activity" id="feed__activity" class="feed__activity" cols="30" rows="10" spellcheck>Write Something...</textarea>
+          </div>
+          <div class="feed__date">
+            <p class="feed__date-color">10:34AM</p>
+          </div>
+        </header>
+        <footer class="feed__footer"></footer>
       </article>
       <article class="feed">
         <header class="feed__header">
@@ -134,7 +121,9 @@
             <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
           </div>
           <div class="feed__title">
-            <p class="feed__title-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempore eligendi dolorem! Delectus nesciunt perferendis quo, repellendus, laudantium sint, distinctio id saepe nulla sequi amet enim voluptates! Perferendis, sit sint.</p>
+            <p class="feed__title-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempore eligendi dolorem! Delectus nesciunt
+              perferendis quo, repellendus, laudantium sint, distinctio id saepe nulla sequi amet enim voluptates! Perferendis,
+              sit sint.</p>
           </div>
           <div class="feed__date">
             <p class="feed__date-color">10:34AM</p>
