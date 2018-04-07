@@ -78,29 +78,33 @@
     </div>
   </aside>
   <main id="main__content">
-    <span class="title_news">
-      <i class="fas fa-newspaper"></i>
-      <p>News</p>
-    </span>
-    <span class="title_timeline">
-      <i class="fas fa-flag"></i>
-      <p>Timeline</p>
-    </span>
     <aside class="news">
-      <article class="news__article">
-        <main class="news__content flex">
-          <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="Image">
-          <p class="news__text">Mobile payments product design case study. What I learned.</p>
-        </main>
-        <aside class="news__info flex">
-          <p class="news__date">10:32AM</p>
-          <a href="#" class="news__read-more">Read</a>
-        </aside>
+      <span class="title__news">
+        <i class="fas fa-newspaper"></i>
+        <p>News</p>
+      </span>
+      <article class="feed">
+        <header class="feed__header">
+          <div class="feed__image">
+            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
+          </div>
+          <div class="feed__title">
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
+          </div>
+        </header>
+        <footer class="feed__footer feed__action">
+          <p class="feed__date feed__date-color">1:34AM</p>
+          <a href="#" class="feed__action-read-color">Read</a>
+        </footer>
       </article>
     </aside>
     <aside class="timeline">
+      <span class="title__timeline">
+        <i class="fas fa-flag"></i>
+        <p>Timeline</p>
+      </span>
       <article class="feed">
-        <header class="feed__header">
+        <header class="feed__header feed__header-background">
           <div class="feed__image">
             <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
           </div>
@@ -116,7 +120,7 @@
         <main class="feed__content">
           <h1>Something boring</h1>
         </main>
-        <footer class="feed__footer">
+        <footer class="feed__footer feed__footer-background">
           <a href="" class="feed__action">
             <i class="fas fa-heart"></i>
             <p class="feed__action-name">Like</p>
@@ -133,8 +137,8 @@
             <p class="feed__action-counter">(1k)</p>
           </a>
         </footer>
-        <div class="feed_append">
-
+        <div class="feed__append">
+          
         </div>
       </article>
     </aside>
