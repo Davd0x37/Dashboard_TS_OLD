@@ -15,43 +15,41 @@
 
 <body>
   <header id="header">
-    <div class="logo">
+    <section class="logo">
       <img src="./assets/img/logo_1x.png" alt="Logo" class="logo__img">
       <p class="logo__title">Dashboard</p>
-    </div>
-    <div class="menu">
-      <div class="search">
-        <input type="text" name="search" class="search__input" placeholder="Search what you want!">
-        <button class="search__button">
-          <i class="fas fa-search"></i>
-          Search
-        </button>
+    </section>
+    <section class="search">
+      <input type="text" name="search" class="search__input" placeholder="Search what you want!">
+      <button class="search__button">
+        <i class="fas fa-search"></i>
+        Search
+      </button>
+    </section>
+    <section class="notifications">
+      <p class="notifications__current" data-current-notification="+ Add Contact">+ Add Contact</p>
+      <div class="notifications__icons">
+        <span class="fa-layers fa-fw">
+          <i class="fas fa-users"></i>
+          <span class="fa-layers-counter hidden"></span>
+        </span>
+        <span class="fa-layers fa-fw">
+          <i class="fas fa-comments"></i>
+          <span class="fa-layers-counter hidden"></span>
+        </span>
+        <span class="fa-layers fa-fw">
+          <i class="fas fa-bell"></i>
+          <span class="fa-layers-counter"></span>
+        </span>
       </div>
-      <div class="notifications">
-        <p class="notifications__current" data-current-notification="+ Add Contact">+ Add Contact</p>
-        <div class="notifications__icons">
-          <span class="fa-layers fa-fw">
-            <i class="fas fa-users"></i>
-            <span class="fa-layers-counter hidden"></span>
-          </span>
-          <span class="fa-layers fa-fw">
-            <i class="fas fa-comments"></i>
-            <span class="fa-layers-counter hidden"></span>
-          </span>
-          <span class="fa-layers fa-fw">
-            <i class="fas fa-bell"></i>
-            <span class="fa-layers-counter"></span>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="profile">
+    </section>
+    <section class="profile">
       <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="Avatar">
       <p class="profile__name">DigitalNomad</p>
       <a href="#" class="profile__action">
         <i class="fas fa-sign-out-alt"></i>
       </a>
-    </div>
+    </section>
   </header>
   <aside id="left_sidebar">
     <div class="profile">
@@ -101,20 +99,6 @@
       </article>
     </aside>
     <aside class="timeline">
-      <article class="feed">
-        <header class="feed__header feed__header-activity">
-          <div class="feed__image">
-            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
-          </div>
-          <div class="feed__title">
-            <textarea name="feed__activity" id="feed__activity" class="feed__activity" cols="30" rows="10" spellcheck>Write Something...</textarea>
-          </div>
-          <div class="feed__date">
-            <p class="feed__date-color">10:34AM</p>
-          </div>
-        </header>
-        <footer class="feed__footer"></footer>
-      </article>
       <article class="feed">
         <header class="feed__header">
           <div class="feed__image">
