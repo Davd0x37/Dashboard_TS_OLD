@@ -1,10 +1,10 @@
-import { FooterActions, IPostFeedOptions } from "./components/IPostFeed";
+import { IPostFeedOptions } from "./components/IPostFeed";
 import { View } from "./components/PostFeed";
 
 document.addEventListener(
   "DOMContentLoaded",
   e => {
-    const elem: HTMLElement = View.createPost({
+    const elem: any = View.createPost({
       header: {
         image: "./assets/img/avatar.jpg",
         title: "Lorem ipsum",
@@ -21,15 +21,11 @@ document.addEventListener(
           `
       },
       footer: {
-        actions: [
-          FooterActions.LIKE,
-          FooterActions.COMMENT,
-          FooterActions.SHARE
-        ]
+        actions: {
+            like: 2
+        }
       }
-    });
-
-    document.querySelector('.timeline').appendChild(elem);
+    }, document.querySelector('.timeline'))
   },
   false
 );

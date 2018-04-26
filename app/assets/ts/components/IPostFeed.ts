@@ -1,20 +1,18 @@
 export interface IPostFeedOptions {
   header: {
-    image: string | HTMLElement
-    title: string
-    date?: string | number
+    image: string | HTMLElement;
+    title: string;
+    date?: string | number;
   };
   content?: {
-    template: string | HTMLElement
+    template: string | HTMLElement;
   };
   footer?: {
-    actions: FooterActions[]
+    actions?: {
+      like?: number;
+      share?: number;
+      comment?: number;
+    };
   };
-  appendSection?: {}
-}
-
-export enum FooterActions {
-  LIKE,
-  COMMENT,
-  SHARE,
+  appendSection?: {};
 }

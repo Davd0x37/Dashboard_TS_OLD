@@ -1,4 +1,4 @@
-import { FooterActions, IPostFeedOptions } from "./IPostFeed";
+import { IPostFeedOptions } from "./IPostFeed";
 
 /**
  * View.createPost("#under_previous_post", {
@@ -17,7 +17,10 @@ import { FooterActions, IPostFeedOptions } from "./IPostFeed";
  */
 
 export const View = {
-  createPost(options: IPostFeedOptions): HTMLElement {
+  createPost(
+    options: IPostFeedOptions,
+    appendElem?: HTMLElement
+  ): HTMLElement | void {
     const elem = document.createElement("article");
     elem.classList.add("feed");
 
@@ -34,41 +37,57 @@ export const View = {
       ${
         options.header.date
           ? `
-      <div class="feed__date">
-        <p class="feed__date-color">10:34AM</p>
-      </div>`
+            <div class="feed__date">
+              <p class="feed__date-color">10:34AM</p>
+            </div>`
           : ""
       }
     </header>
     ${
       options.content
         ? `
-    <main class="feed__content">
-      <h1>Something boring</h1>
-    </main>`
+          <main class="feed__content">
+            <h1>Something boring</h1>
+          </main>`
         : ""
     }
     
     ${
       options.footer
         ? `
-    <footer class="feed__footer feed__footer-background">
-      <a class="feed__action" href>
-        <i class="fas fa-heart"></i>
-        <p class="feed__action-name">Like</p>
-        <p class="feed__action-counter">(3.5k)</p>
-      </a>
-      <a class="feed__action" href>
-        <i class="fas fa-comment"></i>
-        <p class="feed__action-name">Comment</p>
-        <p class="feed__action-counter">(0)</p>
-      </a>
-      <a class="feed__action" href>
-        <i class="fas fa-share"></i>
-        <p class="feed__action-name">Share</p>
-        <p class="feed__action-counter">(1k)</p>
-      </a>
-    </footer>`
+        ${
+          options.footer.actions.like
+            ? `<footer class="feed__footer feed__footer-background">
+                <a class="feed__action" href>
+                  <i class="fas fa-heart"></i>
+                  <p class="feed__action-name">Like</p>
+                  <p class="feed__action-counter">(3.5k)</p>
+                </a>`
+            : ""
+        }
+        
+        ${
+          options.footer.actions.comment
+            ? `
+              <a class="feed__action" href>
+                <i class="fas fa-comment"></i>
+                <p class="feed__action-name">Comment</p>
+                <p class="feed__action-counter">(0)</p>
+              </a>`
+            : ""
+        }
+        ${
+          options.footer.actions.share
+            ? `
+              <a class="feed__action" href>
+                <i class="fas fa-share"></i>
+                <p class="feed__action-name">Share</p>
+                <p class="feed__action-counter">(1k)</p>
+              </a>
+              </footer>`
+            : ""
+        }
+        `
         : ""
     }
     
@@ -85,6 +104,10 @@ export const View = {
 
     elem.innerHTML = template;
 
-    return elem;
+    if (appendElem) {
+      appendElem.appendChild(elem);
+    } else {
+      return elem;
+    }
   }
 };
