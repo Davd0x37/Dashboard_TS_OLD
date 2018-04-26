@@ -2,13 +2,13 @@ export interface IPostFeedOptions {
   header: {
     image: string | HTMLElement
     title: string
-    date?: string
+    date?: string | number
   };
   content?: {
     template: string | HTMLElement
   };
   footer?: {
-    actions: string[]
+    actions: FooterActions[]
   };
   appendSection?: {}
 }

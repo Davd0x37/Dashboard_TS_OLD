@@ -34,6 +34,10 @@
       color: $primary_text_dark;
       padding-right: 150px;
       margin-right: 15px;
+      
+      &:focus {
+        
+      }
     }
     .search__button {
       transition: background 177ms linear;

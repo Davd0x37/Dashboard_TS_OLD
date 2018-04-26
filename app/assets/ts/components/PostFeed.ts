@@ -1,4 +1,4 @@
-import { FooterActions, IPostFeedOptions } from "./IPostFeed"
+import { FooterActions, IPostFeedOptions } from "./IPostFeed";
 
 /**
  * View.createPost("#under_previous_post", {
@@ -16,54 +16,75 @@ import { FooterActions, IPostFeedOptions } from "./IPostFeed"
  * })
  */
 
-const layout = {
-  header: {
-    image(url: string, style?: string | string[]): string {
-      return `
+export const View = {
+  createPost(options: IPostFeedOptions): HTMLElement {
+    const elem = document.createElement("article");
+    elem.classList.add("feed");
+
+    const template = `
+    <header class="feed__header feed__header-background">
       <div class="feed__image">
-        <img src="${url}" class="${style = "profile__avatar"}" alt="avatar">
+        <img class="profile__avatar" src="${options.header.image}" alt="avatar">
       </div>
-      `
-    },
-    title(title: string): string {
-      return `
       <div class="feed__title">
         <p class="feed__title-color">
-            ${title}
+        ${options.header.title}
         </p>
       </div>
-      `
-    },
-    date(val: string): string {
-      return `
+      ${
+        options.header.date
+          ? `
       <div class="feed__date">
-        <p class="feed__date-color">${val}</p>
-      </div>
-      `
-    }
-  },
-  content: {
-    template(val) {
-      return `
-      <main class="feed__content">
-        <h1>Something boring</h1>
-      </main>
-      `
-    }
-  },
-  footer: {
-    actions(action: FooterActions[] = [FooterActions.LIKE, FooterActions.COMMENT, FooterActions.SHARE]): string {
-      let template = `<footer class="feed__footer feed__footer-background">`
-      if (action.toString()) {
-        template += `s`
+        <p class="feed__date-color">10:34AM</p>
+      </div>`
+          : ""
       }
-      return template
+    </header>
+    ${
+      options.content
+        ? `
+    <main class="feed__content">
+      <h1>Something boring</h1>
+    </main>`
+        : ""
     }
-  }
-}
+    
+    ${
+      options.footer
+        ? `
+    <footer class="feed__footer feed__footer-background">
+      <a class="feed__action" href>
+        <i class="fas fa-heart"></i>
+        <p class="feed__action-name">Like</p>
+        <p class="feed__action-counter">(3.5k)</p>
+      </a>
+      <a class="feed__action" href>
+        <i class="fas fa-comment"></i>
+        <p class="feed__action-name">Comment</p>
+        <p class="feed__action-counter">(0)</p>
+      </a>
+      <a class="feed__action" href>
+        <i class="fas fa-share"></i>
+        <p class="feed__action-name">Share</p>
+        <p class="feed__action-counter">(1k)</p>
+      </a>
+    </footer>`
+        : ""
+    }
+    
+    ${
+      options.appendSection
+        ? `
+    <div class="feed__append">
+      
+    </div>
+    `
+        : ""
+    }
+    `;
 
-export const View = {
-  createPost(elem: Element, options: IPostFeedOptions): void {
-    console.log(layout.footer.actions([FooterActions.LIKE]))
+    elem.innerHTML = template;
+
+    return elem;
   }
-}
+};

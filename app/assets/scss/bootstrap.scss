@@ -6,6 +6,10 @@
   a:visited {
     color: inherit;
   }
+
+  *:focus {
+    outline: none;
+  }
 }
 
 body {

@@ -7,20 +7,20 @@
   <title>Dashboard</title>
   <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet">
   <!-- Font Awesome -->
-  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script> -->
-  <script defer src="./assets/vendor/fontawesome/fontawesome-all.min.js"></script>
-  <!-- <script src="js/main.ts"></script> -->
-  <link rel="stylesheet" href="./assets/scss/index.scss">
+  <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" defer></script>
+   <!-- <script defer src="./assets/vendor/fontawesome/fontawesome-all.min.js"></script> -->
+  <script src="./assets/ts/main.ts"></script>
+  <link href="./assets/scss/index.scss" rel="stylesheet">
 </head>
 
 <body>
   <header id="header">
     <section class="logo">
-      <img src="./assets/img/logo_1x.png" alt="Logo" class="logo__img">
+      <img class="logo__img" src="./assets/img/logo_1x.png" alt="Logo">
       <p class="logo__title">Dashboard</p>
     </section>
     <section class="search">
-      <input type="text" name="search" class="search__input" placeholder="Search what you want!">
+      <input class="search__input" name="search" type="text" placeholder="Search what you want!">
       <button class="search__button">
         <i class="fas fa-search"></i>
         Search
@@ -44,9 +44,9 @@
       </div>
     </section>
     <section class="profile">
-      <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="Avatar">
+      <img class="profile__avatar" src="./assets/img/avatar.jpg" alt="Avatar">
       <p class="profile__name">DigitalNomad</p>
-      <a href="#" class="profile__action">
+      <a class="profile__action" href="#">
         <i class="fas fa-sign-out-alt"></i>
       </a>
     </section>
@@ -58,19 +58,19 @@
         <i class="fas fa-arrow-up"></i>
       </button>
       <nav>
-        <a href="#" class="profile__link">
+        <a class="profile__link" href="#">
           <i class="fas fa-pencil-alt"></i>
           <p>Profile</p>
         </a>
-        <a href="#" class="profile__link">
+        <a class="profile__link" href="#">
           <i class="fas fa-lock"></i>
           <p>Privacy</p>
         </a>
-        <a href="#" class="profile__link">
+        <a class="profile__link" href="#">
           <i class="fas fa-folder"></i>
           <p>Portfolio</p>
         </a>
-        <a href="#" class="profile__link">
+        <a class="profile__link" href="#">
           <i class="fas fa-cogs"></i>
           <p>Settings</p>
         </a>
@@ -86,7 +86,7 @@
       <article class="feed">
         <header class="feed__header">
           <div class="feed__image">
-            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
+            <img class="profile__avatar" src="./assets/img/avatar.jpg" alt="avatar">
           </div>
           <div class="feed__title">
             <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
@@ -94,7 +94,7 @@
         </header>
         <footer class="feed__footer feed__action">
           <p class="feed__date feed__date-color">1:34AM</p>
-          <a href="#" class="feed__action-read-color">Read</a>
+          <a class="feed__action-read-color" href="#">Read</a>
         </footer>
       </article>
     </aside>
@@ -103,10 +103,12 @@
         <i class="fas fa-flag"></i>
         <p>Timeline</p>
       </span>
+
+
       <article class="feed">
         <header class="feed__header feed__header-background">
           <div class="feed__image">
-            <img src="./assets/img/avatar.jpg" class="profile__avatar" alt="avatar">
+            <img class="profile__avatar" src="./assets/img/avatar.jpg" alt="avatar">
           </div>
           <div class="feed__title">
             <p class="feed__title-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempore eligendi dolorem! Delectus nesciunt
@@ -121,17 +123,17 @@
           <h1>Something boring</h1>
         </main>
         <footer class="feed__footer feed__footer-background">
-          <a href="" class="feed__action">
+          <a class="feed__action" href>
             <i class="fas fa-heart"></i>
             <p class="feed__action-name">Like</p>
             <p class="feed__action-counter">(3.5k)</p>
           </a>
-          <a href="" class="feed__action">
+          <a class="feed__action" href>
             <i class="fas fa-comment"></i>
             <p class="feed__action-name">Comment</p>
             <p class="feed__action-counter">(0)</p>
           </a>
-          <a href="" class="feed__action">
+          <a class="feed__action" href>
             <i class="fas fa-share"></i>
             <p class="feed__action-name">Share</p>
             <p class="feed__action-counter">(1k)</p>
@@ -141,6 +143,8 @@
           
         </div>
       </article>
+
+
     </aside>
   </main>
   <aside id="right_sidebar"></aside>
