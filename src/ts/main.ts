@@ -8,12 +8,12 @@ document.addEventListener(
       header: {
         image: "../public/img/avatar.jpg",
         title: "Lorem ipsum",
-        date: Date.now()
+        date: new Date().toDateString()
       },
       content: {
         template: `
           <div>
-            <!--<h1>Hello retards</h1>-->
+            <h1>Hello retards</h1>
             <main>
                 <p>Lorem ipsum...</p>
             </main>

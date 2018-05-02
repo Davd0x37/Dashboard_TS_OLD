@@ -1,21 +1,5 @@
 import { IPostFeedOptions } from "./IPostFeed";
 
-/**
- * View.createPost("#under_previous_post", {
- *  header: {
- *    image: 'url_to_image.jpg',
- *    title: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit...',
- *    date: Current Date
- *  },
- *  content: {
- *    template: `<div><p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p></div>
- *  },
- *  footer: {
- *    actions: ['like', 'share', 'comment']
- *  }
- * })
- */
-
 export const View = {
   createPost(
     options: IPostFeedOptions,
@@ -38,7 +22,7 @@ export const View = {
         options.header.date
           ? `
             <div class="feed__date">
-              <p class="feed__date-color">10:34AM</p>
+              <p class="feed__date-color">${options.header.date}</p>
             </div>`
           : ""
       }
@@ -47,7 +31,7 @@ export const View = {
       options.content
         ? `
           <main class="feed__content">
-            <h1>Something boring</h1>
+            ${options.content.template}
           </main>`
         : ""
     }

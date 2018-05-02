@@ -1,4 +1,4 @@
-@import url(lib/normalize.css);
+@import url(./lib/normalize.css);
 .flex {
   display: flex;
 }
