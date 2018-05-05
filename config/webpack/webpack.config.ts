@@ -1,24 +1,20 @@
-import path from "path";
-import { entryFile, environment, rootPathFunc } from "../config";
+import path from 'path';
+import { entryFile, environment, rootPathFunc, webpackMode } from '../config';
 
-export default () => {
-  return {
-    entry: rootPathFunc(`src/ts/${entryFile}`),
-    output: {
-      filename: "index.js",
-      path: rootPathFunc(`www/js`)
-    },
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: "ts-loader",
-          exclude: /node_modules/
-        }
-      ]
-    },
-    resolve: {
-      extensions: [".tsx", ".ts", ".js"]
-    }
-  };
+export default {
+	mode: webpackMode,
+	module: {
+		rules: [
+			{
+				test: /\.ts$/,
+				use: 'ts-loader',
+				exclude: /node_modules/
+			},
+			{
+				test: /\.(gql|graphql)$/,
+				use: 'graphql-tag/loader',
+				exclude: /node_modules/
+			}
+		]
+	}
 };

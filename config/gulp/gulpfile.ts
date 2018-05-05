@@ -10,12 +10,30 @@ import path from "path";
 const webpack = require("webpack");
 import webpackStream from "webpack-stream";
 import { environment, rootPathFunc, sassOptions } from "../config";
-import webpackConfig from "../webpack/webpack.config";
+import ApiConfig from "../webpack/api.webpack.config";
+import ClientConfig from "../webpack/client.webpack.config";
 
 /**
  * Browsersync server instance
  */
 const LIVE = browserSync.create();
+
+/**
+ * SERVERSIDE Typescript transpiler
+ * Uses webpack stream
+ */
+gulp.task("api-typescript", () => {
+  return gulp
+    .src(rootPathFunc("api/app.ts"))
+    .pipe(webpackStream(ApiConfig, webpack))
+    .pipe(
+      rename({
+        basename: "app",
+        extname: ".js"
+      })
+    )
+    .pipe(gulp.dest(rootPathFunc("www/api")))
+});
 
 /**
  * Typescript transpiler
@@ -24,7 +42,7 @@ const LIVE = browserSync.create();
 gulp.task("typescript", () => {
   return gulp
     .src(rootPathFunc("src/ts/main.ts"))
-    .pipe(webpackStream(webpackConfig(), webpack))
+    .pipe(webpackStream(ClientConfig, webpack))
     .pipe(
       rename({
         basename: "index",

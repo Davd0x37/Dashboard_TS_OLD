@@ -1,0 +1,12 @@
+type Query {
+    allPosts: [Post]
+}
+
+query xD {
+    name: String
+}
+
+type Post {
+    author: String
+    id: Int
+}

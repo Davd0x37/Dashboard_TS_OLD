@@ -1,12 +1,14 @@
+// Require dotenv to get env variables
+require('dotenv').config()
+
+import { graphiqlExpress, graphqlExpress } from 'apollo-server-express'
+import bodyParser from 'body-parser'
 import express from 'express'
-import graphql from 'graphql'
+
+import Schema from './graphql/schema/Root.gql'
 
 const app = express()
 
-app.get('/', (req, res, next) => {
-    res.send("test")
-})
+app.use('/graphql', bodyParser.json(), graphqlExpress({schema: Schema}))
 
-app.listen(3000, () => {
-    console.log("App is listening on port 3000")
-})
+app.listen(process.env.PORT)

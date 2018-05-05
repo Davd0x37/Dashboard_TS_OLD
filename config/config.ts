@@ -41,6 +41,11 @@ export const environment = {
 };
 
 /**
+ * Define webpack mode for config file
+ */
+export const webpackMode = (environment.dev ? ('development' as 'development') : 'production' as 'production')
+
+/**
  * Define options for sass compiler
  */
 export const sassOptions = {

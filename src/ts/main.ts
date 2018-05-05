@@ -1,4 +1,3 @@
-import { IPostFeedOptions } from "./components/IPostFeed";
 import { View } from "./components/PostFeed";
 
 document.addEventListener(
