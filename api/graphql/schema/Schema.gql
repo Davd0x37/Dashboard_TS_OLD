@@ -1,0 +1,24 @@
+type Query {
+    allPosts: Post
+}
+
+type Post {
+    id: ID
+    author: User
+    create_date: String
+    title: String
+    content: String
+    likes: [Like]
+}
+
+type Like {
+    id: ID
+    user: User
+}
+
+type User {
+    id: ID
+    name: String
+    password: String
+    join_date: String
+}

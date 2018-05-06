@@ -1,14 +1,29 @@
 // Require dotenv to get env variables
-require('dotenv').config()
+require('dotenv').config();
 
-import { graphiqlExpress, graphqlExpress } from 'apollo-server-express'
-import bodyParser from 'body-parser'
-import express from 'express'
+import { graphiqlExpress, graphqlExpress } from 'apollo-server-express';
+import bodyParser from 'body-parser';
+import express from 'express';
+import { makeExecutableSchema } from 'graphql-tools';
 
-import Schema from './graphql/schema/Root.gql'
+// Database initializer
+// import Database from './db';
+// Database.init()
 
-const app = express()
+// GraphQL schemas and resolvers
+import resolvers from './graphql/resolver/query';
+import typeDefs from './graphql/schema/Schema.gql';
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({schema: Schema}))
+const schema = makeExecutableSchema({
+	typeDefs,
+	resolvers
+});
 
-app.listen(process.env.PORT)
+// App init
+const app = express();
+// Create GraphQL server
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+// Create GraphiQL IDE
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+// Listen on PORT
+app.listen(process.env.PORT);
