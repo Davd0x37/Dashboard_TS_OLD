@@ -28,7 +28,7 @@ export const API = {
 	mode: webpackMode,
 	target: "node" as "node",
 	...webpack,
-	watch: true
+	// watch: true
 };
 
 export const Client = {

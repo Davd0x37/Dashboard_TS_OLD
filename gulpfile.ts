@@ -31,7 +31,8 @@ gulp.task('api-typescript', () => {
 				extname: '.js'
 			})
 		)
-		.pipe(gulp.dest(rootPathFunc('www/api')));
+		.pipe(gulp.dest(rootPathFunc('www/api')))
+		.pipe(gulpif(environment.dev, LIVE.stream()));
 });
 
 /**
@@ -90,7 +91,7 @@ gulp.task('sass-watch', (done) => {
 gulp.task('html-minify', () => {
 	return gulp
 		.src(rootPathFunc('src/view/**/*.html'))
-		.pipe(htmlmin({ collapseWhitespace: true }))
+		.pipe(gulpif(environment.prod, htmlmin({ collapseWhitespace: true })))
 		.pipe(gulp.dest(rootPathFunc('www')))
 		.pipe(gulpif(environment.dev, LIVE.stream()));
 });
@@ -116,8 +117,10 @@ gulp.task('livereload', (done) => {
 		cors: true,
 		reloadDebounce: 0
 	});
+	LIVE.watch(rootPathFunc('api/**/*.(ts|gql)')).on('change', gulp.series('api-typescript'));
 	LIVE.watch(rootPathFunc('src/ts/**/*.ts')).on('change', gulp.series('typescript'));
 	LIVE.watch(rootPathFunc('src/scss/**/*.scss')).on('change', gulp.series('sass'));
+	// LIVE.watch(rootPathFunc('www/index.html')).on('change', LIVE.reload);
 	LIVE.watch(rootPathFunc('src/view/index.html')).on('change', gulp.series('html-minify', LIVE.reload));
 });
 
@@ -125,5 +128,5 @@ gulp.task('livereload', (done) => {
  * Default task for gulp
  * Running sequence -> typescript, sass, minify html
  */
-gulp.task('default', gulp.series('typescript', 'sass', 'html-minify'));
+gulp.task('default', gulp.series('typescript', 'sass', 'html-minify', 'api-typescript'));
 gulp.task('serve', gulp.series('default', 'livereload'));

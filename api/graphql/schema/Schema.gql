@@ -1,5 +1,5 @@
 type Query {
-    allPosts: Post
+    allPosts: [Post]
 }
 
 type Post {
