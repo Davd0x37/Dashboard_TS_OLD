@@ -34,7 +34,7 @@ body {
   color: #b9b7c5;
   background-color: #1d1f31;
   grid-template-columns: 250px 5fr 100px;
-  grid-template-rows: 0.1fr 1fr;
+  grid-template-rows: 100px 1fr;
   grid-template-areas: "header header header" "leftSidebar main rightSidebar";
 }
 
@@ -161,6 +161,12 @@ body {
   margin-right: 15px;
 }
 
+#header .search .search__result {
+  display: block;
+  position: absolute;
+  background: red;
+}
+
 #header .search .search__button {
   transition: background 177ms linear;
   background-color: rgba(0, 0, 0, 0);
@@ -266,5 +272,3 @@ body {
   grid-area: rightSidebar;
   background-color: #2b2a49;
 }
-
-/*# sourceMappingURL=C:/Users/DigitalNomad/Projects/Dashboard/www/css/index.css.map */

@@ -1,21 +1,15 @@
-import browserSync from 'browser-sync';
-import gulp from 'gulp';
-import htmlmin from 'gulp-htmlmin';
-import gulpif from 'gulp-if';
-import rename from 'gulp-rename';
-import sass from 'gulp-sass';
-import sequence from 'gulp-sequence';
-import sourcemaps from 'gulp-sourcemaps';
-import path from 'path';
-const webpack = require('webpack');
-import webpackStream from 'webpack-stream';
-import { environment, rootPathFunc, sassOptions } from './config/config';
-import { API, Client } from './webpack.config';
-
-/**
- * Browsersync server instance
- */
-const LIVE = browserSync.create();
+import gulp from 'gulp'
+import htmlmin from 'gulp-htmlmin'
+import gulpif from 'gulp-if'
+import rename from 'gulp-rename'
+import sass from 'gulp-sass'
+import sequence from 'gulp-sequence'
+import sourcemaps from 'gulp-sourcemaps'
+import path from 'path'
+const webpack = require('webpack')
+import webpackStream from 'webpack-stream'
+import { environment, paths, sassOptions } from './config/config'
+import { API, Client } from './webpack.config'
 
 /**
  * SERVERSIDE Typescript transpiler
@@ -23,7 +17,7 @@ const LIVE = browserSync.create();
  */
 gulp.task('api-typescript', () => {
 	return gulp
-		.src(rootPathFunc('api/app.ts'))
+		.src(`${paths.appDir}/app.ts`)
 		.pipe(webpackStream(API, webpack))
 		.pipe(
 			rename({
@@ -31,9 +25,15 @@ gulp.task('api-typescript', () => {
 				extname: '.js'
 			})
 		)
-		.pipe(gulp.dest(rootPathFunc('www/api')))
-		.pipe(gulpif(environment.dev, LIVE.stream()));
-});
+		.pipe(gulp.dest(paths.www.api))
+})
+/**
+ * API Typescript watcher
+ */
+gulp.task(`api-typescript-watch`, (done) => {
+	gulp.watch(`${paths.appDir}/**/*.*`, { ignored: [paths.app.public, paths.app.views] }, gulp.series('api-typescript'))
+	done()
+})
 
 /**
  * Typescript transpiler
@@ -41,7 +41,7 @@ gulp.task('api-typescript', () => {
  */
 gulp.task('typescript', () => {
 	return gulp
-		.src(rootPathFunc('src/ts/main.ts'))
+		.src(`${paths.app.ts}/main.ts`)
 		.pipe(webpackStream(Client, webpack))
 		.pipe(
 			rename({
@@ -49,17 +49,16 @@ gulp.task('typescript', () => {
 				extname: '.js'
 			})
 		)
-		.pipe(gulp.dest(rootPathFunc('www/js')))
-		.pipe(gulpif(environment.dev, LIVE.stream()));
-});
+		.pipe(gulp.dest(paths.www.js))
+})
 
 /**
  * Typescript watcher
  */
-gulp.task('typescript-watch', (done) => {
-	gulp.watch(rootPathFunc('src/ts/**/*.ts'), gulp.series('typescript'));
-	done();
-});
+gulp.task(`typescript-watch`, (done) => {
+	gulp.watch(paths.app.ts, gulp.series('typescript'))
+	done()
+})
 
 /**
  * Sass compiler
@@ -68,21 +67,20 @@ gulp.task('typescript-watch', (done) => {
  */
 gulp.task('sass', () => {
 	return gulp
-		.src(rootPathFunc('src/scss/index.scss'))
+		.src(`${paths.app.scss}/index.scss`)
 		.pipe(gulpif(environment.dev, sourcemaps.init()))
 		.pipe(sass(sassOptions).on('error', sass.logError))
-		.pipe(gulpif(environment.dev, sourcemaps.write(rootPathFunc('www/css/'))))
-		.pipe(gulp.dest(rootPathFunc('www/css/')))
-		.pipe(gulpif(environment.dev, LIVE.stream()));
-});
+		.pipe(gulpif(environment.dev, sourcemaps.write(paths.www.css)))
+		.pipe(gulp.dest(paths.www.css))
+})
 
 /**
  * Sass watcher
  */
 gulp.task('sass-watch', (done) => {
-	gulp.watch(rootPathFunc('src/scss/**/*.scss'), gulp.series('sass'));
-	done();
-});
+	gulp.watch(`${paths.app.scss}/**/*.scss`, gulp.series('sass'))
+	done()
+})
 
 /**
  * HTML minifier
@@ -90,43 +88,24 @@ gulp.task('sass-watch', (done) => {
  */
 gulp.task('html-minify', () => {
 	return gulp
-		.src(rootPathFunc('src/view/**/*.html'))
+		.src(paths.app.views)
 		.pipe(gulpif(environment.prod, htmlmin({ collapseWhitespace: true })))
-		.pipe(gulp.dest(rootPathFunc('www')))
-		.pipe(gulpif(environment.dev, LIVE.stream()));
-});
+		.pipe(gulp.dest(paths.wwwDir))
+})
 
 /**
  * HTML watcher
  */
 gulp.task('html-watch', (done) => {
-	gulp.watch(rootPathFunc('src/view/**/*.html'), gulp.series('html-minify'));
-	done();
-});
-
-/**
- * Create HMR
- */
-gulp.task('livereload', (done) => {
-	LIVE.init({
-		server: {
-			baseDir: rootPathFunc('www')
-		},
-		https: true,
-		browser: 'firefox',
-		cors: true,
-		reloadDebounce: 0
-	});
-	LIVE.watch(rootPathFunc('api/**/*.(ts|gql)')).on('change', gulp.series('api-typescript'));
-	LIVE.watch(rootPathFunc('src/ts/**/*.ts')).on('change', gulp.series('typescript'));
-	LIVE.watch(rootPathFunc('src/scss/**/*.scss')).on('change', gulp.series('sass'));
-	// LIVE.watch(rootPathFunc('www/index.html')).on('change', LIVE.reload);
-	LIVE.watch(rootPathFunc('src/view/index.html')).on('change', gulp.series('html-minify', LIVE.reload));
-});
+	gulp.watch(paths.app.views, gulp.series('html-minify'))
+	done()
+})
 
 /**
  * Default task for gulp
  * Running sequence -> typescript, sass, minify html
  */
-gulp.task('default', gulp.series('typescript', 'sass', 'html-minify', 'api-typescript'));
-gulp.task('serve', gulp.series('default', 'livereload'));
+gulp.task('default', gulp.series('typescript', 'sass', 'html-minify', 'api-typescript'))
+gulp.task('generate-api', gulp.series('api-typescript-watch'))
+gulp.task('generate-client', gulp.series('typescript-watch', 'sass-watch', 'html-watch'))
+gulp.task('serve', gulp.series('generate-api', 'generate-client'))
