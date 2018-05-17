@@ -13,7 +13,7 @@
     "generate-api-dev": "cross-env NODE_ENV=development gulp generate-api",
     "production": "cross-env NODE_DEV=production gulp default",
     "development": "cross-env NODE_DEV=development gulp default",
-    "serve": "cross-env NODE_DEV=production gulp serve",
+    "serve": "cross-env NODE_DEV=development gulp serve",
     "daemon": "nodemon ./www/api/app.js",
 
     "profile": "node --prof ./api/server.js",
