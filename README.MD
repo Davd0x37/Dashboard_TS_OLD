@@ -1,4 +1,4 @@
-![Logo of the project](./images/logo.sample.png)
+![Logo of the project](https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-489361.png)
 
 # Dashboard
 
@@ -14,19 +14,21 @@ A quick introduction of the minimal setup you need to get a hello world up &
 running.
 
 ```shell
-commands here
+git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
+cd DashboardTS/
+yarn
+yarn run serve
+yarn run daemon
 ```
-
-Here you should say what actually happens when you execute the code above.
 
 ## Developing
 
 ### Built With
 
-Typescript 2.6.2 <br>
-Express 4.16.0 <br>
-GraphQL 0.12.3 <br>
-Apollo server express 1.3.2 <br>
+Typescript <br>
+Express <br>
+GraphQL <br>
+Apollo server express <br>
 Argon2 | Argon-Node https://github.com/ranisalt/node-argon2
 
 ### Prerequisites
@@ -39,104 +41,77 @@ yarn
 
 ### Setting up Dev
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
+Here's a brief intro about what a developer must do in order to start developing the project further:
 
 ```shell
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
+
 cd DashboardTS/
+
 yarn
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+And run 
+```shell
+yarn run serve
+```
 
 ### Building
 
-For build backend:
-
-> Webpack watch
+> Webpack watch (watching whole app dir)
+- Builds scss, typescript client and server, html
 
 ```shell
-yarn run node_dev
+yarn run serve
 ```
 
-> Webpack build production
+> Nodemon server
 
 ```shell
-yarn run node_build
+yarn run daemon
+```
+
+Building backend
+
+> Production
+
+```shell
+yarn run generate-api
+```
+> Development
+
+```shell
+yarn run generate-api-dev
 ```
 
 Building frontend
 
-> Parcel dev
+> Development (sourcemaps)
 
 ```shell
-yarn run web_dev
+yarn run generate-client-dev
 ```
 
-> Parcel production
+> Production (without sourcemaps and with minify html)
 
 ```shell
-yarn run web_build
+yarn run generate-client
 ```
 
-Testing
-
-> Backend
-
-```shell
-yarn run node_test
-```
-
-> Frontend
-
-```shell
-yarn run web_test
-```
 
 ### Deploying / Publishing
 
-give instructions on how to build and release a new version
-In case there's some step you have to take that publishes this project to a
-server, this is the right time to state it.
-
-```shell
-packagemanager deploy your-project -s server.com -u username -p password
-```
-
-And again you'd need to tell what the previous code actually does.
+@TODO: Add docker
 
 ## Versioning
 
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
+We are using [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
 
 ## Configuration
 
-Here you should write what are all of the configurations a user can enter when
-using the project.
+If you want to change default locations of files, change paths in config.ts file.
 
-## Tests
-
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
-
-```shell
-Give an example
-```
-
-## Style guide
-
-Explain your code style and show how to check it.
-
-## Api Reference
-
-If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
-
-## Database
-
-Explaining what database (and version) has been used. Provide download links.
-Documents your database design and schemas, relations etc...
 
 ## Licensing
 
-State what the license is and how to find the text version of the license.
+#### LICENSE MIT

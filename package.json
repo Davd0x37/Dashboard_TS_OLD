@@ -7,13 +7,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "generate-client": "cross-env NODE_DEV=produciton gulp generate-client",
-    "generate-api": "cross-env NODE_DEV=produciton gulp generate-api",
+    "generate-client": "cross-env NODE_DEV=production gulp generate-client",
+    "generate-api": "cross-env NODE_DEV=production gulp generate-api",
     "generate-client-dev": "cross-env NODE_ENV=development gulp generate-client",
     "generate-api-dev": "cross-env NODE_ENV=development gulp generate-api",
     "production": "cross-env NODE_DEV=production gulp default",
     "development": "cross-env NODE_DEV=development gulp default",
-    "serve": "cross-env NODE_DEV=produciton gulp serve",
+    "serve": "cross-env NODE_DEV=production gulp serve",
     "daemon": "nodemon ./www/api/app.js",
 
     "profile": "node --prof ./api/server.js",
