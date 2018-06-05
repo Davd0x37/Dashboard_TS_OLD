@@ -30,13 +30,15 @@ export const paths = {
 		public: 'app/public',
 		views: 'app/views/**/*.html',
 		scss: 'app/public/scss',
-		ts: 'app/public/ts'
+		ts: 'app/public/ts',
+		test: 'app/**/*.spec.ts'
 	},
 	www: {
 		css: 'www/css',
 		img: 'www/img',
 		js: 'www/js',
-		api: 'www/api'
+		api: 'www/api',
+		test: 'www/test'
 	}
 }
 

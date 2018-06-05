@@ -1,25 +1,39 @@
 * {
-  // font-family: "Open Sans", sans-serif;
-  // font-family: "Noto Serif", serif;
-  font-family: "Roboto", sans-serif;
+	// font-family: "Open Sans", sans-serif;
+	// font-family: "Noto Serif", serif;
+	font-family: "Roboto", sans-serif;
 
-  a:visited {
-    color: inherit;
-  }
+	a:visited {
+		color: inherit;
+	}
 
-  *:focus {
-    outline: none;
-  }
+	*:focus {
+		outline: none;
+	}
 }
 
 body {
-  // font-weight: bold;
-  display: grid;
-  color: $primary_text;
-  // width: 100vw;
-  // height: 100vh;
-  background-color: $background_color;
-  grid-template-columns: 250px 5fr 100px;
-  grid-template-rows: 100px 1fr;
-  grid-template-areas: "header header header" "leftSidebar main rightSidebar";
+	// font-weight: bold;
+	display: grid;
+	color: $primary_text;
+	// width: 100vw;
+	// height: 100vh;
+	background-color: $background_color;
+	grid-template-columns: 250px 5fr 100px;
+	grid-template-rows: 100px 1fr;
+	grid-template-areas: "header header header" "leftSidebar main rightSidebar";
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	border: 1px solid green;
+	-webkit-text-fill-color: green;
+	box-shadow: 0 0 0px 1000px inherit inset;
+	transition: background-color 5000s ease-in-out 0s;
 }

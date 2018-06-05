@@ -1,0 +1,13 @@
+version: '3'
+services:
+  # api:
+  #   build: .
+  #   ports: 
+  #     - "3030:3030"
+  #   command: yarn nodemon www/api/app.js
+  db:
+    image: "rethinkdb:latest"
+    ports:
+      - "8080:8080"
+      - "28015:28015"
+      - "29015:29015"

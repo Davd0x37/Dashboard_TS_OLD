@@ -1,13 +1,28 @@
 import ApolloClient from 'apollo-boost'
+import gql from 'graphql-tag'
 import { SearchInput } from './controller/search'
 
-// const client = new ApolloClient({
-// 	uri: 'http://127.0.0.1:3030/graphql'
-// })
-// const search = SearchInput.fetchData(client, 'as')
-// search.then(data => {
-// 	console.log(data)
-// })
+const client = new ApolloClient({
+	uri: 'http://127.0.0.1:3030/graphql'
+})
+
+window.addEventListener('DOMContentLoaded', (e) => {
+	const login = 'Mark'
+	client
+		.query({
+			query: gql`
+    {
+        getUser(login: "${login}") {
+            id
+            login
+            password
+        }
+    }
+    `
+		})
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err))
+})
 
 // import { View } from './components/PostFeed'
 

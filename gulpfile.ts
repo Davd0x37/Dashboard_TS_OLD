@@ -1,6 +1,7 @@
 import gulp from 'gulp'
 import htmlmin from 'gulp-htmlmin'
 import gulpif from 'gulp-if'
+import plumber from 'gulp-plumber'
 import rename from 'gulp-rename'
 import sass from 'gulp-sass'
 import sequence from 'gulp-sequence'
@@ -18,6 +19,7 @@ import { API, Client } from './webpack.config'
 gulp.task('api-typescript', () => {
 	return gulp
 		.src(`${paths.appDir}/app.ts`)
+		.pipe(plumber())
 		.pipe(webpackStream(API, webpack))
 		.pipe(
 			rename({
@@ -42,6 +44,7 @@ gulp.task(`api-typescript-watch`, (done) => {
 gulp.task('typescript', () => {
 	return gulp
 		.src(`${paths.app.ts}/main.ts`)
+		.pipe(plumber())
 		.pipe(webpackStream(Client, webpack))
 		.pipe(
 			rename({
@@ -68,6 +71,7 @@ gulp.task(`typescript-watch`, (done) => {
 gulp.task('sass', () => {
 	return gulp
 		.src(`${paths.app.scss}/index.scss`)
+		.pipe(plumber())
 		.pipe(gulpif(environment.dev, sourcemaps.init()))
 		.pipe(sass(sassOptions).on('error', sass.logError))
 		.pipe(gulpif(environment.dev, sourcemaps.write(paths.www.css)))
@@ -89,6 +93,7 @@ gulp.task('sass-watch', (done) => {
 gulp.task('html-minify', () => {
 	return gulp
 		.src(paths.app.views)
+		.pipe(plumber())
 		.pipe(gulpif(environment.prod, htmlmin({ collapseWhitespace: true })))
 		.pipe(gulp.dest(paths.wwwDir))
 })
@@ -102,10 +107,28 @@ gulp.task('html-watch', (done) => {
 })
 
 /**
+ * TEST
+ */
+gulp.task('test-gen', () => {
+	return gulp
+		.src(`${paths.app.test}`)
+		.pipe(plumber())
+		.pipe(webpackStream(API, webpack))
+		.pipe(
+			rename({
+				basename: 'tests',
+				extname: '.js'
+			})
+		)
+		.pipe(gulp.dest(paths.www.test))
+})
+
+
+/**
  * Default task for gulp
  * Running sequence -> typescript, sass, minify html
  */
 gulp.task('default', gulp.series('typescript', 'sass', 'html-minify', 'api-typescript'))
 gulp.task('generate-api', gulp.series('api-typescript-watch'))
 gulp.task('generate-client', gulp.series('typescript-watch', 'sass-watch', 'html-watch'))
-gulp.task('serve', gulp.series('generate-api', 'generate-client'))
+gulp.task('serve', gulp.series('default', 'generate-api', 'generate-client'))
