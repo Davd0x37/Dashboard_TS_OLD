@@ -1,13 +1,11 @@
 import faker from 'faker'
 import log from 'loglevel'
-import {createDB} from './api/db'
+import { createDB } from './api/db/Connection'
 
-
-
-export const init = async () => {
-    try {
-        await createDB()
-    } catch (error) {
-        log.error(error);
-    }
-}
+(async () => {
+	try {
+		await createDB()
+	} catch (error) {
+		log.error(error)
+	}
+})()

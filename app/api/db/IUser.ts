@@ -1,16 +1,16 @@
 /**
- * User options like login, password etc.
+ * User schema like login, password etc.
  *
  * @export IUser
  * @interface IUser
  */
 export interface IUser {
-	login: string
-	password?: string
-	firstName: string
-	lastName: string
-	email: string
-	avatar?: string
+	avatar: string
 	country: string
+	email: string
+	firstName: string
 	language: string
+	lastName: string
+	login: string
+	password: string
 }

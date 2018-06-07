@@ -4,7 +4,22 @@ import { DB } from './Connection'
 import { IUser } from './IUser'
 
 const config = {
-	db: rethink.db('users')
+	general: rethink.db('users').table('general')
+}
+
+export const loginAvailable = async (login: string) => {
+	try {
+		const con = await DB()
+		const user = await config.general.filter({ login }).run(con).then((cursor) => cursor.toArray())
+		if (user.length === 0) {
+			return true
+		} else {
+			log.info(user)
+			return false
+		}
+	} catch (error) {
+		log.error(error)
+	}
 }
 
 export const User = {
@@ -16,7 +31,13 @@ export const User = {
 	async addUser(params: IUser) {
 		try {
 			const con = await DB()
-			config.db.table('general').insert(params).run(con)
+			const available = await loginAvailable(params.login)
+			if (available) {
+				config.general.insert(params).run(con)
+				return true
+			} else {
+				return false
+			}
 		} catch (error) {
 			log.error(error)
 		}
@@ -31,11 +52,12 @@ export const User = {
 	async getUser(login: string) {
 		try {
 			const con = await DB()
-			return config.db.table('general').filter({ login }).run(con).then((cursor) => cursor.toArray())
+			return config.general.filter({ login }).run(con).then((cursor) => cursor.toArray())
 		} catch (error) {
 			log.error(error)
 		}
 	},
+
 	/**
 	 * Get all users from database
 	 *
@@ -44,7 +66,7 @@ export const User = {
 	async getAllUsers() {
 		try {
 			const con = await DB()
-			return config.db.table('general').run(con).then((cursor) => cursor.toArray())
+			return config.general.run(con).then((cursor) => cursor.toArray())
 		} catch (error) {
 			log.error(error)
 		}

@@ -1,5 +1,9 @@
 type Query {
-    getUser(login: String): User
+    getUser(login: String, id: ID, avatar: String): User
+}
+
+type Mutation {
+    addUser(data: UserInput): Boolean
 }
 
 type Post {
@@ -16,6 +20,18 @@ type Like {
     user: User
 }
 
+input UserInput {
+    avatar: String
+    country: String
+    email: String
+    firstName: String
+    language: String
+    lastName: String
+    login: String
+    password: String
+    register_date: String
+}
+
 type User {
     id: ID
     avatar: String
@@ -26,4 +42,5 @@ type User {
     lastName: String
     login: String
     password: String
+    register_date: String
 }

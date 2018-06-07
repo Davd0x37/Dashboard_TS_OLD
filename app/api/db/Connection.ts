@@ -6,7 +6,7 @@ import r from 'rethinkdb'
  *
  * @returns [Promise] active connection
  */
-const DB = async () => {
+export const DB = async () => {
 	const connection = await r.connect({
 		host: 'localhost',
 		port: 28015
@@ -18,7 +18,7 @@ const DB = async () => {
  * Create tables in database
  *
  */
-const createDB = async () => {
+export const createDB = async () => {
 	try {
 		const db = await DB()
 

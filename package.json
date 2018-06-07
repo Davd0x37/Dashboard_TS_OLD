@@ -14,7 +14,7 @@
 		"prod": "cross-env NODE_DEV=production gulp default",
 		"dev": "cross-env NODE_DEV=development gulp default",
 		"serve": "cross-env NODE_DEV=development gulp serve",
-		"daemon": "nodemon ./www/api/app.js",
+		"daemon": "nodemon ./www/api/app.js --inspect",
 		"profile": "node --prof ./api/server.js",
 		"gen_prof": "node --prof-process --preprocess -j isolate*.log | flamebearer",
 		"test": "gulp test-gen && ava",
@@ -32,7 +32,6 @@
 		"@types/loglevel": "^1.5.3",
 		"@types/node": "^10.0.2",
 		"@types/webpack-stream": "^3.2.10",
-		"ava": "1.0.0-beta.5.1",
 		"babel-core": "^6.26.3",
 		"babel-preset-env": "^1.6.1",
 		"cross-env": "^5.1.4",
@@ -58,6 +57,7 @@
 		"apollo-boost": "^0.1.6",
 		"apollo-server-express": "^1.3.6",
 		"argon2": "^0.19.0",
+		"ava": "1.0.0-beta.5.1",
 		"body-parser": "^1.18.2",
 		"cors": "^2.8.4",
 		"dotenv": "^5.0.1",
@@ -87,12 +87,8 @@
 		"webpack-stream": "^4.0.3"
 	},
 	"ava": {
-		"files": [
-			"www/test/tests.js"
-		],
-		"sources": [
-			"www/test/tests.js"
-		],
+		"files": [ "www/test/tests.js" ],
+		"sources": [ "www/test/tests.js" ],
 		"cache": true,
 		"concurrency": 5,
 		"failFast": true,
