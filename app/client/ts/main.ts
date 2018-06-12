@@ -24,7 +24,6 @@ window.addEventListener('DOMContentLoaded', (e) => {
         .catch((err) => console.log(err))
 
 
-
 })
 // const sckt = io()
 // sckt.on('xd', (data: any) => {

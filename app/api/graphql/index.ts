@@ -1,9 +1,9 @@
 import { makeExecutableSchema } from 'graphql-tools'
-
 import { resolvers } from './resolvers'
 import Schema from './schema.gql'
+
 const typeDefs = `
-${Schema}
+    ${Schema}
 `
 
 const schema = makeExecutableSchema({
@@ -11,4 +11,4 @@ const schema = makeExecutableSchema({
 	resolvers
 })
 
-export { schema }
+export { schema, resolvers, typeDefs }

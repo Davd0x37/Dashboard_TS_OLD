@@ -1,5 +1,4 @@
 import log from 'loglevel'
-import { IUser } from '../../db/IUser'
 import { User } from '../../db/User'
 
 export const resolvers = {

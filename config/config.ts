@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+import { resolve } from 'path'
 
 /**
  * Absolute path to root directory.
@@ -8,7 +8,7 @@ const { resolve } = require('path')
  * So we need to make workaround.
  * 2x ../ because we are in config->gulp
  */
-const rootPath = resolve(__dirname, '../')
+export const rootPath = resolve(__dirname, '../')
 
 /**
  * Create path to files from root path
@@ -16,14 +16,14 @@ const rootPath = resolve(__dirname, '../')
  * @param {string} files
  * @returns {string} resolved path from root to files
  */
-const rootPathFunc = (files) => {
+export const rootPathFunc = (files: string) => {
 	return resolve(rootPath, files)
 }
 
 /**
  * Paths for files, dir etc.
  */
-const paths = {
+export const paths = {
 	appDir: 'app',
 	wwwDir: 'www',
 	app: {
@@ -45,14 +45,14 @@ const paths = {
 /**
  * Get NODE_ENV variable from cross-env
  */
-const NODE_ENV = process.env.NODE_ENV
+export const NODE_ENV = process.env.NODE_ENV
 
 /**
  * Define current environment
  * Production or development
  * Depends on NODE_ENV variable which is created by cross-env
  */
-const environment = {
+export const environment = {
 	prod: NODE_ENV === 'production',
 	dev: NODE_ENV === 'development'
 }
@@ -60,10 +60,4 @@ const environment = {
 /**
  * Define webpack mode for config file
  */
-const webpackMode = environment.dev ? 'development' : 'production'
-
-module.exports = {
-	environment,
-	webpackMode,
-	paths
-}
+export const webpackMode = environment.dev ? 'development' : 'production'
