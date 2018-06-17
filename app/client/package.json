@@ -1,6 +1,5 @@
 {
   "name": "client-workspace",
-  "version": "0.0.2",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
