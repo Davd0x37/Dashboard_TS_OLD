@@ -1,78 +1,32 @@
 {
-  "name": "dashboard",
-  "version": "0.0.2",
-  "description": "Dashboard written in TypeScript",
-  "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
-  "author": "DigitalNomad",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack --config webpack.config.ts --watch",
-    "prod": "cross-env NODE_ENV=production webpack",
-    "sass:dev": "bin/dart-sass/sass.bat ./app/client/scss/index.scss ./www/css/index.css --style=expanded",
-    "sass:prod": "bin/dart-sass/sass.bat ./app/client/scss/index.scss ./www/css/index.css --style=compressed --no-source-map"
-  },
-  "devDependencies": {
-    "@types/body-parser": "latest",
-    "@types/cors": "latest",
-    "@types/express": "latest",
-    "@types/faker": "latest",
-    "@types/graphql": "latest",
-    "@types/loglevel": "latest",
-    "@types/morgan": "latest",
-    "@types/node": "10.1.4",
-    "@types/rethinkdb": "latest",
-    "@types/socket.io": "latest",
-    "@types/webpack": "latest",
-    "@types/webpack-node-externals": "latest",
-    "@types/ws": "^5.1.2",
-    "ava": "latest",
-    "awesome-typescript-loader": "latest",
-    "babel-core": "latest",
-    "babel-preset-env": "latest",
-    "hard-source-webpack-plugin": "latest",
-    "nodemon": "latest",
-    "raw-loader": "latest",
-    "ts-loader": "latest",
-    "ts-node": "latest",
-    "tslint": "latest",
-    "tslint-config-prettier": "latest",
-    "typescript": "latest",
-    "webpack": "latest",
-    "webpack-cli": "latest",
-    "webpack-node-externals": "latest"
-  },
-  "dependencies": {
-    "apollo-boost": "latest",
-    "apollo-server-express": "latest",
-    "argon2": "latest",
-    "body-parser": "latest",
-    "cors": "latest",
-    "cross-env": "latest",
-    "dotenv": "latest",
-    "express": "latest",
-    "faker": "latest",
-    "graphql": "latest",
-    "graphql-tag": "latest",
-    "graphql-tools": "latest",
-    "graphql-yoga": "^1.14.7",
-    "loglevel": "latest",
-    "morgan": "latest",
-    "rethinkdb": "latest",
-    "socket.io": "latest"
-  },
-  "ava": {
-    "files": [
-      "www/test/app.js"
-    ],
-    "sources": [
-      "www/test/app.js"
-    ],
-    "cache": true,
-    "concurrency": 15,
-    "failFast": true,
-    "failWithoutAssertions": false,
-    "tap": true,
-    "compileEnhancements": false
-  }
+	"name": "dashboard",
+	"version": "0.0.2",
+	"description": "Dashboard written in TypeScript",
+	"repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
+	"author": "DigitalNomad",
+	"license": "MIT",
+	"private": true,
+	"workspaces": [ "app/api", "app/client" ],
+	"scripts": {
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"api:dev": "cross-env NODE_ENV=development webpack --config app/api/webpack.config.ts --watch",
+		"api:prod": "cross-env NODE_ENV=production webpack --config app/api/webpack.config.ts"
+	},
+	"devDependencies": {
+		"@types/jest": "latest",
+		"jest": "latest",
+		"ts-jest": "latest",
+		"ts-node": "latest",
+		"tslint-config-prettier": "latest",
+		"tslint": "latest",
+		"typescript": "latest"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.tsx?$": "ts-jest"
+		},
+		"testRegex": "(/app/(api|client)/src/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+		"moduleFileExtensions": [ "ts", "tsx", "js", "jsx", "json", "node" ]
+	}
 }
