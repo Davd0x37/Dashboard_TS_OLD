@@ -1,5 +1,6 @@
 {
   "name": "client-workspace",
+  "version": "0.0.4",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
@@ -13,10 +14,10 @@
   },
   "devDependencies": {
     "node-sass": "^4.9.0",
-    "parcel-bundler": "latest"
+    "parcel-bundler": "^1.9.3"
   },
   "dependencies": {
-    "apollo-boost": "latest",
-    "graphql-tag": "latest"
+    "apollo-boost": "^0.1.10",
+    "graphql-tag": "^2.9.2"
   }
 }

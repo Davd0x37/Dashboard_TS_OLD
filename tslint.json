@@ -6,7 +6,13 @@
     "semicolon": false,
     "object-literal-sort-keys": false,
     "no-var-requires": false,
-    "no-console": false
+    "no-console": false,
+    "no-implicit-dependencies": false
   },
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "linterOptions": {
+    "exclude": [
+      "./app/@types/*"
+    ]
+  }
 }

@@ -1,32 +1,45 @@
 {
-	"name": "dashboard",
-	"version": "0.0.3",
-	"description": "Dashboard written in TypeScript",
-	"repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
-	"author": "DigitalNomad",
-	"license": "MIT",
-	"private": true,
-	"workspaces": [ "app/api", "app/client" ],
-	"scripts": {
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"api:dev": "cross-env NODE_ENV=development webpack --config app/api/webpack.config.ts --watch",
-		"api:prod": "cross-env NODE_ENV=production webpack --config app/api/webpack.config.ts"
-	},
-	"devDependencies": {
-		"@types/jest": "latest",
-		"jest": "latest",
-		"ts-jest": "latest",
-		"ts-node": "latest",
-		"tslint-config-prettier": "latest",
-		"tslint": "latest",
-		"typescript": "latest"
-	},
-	"jest": {
-		"transform": {
-			"^.+\\.tsx?$": "ts-jest"
-		},
-		"testRegex": "(/app/(api|client)/src/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-		"moduleFileExtensions": [ "ts", "tsx", "js", "jsx", "json", "node" ]
-	}
+  "name": "dashboard",
+  "version": "0.0.4",
+  "description": "Dashboard written in TypeScript",
+  "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
+  "author": "DigitalNomad",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "app/api",
+    "app/client"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "api:dev": "webpack --config app/api/webpack.config.ts --watch",
+    "api:prod": "cross-env NODE_ENV=production webpack --config app/api/webpack.config.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.1.1",
+    "cross-env": "^5.2.0",
+    "dts-gen": "^0.5.7",
+    "jest": "^23.2.0",
+    "prettier": "^1.13.6",
+    "ts-jest": "^22.4.6",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/app/(api|client)/src/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
 }
