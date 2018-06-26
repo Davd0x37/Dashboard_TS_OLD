@@ -71,7 +71,7 @@ export const User = {
    * Get user from database
    *
    * @param {string} login
-   * @returns [array] all informations about selected user
+   * @returns [array] all information about selected user
    */
   async getUser(login: string) {
     try {

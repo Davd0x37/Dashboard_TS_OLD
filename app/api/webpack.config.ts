@@ -29,9 +29,11 @@ export default {
       }
     ]
   },
-  externals: [nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })],
+  externals: [
+    nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })
+  ],
   node: {
     __dirname: true
   },
   plugins: [new HardLink(), new CheckerPlugin()]
-}
+};

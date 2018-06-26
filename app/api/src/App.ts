@@ -16,7 +16,6 @@ const app = express();
 const server = new httpServer.Server(app);
 const io = socketIO(server);
 
-
 // Configure cors
 app.use(cors());
 
@@ -40,14 +39,13 @@ app.get("/", async (_, res) => {
   res.send("xd");
 });
 
-io.on("connection", (socket) => {
+io.on("connection", socket => {
   // console.log('connected')
   // for(let i =0 ; i<5;i++) {
   //   console.log(i);
   // }
   socket.emit("xd", { data: "asda" });
 });
-
 
 // Create GraphQL server
 app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
