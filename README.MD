@@ -8,17 +8,15 @@ Dashboard for social media, communication and connect everything into one tool.
 
 ## Installing / Getting started
 
-@TODO
-
-A quick introduction of the minimal setup you need to get a hello world up &
+A quick introduction of the minimal setup you need to get up &
 running.
 
 ```shell
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
 cd DashboardTS/
 yarn
-yarn run serve
-yarn run daemon
+yarn run api:prod
+yarn run client:prod
 ```
 
 ## Developing
@@ -28,7 +26,7 @@ yarn run daemon
 Typescript <br>
 Express <br>
 GraphQL <br>
-Apollo server express <br>
+GraphQL-Yoga <br>
 Argon2 | Argon-Node https://github.com/ranisalt/node-argon2
 
 ### Prerequisites
@@ -53,64 +51,40 @@ yarn
 
 And run 
 ```shell
-yarn run serve
+yarn run api:dev
+yarn run client:dev
 ```
 
 ### Building
 
-> Webpack watch (watching whole app dir)
-- Builds scss, typescript client and server, html
+> Production
 
 ```shell
-yarn run serve
+yarn run api:prod
+yarn run client:prod
+```
+> Development
+
+```shell
+yarn run api:dev
+yarn run client:dev
 ```
 
 > Nodemon server
 
 ```shell
-yarn run daemon
+yarn run serve
 ```
-
-Building backend
-
-> Production
-
-```shell
-yarn run generate-api
-```
-> Development
-
-```shell
-yarn run generate-api-dev
-```
-
-Building frontend
-
-> Development (sourcemaps)
-
-```shell
-yarn run generate-client-dev
-```
-
-> Production (without sourcemaps and with minify html)
-
-```shell
-yarn run generate-client
-```
-
 
 ### Deploying / Publishing
 
-@TODO: Add docker
+```shell
+docker-compose up
+```
 
 ## Versioning
 
 We are using [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
-## Configuration
-
-If you want to change default locations of files, change paths in config.ts file.
-
 
 ## Licensing
 

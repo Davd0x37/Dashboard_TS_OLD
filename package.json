@@ -16,7 +16,8 @@
     "api:dev": "cross-env NODE_ENV=development webpack --config app/api/webpack.config.ts --watch",
     "api:prod": "cross-env NODE_ENV=production webpack --config app/api/webpack.config.ts",
     "client:dev": "cd ./app/client && yarn run dev",
-    "cleint:prod": "cd ./app/client && yarn run prod"
+    "client:prod": "cd ./app/client && yarn run prod",
+    "serve": "nodemon ./app/api/dist/app.js"
   },
   "devDependencies": {
     "@types/jest": "^23.1.1",
