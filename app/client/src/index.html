@@ -1,159 +1,188 @@
-<html lang="en">
-
+<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet">
+    <script src="./public/polyfill.min.js"></script>
+    <!--<link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
+          rel="stylesheet">
     <!--Font Awesome -->
-    <script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
+            integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
+            crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>-->
     <!-- <script src="socket.io/socket.io.js"></script> -->
-    <script src="./ts/main.ts"></script>
     <link href="./scss/index.scss" rel="stylesheet">
 </head>
-
 <body>
-<header id="header">
-    <section class="logo">
-        <img class="logo__img" src="./public/img/logo_1x.png" alt="Logo">
-        <p class="logo__title">Dashboard</p>
-    </section>
-    <section class="search">
-        <div>
-            <input class="search__input" name="search" type="text" placeholder="Search what you want!">
-            <div class="search__result"></div>
-        </div>
-        <button class="search__button">
-            <i class="fas fa-search"></i>
-            Search
-        </button>
-    </section>
-    <section class="notifications">
-        <p class="notifications__current" data-current-notification="+ Add Contact">+ Add Contact</p>
-        <div class="notifications__icons">
-        <span class="fa-layers fa-fw">
-          <i class="fas fa-users"></i>
-          <span class="fa-layers-counter hidden"></span>
-        </span>
-            <span class="fa-layers fa-fw">
-          <i class="fas fa-comments"></i>
-          <span class="fa-layers-counter hidden"></span>
-        </span>
-            <span class="fa-layers fa-fw">
-          <i class="fas fa-bell"></i>
-          <span class="fa-layers-counter"></span>
-        </span>
-        </div>
-    </section>
-    <section class="profile">
-        <img class="profile__avatar" src="./public/img/avatar.jpg" alt="Avatar">
-        <p class="profile__name">DigitalNomad</p>
-        <a class="profile__action" href="#">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
-    </section>
-</header>
-<aside id="left_sidebar">
-    <div class="profile">
-        <button class="profile__action">
-            <p>Profile</p>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <nav>
-            <a class="profile__link" href="#">
-                <i class="fas fa-pencil-alt"></i>
-                <p>Profile</p>
-            </a>
-            <a class="profile__link" href="#">
-                <i class="fas fa-lock"></i>
-                <p>Privacy</p>
-            </a>
-            <a class="profile__link" href="#">
-                <i class="fas fa-folder"></i>
-                <p>Portfolio</p>
-            </a>
-            <a class="profile__link" href="#">
-                <i class="fas fa-cogs"></i>
-                <p>Settings</p>
-            </a>
-        </nav>
+
+<header class="header">
+    <div class="logo">
+        <a href="#">DASHBOARD</a>
     </div>
-</aside>
-<main id="main__content">
-    <aside class="news">
-      <span class="title__news">
-        <i class="fas fa-newspaper"></i>
-        <p>News</p>
-      </span>
-        <article class="feed">
-            <header class="feed__header">
-                <div class="feed__image">
-                    <img class="profile__avatar" src="./public/img/avatar.jpg" alt="avatar">
-                </div>
-                <div class="feed__title">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...</p>
-                </div>
+    <div class="searchbox">
+        <i class="fas fa-search fa-lg" style="color: #5162FF;"></i>
+        <input type="text" class="searchbox__input" id="searchbox__search-input" placeholder="Type action...">
+        <i class="fas fa-microphone-alt fa-lg" style="color: #374355;"></i>
+    </div>
+    <div class="user">
+        <div class="user__actions">
+            <i class="fas fa-comment-dots fa-lg action" style="padding-right: 10px;"></i>
+            <span class="fa-layers fa-fw">
+                <i class="fas fa-bell fa-lg action" style="height:80px;"></i>
+                <span class="fa-layers-counter fa-lg" style="background: #F07B96;"></span>
+            </span>
+        </div>
+        <div class="user__profile">
+            <p class="user__name">Vernon Roche</p>
+            <img src="./public/img/avatar.png" alt="Avatar" class="user__avatar">
+        </div>
+    </div>
+</header>
+
+<main>
+    <aside class="feed">
+        <article class="plate" id="spotify-plate">
+            <header class="plate__brand">
+                <i class="fab fa-spotify fa-2x" style="color: #B5EB00;"></i>
+                <h3 class="plate__title">Spotify</h3>
             </header>
-            <footer class="feed__footer feed__action">
-                <p class="feed__date feed__date-color">1:34AM</p>
-                <a class="feed__action-read-color" href="#">Read</a>
-            </footer>
-        </article>
-    </aside>
-    <aside class="timeline">
-      <span class="title__timeline">
-        <i class="fas fa-flag"></i>
-        <p>Timeline</p>
-      </span>
-
-
-        <article class="feed">
-            <header class="feed__header feed__header-background">
-                <div class="feed__image">
-                    <img class="profile__avatar" src="./public/img/avatar.jpg" alt="avatar">
+            <div class="plate__container spotify__plate">
+                <aside class="container__details">
+                    <p class="item__title">Nazwa użytkownika</p>
+                    <p class="item__value">Jon Doe</p>
+                    <p class="item__title">Email</p>
+                    <p class="item__value">jondoe@pm.me</p>
+                    <p class="item__title">Typ konta</p>
+                    <p class="item__value spotify__title--color">Premium</p>
+                </aside>
+                <div class="container__other">
+                    <p class="item__value">Termin wygaśnięcia subskrypcji</p>
+                    <p class="item__value spotify__title--color">11.08.2018 (13 dni)</p>
+                    <button class="item__btn">Przedłuż</button>
                 </div>
-                <div class="feed__title">
-                    <p class="feed__title-color">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-                        tempore eligendi dolorem! Delectus nesciunt
-                        perferendis quo, repellendus, laudantium sint, distinctio id saepe nulla sequi amet enim
-                        voluptates! Perferendis,
-                        sit sint.</p>
-                </div>
-                <div class="feed__date">
-                    <p class="feed__date-color">10:34AM</p>
-                </div>
-            </header>
-            <main class="feed__content">
-                <h1>Something boring</h1>
-            </main>
-            <footer class="feed__footer feed__footer-background">
-                <a class="feed__action" href>
-                    <i class="fas fa-heart"></i>
-                    <p class="feed__action-name">Like</p>
-                    <p class="feed__action-counter">(3.5k)</p>
-                </a>
-                <a class="feed__action" href>
-                    <i class="fas fa-comment"></i>
-                    <p class="feed__action-name">Comment</p>
-                    <p class="feed__action-counter">(0)</p>
-                </a>
-                <a class="feed__action" href>
-                    <i class="fas fa-share"></i>
-                    <p class="feed__action-name">Share</p>
-                    <p class="feed__action-counter">(1k)</p>
-                </a>
-            </footer>
-            <div class="feed__append">
-
             </div>
         </article>
-
-
+        <article class="plate" id="digital-ocean-plate">
+            <header class="plate__brand">
+                <i class="fab fa-digital-ocean fa-2x" style="color: #0080FF;"></i>
+                <h3 class="plate__title">Digital Ocean</h3>
+            </header>
+            <div class="plate__container digital-ocean-plate">
+                <div class="container__details">
+                    <aside>
+                        <p class="item__title">Nazwa użytkownika</p>
+                        <p class="item__value">Jon Doe</p>
+                        <p class="item__title">Email</p>
+                        <p class="item__value">jondoe@pm.me</p>
+                    </aside>
+                    <aside>
+                        <p class="item__title">Środki na koncie</p>
+                        <p class="item__value digital_ocean--color">$200.00</p>
+                        <p class="item__title">Dropletow</p>
+                        <p class="item__value digital_ocean--color">1</p>
+                    </aside>
+                    <aside>
+                        <p class="item__title">Zużycie środkow</p>
+                        <p class="item__value digital_ocean--color">$0.00</p>
+                        <button class="item__btn">Przedłuż</button>
+                    </aside>
+                </div>
+                <div class="container__other">
+                    <div class="chart">
+                        s
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="plate" id="paypal-plate">
+            <header class="plate__brand">
+                <i class="fab fa-paypal fa-2x" style="color: #0D96D9;"></i>
+                <h3 class="plate__title">Paypal</h3>
+            </header>
+            <div class="plate__container paypal-plate">
+                <div class="flex">
+                    <aside class="container__details">
+                        <p class="item__title">Typ konta</p>
+                        <p class="item__value">Osobiste</p>
+                        <p class="item__title">Środki na koncie</p>
+                        <p class="item__value paypal--color-blue">$200.00</p>
+                        <p class="item__title">Połączona karta</p>
+                        <p class="item__value paypal--color-card">VISA</p>
+                    </aside>
+                    <div class="container__other">
+                        <aside class="container__aside">
+                            <div class="flex">
+                                <img src="./public/img/avatar.png" alt="avatar" class="profile__avatar">
+                                <div>
+                                    <p class="item__title">Typ konta</p>
+                                    <p class="item__value">Osobiste</p>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="item__btn--green">Wpłać</button>
+                            </div>
+                        </aside>
+                        <aside class="container__aside">
+                            <div>
+                                <p class="item__title">Email</p>
+                                <p class="item__value paypal--color-blue">JonDoe@gmail.com</p>
+                            </div>
+                            <button class="item__btn--red">Wypłać</button>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="plate" id="facebook-plate">
+            <header class="plate__brand">
+                <i class="fab fa-facebook fa-2x" style="color: #3C5A9A;"></i>
+                <h3 class="plate__title">Facebook</h3>
+            </header>
+            <div class="plate__container facebook-plate">
+                <div class="container">
+                    <aside class="container__details">
+                        <p class="item__title">Nazwa użytkownika</p>
+                        <p class="item__value">Jon Doe</p>
+                        <p class="item__title">Email</p>
+                        <p class="item__value facebook--color-blue">JonDoe@gmail.com</p>
+                        <p class="item__title">Numer telefonu</p>
+                        <p class="item__value facebook--color-green">+48 123 456 789</p>
+                    </aside>
+                    <div class="container__other">
+                        <div class="notifications">
+                            <div class="flex">
+                                <i class="fas fa-bell fa-2x" style="color: #3C5A9A; padding-right: 10px;"></i>
+                                <div class="message_text">
+                                    <p class="item__title">Powiadomień</p>
+                                    <p class="item__value">12</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <i class="fas fa-comment-dots fa-2x" style="color: #3C5A9A; padding-right: 10px;"></i>
+                                <div class="message_text">
+                                    <p class="item__title">Powiadomień</p>
+                                    <p class="item__value">12</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post">
+                            <textarea class="post__message" name="post_message" id="post_message" cols="20" rows="4"
+                                      placeholder="Czym chcesz się podzielić z innymi?"></textarea>
+                            <button class="item__btn btn--color-green"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
     </aside>
 </main>
-<aside id="right_sidebar"></aside>
+<div id="tooltip_cloud" class="tooltip">
+    <p class="tooltip__message"></p>
+</div>
+<script src="ts/main.ts"></script>
 </body>
 
 </html>

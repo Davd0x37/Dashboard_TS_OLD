@@ -1,0 +1,57 @@
+// ------------ FACEBOOK ------------
+.facebook-plate {
+  .container {
+    display: flex;
+
+    // ------------ LEFT SECTION ------------
+    .container__details {
+      flex: 2;
+    }
+
+    // ------------ RIGHT SECTION ------------
+    .container__other {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      // ------------ NOTIFICATIONS ------------
+      .notifications {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      // ------------ POST MESSAGE ------------
+      .post {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .post__message {
+          background: #1e1e24;
+          border: 1px solid #2b2c34;
+          border-radius: 5px;
+          color: $second-text;
+          outline: none;
+        }
+
+        // ------------ BUTTONS ------------
+        @include item__btn($primary-green, $facebook-button-pressed);
+      }
+    }
+  }
+
+  // ------------ COLORS ------------
+  .facebook--color-blue {
+    color: $facebook;
+  }
+
+  .facebook--color-green {
+    color: $primary-green;
+  }
+
+  .btn--color-green {
+    color: $primary-green;
+    border-color: $primary-green !important;
+  }
+}

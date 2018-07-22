@@ -1,0 +1,70 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+####### ----- TYPES ----- #######
+type Query {
+  getUser(login: String!, password: String!): User
+  getAllUsers: [User]!
+  getPost(author: String!, author_id: ID!): [Post]
+}
+
+type Mutation {
+  addUser(data: UserInput): Boolean
+  createPost(data: PostInput): Boolean
+}
+####### ----- END TYPES ----- #######
+
+####### ----- POST ----- #######
+type Post {
+  id: ID!
+  author: User!
+  create_date: String!
+  title: String!
+  content: String!
+  likes: [Like]
+}
+
+input PostInput {
+  author: String!
+  author_id: ID!
+  create_date: String!
+  title: String!
+  content: String!
+}
+####### ----- END POST ----- #######
+
+####### ----- LIKE ----- #######
+type Like {
+  id: ID!
+  user: User!
+}
+####### ----- END LIKE ----- #######
+
+####### ----- User ----- #######
+type User {
+  id: ID!
+  avatar: String!
+  country: String!
+  email: String!
+  firstName: String!
+  language: String!
+  lastName: String!
+  login: String!
+  password: String!
+  register_date: String!
+}
+
+input UserInput {
+  avatar: String!
+  country: String!
+  email: String!
+  firstName: String!
+  language: String!
+  lastName: String!
+  login: String!
+  password: String!
+  register_date: String!
+}
+####### ----- END User ----- #######

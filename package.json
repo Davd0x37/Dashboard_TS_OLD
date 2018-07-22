@@ -13,11 +13,11 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "api:dev": "cross-env NODE_ENV=development webpack --config app/api/webpack.config.ts --watch",
-    "api:prod": "cross-env NODE_ENV=production webpack --config app/api/webpack.config.ts",
+    "api:dev": "cd ./app/api && yarn run dev",
+    "api:prod": "cd ./app/api && yarn run prod",
     "client:dev": "cd ./app/client && yarn run dev",
     "client:prod": "cd ./app/client && yarn run prod",
-    "serve": "nodemon ./app/api/dist/app.js"
+    "serve": "cd ./app/api && yarn run serve"
   },
   "devDependencies": {
     "@types/jest": "^23.1.1",

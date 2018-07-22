@@ -1,3 +1,5 @@
+import r from "rethinkdb";
+
 /**
  * Get NODE_ENV variable from cross-env
  */
@@ -17,3 +19,10 @@ export const environment = {
  * Define webpack mode for config file
  */
 export const webpackMode = environment.dev ? "development" : "production";
+
+export const db = {
+  gallery: r.db("users").table("gallery"),
+  general: r.db("users").table("general"),
+  post: r.db("users").table("post"),
+  notes: r.db("users").table("notes")
+};

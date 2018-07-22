@@ -1,5 +1,5 @@
-import rethink from "rethinkdb";
 import log from "signale";
+import { db } from "../config/config";
 import { DB } from "./DB";
 
 /**
@@ -19,44 +19,26 @@ export interface IUser {
   password: string;
 }
 
-/**
- * CONFIG
- */
-const config = {
-  general: rethink.db("users").table("general")
-};
-
 export const loginAvailable = async (login: string) => {
   try {
     const con = await DB();
-    const user = await config.general
+    const user = await db.general
       .filter({ login })
       .run(con)
       .then(cursor => cursor.toArray());
-    if (user.length === 0) {
-      return true;
-    } else {
-      log.info(user);
-      return false;
-    }
+    return user.length === 0;
   } catch (error) {
     log.error(error);
     return false;
   }
 };
 
-export const User = {
-  /**
-   * Add new user to database
-   *
-   * @param params IUser options
-   */
-  async addUser(params: IUser) {
+export const UserMutation = {
+  addUser: async (_: any, args: any) => {
     try {
       const con = await DB();
-      const available = await loginAvailable(params.login);
-      if (available) {
-        config.general.insert(params).run(con);
+      if (await loginAvailable(args.data.login)) {
+        await db.general.insert(args.data).run(con);
         return true;
       } else {
         return false;
@@ -65,21 +47,25 @@ export const User = {
       log.error(error);
       return false;
     }
-  },
+  }
+};
 
+export const UserQuery = {
   /**
    * Get user from database
    *
-   * @param {string} login
    * @returns [array] all information about selected user
+   * @param _
+   * @param args
    */
-  async getUser(login: string) {
+  getUser: async (_: any, { login, password }: any) => {
     try {
       const con = await DB();
-      return config.general
-        .filter({ login })
+      return db.general
+        .filter({ login, password })
         .run(con)
-        .then(cursor => cursor.toArray());
+        .then(cursor => cursor.toArray())
+        .then(user => user[0])
     } catch (error) {
       log.error(error);
       return false;
@@ -91,10 +77,10 @@ export const User = {
    *
    * @returns [array] array of users
    */
-  async getAllUsers() {
+  getAllUsers: async () => {
     try {
       const con = await DB();
-      return config.general.run(con).then(cursor => cursor.toArray());
+      return db.general.run(con).then(cursor => cursor.toArray());
     } catch (error) {
       log.error(error);
       return false;

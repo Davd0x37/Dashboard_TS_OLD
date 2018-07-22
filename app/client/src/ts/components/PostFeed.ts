@@ -1,20 +1,20 @@
-export interface IPostFeedOptions { 
-  header: { 
-    image: string | HTMLElement; 
-    title: string; 
-    date?: string | number; 
-  }; 
-  content?: { 
-    template: string | HTMLElement; 
-  }; 
-  footer?: { 
-    actions: { 
-      like?: number; 
-      share?: number; 
-      comment?: number; 
-    }; 
-  }; 
-  appendSection?: {}; 
+export interface IPostFeedOptions {
+  header: {
+    image: string | HTMLElement;
+    title: string;
+    date?: string | number;
+  };
+  content?: {
+    template: string | HTMLElement;
+  };
+  footer?: {
+    actions: {
+      like?: number;
+      share?: number;
+      comment?: number;
+    };
+  };
+  appendSection?: {};
 }
 
 export const View = {
@@ -36,12 +36,12 @@ export const View = {
         </p>
       </div>
       ${
-        options.header.date
-          ? `
+      options.header.date
+        ? `
             <div class="feed__date">
               <p class="feed__date-color">${options.header.date}</p>
             </div>`
-          : ""
+        : ""
       }
     </header>
     ${
@@ -51,7 +51,7 @@ export const View = {
             ${options.content.template}
           </main>`
         : ""
-    }
+      }
     
     ${
       options.footer
@@ -66,7 +66,7 @@ export const View = {
                   <p class="feed__action-counter">(${options.footer.actions.like})</p>
                 </a>`
             : ""
-        }
+          }
         
         ${
           options.footer.actions.comment
@@ -77,7 +77,7 @@ export const View = {
                 <p class="feed__action-counter">(${options.footer.actions.comment})</p>
               </a>`
             : ""
-        }
+          }
         ${
           options.footer.actions.share
             ? `
@@ -88,10 +88,10 @@ export const View = {
               </a>
               </footer>`
             : ""
-        }
+          }
         `
         : ""
-    }
+      }
     
     ${
       options.appendSection
@@ -101,7 +101,7 @@ export const View = {
     </div>
     `
         : ""
-    }
+      }
     `;
 
     elem.innerHTML = template;

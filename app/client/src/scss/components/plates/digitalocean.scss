@@ -1,0 +1,30 @@
+// ------------ DIGITAL OCEAN ------------
+.digital-ocean-plate {
+
+  // ------------ LEFT SECTION ------------
+  .container__details {
+    display: flex;
+    justify-content: space-between;
+
+    // ------------ BUTTON ------------
+    @include item__btn($digital_ocean, $digital_ocean-button-pressed);
+  }
+
+  // ------------ LEFT SECTION ------------
+  .container__other {
+    .chart {
+      border: 1px solid rgba($digital_ocean, 0.7);
+      border-radius: 5px;
+    }
+  }
+
+  // ------------ COLORS ------------
+  .digital_ocean--color {
+    color: $digital_ocean;
+  }
+
+  .btn--color {
+    border-color: $digital_ocean !important;
+    color: $digital_ocean;
+  }
+}

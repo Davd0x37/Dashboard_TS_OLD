@@ -7,11 +7,10 @@ import log from "signale";
  * @returns [Promise] active connection
  */
 export const DB = async () => {
-  const connection = await r.connect({
+  return r.connect({
     host: "localhost",
     port: 28015
   });
-  return connection;
 };
 
 /**

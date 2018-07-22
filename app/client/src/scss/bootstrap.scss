@@ -1,39 +1,18 @@
-* {
-	// font-family: "Open Sans", sans-serif;
-	// font-family: "Noto Serif", serif;
-	font-family: "Roboto", sans-serif;
-
-	a:visited {
-		color: inherit;
-	}
-
-	*:focus {
-		outline: none;
-	}
-}
-
 body {
-	// font-weight: bold;
-	display: grid;
-	color: $primary_text;
-	// width: 100vw;
-	// height: 100vh;
-	background-color: $background_color;
-	grid-template-columns: 250px 5fr 100px;
-	grid-template-rows: 100px 1fr;
-	grid-template-areas: "header header header" "leftSidebar main rightSidebar";
+  font-family: "Roboto", "Roboto Medium", "Roboto Black", sans-serif;
+  background: $background;
+  font-size: 100%;
+  color: $primary-text;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus input:-webkit-autofill,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-	border: 1px solid green;
-	-webkit-text-fill-color: green;
-	box-shadow: 0 0 0px 1000px inherit inset;
-	transition: background-color 5000s ease-in-out 0s;
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+  color: $primary-text;
+}
+
+.flex {
+  display: flex;
 }
