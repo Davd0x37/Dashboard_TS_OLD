@@ -3,18 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#2B2C34">
     <title>Dashboard</title>
-    <script src="./public/polyfill.min.js"></script>
-    <!--<link href="https://fonts.googleapis.com/css?family=Noto+Serif|Open+Sans|Roboto" rel="stylesheet">-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
-          rel="stylesheet">
-    <!--Font Awesome -->
-    <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
-            integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
-            crossorigin="anonymous"></script>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>-->
     <!-- <script src="socket.io/socket.io.js"></script> -->
     <link href="./scss/index.scss" rel="stylesheet">
+    <script src="./ts/ServiceWorker.ts"></script>
 </head>
 <body>
 
@@ -92,7 +88,7 @@
                 </div>
                 <div class="container__other">
                     <div class="chart">
-                        s
+                        <canvas id="digital_ocean_chart" class="chart__canvas" width="550px" height="90px"></canvas>
                     </div>
                 </div>
             </div>
@@ -182,7 +178,10 @@
 <div id="tooltip_cloud" class="tooltip">
     <p class="tooltip__message"></p>
 </div>
+<script src="./public/polyfill.min.js"></script>
+<!--Font Awesome -->
+<script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
+        integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
+        crossorigin="anonymous"></script>
 <script src="ts/main.ts"></script>
 </body>
-
-</html>

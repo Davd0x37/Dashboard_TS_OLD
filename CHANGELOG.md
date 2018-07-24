@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.0.6] - 2018-07-22
+### Added
+- Service worker and offline storage - PWA
+
+
+## [0.0.5] - 2018-07-22
+### Added
+- New design
+- Some GraphQL
+
+### Changed
+- Fixed parcel with babel
+
+### Removed
+- Old design which was from dribbble or behance
+
 ## [0.0.4] - 2018-06-25
 ### Added
 - Jest testing
@@ -48,6 +64,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - API and Client config in one webpack file.
 
+[0.0.6]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
+[0.0.5]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.4]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.3]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.2]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master

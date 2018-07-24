@@ -1,19 +1,21 @@
 {
   "name": "client-workspace",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "parcel src/index.html -p 3030 --no-cache",
-    "prod": "parcel build src/index.html --no-source-maps",
+    "dev": "parcel src/index.html -p 3030 --no-cache --no-source-maps",
+    "prod": "parcel build src/index.html --no-source-maps --no-cache",
     "sass:dev": "./bin/dart-sass/sass.bat ./src/scss/index.scss ./src/public/css/index.css --style=expanded",
     "sass:prod": "./bin/dart-sass/sass.bat ./src/scss/index.scss ./src/public/css/index.css --style=compressed --no-source-map"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.7.28",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "chart.js": "^2.7.2",
     "node-sass": "^4.9.0",
     "parcel-bundler": "^1.9.3"
   },
