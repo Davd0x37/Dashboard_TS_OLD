@@ -13,6 +13,7 @@ type Query {
 type Mutation {
   addUser(data: UserInput): Boolean
   createPost(data: PostInput): Boolean
+  createDB(): Boolean
 }
 ####### ----- END TYPES ----- #######
 

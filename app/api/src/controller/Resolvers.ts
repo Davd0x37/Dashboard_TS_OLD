@@ -1,6 +1,6 @@
+import {createDB} from "./DB"
 import { PostMutation, PostQuery } from "./Post";
 import { UserMutation, UserQuery } from "./User";
-
 export const resolvers = {
   Query: {
     ...UserQuery,
@@ -8,6 +8,10 @@ export const resolvers = {
   },
   Mutation: {
     ...UserMutation,
-    ...PostMutation
+    ...PostMutation,
+    async createDB(): Promise<boolean> {
+      await createDB()
+      return true
+    }
   }
 };
