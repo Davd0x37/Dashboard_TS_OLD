@@ -1,3 +1,7 @@
+cache:
+  paths:
+  - ./node_modules
+
 before_script:
 - mkdir -p ~/.ssh
 - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
@@ -16,9 +20,12 @@ build:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/client
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/api
-
+  - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
+  - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
+  - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
 deploy:
   stage: deploy
   environment: Production
@@ -28,5 +35,9 @@ deploy:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/client
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/api
+  - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
+  - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
+  - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
