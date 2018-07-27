@@ -21,14 +21,6 @@ yarn run client:prod
 
 ## Developing
 
-### Built With
-
-Typescript <br>
-Express <br>
-GraphQL <br>
-GraphQL-Yoga <br>
-Argon2 | Argon-Node https://github.com/ranisalt/node-argon2
-
 ### Prerequisites
 
 Just clone repo and use command listed below. Yarn will do everything for you.
@@ -47,12 +39,6 @@ git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
 cd DashboardTS/
 
 yarn
-```
-
-And run 
-```shell
-yarn run api:dev
-yarn run client:dev
 ```
 
 ### Building
