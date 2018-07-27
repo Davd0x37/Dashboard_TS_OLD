@@ -1,7 +1,3 @@
-cache:
-  paths:
-  - ./node_modules
-
 before_script:
 - mkdir -p ~/.ssh
 - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
@@ -25,6 +21,7 @@ build:
   - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
   - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
   - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
+  - scp -o stricthostkeychecking=no -r ./app/api/src/Schema/Schema.graphql $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/src/Schema
   - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
 deploy:
   stage: deploy
@@ -40,4 +37,5 @@ deploy:
   - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
   - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
   - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
+  - scp -o stricthostkeychecking=no -r ./app/api/src/Schema/Schema.graphql $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/src/Schema
   - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
