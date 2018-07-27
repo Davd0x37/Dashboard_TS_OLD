@@ -10,7 +10,7 @@ before_script:
 build:
   stage: deploy
   environment: Staging
-  image: node:latest
+  image: node:alpine
   only:
   - master
   script:
@@ -22,6 +22,7 @@ build:
 deploy:
   stage: deploy
   environment: Production
+  image: node:alpine
   only:
   - tags
   script:
