@@ -1,0 +1,36 @@
+cache:
+  paths:
+  - node_modules/
+
+before_script:
+- mkdir -p ~/.ssh
+- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+- chmod 700 ~/.ssh/id_rsa
+- eval "$(ssh-agent -s)"
+- ssh-add ~/.ssh/id_rsa
+- ssh-keyscan $SERVER_HOST >> ~/.ssh/known_hosts
+
+build:
+  stage: deploy
+  environment: Staging
+  image: node:latest
+  only:
+  - master
+  script:
+  - yarn install
+  - yarn run api:prod
+  - yarn run client:prod
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
+
+deploy:
+  stage: deploy
+  environment: Production
+  only:
+  - tags
+  script:
+  - yarn install
+  - yarn run api:prod
+  - yarn run client:prod
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
