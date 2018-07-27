@@ -16,6 +16,8 @@ build:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; rm -rf {app, src}"
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; mkdir {app/{api,client},src/Schema} -p"
   - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
   - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
   - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
@@ -32,6 +34,8 @@ deploy:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; rm -rf {app, src}"
+  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; mkdir {app/{api,client},src/Schema} -p"
   - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
   - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
   - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
