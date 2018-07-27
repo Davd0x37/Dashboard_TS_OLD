@@ -1,5 +1,5 @@
 before_script:
-- apk add rsync
+- apk add rsync openssh openssh-client openssh-server
 - mkdir -p ~/.ssh
 - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
 - chmod 700 ~/.ssh/id_rsa
