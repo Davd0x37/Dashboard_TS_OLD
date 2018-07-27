@@ -16,8 +16,8 @@ build:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/client
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/api
 
 deploy:
   stage: deploy
@@ -28,5 +28,5 @@ deploy:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
+  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/client
+  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/api
