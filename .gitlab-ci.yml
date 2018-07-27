@@ -16,14 +16,7 @@ build:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; rm -rf {app, src}"
-  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; mkdir {app/{api,client},src/Schema} -p"
-  - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
-  - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
-  - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
-  - scp -o stricthostkeychecking=no -r ./app/api/src/Schema/Schema.graphql $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/src/Schema
+  - rsync -av -e ssh --exclude='node_modules' . $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
   - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
 deploy:
   stage: deploy
@@ -34,12 +27,5 @@ deploy:
   - yarn install
   - yarn run api:prod
   - yarn run client:prod
-  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; rm -rf {app, src}"
-  - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; mkdir {app/{api,client},src/Schema} -p"
-  - scp -o stricthostkeychecking=no -r ./app/client/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
-  - scp -o stricthostkeychecking=no -r ./app/client/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/client
-  - scp -o stricthostkeychecking=no -r ./app/api/package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
-  - scp -o stricthostkeychecking=no -r ./app/api/dist $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/app/api
-  - scp -o stricthostkeychecking=no -r ./package.json $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/
-  - scp -o stricthostkeychecking=no -r ./app/api/src/Schema/Schema.graphql $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY/src/Schema
+  - rsync -av -e ssh --exclude='node_modules' . $MAIN_USER@$SERVER_HOST:$APP_DIRECTORY
   - ssh $MAIN_USER@$SERVER_HOST "cd $APP_DIRECTORY; yarn install"
