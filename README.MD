@@ -68,10 +68,6 @@ yarn run serve
 docker-compose up
 ```
 
-## Versioning
-
-We are using [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
 ## Licensing
 
 #### LICENSE MIT

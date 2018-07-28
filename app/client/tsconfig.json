@@ -9,10 +9,6 @@
     ],
     "removeComments": true,
     "importHelpers": true,
-    /* Import emit helpers from 'tslib'. */
-    //        "isolatedModules": true,
-    /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
-
     /* Strict Type-Checking Options */
     "strict": true,
     /* Enable all strict type-checking options. */
@@ -22,7 +18,7 @@
     /* Enable strict null checks. */
     "strictFunctionTypes": true,
     /* Enable strict checking of function types. */
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     /* Enable strict checking of property initialization in classes. */
     "noImplicitThis": true,
     /* Raise error on 'this' expressions with an implied 'any' type. */
@@ -35,15 +31,6 @@
     "noImplicitReturns": true,
     /* Report error when not all code paths in function return a value. */
     "noFallthroughCasesInSwitch": true,
-    /* Report errors for fallthrough cases in switch statement. */
-
-    //    "baseUrl": ".",
-    //    /* Base directory to resolve non-absolute module names. */
-    //    "paths": {
-    //      "*": [
-    //        "./@types/*"
-    //      ]
-    //    },
     /* Type declaration files to be included in compilation. */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

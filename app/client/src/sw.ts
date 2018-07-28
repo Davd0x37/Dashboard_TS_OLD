@@ -1,19 +1,7 @@
-const version = "0.0.4";
+const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
 const filesToCache = [
-  "./avatar.f01dff67.png",
-  "./header_pattern.b3436a1b.png",
-  "./index.html",
-  "./logo_1x.d3eddc66.png",
-  "./main.4d81cc8a.js",
-  "./manifest.976e13c1.webmanifest",
-  "./polyfill.min.7d85f7c4.js",
-  "./scss.81554d6a.css",
-  "./scss.81554d6a.js",
-  "./ServiceWorker.7a9391e0.js"
-  // "./sw.js"
-  // "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900",
-  // "https://use.fontawesome.com/releases/v5.1.1/js/all.js"
+  "index.html"
 ];
 
 const DashboardSW = {
@@ -86,20 +74,24 @@ self.addEventListener("fetch", (event: any) => {
     return;
   }
   console.log("Serving the assets from cache");
-  event.respondWith(DashboardSW.filesFromCache(event.request).catch(() => DashboardSW.filesFromServer(event.request)));
+  event.respondWith(
+    DashboardSW.filesFromCache(event.request).catch(() =>
+      DashboardSW.filesFromServer(event.request)
+    )
+  );
   event.waitUntil(DashboardSW.updateCache(event.request));
 });
 
 /*
  * Make service worker main maintainer of site and remove old caches if new version has arrived
  */
-self.addEventListener("activate", event => {
+self.addEventListener("activate", (event: any) => {
   event.waitUntil(
     caches
       .keys()
       .then(keys =>
         Promise.all(
-          keys.map(key => {
+          keys.map((key: any) => {
             if (!cacheName.includes(key)) {
               return caches.delete(key);
             }

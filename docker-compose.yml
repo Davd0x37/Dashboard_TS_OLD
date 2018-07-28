@@ -1,26 +1,30 @@
 version: '3'
 services:
-  api:
-    build: .
-    container_name: dashboard_api
-    ports:
-      - "4000:4000"
-    command: yarn nodemon app/api/dist/app.js
-  db:
-    image: "rethinkdb:latest"
-    container_name: dashboard_db
-    ports:
-      - "8080:8090"
-      - "28015:28015"
-      - "29015:29015"
-    links:
-      - api
-  client:
+  reverse-proxy:
     image: traefik
     container_name: dashboard_load_balancer
     command: --api --docker
     ports:
-      - "80:80"
-      - "8080:8080"
+    - "80:80"
+    - "8080:8090"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/docker.sock:/var/run/docker.sock
+  api:
+    build: "./app/api"
+    container_name: dashboard_api
+    ports:
+      - "4000:4000"
+  client:
+    image: "./app/client"
+    container_name: dashboard_client
+    ports:
+    - "3030:3030"
+  db:
+    image: "rethinkdb:latest"
+    container_name: dashboard_db
+    ports:
+    - "8090:8080"
+    - "28015:28015"
+    - "29015:29015"
+    volumes:
+    - /usr/app/rethinkdb:/data
