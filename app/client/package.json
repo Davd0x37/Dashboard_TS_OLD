@@ -12,11 +12,9 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.7.28",
-    "awesome-typescript-loader": "^5.2.0",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "node-sass": "^4.9.0",
-    "parcel-bundler": "^1.9.3",
-    "typescript": "^2.9.2"
+    "parcel-bundler": "^1.9.3"
   },
   "dependencies": {
     "apollo-boost": "^0.1.10",

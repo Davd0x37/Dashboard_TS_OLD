@@ -5,19 +5,13 @@ import { webpackMode } from "./src/config/config";
 import HardLink from "hard-source-webpack-plugin";
 import nodeExternals from "webpack-node-externals";
 
-// Workaround
-// // HardLink has no default constructor (TypeScript words)
-// const HardLink = require("hard-source-webpack-plugin");
-// // Same here
-// const nodeExternals = require("webpack-node-externals");
-
 export default {
   entry: "./src/GraphQLApp.ts",
   target: "node",
   context: __dirname,
   output: {
     filename: "app.js",
-    path: join(__dirname, "./dist"),
+    path: join(__dirname, "dist"),
     pathinfo: false
   },
   mode: webpackMode,

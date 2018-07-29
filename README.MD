@@ -63,9 +63,9 @@ yarn run serve
 ```
 
 ### Deploying / Publishing
-
+> It will run test as well
 ```shell
-docker-compose up
+yarn run deploy
 ```
 
 ## Licensing

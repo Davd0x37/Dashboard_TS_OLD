@@ -18,7 +18,7 @@
     "client:dev": "cd ./app/client && yarn run dev",
     "client:prod": "cd ./app/client && yarn run prod",
     "serve": "cd ./app/api && yarn run serve",
-    "deploy": "yarn run test && yarn run api:prod && yarn run client:prod && docker-compose up"
+    "deploy": "yarn run test && docker-compose up"
   },
   "devDependencies": {
     "@types/jest": "^23.1.1",
@@ -27,8 +27,9 @@
     "prettier": "^1.13.6",
     "ts-jest": "^22.4.6",
     "ts-node": "^7.0.0",
+    "tslint-config-prettier": "^1.13.0",
     "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.13.0"
+    "typescript": "^2.9.2"
   },
   "jest": {
     "globals": {
@@ -40,7 +41,7 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
-    "testRegex": "(/app/(api|client)/src/test/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testRegex": "(/app/(api|client)/(src/test|test)/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
