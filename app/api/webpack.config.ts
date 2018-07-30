@@ -33,6 +33,7 @@ export default {
   },
   externals: [
     nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })
+    // nodeExternals({ modulesDir: resolve(__dirname, "./test") })
   ],
   node: {
     __dirname: true

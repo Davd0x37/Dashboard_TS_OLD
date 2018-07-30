@@ -6,5 +6,7 @@ RUN yarn
 RUN yarn api:prod
 RUN yarn client:prod
 RUN cp -a app/api/dist/. /Dashboard/api
+#RUN cp -a node_modules /Dashboard/api
+#RUN cp -a package.json /Dashboard/api
 RUN cp -a app/client/dist/. /Dashboard/client
 RUN cp -a app/client/nginx.conf /Dashboard
