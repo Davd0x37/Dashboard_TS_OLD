@@ -91,6 +91,7 @@ self.addEventListener("activate", (event: any) => {
       .keys()
       .then(keys =>
         Promise.all(
+          // @ts-ignore
           keys.map((key: any) => {
             if (!cacheName.includes(key)) {
               return caches.delete(key);
@@ -102,5 +103,6 @@ self.addEventListener("activate", (event: any) => {
         console.log(`${cacheName} now ready to handle fetches!`);
       })
   );
+  // @ts-ignore
   return self.clients.claim();
 });
