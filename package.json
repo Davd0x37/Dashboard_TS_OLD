@@ -18,7 +18,7 @@
     "client:dev": "cd ./app/client && yarn run dev",
     "client:prod": "cd ./app/client && yarn run prod",
     "serve": "cd ./app/api && yarn run serve",
-    "deploy": "yarn run test && docker-compose up"
+    "deploy": "docker-compose up"
   },
   "devDependencies": {
     "@types/jest": "^23.1.1",
