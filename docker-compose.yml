@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   # BUILD APP
@@ -32,10 +32,9 @@ services:
   client:
     image: nginx:stable
     container_name: dashboard_client
-    command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
-    ports:
-    - "80:80"
-    - "443:443"
+    command: nginx -c /Dashboard/config/nginx.conf -g "daemon off;"
+    #    ports:
+    #      - "443:443"
     depends_on:
     - build
     volumes:
@@ -46,8 +45,7 @@ services:
     - "traefik.backend=DashboardClient"
     - "traefik.docker.network=dashboard"
     - "traefik.enable=true"
-    - "traefik.frontend.rule=Host:client.liquidash.pl"
-    - "traefik.port=80"
+    - "traefik.frontend.rule=Host:liquidash.pl"
     - "traefik.port=443"
 
   # DATABASE
@@ -71,28 +69,26 @@ services:
     - "traefik.port=1337"
 
   # REVERSE PROXY
-#  reverse-proxy:
-#    image: traefik
-#    container_name: dashboard_load_balancer
-#    command: --api --docker
-#    environment:
-#    - DO_AUTH_TOKEN=5a5e783b235ae06fc7df891db38e664415a41bfead49716a635e6f2cbc4602d3
-#    ports:
-#    - "80:80"
-#    - "443:443"
-#    - "8080:8080"
-#    volumes:
-#    - /usr/app/DashboardTS/traefik.toml:/traefik.toml
-#    - /var/run/docker.sock:/var/run/docker.sock
-#    - /usr/app/DashboardTS/acme.json:/acme.json
-#    - /etc/letsencrypt/live/liquidash.pl:/etc/letsencrypt/live/liquidash.pl
-#    networks:
-#    - dashboard
-#    labels:
-#    - "traefik.backend=DashboardReverseProxy"
-#    - "traefik.docker.network=dashboard"
-#    - "traefik.frontend.rule=Host:traefik.liquidash.pl"
-#    - "traefik.port=8080"
+  reverse-proxy:
+    image: traefik
+    container_name: dashboard_load_balancer
+    command: --api --docker
+    ports:
+    - "80:80"
+    - "443:443"
+    - "8080:8080"
+    volumes:
+    - /usr/app/DashboardTS/traefik.toml:/traefik.toml
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/app/DashboardTS/acme.json:/acme.json
+    - dashboard_app:/Dashboard
+    networks:
+    - dashboard
+    labels:
+    - "traefik.backend=DashboardReverseProxy"
+    - "traefik.docker.network=dashboard"
+    - "traefik.frontend.rule=Host:traefik.liquidash.pl"
+    - "traefik.port=8080"
 volumes:
   dashboard_app:
 networks:
