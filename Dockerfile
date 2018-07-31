@@ -1,7 +1,7 @@
 FROM node:latest
 ADD . /usr/app/Dashboard
 WORKDIR /usr/app/Dashboard
-RUN mkdir /Dashboard; mkdir /Dashboard/client; mkdir /Dashboard/api; mkdir Dashboard/config
+RUN mkdir /Dashboard; mkdir /Dashboard/client; mkdir /Dashboard/api; mkdir /Dashboard/config
 RUN yarn
 RUN yarn api:prod
 RUN yarn client:prod
