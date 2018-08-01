@@ -1,8 +1,15 @@
-import express from 'express'
-const app1 = express()
+"use strict";
+// @ts-ignore
+import express from "express";
+import { resolve } from "path";
 
-app1.get('/app1', (req, res) => {
-  res.send('app1')
-})
+// @ts-ignore
+const app = express()
 
-app1.listen(3001)
+app.use(express.static(resolve(__dirname, ".")));
+
+app.get("/", (_: express.Request, res: express.Response) => {
+  res.sendFile(resolve(__dirname, "./index.html"));
+});
+
+app.listen(3030, () => (console.log("Listening at port: 3030")));

@@ -1,4 +1,4 @@
-import log from "signale";
+import * as log from "signale";
 import { db } from "../config/config";
 import { DB } from "./DB";
 

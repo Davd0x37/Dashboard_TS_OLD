@@ -1,5 +1,5 @@
-import r from "rethinkdb";
-import log from "signale";
+import * as r from "rethinkdb";
+import * as log from "signale";
 
 /**
  * Connect with server and returns promise with active connection

@@ -33,8 +33,8 @@ services:
     image: nginx:stable
     container_name: dashboard_client
     command: nginx -c /Dashboard/config/nginx.conf -g "daemon off;"
-    #    ports:
-    #      - "443:443"
+    ports:
+    - "443:443"
     depends_on:
     - build
     volumes:
@@ -47,6 +47,7 @@ services:
     - "traefik.enable=true"
     - "traefik.frontend.rule=Host:liquidash.pl"
     - "traefik.port=443"
+    - "traefik.protocol=https"
 
   # DATABASE
   db:
@@ -68,27 +69,26 @@ services:
     - "traefik.frontend.rule=Host:db.liquidash.pl"
     - "traefik.port=1337"
 
-  # REVERSE PROXY
-  reverse-proxy:
-    image: traefik
-    container_name: dashboard_load_balancer
-    command: --api --docker
-    ports:
-    - "80:80"
-    - "443:443"
-    - "8080:8080"
-    volumes:
-    - /usr/app/DashboardTS/traefik.toml:/traefik.toml
-    - /var/run/docker.sock:/var/run/docker.sock
-    - /usr/app/DashboardTS/acme.json:/acme.json
-    - dashboard_app:/Dashboard
-    networks:
-    - dashboard
-    labels:
-    - "traefik.backend=DashboardReverseProxy"
-    - "traefik.docker.network=dashboard"
-    - "traefik.frontend.rule=Host:traefik.liquidash.pl"
-    - "traefik.port=8080"
+    # REVERSE PROXY
+    # reverse-proxy:
+    #   image: traefik
+    #   container_name: dashboard_load_balancer
+    #   command: --api --docker
+    #   ports:
+    #   - "80:80"
+    #   - "443:443"
+    #   - "8080:8080"
+    #   volumes:
+    #   - /usr/app/DashboardTS/traefik.toml:/traefik.toml
+    #   - /var/run/docker.sock:/var/run/docker.sock
+    #   - dashboard_app:/Dashboard
+    #   networks:
+    #   - dashboard
+    #   labels:
+    #   - "traefik.backend=DashboardReverseProxy"
+    #   - "traefik.docker.network=dashboard"
+    #   - "traefik.frontend.rule=Host:traefik.liquidash.pl"
+    #   - "traefik.port=8080"
 volumes:
   dashboard_app:
 networks:

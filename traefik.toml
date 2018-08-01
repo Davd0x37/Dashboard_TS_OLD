@@ -23,7 +23,7 @@ endpoint = "unix:///var/run/docker.sock"
 domain = "liquidash.pl"
 watch = true
 exposedByDefault = false
-usebindportip = true
+#usebindportip = true
 
 #[acme]
 #email = "holgrin@gmail.com"

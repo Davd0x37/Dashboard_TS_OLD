@@ -1,4 +1,4 @@
-import r from "rethinkdb";
+import * as r from "rethinkdb";
 
 /**
  * Get NODE_ENV variable from cross-env

@@ -8,7 +8,7 @@ RUN yarn client:prod
 RUN cp -a app/api/dist/. /Dashboard/api
 RUN cp -a node_modules /Dashboard/api
 RUN cp -a app/client/dist/. /Dashboard/client
+RUN cp -a app/client/server.ts /Dashboard/client
 RUN cp -a app/client/fullchain.pem /Dashboard/config
 RUN cp -a app/client/privkey.pem /Dashboard/config
 RUN cp -a app/client/nginx.conf /Dashboard/config
-RUN yes | cp -a traefik.toml /etc/traefik/traefik.toml

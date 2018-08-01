@@ -34,7 +34,7 @@ export class DigitalOcean {
    * @param {string} stop
    * @returns {CanvasGradient}
    */
-  private _createGradient(start: string, stop: string) {
+  private _createGradient(start: string, stop: string): CanvasGradient {
     const cv = this.canvas;
     const gradient = this.ctx.createLinearGradient(
       0,
@@ -52,7 +52,7 @@ export class DigitalOcean {
    * @param {object[]} dataset
    * @returns {object[]}
    */
-  private readDataset(dataset: object[]) {
+  private readDataset(dataset: object[]): object[] {
     dataset.forEach((el: any) => {
       el.backgroundColor = this._createGradient(
         el.backgroundColor.start,

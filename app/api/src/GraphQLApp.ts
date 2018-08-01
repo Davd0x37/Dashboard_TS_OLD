@@ -1,8 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
-import signale from "signale";
+import * as signale from "signale";
 import { resolvers } from "./controller/Resolvers";
 import Schema from "./Schema/Schema.graphql";
-
 
 try {
   const server = new GraphQLServer({
