@@ -33,12 +33,14 @@
 
     // ------------ CONTAINER SECTION ------------
     .plate__container {
-      background: radial-gradient(circle, #141c3e 30%, #1a1d23 150%);
+      background: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%232c34e7' fill-opacity='0.2' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E"),
+        // radial-gradient(circle, #1c1a23ed 30%, #212121ed 150%);
+        radial-gradient(circle, rgba(11, 13, 19, 0.9) 30%, rgba(27, 28, 31, 0.9) 150%);
+        // rgba(0,0,0,0.7);
       padding: 25px 15px;
       border-radius: 10px;
       box-shadow: 1px 1px 5px #000;
       flex-wrap: wrap;
-
 
       .container {
         flex-wrap: wrap;
