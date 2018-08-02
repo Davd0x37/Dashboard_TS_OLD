@@ -1,21 +1,23 @@
 // ------------ PAYPAL ------------
 .paypal-plate {
+  display: flex;
+
   // ------------ LEFT CONTAINER ------------
   .container__details {
-    flex: 2;
+    flex: 1;
   }
 
   // ------------ RIGHT CONTAINER ------------
   .container__other {
-    flex: 3;
+    flex: 2;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 
     // ------------ OTHER SECTION IN RIGHT CONTAINER ------------
     .container__aside {
       display: flex;
       justify-content: space-between;
-      flex-direction: column;
 
       // ------------ PROFILE ------------
       .profile__avatar {
@@ -23,9 +25,18 @@
         height: 33px;
         padding-right: 10px;
       }
+    }
+
+    .container__buttons {
+      display: flex;
+      justify-content: space-between;
 
       // ------------ BUTTONS ------------
-      @include item__btn($paypal-green, $paypal-button-pressed-green, "--green");
+      @include item__btn(
+        $paypal-green,
+        $paypal-button-pressed-green,
+        "--green"
+      );
       @include item__btn($paypal-red, $paypal-button-pressed-red, "--red");
     }
   }
@@ -36,13 +47,5 @@
   }
   .paypal--color-card {
     color: $primary-green;
-  }
-  .btn--color-green {
-    border-color: $paypal-green !important;
-    color: $paypal-green;
-  }
-  .btn--color-red {
-    border-color: $paypal-red !important;
-    color: $paypal-red;
   }
 }

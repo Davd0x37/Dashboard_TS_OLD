@@ -3,7 +3,7 @@ import { join, resolve } from "path";
 import { webpackMode } from "./src/config/config";
 
 import HardLink from "hard-source-webpack-plugin";
-import * as nodeExternals from "webpack-node-externals";
+import nodeExternals from "webpack-node-externals";
 
 export default {
   entry: "./src/GraphQLApp.ts",
@@ -32,9 +32,7 @@ export default {
     ]
   },
   externals: [
-    // @ts-ignore
     nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })
-    // nodeExternals({ modulesDir: resolve(__dirname, "./__tests__") })
   ],
   node: {
     __dirname: true

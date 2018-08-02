@@ -12,7 +12,7 @@ services:
   api:
     image: node:latest
     container_name: dashboard_api
-    command: node /Dashboard/api/app.js
+    command: node /Dashboard/app/api/dist/app.js
     ports:
     - "4000:4000"
     depends_on:
@@ -32,7 +32,7 @@ services:
   client:
     image: nginx:stable
     container_name: dashboard_client
-    command: nginx -c /Dashboard/config/nginx.conf -g "daemon off;"
+    command: nginx -c /Dashboard/app/client/nginx.conf -g "daemon off;"
     ports:
     - "443:443"
     depends_on:

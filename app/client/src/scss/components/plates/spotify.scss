@@ -1,6 +1,7 @@
 // ------------ SPOTIFY ------------
 .spotify__plate {
   display: flex;
+  
 
   // ------------ PLATE SECTION ------------
   .container__details {
@@ -26,13 +27,5 @@
   // ------------ COLORS ------------
   .spotify__title--color {
     color: $spotify;
-  }
-  .btn--color {
-    border-color: $spotify !important;
-    color: $spotify;
-  }
-  .item__btn:hover {
-    background: red;
-
   }
 }
