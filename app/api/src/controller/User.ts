@@ -1,5 +1,6 @@
 import * as log from "signale";
 import { db } from "../config/config";
+import { hashPass } from "../utils/crypto";
 import { DB } from "./DB";
 
 /**
@@ -38,11 +39,33 @@ export const UserMutation = {
     try {
       const con = await DB();
       if (await loginAvailable(args.data.login)) {
+        args.data.password = await hashPass(args.data.password)
         await db.general.insert(args.data).run(con);
         return true;
       } else {
         return false;
       }
+    } catch (error) {
+      log.error(error);
+      return false;
+    }
+  },
+
+  /**
+   *  Update password of user
+   *
+   * @param {*} _
+   * @param {*} { id, password, newPassword }
+   * @returns
+   */
+  changePassword: async (_: any, { id, password, newPassword }: any) => {
+    try {
+      const con = await DB();
+      return db.general
+        .filter({ id, password: await hashPass(password) })
+        .update({ password: await hashPass(newPassword) })
+        .run(con)
+        .then(res => !!res.replaced)
     } catch (error) {
       log.error(error);
       return false;
@@ -62,10 +85,10 @@ export const UserQuery = {
     try {
       const con = await DB();
       return db.general
-        .filter({ login, password })
+        .filter({ login, password: await hashPass(password) })
         .run(con)
         .then(cursor => cursor.toArray())
-        .then(user => user[0])
+        .then(user => user[0]);
     } catch (error) {
       log.error(error);
       return false;

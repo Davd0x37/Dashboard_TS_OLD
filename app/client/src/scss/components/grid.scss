@@ -54,6 +54,7 @@
         font-size: 0.75rem;
         color: $second-text;
         padding-bottom: 1px;
+        text-transform: capitalize;
 
         @media screen and (max-width: 480px) {
           font-size: 0.55rem;
