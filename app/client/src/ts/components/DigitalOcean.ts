@@ -1,11 +1,13 @@
 import { Chart } from "chart.js";
+import {Component} from './Component'
 import DigitalOceanConfig from "./DigitalOcean.json";
 
-export class DigitalOcean {
+export class DigitalOcean extends Component {
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
 
   constructor(elem: string) {
+    super(elem)
     this.canvas = document.querySelector(elem);
     this.ctx = this.canvas.getContext("2d");
 
@@ -15,9 +17,22 @@ export class DigitalOcean {
   }
 
   /**
-   * Create chart
+   * Update chart
+   *
+   * @memberof DigitalOcean
    */
-  public create() {
+  public update(): void {
+    // ADD IN FUTURE
+  }
+
+  
+  /**
+   * Create chart
+   *
+   * @protected
+   * @memberof DigitalOcean
+   */
+  protected create() {
     const chart = new Chart(this.ctx, {
       type: "line",
       data: {
@@ -28,11 +43,15 @@ export class DigitalOcean {
     });
   }
 
+
   /**
-   * Create linear gradient from passed colors
+   * Create gradient
+   *
+   * @private
    * @param {string} start
    * @param {string} stop
    * @returns {CanvasGradient}
+   * @memberof DigitalOcean
    */
   private _createGradient(start: string, stop: string): CanvasGradient {
     const cv = this.canvas;
@@ -47,10 +66,14 @@ export class DigitalOcean {
     return gradient;
   }
 
+  
   /**
-   * Create linear gradient in canvas using start/stop fields from json file
+   * Replace string from dataset with canvas gradient object
+   *
+   * @private
    * @param {object[]} dataset
    * @returns {object[]}
+   * @memberof DigitalOcean
    */
   private readDataset(dataset: object[]): object[] {
     dataset.forEach((el: any) => {

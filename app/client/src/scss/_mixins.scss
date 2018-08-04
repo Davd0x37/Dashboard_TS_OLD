@@ -1,10 +1,11 @@
-@mixin item__btn($color, $pressed_background, $btn_name: "") {
+// ------------ BUTTONS  ------------
+@mixin item__btn($color, $pressed_background, $btn_name: "", $padding: 10px 20px) {
   .item__btn#{$btn_name} {
     background: transparent;
     text-transform: uppercase;
     border: 1px solid $color;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: $padding;
     font-size: 1.1rem;
     color: $color;
     outline: none;
@@ -24,6 +25,7 @@
   }
 }
 
+// ------------ RESPONSIVE ------------
 @mixin above_size($size) {
   @media screen and (min-width: $size) {
     @content;

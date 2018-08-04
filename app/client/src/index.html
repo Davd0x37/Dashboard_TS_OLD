@@ -2,9 +2,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#2B2C34">
+    <!-- Android -->
+    <meta name="theme-color" content="#000">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-title" content="Dashboard">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <!-- Pinned Sites  -->
+    <meta name="application-name" content="Dashboard">
+    <meta name="msapplication-tooltip" content="Dashboard app">
+    <meta name="msapplication-starturl" content="/">
+
+    <!-- Tap highlighting  -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- UC Mobile Browser  -->
+    <meta name="full-screen" content="yes">
+    <meta name="browsermode" content="application">
+
+    <!-- Disable night mode for this page  -->
+    <meta name="nightmode" content="enable">
+
+    <!-- imagemode - show image even in text only mode  -->
+    <meta name="imagemode" content="force">
+
+    <!-- Orientation  -->
+    <meta name="screen-orientation" content="portrait">
+
     <title>Dashboard</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
@@ -15,15 +45,55 @@
 </head>
 
 <body>
-
     <header class="header">
         <div class="logo">
             <a href="#">DASHBOARD</a>
         </div>
-        <div class="searchbox">
-            <i class="fas fa-search fa-lg" style="color: #5162FF;"></i>
-            <input type="text" class="searchbox__input" id="searchbox__search-input" placeholder="Type action...">
-            <i class="fas fa-microphone-alt fa-lg" style="color: #374355;"></i>
+        <div class="search">
+            <div class="searchbox">
+                <a href="#" class="searchbox__action">
+                    <i class="fas fa-search fa-lg" style="color: #5162FF;"></i>
+                </a>
+                <div class="searchbox__input">
+                    <input type="text" class="searchbox__input" id="searchbox__search-input" placeholder="Type action...">
+
+                    <div class="searchbox__result">
+                        <a href="#" class="searchbox__item">
+                            <div class="item__icon">
+                                <i class="fas fa-lock" style="font-size: 1.3rem; color: #59B369;"></i>
+                            </div>
+                            <p class="item__name">Change password</p>
+                        </a>
+                        <a href="#" class="searchbox__item">
+                            <div class="item__icon">
+                                <i class="fas fa-envelope" style="font-size: 1.3rem; color: #59B369;"></i>
+                            </div>
+                            <p class="item__name">Change email</p>
+                        </a>
+                        <a href="#" class="searchbox__item">
+                            <div class="item__icon">
+                                <i class="fas fa-signature" style="font-size: 1.3rem; color: #59B369;"></i>
+                            </div>
+                            <p class="item__name">Change name</p>
+                        </a>
+                        <a href="#" class="searchbox__item">
+                            <div class="item__icon">
+                                <i class="fas fa-user" style="font-size: 1.3rem; color: #59B369;"></i>
+                            </div>
+                            <p class="item__name">Change avatar</p>
+                        </a>
+                        <a href="#" class="searchbox__item">
+                            <div class="item__icon">
+                                <i class="fas fa-cogs" style="font-size: 1.3rem; color: #59B369;"></i>
+                            </div>
+                            <p class="item__name">Change settings</p>
+                        </a>
+                    </div>
+                </div>
+                <a href="#" class="searchbox__action">
+                    <i class="fas fa-microphone-alt fa-lg" style="color: #F5F7FA;"></i>
+                </a>
+            </div>
         </div>
         <div class="user">
             <div class="user__actions">
@@ -87,7 +157,7 @@
                                 <p class="item__title">Zużycie środkow</p>
                                 <p class="item__value digital_ocean--color">$0.00</p>
                             </div>
-                            <button class="item__btn">Przedłuż</button>
+                            <button class="item__btn">Doładuj</button>
                         </aside>
                     </div>
                     <div class="container__other">
@@ -176,6 +246,7 @@
             </article>
         </aside>
     </main>
+    <!-- <div class="background__backdrop"></div> -->
     <div id="tooltip_cloud" class="tooltip">
         <p class="tooltip__message"></p>
     </div>

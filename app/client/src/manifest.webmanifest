@@ -2,9 +2,9 @@
   "name": "Dashboard",
   "short_name": "Dashboard",
   "start_url": ".",
-  "display": "standalone",
-  "background_color": "#2B2C34",
-  "theme_color": "#2B2C34",
+  "display": "fullscreen",
+  "background_color": "#000",
+  "theme_color": "#000",
   "description": "Dashboard app.",
   "icons": [
     {
