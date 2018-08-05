@@ -13,13 +13,19 @@ interface IData {
 export class DigitalOceanPlate extends Component {
   protected template: string;
   protected element: HTMLCanvasElement;
-  protected readonly ctx: CanvasRenderingContext2D;
+  protected ctx: CanvasRenderingContext2D;
   protected chart: Chart;
 
-  constructor(data: IData) {
+  constructor(
+    data: IData = {
+      username: "Jon Doe",
+      email: "jon@pm.me",
+      amount: "$200.00",
+      droplets: "1",
+      usage: "$0.00"
+    }
+  ) {
     super();
-    this.element = document.querySelector("#digital_ocean_chart");
-    this.ctx = this.element.getContext("2d");
     this.create(data);
   }
 
@@ -38,6 +44,13 @@ export class DigitalOceanPlate extends Component {
    * @memberof Search
    */
   public postProcess() {
+    // Get canvas
+    this.element = this.articleRef.querySelector("#digital_ocean_chart");
+    // Get context
+    this.ctx = this.element.getContext("2d");
+    // Modify background colors in dataset
+    this._modifyDataset();
+    // Create chart
     this._createChart();
   }
 
@@ -50,7 +63,6 @@ export class DigitalOceanPlate extends Component {
    */
   protected create(data: IData) {
     this._createTemplate(data);
-    this._modifyDataset();
   }
 
   /**

@@ -6,4 +6,7 @@
   left: 0;
   right: 0;
   z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
 }

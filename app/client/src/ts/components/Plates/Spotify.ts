@@ -11,7 +11,14 @@ export class SpotifyPlate extends Component {
   protected template: string;
   protected templateID: string = "spotify-plate";
 
-  constructor(data: IData) {
+  constructor(
+    data: IData = {
+      username: "Jon Doe",
+      email: "doe@doe.com",
+      type: "Premium",
+      expire: "13 dni"
+    }
+  ) {
     super();
     this.create(data);
   }

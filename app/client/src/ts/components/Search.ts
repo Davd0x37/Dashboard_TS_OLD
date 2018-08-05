@@ -1,15 +1,21 @@
 import { Component } from "./Component";
 export class Search extends Component {
-  protected element: Element;
+  protected element: HTMLInputElement;
   protected typing: boolean = false;
   protected checker: any;
 
   protected resultBox: HTMLElement;
+  protected backdrop: HTMLElement;
 
-  constructor(el: string, result: string) {
+  constructor(
+    el: string,
+    result: string = "#searchbox__result",
+    backdrop: string = "#background__backdrop"
+  ) {
     super();
     this.element = document.querySelector(el);
     this.resultBox = document.querySelector(result);
+    this.backdrop = document.querySelector(backdrop);
     this.create();
   }
 
@@ -20,12 +26,18 @@ export class Search extends Component {
    * @memberof Search
    */
   public update(ev: any): void {
-    this.resultBox.style.visibility = "hidden";
     if (ev.target.value.length !== 0) {
       this.resultBox.style.visibility = "visible";
       this.clearBox();
       this.resultBox.appendChild(this.addItem("lock", ev.target.value));
+      if (ev.key === "Enter") {
+        this.element.value = "";
+      }
     }
+    this.backdrop.addEventListener("click", () => {
+      ev.target.value = "";
+      this.update(ev);
+    });
   }
 
   /**
@@ -68,6 +80,16 @@ export class Search extends Component {
    * @memberof Search
    */
   protected listenEvents() {
+    this.attachEvent("focus", (_: any) => {
+      this.backdrop.style.visibility = "visible";
+      this.backdrop.style.opacity = "1";
+    })
+    this.attachEvent("blur", (ev: any) => {
+      this.backdrop.style.opacity = "0";
+      this.resultBox.style.visibility = "hidden";
+      setTimeout(() => (this.backdrop.style.visibility = "hidden"), 500)
+      ev.target.value = ""
+    })
     this.attachEvent("keydown", (_: any) => {
       this.typing = true; // User is typing
       clearTimeout(this.checker); // Remove checker

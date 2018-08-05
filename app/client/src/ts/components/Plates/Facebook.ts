@@ -12,7 +12,15 @@ export class FacebookPlate extends Component {
   protected template: string;
   protected templateID: string = "facebook-plate";
 
-  constructor(data: IData) {
+  constructor(
+    data: IData = {
+      username: "Jon Doe",
+      email: "jondoe@gmail.com",
+      phoneNumber: "+48 123 456 789",
+      notifications: "12",
+      messages: "12"
+    }
+  ) {
     super();
     this.create(data);
   }

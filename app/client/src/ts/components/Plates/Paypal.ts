@@ -13,7 +13,16 @@ export class PaypalPlate extends Component {
   protected template: string;
   protected templateID: string = "paypal-plate";
 
-  constructor(data: IData) {
+  constructor(
+    data: IData = {
+      username: "Jon doe",
+      email: "jondoe@gmail.com",
+      type: "Osobiste",
+      amount: "$200.00",
+      connectedCard: "VISA",
+      avatar: "./avatar.f01dff67.png"
+    }
+  ) {
     super();
     this.create(data);
   }

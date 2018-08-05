@@ -1,5 +1,6 @@
 export abstract class Component {
   protected template: string;
+  protected articleRef: any;
 
   /**
    * Create plate
@@ -11,7 +12,7 @@ export abstract class Component {
     const article = document.createElement("article");
     article.classList.add("plate");
     article.innerHTML = this.template;
-    console.log(this.template)
+    this.articleRef = article;
     return article;
   }
   /**
