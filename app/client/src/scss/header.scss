@@ -88,6 +88,9 @@
       flex-wrap: wrap;
       top: 10px;
       visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s;
+      will-change: opacity;
 
       .searchbox__item {
         display: flex;

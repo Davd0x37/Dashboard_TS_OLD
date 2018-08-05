@@ -1,14 +1,15 @@
 export abstract class Component {
   protected template: string;
   protected articleRef: any;
-
+  protected userData: any;
   /**
    * Create plate
    *
    * @returns {Element}
    * @memberof Component
    */
-  public renderPlate(): Element {
+  public renderPlate(data?: object): Element {
+    this.createTemplate(data)
     const article = document.createElement("article");
     article.classList.add("plate");
     article.innerHTML = this.template;
@@ -16,7 +17,20 @@ export abstract class Component {
     return article;
   }
   /**
-   * Update component
+   * Update template with new data
+   *
+   * @param {object} data
+   * @memberof Component
+   */
+  public updatePlate(data: object) {
+    while (this.articleRef.firstChild) {
+      this.articleRef.removeChild(this.articleRef.firstChild);
+    }
+    this.createTemplate(data);
+    this.articleRef.innerHTML = this.template;
+  }
+  /**
+   * Update component. Not for view. Update props, values etc.
    *
    * @abstract
    * @param {...any[]} args
@@ -32,11 +46,42 @@ export abstract class Component {
    */
   public abstract postProcess(...args: any[]): void;
   /**
-   * Create component
+   * Create component and initialize all needed methods
    *
    * @protected
    * @abstract
+   * @param {...any[]} args
    * @memberof Component
    */
   protected abstract create(...args: any[]): void;
+  /**
+   * Create and update view
+   *
+   * @protected
+   * @abstract
+   * @param {...any[]} args
+   * @memberof Component
+   */
+  protected abstract view(...args: any[]): void;
+  /**
+   * Manage actions and events in component
+   * Can use event listeners here
+   *
+   * @protected
+   * @abstract
+   * @param {...any[]} args
+   * @memberof Component
+   */
+  protected abstract controller(...args: any[]): void;
+  /**
+   * Create template
+   *
+   * @protected
+   * @param {object} [data]
+   * @memberof Component
+   */
+  protected createTemplate(data?: object) {
+    Object.assign(this.userData, data);
+    this.view();
+  }
 }

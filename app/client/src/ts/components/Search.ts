@@ -3,22 +3,24 @@
  */
 
 import { SearchController } from "../controller/Search";
+import { style } from "../utils/Style";
 import { Component } from "./Component";
 export class Search extends Component {
   // Input
   protected element: HTMLInputElement;
-
-  // User is typing
-  protected typing: boolean = false;
-
-  // Timer for checking if user is typing
-  protected checker: any;
-
   protected resultBox: HTMLElement;
   protected backdrop: HTMLElement;
 
+  // Timer for checking if user is typing
+  protected checker: any;
+  // Checker options
+  protected checkerOptions = {
+    cleanOnEnter: true
+  };
+
   constructor(
     el: string,
+    options?: object,
     result: string = "#searchbox__result",
     backdrop: string = "#background__backdrop"
   ) {
@@ -26,33 +28,10 @@ export class Search extends Component {
     this.element = document.querySelector(el);
     this.resultBox = document.querySelector(result);
     this.backdrop = document.querySelector(backdrop);
+
+    // Overwrite options
+    Object.assign(this.checkerOptions, options);
     this.create();
-  }
-
-  /**
-   * Update component
-   *
-   * @param {*} ev
-   * @memberof Search
-   */
-  public update(ev: any): void {
-    if (ev.target.value.length !== 0) {
-      this.resultBox.style.visibility = "visible";
-      // Clear box every time after typing
-      this.clearBox();
-      const actions: object[] = SearchController.searchAction(ev.target.value);
-      actions.forEach((action: any) => {
-        this.resultBox.appendChild(
-          this.addItem(action.icon, action.action)
-        )
-      });
-      // this.resultBox.appendChild(this.addItem("lock", ev.target.value));
-    }
-
-    // After clicking greyed background it will clean out input and remove background
-    this.backdrop.addEventListener("click", () => {
-      ev.target.value = "";
-    });
   }
 
   /**
@@ -65,66 +44,93 @@ export class Search extends Component {
   }
 
   /**
-   * Invokes all needed methods
+   * Update component
+   *
+   * @param {*} ev
+   * @memberof Search
+   */
+  public update(): void {
+    // FILL
+  }
+
+  /**
+   * Attach event listeners to input, backdrop and resultbox
    *
    * @protected
    * @memberof Search
    */
   protected create(): void {
-    this.listenEvents();
-    this.setAnimations();
+    this.controller();
   }
 
   /**
-   * Create event listener for searchbox
-   *
-   * @protected
-   * @param {string} type
-   * @param {(...el: any[]) => any} fn
-   * @memberof Search
-   */
-  protected attachEvent(type: string, fn: (...el: any[]) => any): void {
-    this.element.addEventListener(type, (ev: any) => {
-      fn(ev);
-    });
-  }
-
-  /**
-   * Attach events to searchbox
-   *
-   * @protected
-   * @memberof Search
-   */
-  protected listenEvents() {
-    this.attachEvent("keydown", (ev: any) => {
-      // Clear input
-      if (ev.key === "Enter") {
-        this.element.value = "";
-      }
-
-      this.typing = true; // User is typing
-      clearTimeout(this.checker); // Remove previous checker
-      this.startChecker(ev); // Start new checker
-    });
-
-    this.attachEvent("keyup", (ev: any) => {
-      this.typing = false; // User is not typing
-    });
-  }
-
-  /**
-   * Start checking if user is typing
+   * Generate view on update
    *
    * @protected
    * @param {*} ev
    * @memberof Search
    */
-  protected startChecker(ev: any) {
-    this.checker = setTimeout(() => {
-      if (!this.typing) {
-        this.update(ev);
+  protected view(ev: any): void {
+    if (ev.target.value.length !== 0) {
+      style(this.resultBox, { opacity: 1, visibility: "visible" });
+
+      // Clear box every time after typing
+      this.resultBox.innerHTML = "";
+
+      // Get all actions matched to searched value
+      const actions = SearchController.searchAction(ev.target.value);
+      // Add all matched results to result box
+      actions.forEach((action: any) => {
+        // Add item to results
+        this.resultBox.appendChild(
+          this.addItem(action.icon, action.action, action.view)
+        );
+      });
+    }
+    // If input is empty hide result box
+    if (ev.target.value.length === 0) {
+      style(this.resultBox, { opacity: 0 });
+      setTimeout(() => {
+        style(this.resultBox, { visibility: "hidden" });
+      }, 500);
+    }
+  }
+
+  /**
+   * Setup listeners
+   *
+   * @protected
+   * @memberof Search
+   */
+  protected controller(): void {
+    this.element.addEventListener("keydown", (ev: any) => {
+      // Apply options
+      if (this.checkerOptions.cleanOnEnter) {
+        if (ev.key === "Enter") {
+          this.element.value = "";
+        }
       }
-    }, 200);
+      clearTimeout(this.checker);
+      this.checker = setTimeout(() => {
+        this.view(ev);
+      }, 200);
+    });
+
+    // Show backdrop with activating search input
+    this.element.addEventListener("click", (_: any) => {
+      style(this.backdrop, { opacity: 1, visibility: "visible" });
+    });
+
+    // After clicking backdrop it will fade out with result box
+    this.backdrop.addEventListener("click", (ev: any) => {
+      style(this.backdrop, { opacity: 0 });
+      style(this.resultBox, { opacity: 0 });
+      this.element.value = "";
+      setTimeout(() => {
+        style(this.backdrop, { visibility: "hidden" });
+        style(this.resultBox, { visibility: "hidden" });
+      }, 500);
+    });
   }
 
   /**
@@ -132,14 +138,15 @@ export class Search extends Component {
    *
    * @protected
    * @param {string} type
-   * @param {string} message
+   * @param {string} action
+   * @param {string} view
    * @returns {Element}
    * @memberof Search
    */
-  protected addItem(type: string, action: string): Element {
+  protected addItem(type: string, action: string, view: string): Element {
     const item = document.createElement("a");
     item.classList.add("searchbox__item");
-    item.href = "#";
+    item.href = `#${view}`;
     item.innerHTML = `
     <div class="item__icon">
       <i class="fas fa-${type}" style="font-size: 1.3rem; color: #59B369;"></i>
@@ -147,34 +154,5 @@ export class Search extends Component {
     <p class="item__name">${action}</p>
     `;
     return item;
-  }
-
-  /**
-   * Clear results
-   *
-   * @protected
-   * @memberof Search
-   */
-  protected clearBox() {
-    this.resultBox.innerHTML = "";
-  }
-
-  /**
-   * Set animation of backdrop and result box
-   *
-   * @protected
-   * @memberof Search
-   */
-  protected setAnimations() {
-    this.attachEvent("focus", (_: any) => {
-      this.backdrop.style.opacity = "1";
-      this.backdrop.style.visibility = "visible";
-    });
-    this.attachEvent("blur", (ev: any) => {
-      this.backdrop.style.opacity = "0";
-      this.resultBox.style.visibility = "hidden";
-      setTimeout(() => (this.backdrop.style.visibility = "hidden"), 500);
-      ev.target.value = "";
-    });
   }
 }

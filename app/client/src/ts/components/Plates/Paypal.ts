@@ -11,29 +11,18 @@ interface IData {
 
 export class PaypalPlate extends Component {
   protected template: string;
-  protected templateID: string = "paypal-plate";
 
-  constructor(
-    data: IData = {
-      username: "Jon doe",
-      email: "jondoe@gmail.com",
-      type: "Osobiste",
-      amount: "$200.00",
-      connectedCard: "VISA",
-      avatar: "./avatar.f01dff67.png"
-    }
-  ) {
+  protected userData: IData = {
+    username: "Jon doe",
+    email: "jondoe@gmail.com",
+    type: "Osobiste",
+    amount: "$200.00",
+    connectedCard: "VISA",
+    avatar: "./avatar.f01dff67.png"
+  };
+
+  constructor(data?: IData) {
     super();
-    this.create(data);
-  }
-
-  /**
-   * Update component
-   *
-   * @memberof DigitalOceanPlate
-   */
-  public update() {
-    // FILL
   }
 
   /**
@@ -46,17 +35,25 @@ export class PaypalPlate extends Component {
   }
 
   /**
-   * Invokes all needed methods to create plate
+   * Update component
    *
-   * @protected
-   * @param {IData} data
-   * @memberof DigitalOceanPlate
+   * @memberof FacebookPlate
    */
-  protected create(data: IData) {
-    this._createTemplate(data);
+  public update(): void {
+    // FILL
   }
 
-  protected _createTemplate(data: IData): void {
+  /**
+   * Invoke all needed methods to create component
+   *
+   * @protected
+   * @memberof FacebookPlate
+   */
+  protected create(): void {
+    // FILL
+  }
+
+  protected view(): void {
     this.template = `<header class="plate__brand">
     <i class="fab fa-paypal fa-2x" style="color: #0D96D9;"></i>
     <h3 class="plate__title">Paypal</h3>
@@ -64,26 +61,30 @@ export class PaypalPlate extends Component {
 <div class="plate__container paypal-plate">
     <aside class="container__details">
         <p class="item__title">Nazwa użytkownika</p>
-        <p class="item__value">${data.username}</p>
+        <p class="item__value">${this.userData.username}</p>
         <p class="item__title">Środki na koncie</p>
-        <p class="item__value paypal--color-blue">${data.amount}</p>
+        <p class="item__value paypal--color-blue">${this.userData.amount}</p>
         <p class="item__title">Połączona karta</p>
         <p class="item__value item__value--last paypal--color-card">${
-          data.connectedCard
+          this.userData.connectedCard
         }</p>
     </aside>
     <div class="container__other">
         <aside class="container__aside">
             <div class="flex">
-                <img src="${data.avatar}" alt="avatar" class="profile__avatar">
+                <img src="${
+                  this.userData.avatar
+                }" alt="avatar" class="profile__avatar">
                 <div>
                     <p class="item__title">Typ konta</p>
-                    <p class="item__value">${data.type}</p>
+                    <p class="item__value">${this.userData.type}</p>
                 </div>
             </div>
             <div>
                 <p class="item__title">Email</p>
-                <p class="item__value paypal--color-blue">${data.email}</p>
+                <p class="item__value paypal--color-blue">${
+                  this.userData.email
+                }</p>
             </div>
         </aside>
         <aside class="container__buttons">
@@ -92,5 +93,15 @@ export class PaypalPlate extends Component {
         </aside>
     </div>
 </div>`;
+  }
+
+  /**
+   * Controll buttons and all data
+   *
+   * @protected
+   * @memberof FacebookPlate
+   */
+  protected controller(): void {
+    // FILL
   }
 }
