@@ -2,9 +2,8 @@ import gql from "graphql-tag";
 import App from "../App";
 
 export const User = {
-  async authenticate(login: string, password: string): Promise<boolean> {
-    const res: any = await App.client.query({
-      query: gql`
+  async authenticate(login: string, password: string): Promise<object> {
+    const res = await App.query(gql`
         query {
           getUser(login: "${login}", password: "${password}") {
             avatar
@@ -13,14 +12,11 @@ export const User = {
             email
           }
         }
-      `
-    });
-    if (res.data.getUser !== null) {
-      console.log(res.data.getUser);
-      return true;
+      `);
+    if (res.getUser !== null) {
+      return res.getUser;
     } else {
-      alert("Błędne dane");
-      return false;
+      throw new Error()
     }
   }
 };

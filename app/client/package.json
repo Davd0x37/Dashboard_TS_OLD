@@ -12,6 +12,7 @@
     "serve": "parcel build src/server.ts --no-source-maps --no-cache"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.116",
     "@types/chart.js": "2.7.30",
     "babel-plugin-transform-custom-element-classes": "0.1.0",
     "node-sass": "4.9.2",
@@ -20,6 +21,7 @@
   "dependencies": {
     "apollo-boost": "0.1.12",
     "chart.js": "2.7.2",
-    "graphql-tag": "2.9.2"
+    "graphql-tag": "2.9.2",
+    "lodash": "^4.17.10"
   }
 }

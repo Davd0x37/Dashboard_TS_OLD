@@ -1,7 +1,17 @@
+/**
+ * Click on input -> fade background -> user is typing (while typing do nothing, after 200ms search for value) -> show resultbox
+ */
+
+import { SearchController } from "../controller/Search";
 import { Component } from "./Component";
 export class Search extends Component {
+  // Input
   protected element: HTMLInputElement;
+
+  // User is typing
   protected typing: boolean = false;
+
+  // Timer for checking if user is typing
   protected checker: any;
 
   protected resultBox: HTMLElement;
@@ -28,15 +38,20 @@ export class Search extends Component {
   public update(ev: any): void {
     if (ev.target.value.length !== 0) {
       this.resultBox.style.visibility = "visible";
+      // Clear box every time after typing
       this.clearBox();
-      this.resultBox.appendChild(this.addItem("lock", ev.target.value));
-      if (ev.key === "Enter") {
-        this.element.value = "";
-      }
+      const actions: object[] = SearchController.searchAction(ev.target.value);
+      actions.forEach((action: any) => {
+        this.resultBox.appendChild(
+          this.addItem(action.icon, action.action)
+        )
+      });
+      // this.resultBox.appendChild(this.addItem("lock", ev.target.value));
     }
+
+    // After clicking greyed background it will clean out input and remove background
     this.backdrop.addEventListener("click", () => {
       ev.target.value = "";
-      this.update(ev);
     });
   }
 
@@ -57,6 +72,7 @@ export class Search extends Component {
    */
   protected create(): void {
     this.listenEvents();
+    this.setAnimations();
   }
 
   /**
@@ -80,30 +96,35 @@ export class Search extends Component {
    * @memberof Search
    */
   protected listenEvents() {
-    this.attachEvent("focus", (_: any) => {
-      this.backdrop.style.visibility = "visible";
-      this.backdrop.style.opacity = "1";
-    })
-    this.attachEvent("blur", (ev: any) => {
-      this.backdrop.style.opacity = "0";
-      this.resultBox.style.visibility = "hidden";
-      setTimeout(() => (this.backdrop.style.visibility = "hidden"), 500)
-      ev.target.value = ""
-    })
-    this.attachEvent("keydown", (_: any) => {
+    this.attachEvent("keydown", (ev: any) => {
+      // Clear input
+      if (ev.key === "Enter") {
+        this.element.value = "";
+      }
+
       this.typing = true; // User is typing
-      clearTimeout(this.checker); // Remove checker
+      clearTimeout(this.checker); // Remove previous checker
+      this.startChecker(ev); // Start new checker
     });
 
     this.attachEvent("keyup", (ev: any) => {
       this.typing = false; // User is not typing
-      clearTimeout(this.checker);
-      this.checker = setTimeout(() => {
-        if (!this.typing) {
-          this.update(ev);
-        }
-      }, 200);
     });
+  }
+
+  /**
+   * Start checking if user is typing
+   *
+   * @protected
+   * @param {*} ev
+   * @memberof Search
+   */
+  protected startChecker(ev: any) {
+    this.checker = setTimeout(() => {
+      if (!this.typing) {
+        this.update(ev);
+      }
+    }, 200);
   }
 
   /**
@@ -115,7 +136,7 @@ export class Search extends Component {
    * @returns {Element}
    * @memberof Search
    */
-  protected addItem(type: string, message: string): Element {
+  protected addItem(type: string, action: string): Element {
     const item = document.createElement("a");
     item.classList.add("searchbox__item");
     item.href = "#";
@@ -123,7 +144,7 @@ export class Search extends Component {
     <div class="item__icon">
       <i class="fas fa-${type}" style="font-size: 1.3rem; color: #59B369;"></i>
     </div>
-    <p class="item__name">${message}</p>
+    <p class="item__name">${action}</p>
     `;
     return item;
   }
@@ -136,5 +157,24 @@ export class Search extends Component {
    */
   protected clearBox() {
     this.resultBox.innerHTML = "";
+  }
+
+  /**
+   * Set animation of backdrop and result box
+   *
+   * @protected
+   * @memberof Search
+   */
+  protected setAnimations() {
+    this.attachEvent("focus", (_: any) => {
+      this.backdrop.style.opacity = "1";
+      this.backdrop.style.visibility = "visible";
+    });
+    this.attachEvent("blur", (ev: any) => {
+      this.backdrop.style.opacity = "0";
+      this.resultBox.style.visibility = "hidden";
+      setTimeout(() => (this.backdrop.style.visibility = "hidden"), 500);
+      ev.target.value = "";
+    });
   }
 }

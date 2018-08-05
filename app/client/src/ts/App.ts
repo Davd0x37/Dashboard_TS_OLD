@@ -18,9 +18,9 @@ class App {
   };
 
   constructor() {
-    // this.client = new ApolloClient({
-    //   uri: "http://localhost:4000"
-    // });
+    this.client = new ApolloClient({
+      uri: "http://localhost:4000"
+    });
   }
 
   /**
@@ -35,6 +35,22 @@ class App {
       where.appendChild(plate.renderPlate());
       plate.postProcess();
     });
+  }
+
+  /**
+   * GraphQL Query
+   *
+   * @param {*} qry
+   * @returns {Promise<any>}
+   * @memberof App
+   */
+  public async query(qry: any): Promise<any> {
+    try {
+      const res: any = await this.client.query({ query: qry });
+      return res.data
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
 
