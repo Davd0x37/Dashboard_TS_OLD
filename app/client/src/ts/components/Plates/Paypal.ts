@@ -1,4 +1,4 @@
-import { Component } from "../Component";
+import { PlateComponent } from "../Component";
 
 interface IData {
   username: string;
@@ -9,7 +9,7 @@ interface IData {
   amount: string;
 }
 
-export class PaypalPlate extends Component {
+class PaypalPlate extends PlateComponent {
   protected template: string;
 
   protected userData: IData = {
@@ -21,16 +21,16 @@ export class PaypalPlate extends Component {
     avatar: "./avatar.f01dff67.png"
   };
 
-  constructor(data?: IData) {
+  constructor() {
     super();
   }
 
   /**
-   * Invokes all methods after creating component
+   * Invoke all needed methods to create component
    *
-   * @memberof Search
+   * @memberof FacebookPlate
    */
-  public postProcess() {
+  public create(): void {
     // FILL
   }
 
@@ -44,12 +44,11 @@ export class PaypalPlate extends Component {
   }
 
   /**
-   * Invoke all needed methods to create component
+   * Invokes all methods after creating component
    *
-   * @protected
-   * @memberof FacebookPlate
+   * @memberof Search
    */
-  protected create(): void {
+  public postProcess() {
     // FILL
   }
 
@@ -60,12 +59,12 @@ export class PaypalPlate extends Component {
 </header>
 <div class="plate__container paypal-plate">
     <aside class="container__details">
-        <p class="item__title">Nazwa użytkownika</p>
-        <p class="item__value">${this.userData.username}</p>
-        <p class="item__title">Środki na koncie</p>
-        <p class="item__value paypal--color-blue">${this.userData.amount}</p>
-        <p class="item__title">Połączona karta</p>
-        <p class="item__value item__value--last paypal--color-card">${
+        <p class="label__title">Nazwa użytkownika</p>
+        <p class="label__value">${this.userData.username}</p>
+        <p class="label__title">Środki na koncie</p>
+        <p class="label__value paypal--color-blue">${this.userData.amount}</p>
+        <p class="label__title">Połączona karta</p>
+        <p class="label__value label__value--last paypal--color-card">${
           this.userData.connectedCard
         }</p>
     </aside>
@@ -76,13 +75,13 @@ export class PaypalPlate extends Component {
                   this.userData.avatar
                 }" alt="avatar" class="profile__avatar">
                 <div>
-                    <p class="item__title">Typ konta</p>
-                    <p class="item__value">${this.userData.type}</p>
+                    <p class="label__title">Typ konta</p>
+                    <p class="label__value">${this.userData.type}</p>
                 </div>
             </div>
             <div>
-                <p class="item__title">Email</p>
-                <p class="item__value paypal--color-blue">${
+                <p class="label__title">Email</p>
+                <p class="label__value paypal--color-blue">${
                   this.userData.email
                 }</p>
             </div>
@@ -105,3 +104,5 @@ export class PaypalPlate extends Component {
     // FILL
   }
 }
+
+export default new PaypalPlate();

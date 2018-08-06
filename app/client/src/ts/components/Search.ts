@@ -5,7 +5,8 @@
 import { SearchController } from "../controller/Search";
 import { style } from "../utils/Style";
 import { Component } from "./Component";
-export class Search extends Component {
+
+class Search extends Component {
   // Input
   protected element: HTMLInputElement;
   protected resultBox: HTMLElement;
@@ -19,8 +20,7 @@ export class Search extends Component {
   };
 
   constructor(
-    el: string,
-    options?: object,
+    el: string = "#searchbox__search-input",
     result: string = "#searchbox__result",
     backdrop: string = "#background__backdrop"
   ) {
@@ -28,19 +28,18 @@ export class Search extends Component {
     this.element = document.querySelector(el);
     this.resultBox = document.querySelector(result);
     this.backdrop = document.querySelector(backdrop);
-
-    // Overwrite options
-    Object.assign(this.checkerOptions, options);
-    this.create();
   }
 
   /**
-   * Invokes all methods after creating component
+   * Attach event listeners to input, backdrop and resultbox
    *
+   * @param {object} [options]
    * @memberof Search
    */
-  public postProcess() {
-    // FILL
+  public create(options?: object): void {
+    // Overwrite options
+    Object.assign(this.checkerOptions, options);
+    this.controller();
   }
 
   /**
@@ -54,13 +53,12 @@ export class Search extends Component {
   }
 
   /**
-   * Attach event listeners to input, backdrop and resultbox
+   * Invokes all methods after creating component
    *
-   * @protected
    * @memberof Search
    */
-  protected create(): void {
-    this.controller();
+  public postProcess(): void {
+    // FILL
   }
 
   /**
@@ -117,8 +115,9 @@ export class Search extends Component {
     });
 
     // Show backdrop with activating search input
-    this.element.addEventListener("click", (_: any) => {
+    this.element.addEventListener("click", (ev: any) => {
       style(this.backdrop, { opacity: 1, visibility: "visible" });
+      this.view(ev)
     });
 
     // After clicking backdrop it will fade out with result box
@@ -130,6 +129,8 @@ export class Search extends Component {
         style(this.backdrop, { visibility: "hidden" });
         style(this.resultBox, { visibility: "hidden" });
       }, 500);
+      this.element.removeEventListener("keydown", (e: any) => e);
+      this.element.removeEventListener("click", (e: any) => e);
     });
   }
 
@@ -146,7 +147,7 @@ export class Search extends Component {
   protected addItem(type: string, action: string, view: string): Element {
     const item = document.createElement("a");
     item.classList.add("searchbox__item");
-    item.href = `#${view}`;
+    item.dataset.searchItemAction = view;
     item.innerHTML = `
     <div class="item__icon">
       <i class="fas fa-${type}" style="font-size: 1.3rem; color: #59B369;"></i>
@@ -155,4 +156,10 @@ export class Search extends Component {
     `;
     return item;
   }
+
+  // protected setActions() {
+
+  // }
 }
+
+export default new Search()

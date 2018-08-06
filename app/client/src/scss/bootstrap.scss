@@ -2,9 +2,17 @@ body {
   font-family: "Roboto", "Roboto Medium", "Roboto Black", sans-serif;
   background: $background;
   background-size: cover;
+  background-attachment: fixed;
   font-size: 100%;
   color: $primary-text;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+
+  // ------------ RESET H3, P ------------
+  h3,
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 a:visited,

@@ -1,5 +1,5 @@
 import { Chart } from "chart.js";
-import { Component } from "../Component";
+import { PlateComponent } from "../Component";
 import DigitalOceanConfig from "./DigitalOcean.json";
 
 interface IData {
@@ -10,7 +10,7 @@ interface IData {
   usage: string;
 }
 
-export class DigitalOceanPlate extends Component {
+class DigitalOceanPlate extends PlateComponent {
   protected template: string;
   protected element: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
@@ -23,8 +23,26 @@ export class DigitalOceanPlate extends Component {
     usage: "$0.00"
   };
 
-  constructor(data?: IData) {
+  constructor() {
     super();
+  }
+
+  /**
+   * Invoke all needed methods to create component
+   *
+   * @memberof FacebookPlate
+   */
+  public create(): void {
+    // FILL
+  }
+
+  /**
+   * Update component
+   *
+   * @memberof FacebookPlate
+   */
+  public update(): void {
+    // FILL
   }
 
   /**
@@ -44,24 +62,6 @@ export class DigitalOceanPlate extends Component {
   }
 
   /**
-   * Update component
-   *
-   * @memberof FacebookPlate
-   */
-  public update(): void {
-    // FILL
-  }
-
-  /**
-   * Invoke all needed methods to create component
-   *
-   * @protected
-   * @memberof FacebookPlate
-   */
-  protected create(): void {
-    // FILL
-  }
-  /**
    * Generate template for DigitalOcean plate
    *
    * @protected
@@ -76,25 +76,25 @@ export class DigitalOceanPlate extends Component {
 <div class="plate__container digital-ocean-plate">
   <div class="container__details">
     <aside class="container__wrap">
-      <p class="item__title">Nazwa użytkownika</p>
-      <p class="item__value">${this.userData.username}</p>
-      <p class="item__title">Email</p>
-      <p class="item__value item__value--last">${this.userData.email}</p>
+      <p class="label__title">Nazwa użytkownika</p>
+      <p class="label__value">${this.userData.username}</p>
+      <p class="label__title">Email</p>
+      <p class="label__value label__value--last">${this.userData.email}</p>
     </aside>
     <aside class="container__wrap">
-      <p class="item__title">Środki na koncie</p>
-      <p class="item__value digital_ocean--color">${this.userData.amount}
+      <p class="label__title">Środki na koncie</p>
+      <p class="label__value digital_ocean--color">${this.userData.amount}
       </p>
-      <p class="item__title">Dropletow</p>
-      <p class="item__value item__value--last digital_ocean--color">${
+      <p class="label__title">Dropletow</p>
+      <p class="label__value label__value--last digital_ocean--color">${
         this.userData.droplets
       }
       </p>
     </aside>
     <aside class="container__wrap">
       <div class="container__item">
-        <p class="item__title">Zużycie środkow</p>
-        <p class="item__value digital_ocean--color">${this.userData.usage}
+        <p class="label__title">Zużycie środkow</p>
+        <p class="label__value digital_ocean--color">${this.userData.usage}
         </p>
       </div>
       <button class="item__btn">Doładuj</button>
@@ -166,10 +166,17 @@ export class DigitalOceanPlate extends Component {
    */
   protected _modifyDataset(): void {
     DigitalOceanConfig.dataset.forEach((el: any) => {
-      el.backgroundColor = this._createGradient(
-        el.backgroundColor.start,
-        el.backgroundColor.stop
-      );
+      if (
+        el.backgroundColor.hasOwnProperty("start") &&
+        el.backgroundColor.hasOwnProperty("stop")
+      ) {
+        el.backgroundColor = this._createGradient(
+          el.backgroundColor.start,
+          el.backgroundColor.stop
+        );
+      }
     });
   }
 }
+
+export default new DigitalOceanPlate();

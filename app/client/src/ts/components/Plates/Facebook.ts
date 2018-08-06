@@ -1,4 +1,4 @@
-import { Component } from "../Component";
+import { PlateComponent } from "../Component";
 
 interface IData {
   username: string;
@@ -8,7 +8,7 @@ interface IData {
   messages: string;
 }
 
-export class FacebookPlate extends Component {
+class FacebookPlate extends PlateComponent {
   protected template: string;
   protected userData: IData = {
     username: "Jon Doe",
@@ -18,16 +18,16 @@ export class FacebookPlate extends Component {
     messages: "12"
   };
 
-  constructor(data?: IData) {
+  constructor() {
     super();
   }
 
   /**
-   * Invokes all methods after creating component
+   * Invoke all needed methods to create component
    *
-   * @memberof Search
+   * @memberof FacebookPlate
    */
-  public postProcess() {
+  public create(): void {
     // FILL
   }
 
@@ -41,12 +41,11 @@ export class FacebookPlate extends Component {
   }
 
   /**
-   * Invoke all needed methods to create component
+   * Invokes all methods after creating component
    *
-   * @protected
-   * @memberof FacebookPlate
+   * @memberof Search
    */
-  protected create(): void {
+  public postProcess() {
     // FILL
   }
 
@@ -58,14 +57,14 @@ export class FacebookPlate extends Component {
 <div class="plate__container facebook-plate">
     <div class="container">
         <aside class="container__details">
-            <p class="item__title">Nazwa użytkownika</p>
-            <p class="item__value">${this.userData.username}</p>
-            <p class="item__title">Email</p>
-            <p class="item__value facebook--color-blue">${
+            <p class="label__title">Nazwa użytkownika</p>
+            <p class="label__value">${this.userData.username}</p>
+            <p class="label__title">Email</p>
+            <p class="label__value facebook--color-blue">${
               this.userData.email
             }</p>
-            <p class="item__title">Numer telefonu</p>
-            <p class="item__value item__value--last facebook--color-green">${
+            <p class="label__title">Numer telefonu</p>
+            <p class="label__value label__value--last facebook--color-green">${
               this.userData.phoneNumber
             }
             </p>
@@ -75,8 +74,8 @@ export class FacebookPlate extends Component {
                 <div class="flex">
                     <i class="fas fa-bell fa-2x" style="color: #3C5A9A; padding-right: 10px;"></i>
                     <div class="message_text">
-                        <p class="item__title">Powiadomień</p>
-                        <p class="item__value">${
+                        <p class="label__title">Powiadomienia</p>
+                        <p class="label__value">${
                           this.userData.notifications
                         }</p>
                     </div>
@@ -84,20 +83,14 @@ export class FacebookPlate extends Component {
                 <div class="flex">
                     <i class="fas fa-comment-dots fa-2x" style="color: #3C5A9A; padding-right: 10px;"></i>
                     <div class="message_text">
-                        <p class="item__title">Wiadomości</p>
-                        <p class="item__value item__value--last">${
+                        <p class="label__title">Wiadomości</p>
+                        <p class="label__value label__value--last">${
                           this.userData.messages
                         }
                         </p>
                     </div>
                 </div>
             </div>
-            <!-- <div class="post">
-              <textarea class="post__message" name="post_message" id="post_message" cols="20" rows="4" placeholder="Czym chcesz się podzielić z innymi?"></textarea>
-              <button class="item__btn btn--color-green">
-                  <i class="fas fa-paper-plane"></i>
-              </button>
-          </div> -->
         </div>
     </div>
 </div>`;
@@ -113,3 +106,5 @@ export class FacebookPlate extends Component {
     // FILL
   }
 }
+
+export default new FacebookPlate();

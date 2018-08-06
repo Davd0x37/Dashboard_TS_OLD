@@ -1,4 +1,4 @@
-import { Component } from "../Component";
+import { PlateComponent } from "../Component";
 
 interface IData {
   username: string;
@@ -7,7 +7,7 @@ interface IData {
   expire: string;
 }
 
-export class SpotifyPlate extends Component {
+class SpotifyPlate extends PlateComponent {
   protected template: string;
   protected userData: IData = {
     username: "Jon Doe",
@@ -16,16 +16,16 @@ export class SpotifyPlate extends Component {
     expire: "13 dni"
   };
 
-  constructor(data?: IData) {
+  constructor() {
     super();
   }
 
   /**
-   * Invokes all methods after creating component
+   * Invoke all needed methods to create component
    *
-   * @memberof Search
+   * @memberof FacebookPlate
    */
-  public postProcess() {
+  public create(): void {
     // FILL
   }
 
@@ -39,12 +39,11 @@ export class SpotifyPlate extends Component {
   }
 
   /**
-   * Invoke all needed methods to create component
+   * Invokes all methods after creating component
    *
-   * @protected
-   * @memberof FacebookPlate
+   * @memberof Search
    */
-  protected create(): void {
+  public postProcess() {
     // FILL
   }
 
@@ -55,19 +54,19 @@ export class SpotifyPlate extends Component {
 </header>
 <div class="plate__container spotify-plate">
   <aside class="container__details">
-    <p class="item__title">Nazwa użytkownika</p>
-    <p class="item__value">${this.userData.username}</p>
-    <p class="item__title">Email</p>
-    <p class="item__value">${this.userData.email}</p>
-    <p class="item__title">Typ konta</p>
-    <p class="item__value item__value--last spotify__title--color">${
+    <p class="label__title">Nazwa użytkownika</p>
+    <p class="label__value">${this.userData.username}</p>
+    <p class="label__title">Email</p>
+    <p class="label__value">${this.userData.email}</p>
+    <p class="label__title">Typ konta</p>
+    <p class="label__value label__value--last spotify__title--color">${
       this.userData.type
     }
     </p>
   </aside>
   <div class="container__other">
-    <p class="item__value">Termin wygaśnięcia subskrypcji</p>
-    <p class="item__value spotify__title--color">${this.userData.expire}</p>
+    <p class="label__value">Termin wygaśnięcia subskrypcji</p>
+    <p class="label__value spotify__title--color">${this.userData.expire}</p>
     <button class="item__btn">Przedłuż</button>
   </div>
 </div>`;
@@ -83,3 +82,5 @@ export class SpotifyPlate extends Component {
     // FILL
   }
 }
+
+export default new SpotifyPlate();

@@ -1,13 +1,19 @@
 @import "./lib/normalize";
+// UTILS
 @import "colors";
 @import "mixins";
+
+// SECTIONS
+@import "bootstrap";
+@import "header";
+@import "main";
+
+// COMPONENTS
+@import "./components/label";
 @import "./components/tooltip";
-@import "./components/grid";
+@import "./components/backdrop";
+@import "./components/plate_grid";
 @import "./components/plates/spotify";
 @import "./components/plates/digitalocean";
 @import "./components/plates/paypal";
 @import "./components/plates/facebook";
-
-@import "bootstrap";
-@import "header";
-@import "main";

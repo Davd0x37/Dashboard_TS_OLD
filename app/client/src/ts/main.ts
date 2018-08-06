@@ -1,23 +1,10 @@
 import App from "./App";
-import {
-  DigitalOceanPlate,
-  FacebookPlate,
-  PaypalPlate,
-  SpotifyPlate
-} from "./components/Plates";
-import { Search } from "./components/Search";
+App.create()
 
-const searchs = new Search("#searchbox__search-input")
 
-import { User } from "./controller/User";
-User.authenticate("Mark", "test1").then(res => console.log(res));
-App.addPlates(document.querySelector(".feed"), [
-  new SpotifyPlate(),
-  new DigitalOceanPlate(),
-  new PaypalPlate(),
-  new FacebookPlate()
-]);
-
-window.addEventListener("hashchange", ev => {
-  console.log(ev);
-});
+const searchActions: any = document.querySelectorAll("data-search-item-action")
+searchActions.forEach((action: any) => {
+  action.addEventListener("click", (e: any) => {
+    console.log(e)
+  })
+})
