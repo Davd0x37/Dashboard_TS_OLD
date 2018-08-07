@@ -7,11 +7,15 @@ body {
   color: $primary-text;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 
-  // ------------ RESET H3, P ------------
   h3,
   p {
     margin: 0;
     padding: 0;
+  }
+
+  input {
+    color: $primary-text;
+    outline: none;
   }
 }
 
@@ -20,8 +24,4 @@ a:link,
 a:active {
   text-decoration: none;
   color: $primary-text;
-}
-
-.flex {
-  display: flex;
 }

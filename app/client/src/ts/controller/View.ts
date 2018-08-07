@@ -1,5 +1,6 @@
 import App from "../App";
-import { PlateComponent } from '../components/Component';
+import { PlateComponent } from "../components/Component";
+import Header from "../components/Header";
 import Plates, {
   DigitalOceanPlate,
   FacebookPlate,
@@ -23,22 +24,18 @@ export const View = {
    * @param {any[]} plates
    * @memberof App
    */
-  addPlates(
+  renderPlates(
     plates: PlateComponent[] = Plates,
     where: Element = document.querySelector(".feed")
   ) {
     plates.forEach((plate: PlateComponent) => {
-      where.appendChild(plate.renderPlate());
+      where.appendChild(plate.createPlate());
       plate.postProcess();
     });
   },
 
-  /**
-   * Init searchbar
-   *
-   */
-  initSearch() {
-    Search.create();
+  renderHeader() {
+    Header.create();
   },
 
   /**

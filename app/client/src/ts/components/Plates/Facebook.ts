@@ -43,12 +43,18 @@ class FacebookPlate extends PlateComponent {
   /**
    * Invokes all methods after creating component
    *
-   * @memberof Search
+   * @memberof FacebookPlate
    */
-  public postProcess() {
+  public postProcess(): void {
     // FILL
   }
 
+  /**
+   * Create and update view
+   *
+   * @protected
+   * @memberof FacebookPlate
+   */
   protected view(): void {
     this.template = `<header class="plate__brand">
     <i class="fab fa-facebook fa-2x" style="color: #3C5A9A;"></i>

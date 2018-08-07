@@ -54,28 +54,27 @@ export abstract class PlateComponent extends Component {
    * Create plate
    *
    * @returns {Element}
-   * @memberof Component
+   * @memberof PlateComponent
    */
-  public renderPlate(data?: object): Element {
-    this.createTemplate(data);
-    const article = document.createElement("article");
-    article.classList.add("plate");
-    // article.classList.add("plate__background");
-    article.innerHTML = this.template;
-    this.articleRef = article;
-    return article;
+  public createPlate(data?: object): Element {
+    this.renderTemplate(data);
+    const element = document.createElement("article");
+    element.classList.add("plate");
+    element.innerHTML = this.template;
+    this.articleRef = element;
+    return element;
   }
   /**
    * Update template with new data
    *
    * @param {object} data
-   * @memberof Component
+   * @memberof PlateComponent
    */
   public updatePlate(data: object) {
     while (this.articleRef.firstChild) {
       this.articleRef.removeChild(this.articleRef.firstChild);
     }
-    this.createTemplate(data);
+    this.create(data);
     this.articleRef.innerHTML = this.template;
     this.postProcess();
   }
@@ -84,9 +83,9 @@ export abstract class PlateComponent extends Component {
    *
    * @protected
    * @param {object} [data]
-   * @memberof Component
+   * @memberof PlateComponent
    */
-  protected createTemplate(data?: object) {
+  protected renderTemplate(data?: object) {
     Object.assign(this.userData, data);
     this.view();
   }

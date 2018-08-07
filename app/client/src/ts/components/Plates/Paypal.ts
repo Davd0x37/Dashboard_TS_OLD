@@ -28,7 +28,7 @@ class PaypalPlate extends PlateComponent {
   /**
    * Invoke all needed methods to create component
    *
-   * @memberof FacebookPlate
+   * @memberof PaypalPlate
    */
   public create(): void {
     // FILL
@@ -37,7 +37,7 @@ class PaypalPlate extends PlateComponent {
   /**
    * Update component
    *
-   * @memberof FacebookPlate
+   * @memberof PaypalPlate
    */
   public update(): void {
     // FILL
@@ -46,12 +46,18 @@ class PaypalPlate extends PlateComponent {
   /**
    * Invokes all methods after creating component
    *
-   * @memberof Search
+   * @memberof PaypalPlate
    */
   public postProcess() {
     // FILL
   }
 
+  /**
+   * Create and update view
+   *
+   * @protected
+   * @memberof PaypalPlate
+   */
   protected view(): void {
     this.template = `<header class="plate__brand">
     <i class="fab fa-paypal fa-2x" style="color: #0D96D9;"></i>
@@ -98,7 +104,7 @@ class PaypalPlate extends PlateComponent {
    * Controll buttons and all data
    *
    * @protected
-   * @memberof FacebookPlate
+   * @memberof PaypalPlate
    */
   protected controller(): void {
     // FILL

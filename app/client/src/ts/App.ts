@@ -5,20 +5,6 @@ import { View } from "./controller/View";
 class App extends Component {
   protected client: ApolloClient<any>;
 
-  /**
-   * Default mock visible while loading data
-   *
-   * @private
-   * @type {object}
-   * @memberof App
-   */
-  private defaultData: object = {
-    user: {
-      avatar: "avatar.png",
-      name: "Vernon Roche"
-    }
-  };
-
   constructor() {
     super();
   }
@@ -46,21 +32,44 @@ class App extends Component {
    */
   public create(): void {
     this.setupClient();
-    this.renderView();
+    this.view();
   }
 
+  /**
+   * Update component
+   *
+   * @memberof App
+   */
   public update(): void {
     // FILL
   }
 
+  /**
+   * Methods invoked after creating component
+   *
+   * @memberof App
+   */
   public postProcess(): void {
     // FILL
   }
 
+  /**
+   * App view
+   *
+   * @protected
+   * @memberof App
+   */
   protected view(): void {
-    // FILL
+    View.renderHeader();
+    View.renderPlates();
   }
 
+  /**
+   * Controller
+   *
+   * @protected
+   * @memberof App
+   */
   protected controller(): void {
     // FILL
   }
@@ -75,17 +84,6 @@ class App extends Component {
     this.client = new ApolloClient({
       uri: "http://localhost:4000"
     });
-  }
-
-  /**
-   * Render view
-   *
-   * @protected
-   * @memberof App
-   */
-  protected renderView() {
-    View.addPlates();
-    View.initSearch();
   }
 }
 

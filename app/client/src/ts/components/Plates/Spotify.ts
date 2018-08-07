@@ -23,7 +23,7 @@ class SpotifyPlate extends PlateComponent {
   /**
    * Invoke all needed methods to create component
    *
-   * @memberof FacebookPlate
+   * @memberof SpotifyPlate
    */
   public create(): void {
     // FILL
@@ -32,7 +32,7 @@ class SpotifyPlate extends PlateComponent {
   /**
    * Update component
    *
-   * @memberof FacebookPlate
+   * @memberof SpotifyPlate
    */
   public update(): void {
     // FILL
@@ -41,12 +41,18 @@ class SpotifyPlate extends PlateComponent {
   /**
    * Invokes all methods after creating component
    *
-   * @memberof Search
+   * @memberof SpotifyPlate
    */
-  public postProcess() {
+  public postProcess(): void {
     // FILL
   }
 
+  /**
+   * Create and update view
+   *
+   * @protected
+   * @memberof SpotifyPlate
+   */
   protected view(): void {
     this.template = `<header class="plate__brand">
   <i class="fab fa-spotify fa-2x" style="color: #B5EB00;"></i>
@@ -76,7 +82,7 @@ class SpotifyPlate extends PlateComponent {
    * Controll buttons and all data
    *
    * @protected
-   * @memberof FacebookPlate
+   * @memberof SpotifyPlate
    */
   protected controller(): void {
     // FILL

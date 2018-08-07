@@ -30,7 +30,7 @@ class DigitalOceanPlate extends PlateComponent {
   /**
    * Invoke all needed methods to create component
    *
-   * @memberof FacebookPlate
+   * @memberof DigitalOceanPlate
    */
   public create(): void {
     // FILL
@@ -39,7 +39,7 @@ class DigitalOceanPlate extends PlateComponent {
   /**
    * Update component
    *
-   * @memberof FacebookPlate
+   * @memberof DigitalOceanPlate
    */
   public update(): void {
     // FILL
@@ -48,7 +48,7 @@ class DigitalOceanPlate extends PlateComponent {
   /**
    * Invokes all methods after creating component
    *
-   * @memberof Search
+   * @memberof DigitalOceanPlate
    */
   public postProcess() {
     // Get canvas
@@ -112,7 +112,7 @@ class DigitalOceanPlate extends PlateComponent {
    * Controll buttons and all data
    *
    * @protected
-   * @memberof FacebookPlate
+   * @memberof DigitalOceanPlate
    */
   protected controller(): void {
     // FILL
