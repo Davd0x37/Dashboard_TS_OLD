@@ -7,16 +7,9 @@ import Plates, {
   PaypalPlate,
   SpotifyPlate
 } from "../components/Plates";
-import Search from "../components/Search";
-
-enum EView {
-  PAYPAL,
-  DIGITALOCEAN,
-  FACEBOOK,
-  SPOTIFY
-}
 
 export const View = {
+  viewRenderer: document.querySelector(".feed__actions > .plate__container"),
   /**
    * Generate plates at startup
    *
@@ -43,11 +36,7 @@ export const View = {
    *
    * @param {EView} view
    */
-  renderView(view: EView) {
-    switch (view) {
-      case EView.PAYPAL: {
-        // App.addPlates
-      }
-    }
+  renderView(view: string) {
+    this.viewRenderer.innerHTML = view;
   }
 };

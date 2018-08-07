@@ -54,7 +54,7 @@ class Header extends Component {
     Object.assign(this.userData, data); // Update user data
     Object.assign(this.checkerOptions, options); // Update searchbox options
     this.renderUserProfile();
-    this.controller()
+    this.controller();
   }
 
   /**
@@ -136,20 +136,21 @@ class Header extends Component {
    */
   protected refreshSearch(ev: any): void {
     if (ev.target.value.length !== 0) {
-      style(this.resultBox, { opacity: 1, visibility: "visible" });
-
-      // Clear box every time after typing
-      this.resultBox.innerHTML = "";
-
       // Get all actions matched to searched value
       const actions = SearchController.searchAction(ev.target.value);
-      // Add all matched results to result box
-      actions.forEach((action: any) => {
-        // Add item to results
-        this.resultBox.appendChild(
-          this.addItem(action.icon, action.action, action.view)
-        );
-      });
+      if (actions.length >= 1) {
+        // Show resultbox
+        style(this.resultBox, { opacity: 1, visibility: "visible" });
+        // Clear box every time after typing
+        this.resultBox.innerHTML = "";
+        // Add all matched results to result box
+        actions.forEach((action: any) => {
+          // Add item to results
+          this.resultBox.appendChild(
+            this.addItem(action.icon, action.action, action.view)
+          );
+        });
+      }
     }
     // If input is empty hide result box
     if (ev.target.value.length === 0) {
@@ -173,7 +174,9 @@ class Header extends Component {
   protected addItem(type: string, action: string, view: string): Element {
     const item = document.createElement("a");
     item.classList.add("searchbox__item");
-    item.dataset.searchItemAction = view;
+    item.onclick = () => {
+      View.renderView(view);
+    };
     item.innerHTML = `
     <div class="item__icon">
       <i class="fas fa-${type}" style="font-size: 1.3rem; color: #59B369;"></i>
