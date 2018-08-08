@@ -14,9 +14,13 @@
   "devDependencies": {
     "@types/lodash": "^4.14.116",
     "@types/chart.js": "2.7.30",
+    "@types/webpack": "4.4.8",
     "babel-plugin-transform-custom-element-classes": "0.1.0",
     "node-sass": "4.9.2",
-    "parcel-bundler": "1.9.7"
+    "parcel-bundler": "1.9.7",
+    "webpack-cli": "3.1.0",
+    "awesome-typescript-loader": "5.2.0",
+    "webpack": "4.16.3"
   },
   "dependencies": {
     "apollo-boost": "0.1.12",

@@ -2,12 +2,20 @@
   // ------------ FEED SECTION ------------
   .feed {
     margin: 20px;
+
+    &:hover, &:active ~ .feed__actions {
+      transform: translateX(0);
+    }
   }
 
   // ------------ FEED ACTIONS ------------
   .feed__actions {
     margin: 20px;
     min-width: 320px;
+    background: #000;
+    position: absolute;
+    top: 80px;
+    transform: translateX(-150%);
 
     @include above_size("1024px") {
       width: 100%;
