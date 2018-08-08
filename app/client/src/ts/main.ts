@@ -1,3 +1,9 @@
+// Import polyfill
+import "@fortawesome/fontawesome-free"
+import "../public/polyfill.min"
+// Import styles
+import "../scss/index.scss"
+
 import App from "./App";
 App.create()
 

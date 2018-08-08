@@ -27,7 +27,7 @@ class Header extends Component {
   // User details showed before app is load them
   protected userData: IData = {
     username: "Vernon",
-    avatar: "avatar.f01dff67.png"
+    avatar: ""
   };
 
   constructor(

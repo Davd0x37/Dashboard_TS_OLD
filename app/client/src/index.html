@@ -1,47 +1,34 @@
 <!DOCTYPE html>
-
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Android -->
   <meta name="theme-color" content="#000">
   <meta name="mobile-web-app-capable" content="yes">
-
   <!-- iOS -->
   <meta name="apple-mobile-web-app-title" content="Dashboard">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
   <!-- Pinned Sites  -->
   <meta name="application-name" content="Dashboard">
   <meta name="msapplication-tooltip" content="Dashboard app">
   <meta name="msapplication-starturl" content="/">
-
   <!-- Tap highlighting  -->
   <meta name="msapplication-tap-highlight" content="no">
-
   <!-- UC Mobile Browser  -->
   <meta name="full-screen" content="yes">
   <meta name="browsermode" content="application">
-
   <!-- Disable night mode for this page  -->
   <meta name="nightmode" content="enable">
-
   <!-- imagemode - show image even in text only mode  -->
   <meta name="imagemode" content="force">
-
   <!-- Orientation  -->
   <meta name="screen-orientation" content="portrait">
 
   <title>Dashboard</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>-->
-  <!-- <script src="socket.io/socket.io.js"></script> -->
-  <link href="./scss/index.scss" rel="stylesheet">
-  <script src="./ts/ServiceWorker.ts"></script>
 </head>
 
 <body>
@@ -72,7 +59,6 @@
     <section class="feed__actions plate">
       <div class="plate__container">
         <p class="label__title">Old password</p>
-        <input type="text" name="old_password" id="old_password" class="plate__input plate__input--error">
       </div>
     </section>
   </main>
@@ -80,9 +66,9 @@
   <div id="tooltip_cloud" class="tooltip">
     <p class="tooltip__message"></p>
   </div>
-  <script src="./public/polyfill.min.js"></script>
-  <!--Font Awesome -->
-  <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
-    crossorigin="anonymous"></script>
-  <script src="ts/main.ts"></script>
+
+  <script async src="ts/main.ts"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="preload" as="style">
+  <script src="ts/ServiceWorker.ts"></script>
 </body>
+</html>

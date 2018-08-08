@@ -1,7 +1,7 @@
 const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
 const filesToCache = [
-  "index.html"
+  "index.html",
 ];
 
 const DashboardSW = {
@@ -23,7 +23,7 @@ const DashboardSW = {
    * @param req
    * @returns {Promise<Response>}
    */
-  updateCache(req: Request) {
+   updateCache(req: Request): Promise<Response> {
     return fetch(req).then((res: any) => {
       caches.open(cacheName).then((cache: any) => cache.put(req, res.clone()));
       return res;
@@ -38,7 +38,7 @@ const DashboardSW = {
    * @param req
    * @returns {Promise<Cache>}
    */
-  filesFromCache(req: Request) {
+  filesFromCache(req: Request): Promise<Cache> {
     return caches.open(cacheName).then((cache: any) => {
       return cache.match(req).then((matching: any) => {
         return matching || Promise.reject("No matching files in cache!");
@@ -51,7 +51,7 @@ const DashboardSW = {
    * @param {Request} req
    * @returns {Promise<Response>}
    */
-  filesFromServer(req: Request) {
+  filesFromServer(req: Request): Promise<Response> {
     return fetch(req).then(res => res);
   }
 };

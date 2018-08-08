@@ -18,7 +18,7 @@ class PaypalPlate extends PlateComponent {
     type: "Osobiste",
     amount: "$200.00",
     connectedCard: "VISA",
-    avatar: "./avatar.f01dff67.png"
+    avatar: ""
   };
 
   constructor() {
