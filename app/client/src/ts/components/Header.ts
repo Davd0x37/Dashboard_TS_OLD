@@ -121,6 +121,7 @@ class Header extends Component {
       setTimeout(() => {
         style(this.backdrop, { visibility: "hidden" });
         style(this.resultBox, { visibility: "hidden" });
+        this.resultBox.innerHTML = "";
       }, 500);
       this.element.removeEventListener("keydown", (e: any) => e);
       this.element.removeEventListener("click", (e: any) => e);

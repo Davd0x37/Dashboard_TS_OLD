@@ -3,6 +3,12 @@ body {
   background: $background;
   background-size: cover;
   background-attachment: fixed;
+  // background: rgb(40, 36, 65);
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(40, 36, 65, 1) 0%,
+  //   rgba(76, 77, 140, 1) 100%
+  // );
   font-size: 100%;
   color: $primary-text;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
