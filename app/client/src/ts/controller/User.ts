@@ -25,7 +25,9 @@ export const UserActions = [
   {
     action: "Change name",
     icon: "signature",
-    view: "changeName"
+    view: `
+    <div>Username</div>
+    `
   },
   {
     action: "Change password",

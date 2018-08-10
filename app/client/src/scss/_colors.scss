@@ -1,9 +1,9 @@
 $primary-text: #F5F7FA;
 $primary-border: #374355;
-// $background: #2B2C34;
+$background_fallback: #2B2C34;
 $background: url('../public/img/background_x.webp');
 $background_mobile: url('../public/img/background_mobile.webp');
-// $background_mobile: #2B2C34;
+$background_mobile_fallback: #2B2C34;
 $second-text: #777677;
 $primary-green: #59B369;
 $spotify: #03BD5B;

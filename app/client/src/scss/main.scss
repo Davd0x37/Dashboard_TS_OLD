@@ -1,11 +1,10 @@
 .main {
+  transition: transform 330ms ease-in-out;
+
+
   // ------------ FEED SECTION ------------
   .feed {
     margin: 20px;
-
-    &:hover, &:active ~ .feed__actions {
-      transform: translateX(0);
-    }
   }
 
   // ------------ FEED ACTIONS ------------
@@ -13,13 +12,21 @@
     margin: 20px;
     min-width: 320px;
     background: #000;
-    position: absolute;
-    top: 80px;
-    transform: translateX(-150%);
+    // transition: transform 330ms ease-in-out;
+
+    @include below_size("1024px") {
+      position: absolute;
+      top: 80px;
+      transform: translateX(-150%);
+    }
 
     @include above_size("1024px") {
       width: 100%;
     }
+  }
+
+  .feed__actions--visible {
+    transform: translateX(0);
   }
 
   @include above_size("1024px") {
