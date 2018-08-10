@@ -1,3 +1,7 @@
+// Avatar
+// @ts-ignore
+import avatar from "../../../public/img/avatar.webp"
+
 import { PlateComponent } from "../Component";
 
 interface IData {
@@ -8,7 +12,6 @@ interface IData {
   type: string;
   amount: string;
 }
-
 class PaypalPlate extends PlateComponent {
   protected template: string;
 
@@ -18,7 +21,7 @@ class PaypalPlate extends PlateComponent {
     type: "Osobiste",
     amount: "$200.00",
     connectedCard: "VISA",
-    avatar: ""
+    avatar
   };
 
   constructor() {

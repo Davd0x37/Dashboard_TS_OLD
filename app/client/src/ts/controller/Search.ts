@@ -1,5 +1,3 @@
-import gql from "graphql-tag";
-import { find } from "lodash";
 import App from "../App";
 import { UserActions } from "./User";
 

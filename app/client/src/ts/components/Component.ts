@@ -86,7 +86,7 @@ export abstract class PlateComponent extends Component {
    * @memberof PlateComponent
    */
   protected renderTemplate(data?: object) {
-    Object.assign(this.userData, data);
+    this.userData = { ...this.userData, ...data };
     this.view();
   }
 }

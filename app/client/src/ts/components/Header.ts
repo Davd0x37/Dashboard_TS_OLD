@@ -1,3 +1,7 @@
+// Avatar
+// @ts-ignore
+import avatar from "../../public/img/avatar.webp";
+
 import { SearchController } from "../controller/Search";
 import { View } from "../controller/View";
 import { style } from "../utils/Style";
@@ -27,7 +31,7 @@ class Header extends Component {
   // User details showed before app is load them
   protected userData: IData = {
     username: "Vernon",
-    avatar: ""
+    avatar
   };
 
   constructor(
@@ -48,11 +52,11 @@ class Header extends Component {
    */
   public create({
     options = {},
-    data = {}
+    data = {username:"", avatar:""}
   }: { options?: object; data?: IData } = {}): void {
     this.view(); // Render template
-    Object.assign(this.userData, data); // Update user data
-    Object.assign(this.checkerOptions, options); // Update searchbox options
+    this.userData = { ...this.userData, ...data };
+    this.checkerOptions = {...this.checkerOptions, ...options}
     this.renderUserProfile();
     this.controller();
   }
@@ -63,7 +67,7 @@ class Header extends Component {
    * @memberof Header
    */
   public update(data?: IData): void {
-    Object.assign(this.userData, data);
+    this.userData = { ...this.userData, ...data };
     this.view();
     this.renderUserProfile();
   }

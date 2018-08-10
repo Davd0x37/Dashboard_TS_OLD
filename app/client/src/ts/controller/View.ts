@@ -13,9 +13,8 @@ export const View = {
   /**
    * Generate plates at startup
    *
-   * @param {Element} where
-   * @param {any[]} plates
-   * @memberof App
+   * @param {PlateComponent[]} [plates=Plates]
+   * @param {Element} [where=document.querySelector(".feed")]
    */
   renderPlates(
     plates: PlateComponent[] = Plates,
@@ -27,6 +26,10 @@ export const View = {
     });
   },
 
+  /**
+   * Render header
+   *
+   */
   renderHeader() {
     Header.create();
   },
