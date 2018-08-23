@@ -1,5 +1,5 @@
 if (navigator.serviceWorker.controller) {
-  console.log("[PWA Builder] active service worker found, no need to register");
+  console.log("Service worker is active.");
 } else {
   navigator.serviceWorker
     .register("../sw.ts", {

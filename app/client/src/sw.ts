@@ -1,8 +1,6 @@
 const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
-const filesToCache = [
-  "index.html",
-];
+const filesToCache = ["index.html"];
 
 const DashboardSW = {
   /**
@@ -11,10 +9,16 @@ const DashboardSW = {
    * @returns {Promise<void>}
    */
   cacheFiles(files: string[]): Promise<void> {
-    return caches.open(cacheName).then((cache: any) => {
-      // console.log("Cached page files");
-      return cache.addAll(files);
-    });
+    return caches
+      .open(cacheName)
+      .then((cache: any) => {
+        // console.log("Cached page files");
+        return cache.addAll(files);
+      })
+      .then(() => {
+        // @ts-ignore
+        return self.skipWaiting();
+      });
   },
 
   /**
@@ -23,7 +27,7 @@ const DashboardSW = {
    * @param req
    * @returns {Promise<Response>}
    */
-   updateCache(req: Request): Promise<Response> {
+  updateCache(req: Request): Promise<Response> {
     return fetch(req).then((res: any) => {
       caches.open(cacheName).then((cache: any) => cache.put(req, res.clone()));
       return res;
@@ -73,12 +77,9 @@ self.addEventListener("fetch", (event: any) => {
   if (event.request.method !== "GET") {
     return;
   }
+  console.log(event.request.url)
   console.log("Serving the assets from cache");
-  event.respondWith(
-    DashboardSW.filesFromCache(event.request).catch(() =>
-      DashboardSW.filesFromServer(event.request)
-    )
-  );
+  event.respondWith(DashboardSW.filesFromCache(event.request).catch(() => DashboardSW.filesFromServer(event.request)));
   event.waitUntil(DashboardSW.updateCache(event.request));
 });
 

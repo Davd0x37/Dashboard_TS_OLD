@@ -1,45 +1,50 @@
-import App from "../App";
 import { PlateComponent } from "../components/Component";
 import Header from "../components/Header";
-import Plates, {
-  DigitalOceanPlate,
-  FacebookPlate,
-  PaypalPlate,
-  SpotifyPlate
-} from "../components/Plates";
+import Plates from "../components/Plates";
+import Storage from "./Storage";
 
 export const View = {
   viewRenderer: document.querySelector(".feed__actions > .plate__container"),
   /**
    * Generate plates at startup
    *
-   * @param {PlateComponent[]} [plates=Plates]
-   * @param {Element} [where=document.querySelector(".feed")]
+   * @returns {Promise<void>}
    */
-  renderPlates(
-    plates: PlateComponent[] = Plates,
-    where: Element = document.querySelector(".feed")
-  ) {
-    plates.forEach((plate: PlateComponent) => {
-      where.appendChild(plate.createPlate());
-      plate.postProcess();
+  renderPlates(): void {
+    Plates.forEach((plate: PlateComponent) => {
+      plate.addPlate();
+    });
+  },
+
+  /**
+   * Update paltes
+   *
+   * @param {string} id
+   * @returns {Promise<void>}
+   */
+  async updatePlates(id: string): Promise<void> {
+    Storage.create(id);
+    Plates.forEach((plate: PlateComponent) => {
+      plate.update();
     });
   },
 
   /**
    * Render header
    *
+   * @returns {Promise<void>}
    */
-  renderHeader() {
+  renderHeader(): void {
     Header.create();
   },
 
   /**
    * Render default view
    *
-   * @param {EView} view
+   * @param {string} view
+   * @returns {Promise<void>}
    */
-  renderView(view: string) {
+  renderView(view: string): void {
     this.viewRenderer.innerHTML = view;
   }
 };

@@ -1,0 +1,19 @@
+.authentication {
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .logo__image {
+      height: 96px;
+    }
+    .logo__title {
+      font-size: 2rem;
+      padding: 2rem;
+    }
+  }
+
+  .form {
+    // display: flex;
+    // flex-direction: column;
+  }
+}

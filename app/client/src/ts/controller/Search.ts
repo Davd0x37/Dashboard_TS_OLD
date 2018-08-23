@@ -1,4 +1,3 @@
-import App from "../App";
 import { UserActions } from "./User";
 
 export const SearchController = {

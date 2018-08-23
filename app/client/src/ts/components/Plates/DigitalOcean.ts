@@ -1,100 +1,60 @@
 import { Chart } from "chart.js";
+import Storage from "../../controller/Storage";
 import { PlateComponent } from "../Component";
 import DigitalOceanConfig from "./DigitalOcean.json";
 
-interface IData {
-  username: string;
-  email: string;
-  amount: string;
-  droplets: string;
-  usage: string;
-}
-
 class DigitalOceanPlate extends PlateComponent {
-  protected template: string;
-  protected element: HTMLCanvasElement;
+  protected canvas: HTMLCanvasElement;
   protected ctx: CanvasRenderingContext2D;
   protected chart: Chart;
-  protected userData: IData = {
-    username: "Jon Doe",
-    email: "jon@pm.me",
-    amount: "$200.00",
-    droplets: "1",
-    usage: "$0.00"
-  };
 
   constructor() {
     super();
   }
 
-  /**
-   * Invoke all needed methods to create component
-   *
-   * @memberof DigitalOceanPlate
-   */
   public create(): void {
-    // FILL
+    const template = this.view();
+    this.createPlate(template);
+    this.insertChart();
   }
 
-  /**
-   * Update component
-   *
-   * @memberof DigitalOceanPlate
-   */
   public update(): void {
-    // FILL
-  }
-
-  /**
-   * Invokes all methods after creating component
-   *
-   * @memberof DigitalOceanPlate
-   */
-  public postProcess() {
-    // Get canvas
-    this.element = this.articleRef.querySelector("#digital_ocean_chart");
-    // Get context
-    this.ctx = this.element.getContext("2d");
-    // Modify background colors in dataset
-    this._modifyDataset();
-    // Create chart
-    this._createChart();
+    const template = this.view();
+    this.article.innerHTML = template;
+    this.insertChart();
   }
 
   /**
    * Generate template for DigitalOcean plate
    *
    * @protected
-   * @param {IData} data
+   * @returns {string}
    * @memberof DigitalOceanPlate
    */
-  protected view(): void {
-    this.template = `<header class="plate__brand">
+  protected view(): string {
+    const data = Storage.store.services.digitalocean;
+    return `<header class="plate__brand">
   <i class="fab fa-digital-ocean fa-2x" style="color: #0080FF;"></i>
   <h3 class="plate__title">Digital Ocean</h3>
 </header>
 <div class="plate__container digital-ocean-plate">
   <div class="container__details">
     <aside class="container__wrap">
-      <p class="label__title">Nazwa użytkownika</p>
-      <p class="label__value">${this.userData.username}</p>
       <p class="label__title">Email</p>
-      <p class="label__value label__value--last">${this.userData.email}</p>
+      <p class="label__value label__value--no-capitalize label__value--last">${data.email}</p>
     </aside>
     <aside class="container__wrap">
-      <p class="label__title">Środki na koncie</p>
-      <p class="label__value digital_ocean--color">${this.userData.amount}
+      <p class="label__title">Limit dropletow</p>
+      <p class="label__value digital_ocean--color">${data.dropletLimit}
       </p>
-      <p class="label__title">Dropletow</p>
-      <p class="label__value label__value--last digital_ocean--color">${
-        this.userData.droplets
-      }
+      <p class="label__title">Dropletów</p>
+      <p class="label__value label__value--last digital_ocean--color">${data.total}
       </p>
     </aside>
     <aside class="container__wrap">
       <div class="container__item">
-        <p class="label__title">Zużycie środkow</p>
-        <p class="label__value digital_ocean--color">${this.userData.usage}
+        <p class="label__title">Ostatnio utworzony droplet</p>
+        <p class="label__value digital_ocean--color">${data.lastCreatedDroplet} dni temu
         </p>
       </div>
       <button class="item__btn">Doładuj</button>
@@ -108,14 +68,19 @@ class DigitalOceanPlate extends PlateComponent {
 </div>`;
   }
 
-  /**
-   * Controll buttons and all data
-   *
-   * @protected
-   * @memberof DigitalOceanPlate
-   */
-  protected controller(): void {
+  protected controller() {
     // FILL
+  }
+
+  protected insertChart() {
+    // Get canvas
+    this.canvas = this.article.querySelector("#digital_ocean_chart");
+    // Get context
+    this.ctx = this.canvas.getContext("2d");
+    // Modify background colors in dataset
+    this._modifyDataset();
+    // Create chart
+    this._createChart();
   }
 
   /**
@@ -145,13 +110,8 @@ class DigitalOceanPlate extends PlateComponent {
    * @memberof DigitalOceanPlate
    */
   protected _createGradient(start: string, stop: string): CanvasGradient {
-    const cv = this.element;
-    const gradient = this.ctx.createLinearGradient(
-      0,
-      cv.height / 2,
-      cv.width,
-      cv.height / 2
-    );
+    const cv = this.canvas;
+    const gradient = this.ctx.createLinearGradient(0, cv.height / 2, cv.width, cv.height / 2);
     gradient.addColorStop(0, start);
     gradient.addColorStop(1, stop);
     return gradient;
@@ -166,14 +126,8 @@ class DigitalOceanPlate extends PlateComponent {
    */
   protected _modifyDataset(): void {
     DigitalOceanConfig.dataset.forEach((el: any) => {
-      if (
-        el.backgroundColor.hasOwnProperty("start") &&
-        el.backgroundColor.hasOwnProperty("stop")
-      ) {
-        el.backgroundColor = this._createGradient(
-          el.backgroundColor.start,
-          el.backgroundColor.stop
-        );
+      if (el.backgroundColor.hasOwnProperty("start") && el.backgroundColor.hasOwnProperty("stop")) {
+        el.backgroundColor = this._createGradient(el.backgroundColor.start, el.backgroundColor.stop);
       }
     });
   }

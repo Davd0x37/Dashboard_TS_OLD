@@ -1,9 +1,9 @@
 import { CheckerPlugin } from "awesome-typescript-loader";
-import { join, resolve } from "path";
-import { webpackMode } from "./src/config/config";
-
 import HardLink from "hard-source-webpack-plugin";
+import { join, resolve } from "path";
 import nodeExternals from "webpack-node-externals";
+import { webpackMode } from "./src/config";
+
 
 export default {
   entry: "./src/GraphQLApp.ts",
@@ -31,9 +31,7 @@ export default {
       }
     ]
   },
-  externals: [
-    nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })
-  ],
+  externals: [nodeExternals({ modulesDir: resolve(__dirname, "../../node_modules") })],
   node: {
     __dirname: true
   },

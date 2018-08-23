@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "lib": [
-      "es2017",
-      "esnext",
-      "dom",
-      "es6"
-    ],
+    "lib": ["es2017", "esnext", "dom", "es6"],
     "removeComments": true,
     /* Strict Type-Checking Options */
     "strict": true,
@@ -36,9 +31,7 @@
     "baseUrl": ".",
     /* Base directory to resolve non-absolute module names. */
     "paths": {
-      "*": [
-        "./@types/*"
-      ]
+      "*": ["./@types/*"]
     },
     /* Type declaration files to be included in compilation. */
     "allowSyntheticDefaultImports": true,

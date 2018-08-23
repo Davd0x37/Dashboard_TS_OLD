@@ -33,13 +33,26 @@
   <title>Dashboard</title>
 
   <link rel="manifest" href="manifest.webmanifest">
+  <script src="ts/ServiceWorker.ts"></script>
   <link rel="stylesheet" href="scss/index.scss">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,900" rel="stylesheet"> -->
   <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js" integrity="sha384-4oV5EgaV02iISL2ban6c/RmotsABqE4yZxZLcYMAdG7FAPsyHYAPpywE9PJo+Khy"
     crossorigin="anonymous"></script>
 </head>
 
 <body>
+  <main class="plate authentication">
+    <div class="logo">
+      <img class="logo__image" src="./public/img/logo_1x.webp" alt="DashboardLogo">
+      <p class="logo__title">Dashboard</p>
+    </div>
+    <div class="plate__container form">
+      <p class="label__title">Login</p>
+      <input type="text">
+      <p class="label__title">Password</p>
+      <input type="text">
+
+    </div>
+  </main>
   <header class="header">
     <div class="logo">
       <a href="#">DASHBOARD</a>
@@ -59,16 +72,17 @@
         </a>
       </div>
     </div>
+    <div class="user__profile">
+    </div>
   </header>
-
   <main class="main">
     <aside class="feed">
     </aside>
-    <section class="feed__actions plate">
+    <!-- <section class="feed__actions plate">
       <div class="plate__container">
         <p class="label__title">Old password</p>
       </div>
-    </section>
+    </section> -->
   </main>
   <div id="background__backdrop" class="background__backdrop"></div>
   <div id="tooltip_cloud" class="tooltip">
@@ -87,8 +101,7 @@
       s.parentNode.insertBefore(wf, s);
     })(document);
   </script>
-  <script defer src="ts/main.ts"></script>
-  <script src="ts/ServiceWorker.ts"></script>
+  <script src="ts/main.ts"></script>
 </body>
 
 </html>

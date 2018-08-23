@@ -7,7 +7,7 @@ export abstract class Component {
    * @param {...any[]} args
    * @memberof Component
    */
-  public abstract create(...args: any[]): void;
+  public abstract create(...args: any[]): any;
   /**
    * Update component. Not for view. Update props, values etc.
    *
@@ -15,24 +15,17 @@ export abstract class Component {
    * @param {...any[]} args
    * @memberof Component
    */
-  public abstract update(...args: any[]): void;
-  /**
-   * Invoke all methods needed after creating component
-   *
-   * @abstract
-   * @param {...any[]} args
-   * @memberof Component
-   */
-  public abstract postProcess(...args: any[]): void;
+  public abstract update(...args: any[]): any;
   /**
    * Create and update view
    *
    * @protected
    * @abstract
    * @param {...any[]} args
+   * @returns {string}
    * @memberof Component
    */
-  protected abstract view(...args: any[]): void;
+  protected abstract view(...args: any[]): any;
   /**
    * Manage actions and events in component
    * Can use event listeners here
@@ -42,13 +35,16 @@ export abstract class Component {
    * @param {...any[]} args
    * @memberof Component
    */
-  protected abstract controller(...args: any[]): void;
+  protected abstract controller(...args: any[]): any;
 }
 
 export abstract class PlateComponent extends Component {
-  protected template: string;
-  protected articleRef: any;
-  protected userData: any;
+  protected article: HTMLElement;
+
+  public addPlate(): void {
+    this.create()
+    document.querySelector(".feed").appendChild(this.article);
+  }
 
   /**
    * Create plate
@@ -56,37 +52,9 @@ export abstract class PlateComponent extends Component {
    * @returns {Element}
    * @memberof PlateComponent
    */
-  public createPlate(data?: object): Element {
-    this.renderTemplate(data);
-    const element = document.createElement("article");
-    element.classList.add("plate");
-    element.innerHTML = this.template;
-    this.articleRef = element;
-    return element;
-  }
-  /**
-   * Update template with new data
-   *
-   * @param {object} data
-   * @memberof PlateComponent
-   */
-  public updatePlate(data: object) {
-    while (this.articleRef.firstChild) {
-      this.articleRef.removeChild(this.articleRef.firstChild);
-    }
-    this.create(data);
-    this.articleRef.innerHTML = this.template;
-    this.postProcess();
-  }
-  /**
-   * Create template
-   *
-   * @protected
-   * @param {object} [data]
-   * @memberof PlateComponent
-   */
-  protected renderTemplate(data?: object) {
-    this.userData = { ...this.userData, ...data };
-    this.view();
+  protected createPlate(template: string): void {
+    this.article = document.createElement("article");
+    this.article.classList.add("plate");
+    this.article.innerHTML = template;
   }
 }

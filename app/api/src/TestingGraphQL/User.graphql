@@ -1,9 +1,0 @@
-#{
-#  getUser(login:"ASD", id:"3ad76722-ff64-4fa2-bc63-3a824cf8455a") {
-#    avatar
-#  }
-##  getAllUsers {
-##    avatar
-##  }
-#}
-

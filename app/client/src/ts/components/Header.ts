@@ -1,48 +1,26 @@
-// Avatar
-// @ts-ignore
-import avatar from "../../public/img/avatar.webp";
-
 import { SearchController } from "../controller/Search";
-import { View } from "../controller/View";
-import { style } from "../utils/Style";
+import Storage, { IStoreValues } from "../controller/Storage";
+import { animate } from "../utils/Style";
 import { Component } from "./Component";
 
-interface IData {
-  username: string;
-  avatar: string;
-}
-
 class Header extends Component {
-  // Header template
-  protected template: string;
-
   // Input
-  protected element: HTMLInputElement;
-  protected resultBox: HTMLElement;
-  protected backdrop: HTMLElement;
+  protected searchElement: HTMLInputElement = document.querySelector(
+    "#searchbox__search-input",
+  );
+  protected searchResultBox: HTMLElement = document.querySelector(
+    "#searchbox__result",
+  );
+  protected searchBackdrop: HTMLElement = document.querySelector(
+    "#background__backdrop",
+  );
+  protected userProfile: HTMLElement = document.querySelector(".user__profile");
 
   // Timer for checking if user is typing
   protected checker: any;
-  // Checker options
-  protected checkerOptions = {
-    cleanOnEnter: true
-  };
 
-  // User details showed before app is load them
-  protected userData: IData = {
-    username: "Vernon",
-    avatar
-  };
-
-  constructor(
-    el: string = "#searchbox__search-input",
-    result: string = "#searchbox__result",
-    backdrop: string = "#background__backdrop"
-  ) {
+  constructor() {
     super();
-    this.element = document.querySelector(el);
-    this.resultBox = document.querySelector(result);
-    this.backdrop = document.querySelector(backdrop);
   }
 
   /**
@@ -50,14 +28,8 @@ class Header extends Component {
    *
    * @memberof Header
    */
-  public create({
-    options = {},
-    data = {username:"", avatar:""}
-  }: { options?: object; data?: IData } = {}): void {
-    this.view(); // Render template
-    this.userData = { ...this.userData, ...data };
-    this.checkerOptions = {...this.checkerOptions, ...options}
-    this.renderUserProfile();
+  public create(): void {
+    this.view();
     this.controller();
   }
 
@@ -66,29 +38,21 @@ class Header extends Component {
    *
    * @memberof Header
    */
-  public update(data?: IData): void {
-    this.userData = { ...this.userData, ...data };
+  public update(): void {
     this.view();
-    this.renderUserProfile();
   }
 
   /**
-   * Invokes all methods after creating component
+   * Render user profile
    *
+   * @protected
    * @memberof Header
    */
-  public postProcess(): void {
-    // FILL
-  }
-
   protected view(): void {
-    this.template = `
-  <div class="user">
-    <div class="user__profile">
-      <p class="user__name">${this.userData.username}</p>
-      <img src="${this.userData.avatar}" alt="Avatar" class="user__avatar">
-    </div>
-  </div>`;
+    const data: IStoreValues["header"] = Storage.store.header;
+    const template = `<p class="user__name">${data.username}</p>
+    <img src="${data.avatar}" alt="Avatar" class="user__avatar">`;
+    this.userProfile.innerHTML = template;
   }
 
   /**
@@ -98,37 +62,35 @@ class Header extends Component {
    * @memberof Header
    */
   protected controller(): void {
-    this.element.addEventListener("keydown", (ev: any) => {
-      // Apply options
-      if (this.checkerOptions.cleanOnEnter) {
-        if (ev.key === "Enter") {
-          this.element.value = "";
-        }
+    this.searchElement.addEventListener("keydown", (ev: any) => {
+      if (ev.key === "Enter") {
+        ev.target.value = "";
       }
       clearTimeout(this.checker);
-      this.checker = setTimeout(() => {
-        this.refreshSearch(ev);
-      }, 200);
+      this.checker = setTimeout(() => this.refreshSearch(ev), 200);
     });
 
     // Show backdrop with activating search input
-    this.element.addEventListener("click", (ev: any) => {
-      style(this.backdrop, { opacity: 1, visibility: "visible" });
+    this.searchElement.addEventListener("click", (ev: any) => {
+      animate.sequence({ elements: [this.searchBackdrop] }, [
+        { opacity: 1, visibility: "visible" },
+      ]);
       this.refreshSearch(ev);
+      this.searchResultBox.innerHTML = "";
     });
 
     // After clicking backdrop it will fade out with result box
-    this.backdrop.addEventListener("click", (_: any) => {
-      style(this.backdrop, { opacity: 0 });
-      style(this.resultBox, { opacity: 0 });
-      this.element.value = "";
-      setTimeout(() => {
-        style(this.backdrop, { visibility: "hidden" });
-        style(this.resultBox, { visibility: "hidden" });
-        this.resultBox.innerHTML = "";
-      }, 500);
-      this.element.removeEventListener("keydown", (e: any) => e);
-      this.element.removeEventListener("click", (e: any) => e);
+    this.searchBackdrop.addEventListener("click", (_: any) => {
+      animate.sequence(
+        {
+          elements: [this.searchResultBox, this.searchBackdrop],
+          timeout: 500,
+        },
+        [{ opacity: 0 }, { visibility: "hidden" }],
+      );
+      this.searchElement.value = "";
+      this.searchElement.removeEventListener("keydown", null);
+      this.searchElement.removeEventListener("click", null);
     });
   }
 
@@ -144,25 +106,22 @@ class Header extends Component {
       // Get all actions matched to searched value
       const actions = SearchController.searchAction(ev.target.value);
       if (actions.length >= 1) {
-        // Show resultbox
-        style(this.resultBox, { opacity: 1, visibility: "visible" });
-        // Clear box every time after typing
-        this.resultBox.innerHTML = "";
+        animate.sequence({ elements: [this.searchResultBox] }, [
+          { opacity: 1, visibility: "visible" },
+        ]);
+        this.searchResultBox.innerHTML = ""; // Clear box every time after typing
         // Add all matched results to result box
         actions.forEach((action: any) => {
-          // Add item to results
-          this.resultBox.appendChild(
-            this.addItem(action.icon, action.action, action.view)
+          this.searchResultBox.appendChild(
+            this.addResultItem(action.icon, action.action, action.view), // Add item to results
           );
         });
       }
-    }
-    // If input is empty hide result box
-    if (ev.target.value.length === 0) {
-      style(this.resultBox, { opacity: 0 });
-      setTimeout(() => {
-        style(this.resultBox, { visibility: "hidden" });
-      }, 500);
+    } else {
+      animate.sequence({ elements: [this.searchResultBox], timeout: 500 }, [
+        { opacity: 0 },
+        { visibility: "hidden" },
+      ]);
     }
   }
 
@@ -176,12 +135,12 @@ class Header extends Component {
    * @returns {Element}
    * @memberof Search
    */
-  protected addItem(type: string, action: string, view: string): Element {
+  protected addResultItem(type: string, action: string, _: string): Element {
     const item = document.createElement("a");
     item.classList.add("searchbox__item");
-    item.onclick = () => {
-      View.renderView(view);
-    };
+    // item.onclick = () => {
+    //   View.renderView(view);
+    // };
     item.innerHTML = `
     <div class="item__icon">
       <i class="fas fa-${type}" style="font-size: 1.3rem; color: #59B369;"></i>
@@ -189,20 +148,6 @@ class Header extends Component {
     <p class="item__name">${action}</p>
     `;
     return item;
-  }
-
-  /**
-   * Render header
-   *
-   * @protected
-   * @memberof Header
-   */
-  protected renderUserProfile(): void {
-    const where = document.querySelector(".header");
-    const userProfile = document.createElement("div");
-    userProfile.classList.add("user");
-    userProfile.innerHTML = this.template;
-    where.appendChild(userProfile);
   }
 }
 

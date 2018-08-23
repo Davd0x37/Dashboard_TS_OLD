@@ -1,5 +1,5 @@
-import * as r from "rethinkdb";
-import * as log from "signale";
+import r from "rethinkdb";
+import log from "signale";
 
 /**
  * Connect with server and returns promise with active connection
@@ -11,6 +11,43 @@ export const DB = async () => {
     host: "localhost",
     port: 28015
   });
+};
+
+/**
+ * Execute query
+ *
+ * @param {((_: any | Promise<any>) => any[] | Promise<any[]>)} queryFn
+ * @param {{ tableName?: string; db?: string }} [{
+ *     tableName = "general",
+ *     db = "users"
+ *   }={}]
+ * @returns
+ */
+export const query = async (
+  queryFn: (_: any | Promise<any>) => any[] | Promise<any[]>,
+  {
+    tableName = "general",
+    db = "users"
+  }: { tableName?: string; db?: string } = {}
+) => {
+  try {
+    // Get table
+    const req: any = await r.db(db).table(tableName);
+    // Get query sequence
+    const cb: any = await queryFn(req);
+    // Run sequence
+    const res = await cb.run(await DB());
+    // If sequence has property "toArray" then return it as array instead of object
+    // otherwise return object
+    if ("toArray" in res) {
+      return res.toArray();
+    } else {
+      return res;
+    }
+  } catch (error) {
+    log.error(error);
+    throw new Error(error);
+  }
 };
 
 /**
@@ -26,18 +63,6 @@ export const createDB = async () => {
       .catch(err => log.error(err));
     r.db("users")
       .tableCreate("general")
-      .run(db)
-      .catch(err => log.error(err));
-    r.db("users")
-      .tableCreate("post")
-      .run(db)
-      .catch(err => log.error(err));
-    r.db("users")
-      .tableCreate("gallery")
-      .run(db)
-      .catch(err => log.error(err));
-    r.db("users")
-      .tableCreate("notes")
       .run(db)
       .catch(err => log.error(err));
   } catch (error) {

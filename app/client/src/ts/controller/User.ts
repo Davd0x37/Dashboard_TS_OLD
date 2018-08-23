@@ -1,22 +1,53 @@
 import gql from "graphql-tag";
-import App from "../App";
+import Api from "./Api";
+import Storage from "./Storage";
 
-export const User = {
+export const QueryUser = {
   async authenticate(login: string, password: string): Promise<object> {
-    const res = await App.query(gql`
+    const res = await Api.query(gql`
         query {
-          getUser(login: "${login}", password: "${password}") {
+          authenticateUser(login: "${login}", password: "${password}") {
+            id
             avatar
             login
-            password
             email
+            services {
+              spotify {
+                email
+                username
+                type
+              }
+              digitalocean {
+                email
+                dropletLimit
+                total
+                lastCreatedDroplet
+              }
+              paypal {
+                username
+                email
+                phone
+                language
+                verified
+                country
+                zoneinfo
+              }
+            }
           }
         }
       `);
-    if (res.getUser !== null) {
-      return res.getUser;
+    const data = res.authenticateUser;
+
+    if (data !== null) {
+      document.cookie = `user_id=${data.id}; expires=${new Date("2019")}`;
+      Storage.store = {
+        userId: data.id,
+        services: { ...data.services },
+        header: { avatar: data.avatar, username: data.login }
+      };
+      return data;
     } else {
-      throw new Error();
+      return {};
     }
   }
 };

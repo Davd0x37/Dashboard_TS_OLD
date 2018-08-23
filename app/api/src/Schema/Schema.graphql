@@ -5,68 +5,80 @@ schema {
 
 ####### ----- TYPES ----- #######
 type Query {
-  getUser(login: String!, password: String!): User
+  # Authenticate user by his login and password
+  authenticateUser(login: String!, password: String!): User
+  # Get all users - returns array
   getAllUsers: [User]!
-  getPost(author: String!, author_id: ID!): [Post]
 }
 
 type Mutation {
-  addUser(data: UserInput): Boolean
-  createPost(data: PostInput): Boolean
+  # Add user to database
+  addUser(data: UserInput!): Boolean
+  # Change password
   changePassword(id: ID, password: String, newPassword: String): Boolean
+  # Update user info
+  updateUserData(id: ID!): Services!
+  # Create DB
   createDB: Boolean
 }
 ####### ----- END TYPES ----- #######
 
-####### ----- POST ----- #######
-type Post {
-  id: ID!
-  author: User!
-  create_date: String!
-  title: String!
-  content: String!
-  likes: [Like]
-}
-
-input PostInput {
-  author: String!
-  author_id: ID!
-  create_date: String!
-  title: String!
-  content: String!
-}
-####### ----- END POST ----- #######
-
-####### ----- LIKE ----- #######
-type Like {
-  id: ID!
-  user: User!
-}
-####### ----- END LIKE ----- #######
-
 ####### ----- User ----- #######
 type User {
   id: ID!
-  avatar: String!
-  country: String!
+  avatar: String
   email: String!
-  firstName: String!
-  language: String!
-  lastName: String!
   login: String!
-  password: String!
-  register_date: String!
+  services: Services!
 }
 
 input UserInput {
-  avatar: String!
-  country: String!
+  avatar: String
   email: String!
-  firstName: String!
-  language: String!
-  lastName: String!
   login: String!
   password: String!
-  register_date: String!
 }
 ####### ----- END User ----- #######
+
+####### ----- Services ----- #######
+type Services {
+  digitalocean: DigitalOcean!
+  spotify: Spotify!
+  paypal: Paypal!
+}
+
+input authTokens {
+  spotifyAuth: String
+  digitaloceanAuth: String
+  paypalAuth: String
+}
+####### ----- END User ----- #######
+
+####### ----- DigitalOcean ----- #######
+type DigitalOcean {
+  email: String!
+  total: String!
+  dropletLimit: String!
+  lastCreatedDroplet: String!
+}
+####### ----- END DigitalOcean ----- #######
+
+####### ----- Spotify ----- #######
+type Spotify {
+  email: String!
+  username: String!
+  type: String!
+}
+####### ----- END Spotify ----- #######
+
+####### ----- Paypal ----- #######
+type Paypal {
+  username: String!
+  email: String!
+  phone: String!
+  language: String!
+  verified: String!
+  country: String!
+  zoneinfo: String!
+}
+####### ----- END Paypal ----- #######
