@@ -1,6 +1,17 @@
 const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
-const filesToCache = ["index.html"];
+const filesToCache = [
+  "/",
+  "/index.html",
+  "/sw.js",
+  "/ServiceWorker.7a9391e0.js",
+  "main.4d81cc8a.css",
+  "main.4d81cc8a.js",
+  "background_x.d420d524.webp",
+  "background_mobile.dca43ab5.webp",
+  "https://use.fontawesome.com/releases/v5.2.0/js/all.js",
+  "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+];
 
 const DashboardSW = {
   /**
@@ -8,11 +19,10 @@ const DashboardSW = {
    * @param {string[]} files
    * @returns {Promise<void>}
    */
-  cacheFiles(files: string[]): Promise<void> {
+  cacheFiles(files: URL[] | string[]): Promise<void> {
     return caches
       .open(cacheName)
       .then((cache: any) => {
-        // console.log("Cached page files");
         return cache.addAll(files);
       })
       .then(() => {
@@ -27,9 +37,20 @@ const DashboardSW = {
    * @param req
    * @returns {Promise<Response>}
    */
-  updateCache(req: Request): Promise<Response> {
+  updateCache(req: Request, onlySelected: boolean = false): Promise<Response> {
     return fetch(req).then((res: any) => {
-      caches.open(cacheName).then((cache: any) => cache.put(req, res.clone()));
+      caches.open(cacheName).then((cache: any) => {
+        if (onlySelected) {
+          filesToCache.map(item => {
+            const file = new URL(item, self.location.toString());
+            if (file.href === req.url) {
+              cache.put(req, res.clone());
+            }
+          });
+        } else {
+          cache.put(req, res.clone());
+        }
+      });
       return res;
     });
   },
@@ -45,7 +66,7 @@ const DashboardSW = {
   filesFromCache(req: Request): Promise<Cache> {
     return caches.open(cacheName).then((cache: any) => {
       return cache.match(req).then((matching: any) => {
-        return matching || Promise.reject("No matching files in cache!");
+        return matching || DashboardSW.filesFromServer(req);
       });
     });
   },
@@ -57,6 +78,10 @@ const DashboardSW = {
    */
   filesFromServer(req: Request): Promise<Response> {
     return fetch(req).then(res => res);
+  },
+
+  filesURL(files: string[]): URL[] {
+    return files.map(item => new URL(item, self.location.toString()));
   }
 };
 
@@ -68,23 +93,9 @@ self.addEventListener("install", (event: any) => {
   event.waitUntil(DashboardSW.cacheFiles(filesToCache));
 });
 
-/**
- * Fetch listener
- * Event respond with -> first find files in cache with passed request and return them back otherwise download files from server
- * While responding with stored cache we update the cache to the newest version
- */
-self.addEventListener("fetch", (event: any) => {
-  if (event.request.method !== "GET") {
-    return;
-  }
-  console.log(event.request.url)
-  console.log("Serving the assets from cache");
-  event.respondWith(DashboardSW.filesFromCache(event.request).catch(() => DashboardSW.filesFromServer(event.request)));
-  event.waitUntil(DashboardSW.updateCache(event.request));
-});
-
 /*
- * Make service worker main maintainer of site and remove old caches if new version has arrived
+ * Make service worker main maintainer of site and remove old caches
+ * if new version has arrived
  */
 self.addEventListener("activate", (event: any) => {
   event.waitUntil(
@@ -106,4 +117,19 @@ self.addEventListener("activate", (event: any) => {
   );
   // @ts-ignore
   return self.clients.claim();
+});
+
+/**
+ * Fetch listener
+ * Event respond with -> first find files in cache with passed
+ * request and return them back otherwise download files from server
+ * While responding with stored cache we update the cache to the newest version
+ */
+self.addEventListener("fetch", (event: any) => {
+  if (event.request.method !== "GET") {
+    return;
+  }
+  console.log("Serving the assets from cache");
+  event.respondWith(DashboardSW.filesFromCache(event.request));
+  event.waitUntil(DashboardSW.updateCache(event.request));
 });

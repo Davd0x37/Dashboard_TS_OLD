@@ -21,40 +21,30 @@ class PaypalPlate extends PlateComponent {
     return `<header class="plate__brand">
     <i class="fab fa-paypal fa-2x" style="color: #0D96D9;"></i>
     <h3 class="plate__title">Paypal</h3>
-</header>
-<div class="plate__container paypal-plate">
+  </header>
+  <div class="plate__container paypal-plate">
     <aside class="container__details">
-        <p class="label__title">Nazwa użytkownika</p>
-        <p class="label__value">${data.username}</p>
-        <p class="label__title">Środki na koncie</p>
-        <p class="label__value paypal--color-blue">${data.amount}</p>
-        <p class="label__title">Połączona karta</p>
-        <p class="label__value label__value--last paypal--color-card">${
-          data.connectedCard
-        }</p>
+      <p class="label__title">Nazwa użytkownika</p>
+      <p class="label__value">${data.username}</p>
+      <p class="label__title">Email</p>
+      <p class="label__value label__value--no-capitalize paypal--color-blue">${data.email}</p>
+      <p class="label__title">Numer telefonu</p>
+      <p class="label__value paypal--color-blue label__value--last">${data.phone}</p>
     </aside>
-    <div class="container__other">
-        <aside class="container__aside">
-            <div class="flex">
-                <img src="${data.avatar}" alt="avatar" class="profile__avatar">
-                <div>
-                    <p class="label__title">Typ konta</p>
-                    <p class="label__value">${data.type}</p>
-                </div>
-            </div>
-            <div>
-                <p class="label__title">Email</p>
-                <p class="label__value label__value--no-capitalize paypal--color-blue">${
-                  data.email
-                }</p>
-            </div>
-        </aside>
-        <aside class="container__buttons">
-            <button class="item__btn--green">Wpłać</button>
-            <button class="item__btn--red">Wypłać</button>
-        </aside>
-    </div>
-</div>`;
+    <aside class="container__details">
+      <p class="label__title">Typ konta</p>
+      <p class="label__value paypal--color-card">${data.verified}</p>
+      <p class="label__title">Kraj</p>
+      <p class="label__value paypal--color-blue">${data.country}</p>
+      <p class="label__title">Miejscowość</p>
+      <p class="label__value paypal--color-blue label__value--last">${data.zoneinfo}
+      </p>
+    </aside>
+    <aside class="container__details">
+      <p class="label__title">Język</p>
+      <p class="label__value label__value--last">${data.language}</p>
+    </aside>
+  </div>`;
   }
 
   protected controller(): void {

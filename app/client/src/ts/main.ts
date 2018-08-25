@@ -1,5 +1,6 @@
 // // Import polyfill
 import "../public/polyfill.min";
+import "../scss/index.scss"
 
 import App from "./App";
 App.create();

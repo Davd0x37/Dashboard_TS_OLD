@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",
-    "lib": [
-      "es2017",
-      "esnext",
-      "dom"
-    ],
+    "lib": ["es2017", "esnext", "dom"],
     "removeComments": true,
     //    "importHelpers": true,
     /* Strict Type-Checking Options */
@@ -36,6 +32,12 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+
+    "baseUrl": ".",
+    /* Base directory to resolve non-absolute module names. */
+    "paths": {
+      "*": ["./@types/*"]
+    }
   }
 }
