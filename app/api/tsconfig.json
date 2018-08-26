@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2015",
     "module": "commonjs",
-    "lib": ["es2017", "esnext", "dom", "es6"],
+    "lib": ["es2017", "esnext", "dom", "es6", "es7", "es2018", "es2016"],
     "removeComments": true,
     /* Strict Type-Checking Options */
     "strict": true,
@@ -27,12 +27,6 @@
     /* Report error when not all code paths in function return a value. */
     "noFallthroughCasesInSwitch": true,
     /* Report errors for fallthrough cases in switch statement. */
-
-    "baseUrl": ".",
-    /* Base directory to resolve non-absolute module names. */
-    "paths": {
-      "*": ["./@types/*"]
-    },
     /* Type declaration files to be included in compilation. */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

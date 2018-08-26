@@ -1,16 +1,7 @@
 const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
-const filesToCache = [
-  "/",
-  "/index.html",
-  "/sw.js",
-  "/ServiceWorker.7a9391e0.js",
-  "main.4d81cc8a.css",
-  "main.4d81cc8a.js",
-  "background_x.d420d524.webp",
-  "background_mobile.dca43ab5.webp",
-  "https://use.fontawesome.com/releases/v5.2.0/js/all.js",
-  "https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
+const filesToCache: any[] = [
+  /* fluidity-inject-cache-files */
 ];
 
 const DashboardSW = {

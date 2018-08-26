@@ -10,10 +10,5 @@
     "no-implicit-dependencies": false,
     "max-classes-per-file": false
   },
-  "rulesDirectory": [],
-  "linterOptions": {
-    "exclude": [
-      "./app/@types/*"
-    ]
-  }
+  "rulesDirectory": []
 }
