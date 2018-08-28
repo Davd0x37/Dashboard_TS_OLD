@@ -1,8 +1,6 @@
 const version = "0.0.6";
 const cacheName = `Dashboard-${version}`;
-const filesToCache: any[] = [
-  /* fluidity-inject-cache-files */
-];
+const filesToCache: any[] = ["/", "fluidity-inject-cache-files"];
 
 const DashboardSW = {
   /**

@@ -39,6 +39,7 @@ export const animate = {
     // For every element attach all styles
     elements.forEach(elem => {
       // Get keys and values from object as array
+      // @ts-ignore
       Object.entries(styles).forEach(async (prop: any) => {
         elem.style[prop[0]] = prop[1];
       });
@@ -66,5 +67,5 @@ export const animate = {
       await this._after(timeout * i++);
       this._animate({ elements }, style);
     });
-  },
+  }
 };

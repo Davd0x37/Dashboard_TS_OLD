@@ -34,5 +34,4 @@
     "emitDecoratorMetadata": true,
     "downlevelIteration": true
   }
-  // "parcel-plugin-serviceworker": "1.0.0"
 }
