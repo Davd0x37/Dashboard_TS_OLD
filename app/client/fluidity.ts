@@ -4,97 +4,58 @@ import { readFileSync, writeFileSync } from "fs";
 import parcel from "parcel-bundler";
 import { resolve } from "path";
 
+program
+  .version("0.0.1")
+  .option("-w, --watch [boolean]", "Watch files", false)
+  .option("-d, --out-dir [dir]", "Set output directory", "./dist")
+  .option("-p, --port [number]", "Set output directory", 3030)
+  .option("-c, --cache [boolean]", "Save cache", false)
+  .option("-s, --source-maps [boolean]", "Use source maps", false)
+  .option("-m, --minify [boolean]", "Minify output files", false)
+  .option("-h, --hmr [boolean]", "Hot module replacement", false)
+  .option("-z, --worker [boolean]", "Use service worker", false)
+  .option("-t, --target [target]", "Select build target (browser/node/electron)", "browser")
+  .parse(process.argv);
+
 const model = {
   changedFiles: new Set(),
   bundler: null as any,
   entryFiles: resolve(__dirname, "./src/index.html"),
-  program: null as any,
   serviceWorker: {
     regex: /\"fluidity-inject-cache-files\"/g,
     file: resolve(__dirname, "dist", "sw.js")
   },
   parcelOptions: {
-    outDir: "./dist",
+    outDir: program.outDir,
     outFile: "index.html",
-    watch: false,
-    cache: false,
+    watch: program.watch,
+    cache: program.cache,
     cacheDir: ".cache",
-    minify: true,
+    minify: program.minify,
     scopeHoist: false,
-    target: "node",
+    target: program.target,
     logLevel: 3,
-    hmr: false,
+    hmr: program.hmr,
     hmrPort: 0,
-    sourceMaps: false,
+    sourceMaps: program.sourceMaps,
     hmrHostname: "",
     detailedReport: false
   }
 };
 
-const cli = {
-  init() {
-    model.program = program
-      .version("0.0.1")
-      .option("-w, --watch [boolean]", "Watch files", false)
-      .option("-d, --out-dir [dir]", "Set output directory", "dist")
-      .option("-p, --port [number]", "Set output directory", 3030)
-      .option("-c, --cache [boolean]", "Save cache", false)
-      .option("-s, --source-maps [boolean]", "Use source maps", false)
-      .option("-m, --minify [boolean]", "Minify output files", false)
-      .option("-h, --hmr [boolean]", "Hot module replacement", false)
-      .option("-t, --target [target]", "Select build target (browser/node/electron)", "browser")
-      .parse(process.argv);
-  },
-
-  rebuildOptions() {
-    model.parcelOptions = {
-      ...model.parcelOptions,
-      watch: model.program.watch,
-      outDir: model.program.outDir,
-      cache: model.program.cache,
-      sourceMaps: model.program.sourceMaps,
-      minify: model.program.minify,
-      hmr: model.program.hmr,
-      target: model.program.target
-    };
-  }
-};
-
 const Fluidity = {
-  async init() {
-    await cli.init();
-    await cli.rebuildOptions();
-  },
-
   async run() {
     model.bundler = new parcel(model.entryFiles, model.parcelOptions);
-    if (model.program.watch) {
-      model.bundler.serve(model.program.port);
+    if (program.watch) {
+      model.bundler.serve(program.port);
     } else {
       model.bundler.bundle();
     }
 
-    model.bundler.on("bundled", (bundle: any) => this.onBundled(bundle));
-    model.bundler.on("buildStart", (entryFiles: any) => this.onBuildStart(entryFiles));
-    model.bundler.on("buildEnd", () => this.onBuildEnd());
-    model.bundler.on("buildError", (error: any) => this.onBuildError(error));
-  },
-
-  async onBundled(_: any) {
-    this.saveChangedFiles(model.bundler);
-    this.serviceWorkerFiles();
-  },
-
-  async onBuildStart(_: any) {
-    // FILL
-  },
-
-  async onBuildEnd() {
-    // FILL
-  },
-
-  async onBuildError(_: any) {
-    // FILL
+    model.bundler.on("bundled", (bundle: any) => handlers.onBundled(bundle));
+    model.bundler.on("buildStart", (entryFiles: any) => handlers.onBuildStart(entryFiles));
+    model.bundler.on("buildEnd", () => handlers.onBuildEnd());
+    model.bundler.on("buildError", (error: any) => handlers.onBuildError(error));
   },
 
   /**
@@ -112,7 +73,7 @@ const Fluidity = {
    * Add files to service worker
    *
    */
-  async serviceWorkerFiles() {
+  async serviceWorker() {
     const file = readFileSync(model.serviceWorker.file, "utf-8");
     const changedFiles = this.normalizeFiles(model.changedFiles);
     const res = file.replace(model.serviceWorker.regex, changedFiles);
@@ -132,7 +93,27 @@ const Fluidity = {
   }
 };
 
+const handlers = {
+  async onBundled(_: any) {
+    if (program.worker) {
+      Fluidity.saveChangedFiles(model.bundler);
+      Fluidity.serviceWorker();
+    }
+  },
+
+  async onBuildStart(_: any) {
+    // FILL
+  },
+
+  async onBuildEnd() {
+    // FILL
+  },
+
+  async onBuildError(_: any) {
+    // FILL
+  }
+};
+
 (async () => {
-  await Fluidity.init();
   await Fluidity.run();
 })();
