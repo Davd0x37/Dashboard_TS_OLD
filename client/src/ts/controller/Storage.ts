@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
-import { isEqual } from "lodash";
-import Api from "./Api";
+import { mutation } from "./Api";
 
 class Storage {
   protected isOnline: boolean = navigator.onLine;
@@ -71,7 +70,12 @@ class Storage {
    * @memberof Storage
    */
   protected get storageData() {
-    return JSON.parse(localStorage.getItem("user_data"));
+    const data = localStorage.getItem("user_data");
+    if (data !== null) {
+      return JSON.parse(data);
+    } else {
+      return this.mockupData;
+    }
   }
 
   /**
@@ -111,7 +115,7 @@ class Storage {
    * @memberof Storage
    */
   protected async fetchData() {
-    return Api.mutation(gql`
+    return mutation(gql`
         mutation {
           updateUserData(id: "${this.store.userId}") {
             spotify {

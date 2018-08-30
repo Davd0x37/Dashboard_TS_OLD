@@ -1,7 +1,7 @@
 import axios from "axios";
 import { digitalOceanConfig } from "../config/secretConfig";
+import { UserManager } from "../controller/User";
 import { timeToSeconds } from "../utils/utils";
-import { UserManager } from "./User";
 
 interface IDropletData {
   total: number;

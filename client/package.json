@@ -1,14 +1,14 @@
 {
   "name": "dashboard-client",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "ts-node fluidity -wch --worker true",
-    "prod": "ts-node fluidity -m --worker true"
+    "dev": "ts-node build -w",
+    "prod": "ts-node build"
   },
   "devDependencies": {
     "@types/chart.js": "2.7.30",
@@ -18,15 +18,12 @@
     "babel-runtime": "6.26.0",
     "commander": "2.17.1",
     "node-sass": "4.9.2",
-    "parcel-bundler": "1.9.7",
-    "ts-node": "7.0.1",
-    "typescript": "3.0.1"
+    "ts-node": "7.0.0"
   },
   "dependencies": {
     "apollo-boost": "0.1.12",
     "chart.js": "2.7.2",
-    "graphql-tag": "2.9.2",
-    "lodash": "4.17.10"
+    "graphql-tag": "2.9.2"
   },
   "babel": {
     "plugins": [

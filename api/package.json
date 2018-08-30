@@ -1,6 +1,6 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
@@ -12,27 +12,26 @@
     "serve": "nodemon ./dist/GraphQLApp.js"
   },
   "devDependencies": {
-    "@types/express": "4.16.0",
     "@types/cookie-parser": "1.4.1",
-    "@types/faker": "4.1.2",
+    "@types/express": "4.16.0",
     "@types/graphql": "0.13.3",
+    "@types/helmet": "0.0.40",
     "@types/node": "10.5.5",
+    "@types/request": "2.47.1",
     "@types/rethinkdb": "2.3.12",
-    "@types/request":"2.47.1",
     "@types/signale": "1.2.0",
-    "nodemon": "1.18.3",
-    "parcel-bundler": "1.9.7"
+    "nodemon": "1.18.3"
   },
   "dependencies": {
     "argon2": "0.19.3",
-    "request":"2.88.0",
     "axios": "0.18.0",
-    "cookie-parser":"1.4.3",
+    "cookie-parser": "1.4.3",
     "express": "4.16.3",
-    "faker": "4.1.0",
-    "graphql": "0.13.2",
     "graphql-tools": "3.0.5",
     "graphql-yoga": "1.15.0",
+    "graphql": "0.13.2",
+    "helmet": "3.13.0",
+    "request": "2.88.0",
     "rethinkdb": "2.3.3",
     "signale": "1.2.1"
   }

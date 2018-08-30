@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { resolve } from "path";
 import { spotifyConfig } from "./config";
 import Authenticate from "./controller/Authenticate";
-import { Spotify } from "./controller/Spotify";
+import { Spotify } from "./services/Spotify";
 
 const router = express.Router();
 

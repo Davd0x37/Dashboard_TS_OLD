@@ -1,11 +1,7 @@
 export class EventHandler {
   private listeners: any[string] = [{}];
 
-  public addListener(
-    type: string,
-    fn: (...args: any[]) => any,
-    ...args: any[]
-  ): void {
+  public addListener(type: string, fn: (...args: any[]) => any, ...args: any[]): void {
     if (typeof this.listeners[type] !== "undefined") {
       this.listeners[type].push({
         fn,

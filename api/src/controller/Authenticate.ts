@@ -60,7 +60,7 @@ class Authenticate {
    * @memberof Authenticate
    */
   public async getAccessToken(id: string, service: string, authOptions: any, { code, state }: any): Promise<boolean> {
-    const usr = await UserManager.getUser(id);
+    const usr: any = await UserManager.getUser(id);
     const stateKey = usr.authTokens[service].stateKey;
     if (state !== stateKey || state === null) {
       return false;

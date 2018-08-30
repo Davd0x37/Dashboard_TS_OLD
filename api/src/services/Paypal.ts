@@ -1,8 +1,8 @@
 import request from "request";
 import log from "signale";
 import { paypalConfig } from "../config/secretConfig";
-import Authenticate from "./Authenticate";
-import { UserManager } from "./User";
+import Authenticate from "../controller/Authenticate";
+import { UserManager } from "../controller/User";
 
 export const Paypal = {
   /**
@@ -13,7 +13,7 @@ export const Paypal = {
   async updateData(id: string) {
     try {
       await this.refreshToken(id);
-      const data = await UserManager.getUser(id);
+      const data: any = await UserManager.getUser(id);
       const { accessToken } = await data.authTokens.paypal;
       const options = {
         url: `${paypalConfig.api}identity/openidconnect/userinfo?schema=openid`,
@@ -38,8 +38,6 @@ export const Paypal = {
       });
     } catch (e) {
       log.error(e);
-      // await this.refreshToken(id);
-      // await this.updateData(id);
     }
   },
 
@@ -49,7 +47,7 @@ export const Paypal = {
    * @param {string} id
    */
   async refreshToken(id: string) {
-    const data = await UserManager.getUser(id);
+    const data: any = await UserManager.getUser(id);
     const refreshToken = data.authTokens.spotify.refreshToken;
     const form = {
       url: `${paypalConfig.api}identity/openidconnect/tokenservice`,

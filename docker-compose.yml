@@ -6,48 +6,48 @@ services:
     build: .
     container_name: dashboard_build_runner
     volumes:
-    - dashboard_app:/Dashboard
+      - dashboard_app:/Dashboard
 
   #  # BACKEND
   api:
     image: node:latest
     container_name: dashboard_api
-    command: node /Dashboard/app/api/dist/app.js
+    command: node /Dashboard/api/dist/GraphQLApp.js
     ports:
-    - "4000:4000"
+      - "4000:4000"
     depends_on:
-    - build
+      - build
     volumes:
-    - dashboard_app:/Dashboard
+      - dashboard_app:/Dashboard
     networks:
-    - dashboard
+      - dashboard
     labels:
-    - "traefik.backend=DashboardApi"
-    - "traefik.docker.network=dashboard"
-    - "traefik.enable=true"
-    - "traefik.frontend.rule=Host:api.liquidash.pl"
-    - "traefik.port=4000"
+      - "traefik.backend=DashboardApi"
+      - "traefik.docker.network=dashboard"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:api.liquidash.pl"
+      - "traefik.port=4000"
 
   # FRONTEND
   client:
     image: nginx:stable
     container_name: dashboard_client
-    command: nginx -c /Dashboard/app/client/nginx.conf -g "daemon off;"
+    command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
     ports:
-    - "443:443"
+      - "443:443"
     depends_on:
-    - build
+      - build
     volumes:
-    - dashboard_app:/Dashboard
+      - dashboard_app:/Dashboard
     networks:
-    - dashboard
+      - dashboard
     labels:
-    - "traefik.backend=DashboardClient"
-    - "traefik.docker.network=dashboard"
-    - "traefik.enable=true"
-    - "traefik.frontend.rule=Host:liquidash.pl"
-    - "traefik.port=443"
-    - "traefik.protocol=https"
+      - "traefik.backend=DashboardClient"
+      - "traefik.docker.network=dashboard"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:liquidash.pl"
+      - "traefik.port=443"
+      - "traefik.protocol=https"
 
   # DATABASE
   db:
@@ -55,41 +55,41 @@ services:
     container_name: dashboard_db
     command: rethinkdb --http-port 1337 --bind all
     ports:
-    - "1337:1337"
-    - "28015:28015"
-    - "29015:29015"
+      - "1337:1337"
+      - "28015:28015"
+      - "29015:29015"
     volumes:
-    - /usr/app/rethinkdb:/data
+      - /usr/app/rethinkdb:/data
     networks:
-    - dashboard
+      - dashboard
     labels:
-    - "traefik.backend=DashboardDB"
-    - "traefik.docker.network=dashboard"
-    - "traefik.enable=true"
-    - "traefik.frontend.rule=Host:db.liquidash.pl"
-    - "traefik.port=1337"
+      - "traefik.backend=DashboardDB"
+      - "traefik.docker.network=dashboard"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:db.liquidash.pl"
+      - "traefik.port=1337"
 
-    # REVERSE PROXY
-    # reverse-proxy:
-    #   image: traefik
-    #   container_name: dashboard_load_balancer
-    #   command: --api --docker
-    #   ports:
-    #   - "80:80"
-    #   - "443:443"
-    #   - "8080:8080"
-    #   volumes:
-    #   - /usr/app/DashboardTS/traefik.toml:/traefik.toml
-    #   - /var/run/docker.sock:/var/run/docker.sock
-    #   - dashboard_app:/Dashboard
-    #   networks:
-    #   - dashboard
-    #   labels:
-    #   - "traefik.backend=DashboardReverseProxy"
-    #   - "traefik.docker.network=dashboard"
-    #   - "traefik.frontend.rule=Host:traefik.liquidash.pl"
-    #   - "traefik.port=8080"
+      # REVERSE PROXY
+      # reverse-proxy:
+      #   image: traefik
+      #   container_name: dashboard_load_balancer
+      #   command: --api --docker
+      #   ports:
+      #   - "80:80"
+      #   - "443:443"
+      #   - "8080:8080"
+      #   volumes:
+      #   - /usr/app/DashboardTS/traefik.toml:/traefik.toml
+      #   - /var/run/docker.sock:/var/run/docker.sock
+      #   - dashboard_app:/Dashboard
+      #   networks:
+      #   - dashboard
+      #   labels:
+      #   - "traefik.backend=DashboardReverseProxy"
+      #   - "traefik.docker.network=dashboard"
+      #   - "traefik.frontend.rule=Host:traefik.liquidash.pl"
+      #   - "traefik.port=8080"
 volumes:
-  dashboard_app:
+  ? dashboard_app
 networks:
-  dashboard:
+  ? dashboard

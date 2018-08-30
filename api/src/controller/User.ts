@@ -1,18 +1,18 @@
 import { digitalOceanConfig } from "../config";
+import DigitalOcean from "../services/DigitalOcean";
+import { Spotify } from "../services/Spotify";
 import { hashPass } from "../utils/crypto";
 import { query } from "./DB";
-import DigitalOcean from "./DigitalOcean";
-import { Spotify } from "./Spotify";
 
 export const UserManager = {
   /**
    * Update user credentials
    *
    * @param {string} id
-   * @param {any[any]} config
+   * @param {unknown} config
    * @returns {Promise<void>}
    */
-  async updateCredentials(id: string, config: any[any]): Promise<void> {
+  async updateCredentials(id: string, config: unknown): Promise<void> {
     await query(q => q.get(id).update({ ...config }));
   },
 
@@ -20,9 +20,9 @@ export const UserManager = {
    * Get user details
    *
    * @param {string} id
-   * @returns {Promise<any>}
+   * @returns {Promise<unknown>}
    */
-  async getUser(id: string): Promise<any> {
+  async getUser(id: string): Promise<unknown> {
     return query(q => q.get(id));
   },
 
@@ -106,7 +106,7 @@ export const UserMutation = {
   async updateUserData(_: any, { id }: any): Promise<object> {
     await Spotify.updateData(id);
     await DigitalOcean.accountData(id, digitalOceanConfig.authToken);
-    const res = await query(q => q.filter({ id }));
-    return res[0].services;
+    const res: any = await UserManager.getUser(id);
+    return res.services;
   }
 };

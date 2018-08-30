@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { resolve } from "path";
 import { paypalConfig } from "./config";
 import Authenticate from "./controller/Authenticate";
-import { Paypal } from "./controller/Paypal";
+import { Paypal } from "./services/Paypal";
 import { generateRandomString } from "./utils/utils";
 const router = express.Router();
 
