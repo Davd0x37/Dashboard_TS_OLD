@@ -11,12 +11,12 @@
     "client"
   ],
   "scripts": {
-    "api:dev": "cd ./app/api && yarn run dev",
-    "api:prod": "cd ./app/api && yarn run prod",
-    "client:dev": "cd ./app/client && yarn run dev",
-    "client:prod": "cd ./app/client && yarn run prod",
+    "api:dev": "cd ./api && yarn run dev",
+    "api:prod": "cd ./api && yarn run prod",
+    "client:dev": "cd ./client && yarn run dev",
+    "client:prod": "cd ./client && yarn run prod",
     "deploy": "docker-compose up",
-    "serve": "cd ./app/api && yarn run serve",
+    "serve": "cd ./api && yarn run serve",
     "test:watch": "jest --watch",
     "test": "jest"
   },

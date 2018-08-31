@@ -1,7 +1,6 @@
-import { Response } from "express";
 import request from "request";
+import { getUser, updateCredentials } from "../components/user/Manager";
 import { generateRandomString } from "../utils/utils";
-import { UserManager } from "./User";
 
 interface IAuthenticationParams {
   scopes: string;
@@ -12,148 +11,202 @@ interface IAuthenticationParams {
   nonce?: string;
 }
 
-class Authenticate {
-  constructor() {
-    // FILL
-  }
+interface IAccessTokenParams {
+  code: string;
+  state: string;
+  Authorization: string;
+  url: string;
+  redirect_uri?: string;
+}
+
+interface IAuthForm {
+  url: string;
+  form: {
+    code?: string;
+    grant_type: string;
+    refresh_token?: string;
+    redirect_uri?: string;
+  };
+  headers: {
+    Authorization: string;
+  };
+  json: boolean;
+}
+
+interface IRefreshToken {
+  url: string;
+  auth: string;
+  refreshToken: string;
+}
+
+export default class Authenticate {
+  protected id!: string;
+  protected service!: string;
+
   /**
-   * Authenticate user account on third party service
-   * Simply redirect to service for authentication
+   * Generate authentication url with needed state key
    *
    * @param {string} id
-   * @param {Response} res
    * @param {string} service
    * @param {IAuthenticationParams} options
-   * @returns {Promise<void>}
+   * @returns {Promise<string>}
    * @memberof Authenticate
    */
-  public async authenticateAccount(
-    id: string,
-    res: Response,
-    service: string,
-    options: IAuthenticationParams
-  ): Promise<void> {
+  public async authenticateAccount(id: string, service: string, options: IAuthenticationParams): Promise<string> {
+    this.id = id;
+    this.service = service;
     // Generate state key for service authentication to ensure that result code is from service
     const stateKey = generateRandomString(64);
-
     // Add state key to user account
-    await this.updateCodes(id, {
-      // It will works just like typing `digitalocean: {stateKey}` or `spotify: {stateKey}`
-      [service]: {
-        stateKey
-      }
-    });
+    await this.updateTokens({ [this.service]: { stateKey } });
 
-    // Generate authentication URL
-    const authenticateURL = await this.generateAuthenticationURL({ ...options, state: stateKey });
-    res.redirect(authenticateURL);
+    return (
+      `${options.url}?client_id=${options.clientID}` +
+      `&response_type=code` +
+      `&scope=${encodeURI(options.scopes)}` +
+      `&redirect_uri=${encodeURI(options.redirect)}` +
+      `&state=${options.state || stateKey}` +
+      `${options.nonce ? "&" + options.nonce : ""}`
+    );
   }
 
   /**
-   * Get access and refresh token from service
+   * Send request to service in order to receive access and refresh tokens
    *
-   * @param {string} id
-   * @param {string} service
-   * @param {*} authOptions
-   * @param {*} { code, state }
+   * @param {IAccessTokenParams} { code, state, Authorization, url, redirect_uri }
    * @returns {Promise<boolean>}
    * @memberof Authenticate
    */
-  public async getAccessToken(id: string, service: string, authOptions: any, { code, state }: any): Promise<boolean> {
-    const usr: any = await UserManager.getUser(id);
-    const stateKey = usr.authTokens[service].stateKey;
+  public async getAccessToken({ code, state, Authorization, url, redirect_uri }: IAccessTokenParams): Promise<boolean> {
+    const stateKey = await this.getStateKey();
+    // If state key from request is different from one stored in db
+    // Return false and end authentication
     if (state !== stateKey || state === null) {
       return false;
     } else {
-      // Update code and state key
-      UserManager.updateCredentials(id, {
-        authTokens: { [service]: { code, stateKey: "" } }
-      });
+      // Reset state key
+      await this.updateTokens({ [this.service]: { code, stateKey: "" } });
 
-      request.post(authOptions, (err: any, response: request.Response, body: any) => {
+      // Generate authentication form
+      const form = this.authForm({
+        url,
+        form: {
+          code,
+          redirect_uri,
+          grant_type: "authorization_code"
+        },
+        headers: { Authorization },
+        json: true
+      });
+      console.log(form);
+
+      // Send request to service to receive access token and refresh token
+      request.post(form, (err: any, response: request.Response, body: any) => {
         if (!err && response.statusCode === 200) {
           const accessToken = body.access_token;
           const refreshToken = body.refresh_token;
-          UserManager.updateCredentials(id, {
-            authTokens: { [service]: { accessToken, refreshToken } }
-          });
+          // Store tokens in database
+          this.updateTokens({ [this.service]: { accessToken, refreshToken } });
         }
       });
-
       return true;
     }
   }
 
   /**
-   * Use refresh token to get new access token
+   * Receive new refresh token from service
    *
-   * @param {string} id
-   * @param {string} service
-   * @param {*} authOptions
+   * @param {IRefreshToken} { url, auth, refreshToken }
    * @memberof Authenticate
    */
-  public async refreshToken(id: string, service: string, authOptions: any) {
+  public async refreshToken({ url, auth, refreshToken }: IRefreshToken) {
+    const authOptions = this.authForm({
+      url,
+      form: {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken
+      },
+      headers: {
+        Authorization: auth
+      },
+      json: true
+    });
+
     request.post(authOptions, async (error: any, response: request.Response, body: any) => {
       if (!error && response.statusCode === 200) {
         const accessToken = body.access_token;
-        await this.updateCodes(id, { [service]: { accessToken } });
+        await this.updateTokens({ accessToken });
       }
     });
   }
 
   /**
-   * Generate basic authorization code with base64
+   * Generate basic authorization
    *
-   * @protected
-   * @param {string} id
-   * @param {string} secret
-   * @returns
+   * @param {string} clientId
+   * @param {string} clientSecret
+   * @returns {string}
    * @memberof Authenticate
    */
-  public generateBasicAuthorization(id: string, secret: string) {
-    return `Basic ${Buffer.from(id + ":" + secret).toString("base64")}`;
+  public generateBasicAuthorization(clientId: string, clientSecret: string): string {
+    return `Basic ${Buffer.from(clientId + ":" + clientSecret).toString("base64")}`;
   }
 
   /**
-   * Update user state key
+   * Get state key from database
    *
    * @protected
-   * @param {string} id
-   * @param {string} stateKey
-   * @returns {Promise<void>}
-   * @memberof Authenticate
-   */
-  protected async updateCodes(id: string, stateKey: object): Promise<void> {
-    await UserManager.updateCredentials(id, { authTokens: { ...stateKey } });
-  }
-
-  /**
-   * It will redirect user to authentication service
-   *
-   * @protected
-   * @param {IAuthenticationParams} {
-   *     scopes,
-   *     redirect,
-   *     clientID,
-   *     url,
-   *     state,
-   *     nonce
-   *   }
    * @returns {Promise<string>}
    * @memberof Authenticate
    */
-  protected async generateAuthenticationURL({
-    scopes,
-    redirect,
-    clientID,
+  protected async getStateKey(): Promise<string> {
+    const user: any = await getUser(this.id);
+    return user.authTokens[this.service].stateKey;
+  }
+
+  /**
+   * Update user tokens
+   *
+   * @protected
+   * @param {object} tokens
+   * @returns {Promise<void>}
+   * @memberof Authenticate
+   */
+  protected async updateTokens(tokens: object): Promise<void> {
+    await updateCredentials(this.id, { authTokens: { [this.service]: { ...tokens } } });
+  }
+
+  /**
+   * Generate authentication form for request
+   *
+   * @protected
+   * @param {IAuthForm} {
+   *     url,
+   *     form: { code, grant_type, redirect_uri, refresh_token },
+   *     headers: { Authorization },
+   *     json
+   *   }
+   * @returns {IAuthForm}
+   * @memberof Authenticate
+   */
+  protected authForm({
     url,
-    state,
-    nonce
-  }: IAuthenticationParams): Promise<string> {
-    return `${url}?client_id=${clientID}&response_type=code&scope=${encodeURI(scopes)}&redirect_uri=${encodeURI(
-      redirect
-    )}&state=${state}${nonce ? "&" + nonce : ""}`;
+    form: { code, grant_type, redirect_uri, refresh_token },
+    headers: { Authorization },
+    json
+  }: IAuthForm): IAuthForm {
+    return {
+      url,
+      form: {
+        ...(code !== undefined ? { code } : ""),
+        ...(refresh_token !== undefined ? { refresh_token } : ""),
+        ...(redirect_uri !== undefined ? { redirect_uri } : ""),
+        grant_type
+      },
+      headers: {
+        Authorization
+      },
+      json
+    };
   }
 }
-
-export default new Authenticate();

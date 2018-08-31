@@ -4,7 +4,8 @@ export const spotifyConfig = {
   userScopes: ["user-read-private", "user-read-email"],
   clientID: "",
   clientSecret: "",
-  api: "https://api.spotify.com/v1/"
+  api: "https://api.spotify.com/v1/",
+  apiTokenService: "https://accounts.spotify.com/api/token"
 };
 
 export const digitalOceanConfig = {
@@ -18,7 +19,8 @@ export const paypalConfigSandbox = {
   clientID: "",
   clientSecret: "",
   authenticateURL: "https://www.sandbox.paypal.com/signin/authorize",
-  api: "https://api.sandbox.paypal.com/v1/"
+  api: "https://api.sandbox.paypal.com/v1/",
+  apiTokenService: "https://api.sandbox.paypal.com/v1/identity/openidconnect/tokenservice"
 };
 
 export const paypalConfig = {
@@ -27,5 +29,9 @@ export const paypalConfig = {
   clientID: "",
   clientSecret: "",
   authenticateURL: "https://www.paypal.com/signin/authorize",
-  api: "https://api.paypal.com/v1/"
+  api: "https://api.paypal.com/v1/",
+  apiTokenService: "https://api.paypal.com/v1/identity/openidconnect/tokenservice",
+  paths: {
+    personalData: "https://api.paypal.com/v1/identity/openidconnect/userinfo?schema=openid"
+  }
 };

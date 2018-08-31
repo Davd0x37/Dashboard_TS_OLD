@@ -25,10 +25,7 @@ export const DB = async () => {
  */
 export const query = async (
   queryFn: (_: any | Promise<any>) => any[] | Promise<any[]>,
-  {
-    tableName = "general",
-    db = "users"
-  }: { tableName?: string; db?: string } = {}
+  { tableName = "general", db = "users" }: { tableName?: string; db?: string } = {}
 ) => {
   try {
     // Get table

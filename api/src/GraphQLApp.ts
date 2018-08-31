@@ -2,10 +2,10 @@ import cookieParser from "cookie-parser";
 import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
 import log from "signale";
-import { resolvers } from "./controller/Resolvers";
-import PaypalRouter from "./PaypalAuth";
-import Schema from "./Schema.gql";
-import SpotifyRouter from "./SpotifyAuth";
+import { resolvers } from "./graphql/Resolvers";
+import Schema from "./graphql/Schema.gql";
+import PaypalRouter from "./routes/Paypal";
+import SpotifyRouter from "./routes/Spotify";
 
 try {
   const server = new GraphQLServer({
@@ -15,6 +15,7 @@ try {
 
   server.express.use(helmet());
   server.express.use(cookieParser());
+
   server.express.use("/spotify", SpotifyRouter);
   server.express.use("/paypal", PaypalRouter);
 
