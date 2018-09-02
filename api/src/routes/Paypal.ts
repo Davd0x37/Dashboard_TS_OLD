@@ -41,7 +41,7 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
     Authorization: auth.generateBasicAuthorization(paypalConfig.clientID, paypalConfig.clientSecret)
   });
 
-  res.sendFile(resolve(__dirname, "./views/authenticateResult.html"));
+  res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
 });
 
 export default router;

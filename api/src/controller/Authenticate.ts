@@ -58,7 +58,7 @@ export default class Authenticate {
     // Generate state key for service authentication to ensure that result code is from service
     const stateKey = generateRandomString(64);
     // Add state key to user account
-    await this.updateTokens({ [this.service]: { stateKey } });
+    await this.updateTokens({ stateKey });
 
     return (
       `${options.url}?client_id=${options.clientID}` +
@@ -85,7 +85,7 @@ export default class Authenticate {
       return false;
     } else {
       // Reset state key
-      await this.updateTokens({ [this.service]: { code, stateKey: "" } });
+      await this.updateTokens({ code, stateKey: "" });
 
       // Generate authentication form
       const form = this.authForm({
@@ -98,7 +98,6 @@ export default class Authenticate {
         headers: { Authorization },
         json: true
       });
-      console.log(form);
 
       // Send request to service to receive access token and refresh token
       request.post(form, (err: any, response: request.Response, body: any) => {
@@ -106,7 +105,7 @@ export default class Authenticate {
           const accessToken = body.access_token;
           const refreshToken = body.refresh_token;
           // Store tokens in database
-          this.updateTokens({ [this.service]: { accessToken, refreshToken } });
+          this.updateTokens({ accessToken, refreshToken });
         }
       });
       return true;

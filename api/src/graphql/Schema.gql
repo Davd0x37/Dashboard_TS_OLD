@@ -18,8 +18,6 @@ type Mutation {
   changePassword(id: ID, password: String, newPassword: String): Boolean
   # Update user info
   updateUserData(id: ID!): Services!
-  # Create DB
-  createDB: Boolean
 }
 ####### ----- END TYPES ----- #######
 

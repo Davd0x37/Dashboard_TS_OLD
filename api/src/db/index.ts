@@ -1,5 +1,4 @@
 import r from "rethinkdb";
-import log from "signale";
 
 /**
  * Connect with server and returns promise with active connection
@@ -42,8 +41,7 @@ export const query = async (
       return res;
     }
   } catch (error) {
-    log.error(error);
-    throw new Error(error);
+    throw Error(error);
   }
 };
 
@@ -55,14 +53,11 @@ export const createDB = async () => {
   try {
     const db = await DB();
 
-    r.dbCreate("users")
-      .run(db)
-      .catch(err => log.error(err));
+    r.dbCreate("users").run(db);
     r.db("users")
       .tableCreate("general")
-      .run(db)
-      .catch(err => log.error(err));
+      .run(db);
   } catch (error) {
-    log.error(error);
+    throw Error(error);
   }
 };

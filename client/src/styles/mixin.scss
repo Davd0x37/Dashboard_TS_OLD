@@ -1,0 +1,45 @@
+// ------------ BUTTONS  ------------
+@mixin item__btn($color, $pressed_background, $btn_name: "", $padding: 10px 20px) {
+  .item__btn#{$btn_name} {
+    background: transparent;
+    text-transform: uppercase;
+    border: 1px solid $color;
+    border-radius: 5px;
+    padding: $padding;
+    font-size: 1.1rem;
+    color: $color;
+    outline: none;
+    will-change: transition;
+    transition: background-color 300ms, color 300ms;
+
+    &:hover {
+      background: $color;
+      color: $primary-text;
+    }
+
+    &:active {
+      background: $pressed_background;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3) inset;
+      color: $primary-text;
+    }
+  }
+}
+
+// ------------ RESPONSIVE ------------
+@mixin above_size($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin below_size($size) {
+  @media screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin between_size($min, $max) {
+  @media screen and (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}

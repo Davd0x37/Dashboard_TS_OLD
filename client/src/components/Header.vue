@@ -1,0 +1,202 @@
+<template>
+  <header class="header">
+    <div class="logo">
+      <img src="../assets/logo.png" alt="Logo" style="height: 60px;">
+    </div>
+    <div class="search">
+      <div class="searchbox">
+        <a href="#" class="searchbox__action" aria-label="search">
+          <i class="fas fa-search fa-lg" style="color: #5162FF;"></i>
+        </a>
+        <div class="searchbox__input">
+          <input type="text" class="searchbox__input" id="searchbox__search-input" placeholder="Type action..." aria-label="Search input">
+          <div id="searchbox__result" class="searchbox__result">
+          </div>
+        </div>
+        <a href="#" class="searchbox__action" aria-label="talk">
+          <i class="fas fa-microphone-alt fa-lg" style="color: #F5F7FA;"></i>
+        </a>
+      </div>
+    </div>
+    <div class="user">
+      <div class="user__profile">
+        <p class="user__name">{{username}}</p>
+        <img src="../assets/avatar.webp" alt="Avatar" class="user__avatar">
+      </div>
+    </div>
+  </header>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+@Component
+export default class Header extends Vue {
+  private username: string = "Vernon Roche";
+}
+</script>
+
+<style scoped lang="scss">
+@import "../styles/mixin";
+@import "../styles/colors";
+
+.header {
+  font-family: "Roboto Black", sans-serif;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+
+  @include above_size("480px") {
+    align-items: center;
+  }
+
+  @include below_size("479px") {
+    flex-direction: column;
+  }
+
+  // ------------ LOGO ------------
+  .logo {
+    color: $primary-text;
+    margin-left: 20px;
+    min-width: 120px;
+
+    @include below_size("780px") {
+      display: none;
+    }
+  }
+
+  // ------------ SEARCHBOX ------------
+  .search {
+    flex: 2;
+    display: flex;
+    .searchbox {
+      flex: 1;
+      // background: $primary-text;
+      background: #20262e;
+      height: 35px;
+      font-size: 0.8rem;
+      border: 1px solid #374355;
+      border-radius: 7px;
+      box-shadow: 0 1px 3px #374355;
+      display: flex;
+      align-items: center;
+      padding: 0 5px 0 5px;
+      justify-content: space-around;
+      z-index: 10;
+
+      // ------------ QUERIES ------------
+      @include between_size("479px", "960px") {
+        margin-left: 20px;
+      }
+      @include below_size("479px") {
+        display: none;
+      }
+
+      // ------------ INPUT ------------
+      .searchbox__input {
+        // color: rgba(55, 67, 85, 0.8);
+        width: 100%;
+        height: 35px;
+        border: none;
+        background: transparent;
+      }
+
+      .searchbox__action {
+        height: 35px;
+        width: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .searchbox__result {
+      background: #1e1e24;
+      color: #777677;
+      position: relative;
+      padding: 20px;
+      border-bottom: 2px solid $primary-green;
+      border-radius: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      top: 10px;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s;
+      will-change: opacity;
+
+      .searchbox__item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        flex: 1;
+
+        .item__icon {
+          width: 20px;
+        }
+
+        .item__name {
+          color: #777677;
+          padding: 0 20px;
+        }
+      }
+    }
+  }
+
+  // ------------ USER SECTION ------------
+  .user {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    @include below_size("480px") {
+      justify-content: center;
+    }
+
+    // ------------ ACTIONS ------------
+    .user__actions {
+      color: #ebeff3;
+      text-align: right;
+      margin-right: 20px;
+      @include between_size("780px", "960px") {
+        margin-left: 10px;
+      }
+      @include below_size("780px") {
+        margin-left: 20px;
+      }
+
+      .action {
+        &:hover {
+          color: $primary-border;
+        }
+      }
+    }
+
+    // ------------ PROFILE ------------
+    .user__profile {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      @include above_size("480px") {
+        margin-right: 20px;
+      }
+      @include below_size("479px") {
+        flex-direction: column-reverse;
+      }
+
+      .user__name {
+        margin-right: 10px;
+        // @include below_size("779px") {
+        //   display: none;
+        // }
+      }
+
+      .user__avatar {
+        width: 67px;
+        height: 67px;
+      }
+    }
+  }
+}
+</style>

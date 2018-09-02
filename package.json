@@ -8,7 +8,7 @@
   "private": true,
   "workspaces": [
     "api",
-    "client"
+    "client_vanilla"
   ],
   "scripts": {
     "api:dev": "cd ./api && yarn run dev",
