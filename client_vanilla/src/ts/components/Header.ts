@@ -5,16 +5,10 @@ import { Component } from "./Component";
 
 class Header extends Component {
   // Input
-  protected searchElement: HTMLInputElement = document.querySelector(
-    "#searchbox__search-input",
-  );
-  protected searchResultBox: HTMLElement = document.querySelector(
-    "#searchbox__result",
-  );
-  protected searchBackdrop: HTMLElement = document.querySelector(
-    "#background__backdrop",
-  );
-  protected userProfile: HTMLElement = document.querySelector(".user__profile");
+  protected searchElement: HTMLInputElement = document.querySelector("#searchbox__search-input") as HTMLInputElement;
+  protected searchResultBox: HTMLElement = document.querySelector("#searchbox__result") as HTMLElement;
+  protected searchBackdrop: HTMLElement = document.querySelector("#background__backdrop") as HTMLElement;
+  protected userProfile: HTMLElement = document.querySelector(".user__profile") as HTMLElement;
 
   // Timer for checking if user is typing
   protected checker: any;
@@ -50,8 +44,8 @@ class Header extends Component {
    */
   protected view(): void {
     const data: IStoreValues["header"] = Storage.store.header;
-    const template = `<p class="user__name">${data.username}</p>
-    <img src="${data.avatar}" alt="Avatar" class="user__avatar">`;
+    const template = `<p class="user__name">${data!.username}</p>
+    <img src="${data!.avatar}" alt="Avatar" class="user__avatar">`;
     this.userProfile.innerHTML = template;
   }
 
@@ -72,21 +66,19 @@ class Header extends Component {
 
     // Show backdrop with activating search input
     this.searchElement.addEventListener("click", (ev: any) => {
-      animate.sequence({ elements: [this.searchBackdrop] }, [
-        { opacity: 1, visibility: "visible" },
-      ]);
+      animate.sequence({ elements: [this.searchBackdrop] }, [{ opacity: 1, visibility: "visible" }]);
       this.refreshSearch(ev);
       this.searchResultBox.innerHTML = "";
     });
 
     // After clicking backdrop it will fade out with result box
-    this.searchBackdrop.addEventListener("click", (_: any) => {
+    this.searchBackdrop!.addEventListener("click", (_: any) => {
       animate.sequence(
         {
           elements: [this.searchResultBox, this.searchBackdrop],
-          timeout: 500,
+          timeout: 500
         },
-        [{ opacity: 0 }, { visibility: "hidden" }],
+        [{ opacity: 0 }, { visibility: "hidden" }]
       );
       this.searchElement.value = "";
       this.searchElement.removeEventListener("keydown", null);
@@ -106,22 +98,17 @@ class Header extends Component {
       // Get all actions matched to searched value
       const actions = SearchController.searchAction(ev.target.value);
       if (actions.length >= 1) {
-        animate.sequence({ elements: [this.searchResultBox] }, [
-          { opacity: 1, visibility: "visible" },
-        ]);
+        animate.sequence({ elements: [this.searchResultBox] }, [{ opacity: 1, visibility: "visible" }]);
         this.searchResultBox.innerHTML = ""; // Clear box every time after typing
         // Add all matched results to result box
         actions.forEach((action: any) => {
           this.searchResultBox.appendChild(
-            this.addResultItem(action.icon, action.action, action.view), // Add item to results
+            this.addResultItem(action.icon, action.action, action.view) // Add item to results
           );
         });
       }
     } else {
-      animate.sequence({ elements: [this.searchResultBox], timeout: 500 }, [
-        { opacity: 0 },
-        { visibility: "hidden" },
-      ]);
+      animate.sequence({ elements: [this.searchResultBox], timeout: 500 }, [{ opacity: 0 }, { visibility: "hidden" }]);
     }
   }
 

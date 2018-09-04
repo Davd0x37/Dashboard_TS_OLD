@@ -1,26 +1,22 @@
 <template>
-  <article class="plate">
-    <header class="plate__brand">
-      <i class="fab fa-spotify fa-2x" style="color: #B5EB00;"></i>
-      <h3 class="plate__title">Spotify</h3>
-    </header>
-    <div class="plate__container spotify-plate">
-      <aside class="container__details">
-        <Label title="Nazwa użytkownika" :value=username />
-        <Label title="Email" :value=email />
-        <Label title="Typ konta" :value=type noCapitalize last class="spotify__title--color" />
-      </aside>
-    </div>
-  </article>
+  <Plate brandTitle="Spotify" brandIcon="spotify" brandColor="#B5EB00" flex>
+    <aside class="details">
+      <Label title="Nazwa użytkownika" :value=username />
+      <Label title="Email" :value=email />
+      <Label title="Typ konta" :value=type noCapitalize last class="color" />
+    </aside>
+  </Plate>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import Label from "@/components/utils/VLabel.vue";
+import Plate from "@/components/VPlate.vue";
 
 @Component({
   components: {
-    Label
+    Label,
+    Plate
   }
 })
 export default class Spotify extends Vue {
@@ -34,29 +30,14 @@ export default class Spotify extends Vue {
 @import "../styles/mixin";
 @import "../styles/colors";
 
-.spotify-plate {
+.details {
+  flex: 1;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  .container__details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .container__other {
-    flex: 2;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-
-    @include item__btn($spotify, $spotify-button-pressed);
-  }
-
-  .spotify__title--color {
-    color: $spotify;
-  }
+.color {
+  color: $spotify;
 }
 </style>

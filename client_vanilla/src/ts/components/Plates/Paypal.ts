@@ -17,7 +17,7 @@ class PaypalPlate extends PlateComponent {
   }
 
   protected view(): string {
-    const data = Storage.store.services.paypal;
+    const data: any = Storage.store.services!.paypal;
     return `<header class="plate__brand">
     <i class="fab fa-paypal fa-2x" style="color: #0D96D9;"></i>
     <h3 class="plate__title">Paypal</h3>

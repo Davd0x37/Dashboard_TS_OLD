@@ -40,11 +40,11 @@ export default class VLabel extends Vue {
   }
 }
 .value {
+  font-weight: 500;
+  padding-bottom: 20px;
   @media screen and (max-width: 480px) {
     font-size: 0.7rem;
   }
-  font-weight: 500;
-  padding-bottom: 20px;
 }
 .last {
   padding-bottom: 0;

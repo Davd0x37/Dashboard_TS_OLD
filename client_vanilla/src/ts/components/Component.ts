@@ -39,11 +39,11 @@ export abstract class Component {
 }
 
 export abstract class PlateComponent extends Component {
-  protected article: HTMLElement;
+  protected article!: HTMLElement;
 
   public addPlate(): void {
     this.create()
-    document.querySelector(".feed").appendChild(this.article);
+    document.querySelector(".feed")!.appendChild(this.article);
   }
 
   /**
