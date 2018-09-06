@@ -1,24 +1,18 @@
 <template>
   <div class="search">
-    <div class="searchbox">
-      <a href="#" class="action" aria-label="search">
-        <i class="fas fa-search fa-lg" style="color: #5162FF;"></i>
-      </a>
-      <div class="input">
-        <input type="text" v-model="search" class="input" id="search-input" placeholder="Type action..." aria-label="Search input">
-        <transition name="resultBox">
-          <div id="result" class="result" v-if="search.length !== 0">
-            <a class="item" v-for="action in actions" :key="action.name" :href="action.href">
-              <v-icon :name="'brands/'+action.type" scale="1.3" style="color: #59B369;" />
-              <p class="name">{{action.name}}</p>
-            </a>
-          </div>
-        </transition>
-      </div>
-      <a href="#" class="action" aria-label="talk">
-        <i class="fas fa-microphone-alt fa-lg" style="color: #F5F7FA;"></i>
-      </a>
+    <div class="actions">
+      <input type="text" v-model="search" class="input" id="search-input" placeholder="Type action..." aria-label="Search input">
+      <v-icon name="microphone-alt" scale="1.1" style="color: #F5F7FA;" />
     </div>
+    <transition-group name="resultBox">
+      <div key="result" id="result" class="result" v-if="search.length !== 0">
+        <a class="item" v-for="action in actions" :key="action.name" :href="action.href">
+          <v-icon :name="'brands/'+action.type" scale="1.3" style="color: #59B369;" />
+          <p class="name">{{action.name}}</p>
+        </a>
+      </div>
+      <div key="backdrop" class="backdrop" v-if="search.length !== 0" @click="search = ''" />
+    </transition-group>
   </div>
 </template>
 
@@ -60,71 +54,66 @@ export default class Searchbox extends Vue {
 @import "../../styles/colors";
 
 .search {
-  flex: 2;
-  display: flex;
-  .searchbox {
-    flex: 1;
-    background: #20262e;
-    height: 35px;
-    font-size: 0.8rem;
-    border: 1px solid #374355;
-    border-radius: 7px;
-    box-shadow: 0 1px 3px #374355;
-    display: flex;
-    align-items: center;
-    padding: 0 5px 0 5px;
-    justify-content: space-around;
-    z-index: 10;
+  background: #20262e;
+  border-radius: 7px;
+  border: 1px solid #374355;
+  box-shadow: 0 1px 3px #374355;
+  flex: 1;
+  font-size: 0.8rem;
+  height: 40px;
+  margin-left: 20px;
+  padding: 0 10px;
+  z-index: 15;
 
-    @include between_size("479px", "960px") {
-      margin-left: 20px;
-    }
-    @include below_size("479px") {
-      display: none;
-    }
+  .actions {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
 
     .input {
-      width: 100%;
-      height: 35px;
-      border: none;
       background: transparent;
-    }
-
-    .action {
-      height: 35px;
-      width: 10%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      border: none;
+      width: 100%;
     }
   }
+}
 
-  .result {
-    background: #1e1e24;
-    color: #777677;
-    position: relative;
-    padding: 20px;
-    border-bottom: 2px solid $primary-green;
-    border-radius: 5px;
+.result {
+  background: #1e1e24;
+  border-bottom: 2px solid $primary-green;
+  border-radius: 5px;
+  color: #777677;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  position: relative;
+  top: 5px;
+  will-change: opacity;
+
+  .item {
+    align-items: center;
     display: flex;
-    flex-wrap: wrap;
-    top: 10px;
-    will-change: opacity;
-
-    .item {
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-      flex: 1;
-    }
-    .icon {
-      width: 20px;
-    }
-    .name {
-      color: #777677;
-      padding: 0 20px;
-    }
+    flex: 1;
+    padding: 10px 0;
   }
+  .icon {
+    width: 20px;
+  }
+  .name {
+    color: #777677;
+    padding: 0 20px;
+  }
+}
+
+.backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -10;
 }
 
 .resultBox-enter-active,

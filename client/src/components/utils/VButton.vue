@@ -1,5 +1,7 @@
 <template>
-  <button class="btn">{{value}}</button>
+  <button class="btn" @click="emitClick($event)">
+    <slot></slot>
+  </button>
 </template>
 
 <script lang="ts">
@@ -7,8 +9,12 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
 export default class Button extends Vue {
-  @Prop({ type: [String, Number], default: "Value" })
-  private value!: string | number;
+  // @Prop({ type: [String, Number], default: "Value" })
+  // private value!: string | number;
+
+  private emitClick(e: any) {
+    this.$emit('click', e)
+  }
 }
 </script>
 
@@ -39,5 +45,3 @@ export default class Button extends Vue {
   }
 }
 </style>
-
-

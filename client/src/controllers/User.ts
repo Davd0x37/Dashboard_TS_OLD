@@ -3,39 +3,38 @@ import { query } from "./Api";
 import Storage from "./Storage";
 
 export const QueryUser = {
-  async authenticate(login: string, password: string): Promise<object> {
+  async authenticate(login: string, password: string): Promise<boolean> {
     const res: any = await query(gql`
         query {
-          authenticateUser(login: "${login}", password: "${password}") {
-            id
-            avatar
-            login
-            email
-            services {
-              spotify {
+            authenticateUser(login: "${login}", password: "${password}") {
+                id
+                avatar
+                login
                 email
-                username
-                type
-              }
-              digitalocean {
-                email
-                dropletLimit
-                total
-                lastCreatedDroplet
-              }
-              paypal {
-                username
-                email
-                phone
-                language
-                verified
-                country
-                zoneinfo
-              }
+                services {
+                    spotify {
+                        email
+                        username
+                        type
+                    }
+                    digitalocean {
+                        email
+                        dropletLimit
+                        total
+                        lastCreatedDroplet
+                    }
+                    paypal {
+                        username
+                        email
+                        phone
+                        verified
+                        country
+                        zoneinfo
+                    }
+                }
             }
-          }
         }
-      `);
+    `);
     const data = res.authenticateUser;
 
     if (data !== null) {
@@ -48,14 +47,14 @@ export const QueryUser = {
       }
       const newDate = new Date(`${year}-${month}-${date.getDate()}`);
       document.cookie = `user_id=${data.id}; expires=${newDate}`;
-      Storage.store = {
+      Storage.saveStorage({
         userId: data.id,
         services: { ...data.services },
         header: { avatar: data.avatar, username: data.login }
-      };
-      return data;
+      });
+      return true;
     } else {
-      return {};
+      return false;
     }
   }
 };

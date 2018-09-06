@@ -4,41 +4,10 @@
 
   // ------------ LEFT CONTAINER ------------
   .container__details {
-    flex: 1;
-  }
-
-  // ------------ RIGHT CONTAINER ------------
-  .container__other {
     flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    // ------------ OTHER SECTION IN RIGHT CONTAINER ------------
-    .container__aside {
-      display: flex;
-      justify-content: space-between;
-
-      // ------------ PROFILE ------------
-      .profile__avatar {
-        width: 33px;
-        height: 33px;
-        padding-right: 10px;
-      }
-    }
-
-    .container__buttons {
-      display: flex;
-      justify-content: space-between;
-
-      // ------------ BUTTONS ------------
-      @include item__btn(
-        $paypal-green,
-        $paypal-button-pressed-green,
-        "--green"
-      );
-      @include item__btn($paypal-red, $paypal-button-pressed-red, "--red");
-    }
   }
 
   // ------------ COLORS ------------

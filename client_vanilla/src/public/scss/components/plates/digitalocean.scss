@@ -1,38 +1,22 @@
 // ------------ DIGITAL OCEAN ------------
 .digital-ocean-plate {
-  // ------------ LEFT SECTION ------------
-  .container__details {
+  .details {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 
-    // ------------ ITEM ------------
-
-    .container__wrap {
+    .wrap {
       align-content: space-between;
     }
 
-    // ------------ QUERIES ------------
-    @media only screen and (max-width: 480px) {
-      .container__wrap:nth-child(2) {
+    @include queries("mobileMax") {
+      .wrap:nth-child(2) {
         margin-left: 20px;
       }
     }
-    @media only screen and (max-width: 360px) {
-      .container__wrap:last-child {
-        padding-top: 20px;
-        display: flex;
-        flex: 1;
-        justify-content: space-between;
-      }
-    }
-
-    // ------------ BUTTON ------------
-    @include item__btn($digital_ocean, $digital_ocean-button-pressed);
   }
 
-  // ------------ LEFT SECTION ------------
-  .container__other {
+  .other {
     .chart {
       border: 1px solid rgba($digital_ocean, 0.7);
       border-radius: 5px;

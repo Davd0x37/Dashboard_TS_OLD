@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
+    <router-link to="/">HOME</router-link>
+    <router-link to="/login">LOGIN</router-link>
     <router-view/>
   </div>
 </template>
@@ -21,7 +22,7 @@ export default class App extends Vue {}
 <style lang="scss">
 @import "./styles/lib/normalize";
 @import "./styles/colors";
-@import "./styles/plate";
+@import "./styles/mixin";
 
 body {
   font-family: "Roboto", "Roboto Medium", "Roboto Black", sans-serif;
@@ -32,7 +33,7 @@ body {
   color: $primary-text;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 
-  @media screen and (max-width: 480px) {
+  @include queries("mobileMax") {
     background: $background_mobile, $background_mobile_fallback;
   }
 

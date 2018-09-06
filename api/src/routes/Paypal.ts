@@ -8,12 +8,6 @@ const userAuthenticationID = "user_id";
 const router = express.Router();
 
 // Create new instance of authenticator
-// Can't use object literal because JavaScript is single threaded
-// Which leads to operating on single object instances
-// For example we create object in this file
-// Then we create object in second file
-// Second object has the same value as first object
-// So we need to create different instances of the same object
 const auth = new Authenticate();
 
 // Redirect to spotify for authentication

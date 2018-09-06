@@ -6,46 +6,16 @@
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "api",
-    "client_vanilla"
-  ],
   "scripts": {
     "api:dev": "cd ./api && yarn run dev",
     "api:prod": "cd ./api && yarn run prod",
-    "client:dev": "cd ./client && yarn run dev",
-    "client:prod": "cd ./client && yarn run prod",
+    "api:test": "cd ./api && yarn run test",
+    "api:test-watch": "cd ./api && yarn run test:watch",
+    "client:dev": "cd ./client_vanilla && yarn run dev",
+    "client:prod": "cd ./client_vanilla && yarn run prod",
+    "client:test": "cd ./client_vanilla && yarn run test",
+    "client:test-watch": "cd ./client_vanilla && yarn run test:watch",
     "deploy": "docker-compose up",
-    "serve": "cd ./api && yarn run serve",
-    "test:watch": "jest --watch",
-    "test": "jest"
-  },
-  "devDependencies": {
-    "@types/jest": "23.3.1",
-    "dts-gen": "0.5.7",
-    "jest": "23.4.2",
-    "lodash": "4.17.10",
-    "parcel-bundler": "1.9.7",
-    "prettier": "1.14.0",
-    "ts-jest": "23.0.1",
-    "ts-node": "7.0.0",
-    "tslint-config-prettier": "1.14.0",
-    "tslint": "5.11.0",
-    "typescript": "3.0.1"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/(api|client)/**/**/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+    "serve": "cd ./api && yarn run serve"
   }
 }

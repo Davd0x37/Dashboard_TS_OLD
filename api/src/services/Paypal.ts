@@ -13,14 +13,13 @@ export const update = async (id: string) => {
       json: true
     };
 
-    request.get(options, async (_, __, body) => {
+    request.get(options, async (_: any, __: any, body: any) => {
       await updateCredentials(id, {
         services: {
           paypal: {
             username: body.name,
             email: body.email,
             phone: body.phone_number,
-            language: body.language,
             verified: body.verified,
             country: body.address.country,
             zoneinfo: body.zoneinfo

@@ -2,16 +2,13 @@
   <Plate brandTitle="Paypal" brandIcon="paypal" brandColor="#0D96D9" flex>
     <aside class="details">
       <Label title="Nazwa użytkownika" :value="username" />
-      <Label title="Email" :value="email" style="paypal--color-blue" />
+      <Label title="Email" :value="email" class="paypal--color-blue" noCapitalize />
       <Label title="Numer telefonu" :value="phone" noCapitalize last class="paypal--color-blue" />
     </aside>
     <aside class="details">
-      <Label title="Typ konta" :value="type" />
-      <Label title="Kraj" :value="country" style="paypal--color-blue" />
+      <Label title="Kraj" :value="country" class="paypal--color-blue" />
+      <Label title="Zweryfikowany" :value="verified" class="paypal--color-blue" />
       <Label title="Miejscowość" :value="zoneinfo" noCapitalize last class="paypal--color-blue" />
-    </aside>
-    <aside class="details">
-      <Label title="Język" :value="language" noCapitalize last/>
     </aside>
   </Plate>
 </template>
@@ -29,13 +26,12 @@ import Plate from "@/components/VPlate.vue";
   }
 })
 export default class Paypal extends Vue {
-  private username: string = "username";
-  private email: string = "email";
-  private phone: number = 1212;
-  private type: string = "type";
-  private country: string = "country";
-  private zoneinfo: string = "zoneinfo";
-  private language: string = "language";
+  private username: string = this.$store.getters.paypal.username;
+  private email: string = this.$store.getters.paypal.email;
+  private phone: number = this.$store.getters.paypal.phone;
+  private country: string = this.$store.getters.paypal.country;
+  private verified: string = this.$store.getters.paypal.verified;
+  private zoneinfo: string = this.$store.getters.paypal.zoneinfo;
 }
 </script>
 

@@ -12,40 +12,53 @@ export default new Vuex.Store({
     },
     services: {
       spotify: {
-        username: "",
-        email: "",
-        type: ""
+        username: "Jon Doe",
+        email: "jondoe@gmail.com",
+        type: "Free"
       },
       digitalocean: {
-        lastCreatedDroplet: "",
-        email: "",
-        dropletLimit: "",
-        total: ""
+        lastCreatedDroplet: "0",
+        email: "jondoe@pm.me",
+        dropletLimit: "77",
+        total: "7"
       },
       paypal: {
-        username: "",
-        email: "",
-        phone: "",
-        language: "",
-        verified: "",
-        country: "",
-        zoneinfo: ""
+        username: "Jon Doe",
+        email: "jondoe@pm.me",
+        phone: "123 456 789",
+        verified: "Verified",
+        country: "Finland",
+        zoneinfo: "Helsinki"
       }
     }
   },
+  getters: {
+    username: state => state.header.username,
+    spotify: state => state.services.spotify,
+    digitalocean: state => state.services.digitalocean,
+    paypal: state => state.services.paypal
+  },
   mutations: {
-    change_user_id(state, id) {
-      state.header.username = id;
+    update_header(state, data) {
+      state.header = { ...state.header, ...data };
+    },
+    update_services(state, data) {
+      state.services = { ...state.services, ...data };
+    },
+    update_user_data(state, data) {
+      state.header = data.header;
+      state.services = data.services;
     }
   },
-  getters: {
-    username: state => state.header.username
-  },
   actions: {
-    change_user({ commit }, id) {
-      setTimeout(() => {
-        commit("change_user_id", id);
-      }, 2000);
+    update_header({ commit }, data) {
+      commit("update_header", data);
+    },
+    update_user_data({ commit }, data) {
+      commit("update_user_data", data);
+    },
+    update_services({ commit }, data) {
+      commit("update_services", data);
     }
   }
 });

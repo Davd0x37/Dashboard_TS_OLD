@@ -10,17 +10,22 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "@types/graphql": "^14.0.0",
+    "apollo-boost": "0.1.15",
     "chart.js": "^2.7.2",
+    "graphql": "^14.0.0",
+    "graphql-tag": "2.9.2",
     "lodash": "4.17.10",
     "register-service-worker": "^1.0.0",
+    "vue": "^2.5.17",
     "vue-awesome": "3.1.2",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
-    "vue": "^2.5.17",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@types/chart.js": "2.7.32",
     "@types/jest": "^23.1.4",
     "@types/lodash": "4.14.116",
     "@vue/cli-plugin-babel": "^3.0.1",

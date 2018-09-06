@@ -15,9 +15,9 @@ interface IAccountData {
 
 /**
  * Get every account details needed to show user
- *
+ * 
  * @param {string} id
- * @param {string} authToken
+ * @param {string} [token]
  * @returns {Promise<void>}
  */
 export const update = async (id: string, token?: string): Promise<void> => {

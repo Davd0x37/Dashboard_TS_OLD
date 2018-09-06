@@ -13,7 +13,7 @@ export const update = async (id: string) => {
       json: true
     };
 
-    request.get(options, async (_, __, body) => {
+    request.get(options, async (_: any, __: any, body: any) => {
       await updateCredentials(id, {
         services: {
           spotify: {

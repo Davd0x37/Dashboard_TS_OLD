@@ -9,30 +9,55 @@
   "scripts": {
     "dev": "parcel ./src/GraphQLApp.ts --target node",
     "prod": "parcel build ./src/GraphQLApp.ts --target node --no-source-maps --no-cache",
-    "serve": "nodemon ./dist/GraphQLApp.js"
+    "serve": "nodemon ./dist/GraphQLApp.js",
+    "test:watch": "jest --watch",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/cookie-parser": "1.4.1",
     "@types/express": "4.16.0",
-    "@types/graphql": "0.13.3",
     "@types/helmet": "0.0.40",
-    "@types/node": "10.5.5",
+    "@types/jest": "23.3.1",
+    "@types/node": "10.9.4",
     "@types/request": "2.47.1",
-    "@types/rethinkdb": "2.3.12",
+    "@types/rethinkdb": "2.3.13",
     "@types/signale": "1.2.0",
-    "nodemon": "1.18.3"
+    "jest": "23.5.0",
+    "nodemon": "1.18.4",
+    "parcel-bundler": "1.9.7",
+    "prettier": "1.14.2",
+    "ts-jest": "23.1.4",
+    "ts-node": "7.0.1",
+    "tslint-config-prettier": "1.15.0",
+    "tslint": "5.11.0",
+    "typescript": "3.0.3"
   },
   "dependencies": {
     "argon2": "0.19.3",
     "axios": "0.18.0",
     "cookie-parser": "1.4.3",
     "express": "4.16.3",
-    "graphql-tools": "3.0.5",
-    "graphql-yoga": "1.15.0",
-    "graphql": "0.13.2",
+    "graphql-tag": "2.9.2",
+    "graphql-yoga": "1.16.2",
     "helmet": "3.13.0",
+    "lodash": "4.17.10",
     "request": "2.88.0",
     "rethinkdb": "2.3.3",
     "signale": "1.2.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/**/**/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }

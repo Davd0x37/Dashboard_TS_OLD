@@ -1,4 +1,5 @@
 /**
+ * USELESS!
  * Pipeline polyfill
  * pipe(array or other value)(functions, next function, ....)
  *

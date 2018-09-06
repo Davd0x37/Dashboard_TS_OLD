@@ -14,95 +14,76 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import Searchbox from "@/components/Header/Searchbox.vue";
+  import { Component, Vue } from "vue-property-decorator";
+  import Searchbox from "@/components/Header/Searchbox.vue";
+  // import Storage from "@/controllers/Storage";
 
-@Component({
-  components: {
-    Searchbox
+  @Component({
+    components: {
+      Searchbox
+    }
+  })
+  export default class Header extends Vue {
+    get username() {
+      const username = this.$store.state.header.username;
+      if (username.length >= 6) {
+        return username.slice(0, 6) + "...";
+      } else {
+        return username;
+      }
+    }
   }
-})
-export default class Header extends Vue {
-  private username: string = "Vernon";
-}
 </script>
 
 <style scoped lang="scss">
-@import "../../styles/mixin";
-@import "../../styles/colors";
+  @import "../../styles/mixin";
+  @import "../../styles/colors";
 
-.header {
-  font-family: "Roboto Black", sans-serif;
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-
-  @include above_size("480px") {
+  .header {
     align-items: center;
-  }
-
-  @include below_size("479px") {
-    flex-direction: column;
-  }
-
-  .logo {
-    color: $primary-text;
-    margin-left: 20px;
-    min-width: 120px;
-
-    @include below_size("780px") {
-      display: none;
-    }
-  }
-
-  .user {
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    align-items: center;
-    @include below_size("480px") {
-      justify-content: center;
+    font-family: "Roboto Black", sans-serif;
+    height: 80px;
+    justify-content: space-between;
+    min-width: 360px;
+
+    .logo {
+      color: $primary-text;
+      margin-left: 20px;
+      min-width: 120px;
+
+      @include queries("tabletMax") {
+        display: none;
+      }
     }
 
-    .actions {
-      color: #ebeff3;
-      text-align: right;
-      margin-right: 20px;
-      @include between_size("780px", "960px") {
-        margin-left: 10px;
-      }
-      @include below_size("780px") {
-        margin-left: 20px;
+    .user {
+      display: flex;
+      flex: 1;
+      justify-content: flex-end;
+      align-items: center;
+      @include queries("mobileMax") {
+        justify-content: center;
       }
 
-      .action {
-        &:hover {
-          color: $primary-border;
+      .profile {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        @include queries("tabletMin") {
+          margin-right: 20px;
+        }
+
+        .name {
+          margin-right: 10px;
+        }
+
+        .avatar {
+          width: 67px;
+          height: 67px;
         }
       }
     }
-
-    .profile {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-
-      @include above_size("480px") {
-        margin-right: 20px;
-      }
-      @include below_size("479px") {
-        flex-direction: column-reverse;
-      }
-
-      .name {
-        margin-right: 10px;
-      }
-
-      .avatar {
-        width: 67px;
-        height: 67px;
-      }
-    }
   }
-}
 </style>

@@ -1,9 +1,9 @@
 <template>
   <Plate brandTitle="Spotify" brandIcon="spotify" brandColor="#B5EB00" flex>
     <aside class="details">
-      <Label title="Nazwa użytkownika" :value=username />
-      <Label title="Email" :value=email />
-      <Label title="Typ konta" :value=type noCapitalize last class="color" />
+      <Label title="Nazwa użytkownika" :value="username"/>
+      <Label title="Email" :value="email" noCapitalize/>
+      <Label title="Typ konta" :value="type" last class="color"/>
     </aside>
   </Plate>
 </template>
@@ -20,9 +20,9 @@ import Plate from "@/components/VPlate.vue";
   }
 })
 export default class Spotify extends Vue {
-  private username: string = "Default username";
-  private email: string = "Default email";
-  private type: string = "Default type";
+  private username: string = this.$store.getters.spotify.username;
+  private email: string = this.$store.getters.spotify.email;
+  private type: string = this.$store.getters.spotify.type;
 }
 </script>
 
