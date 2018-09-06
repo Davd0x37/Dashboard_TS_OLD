@@ -74,7 +74,6 @@ type Paypal {
   username: String!
   email: String!
   phone: String!
-  language: String!
   verified: String!
   country: String!
   zoneinfo: String!

@@ -46,14 +46,16 @@ yarn
 > Production
 
 ```shell
-yarn run api:prod
-yarn run client:prod
+yarn run api:build
+yarn run client:build
+yarn run client_vanilla:build
 ```
 > Development
 
 ```shell
-yarn run api:dev
-yarn run client:dev
+yarn run api:serve
+yarn run client:serve
+yarn run client_vanilla:serve
 ```
 
 > Nodemon server
