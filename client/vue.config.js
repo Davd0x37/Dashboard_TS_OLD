@@ -1,5 +1,14 @@
 module.exports = {
-  transpileDependencies: [
-    /\bvue-awesome\b/
-  ]
-}
+  chainWebpack: config => {
+    config.module
+      .rule("mjs")
+      .test(/\.mjs$/)
+      .include.add(/node_modules/)
+      .end()
+      .type("javascript/auto")
+      .end();
+
+    config.resolve.extensions.add(".mjs").end();
+  },
+  transpileDependencies: [/\bvue-awesome\b/]
+};
