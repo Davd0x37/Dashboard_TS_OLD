@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userId: "",
-    header: {
+    user: {
       username: "Vernon Roche",
-      avatar: ""
+      avatar: "",
+      logged: false
     },
     services: {
       spotify: {
@@ -33,26 +33,26 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    username: state => state.header.username,
+    user: state => state.user,
     spotify: state => state.services.spotify,
     digitalocean: state => state.services.digitalocean,
     paypal: state => state.services.paypal
   },
   mutations: {
-    update_header(state, data) {
-      state.header = { ...state.header, ...data };
+    update_user(state, data) {
+      state.user = { ...state.user, ...data };
     },
     update_services(state, data) {
       state.services = { ...state.services, ...data };
     },
     update_user_data(state, data) {
-      state.header = data.header;
+      state.user = data.user;
       state.services = data.services;
     }
   },
   actions: {
-    update_header({ commit }, data) {
-      commit("update_header", data);
+    update_user({ commit }, data) {
+      commit("update_user", data);
     },
     update_user_data({ commit }, data) {
       commit("update_user_data", data);

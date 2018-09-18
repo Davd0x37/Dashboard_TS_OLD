@@ -48,9 +48,13 @@ export const QueryUser = {
       const newDate = new Date(`${year}-${month}-${date.getDate()}`);
       document.cookie = `user_id=${data.id}; expires=${newDate}`;
       Storage.saveStorage({
-        userId: data.id,
-        services: { ...data.services },
-        header: { avatar: data.avatar, username: data.login }
+        user: {
+          id: data.id,
+          avatar: data.avatar,
+          username: data.login,
+          logged: true
+        },
+        services: { ...data.services }
       });
       return true;
     } else {

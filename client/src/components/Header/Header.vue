@@ -25,7 +25,7 @@
   })
   export default class Header extends Vue {
     get username() {
-      const username = this.$store.state.header.username;
+      const username = this.$store.getters.user.username;
       if (username.length >= 6) {
         return username.slice(0, 6) + "...";
       } else {

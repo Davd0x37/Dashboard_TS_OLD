@@ -5,6 +5,13 @@
       <Label title="Email" :value="email" noCapitalize/>
       <Label title="Typ konta" :value="type" last class="color"/>
     </aside>
+    <template slot="back">
+      <aside class="details">
+        <Label title="Nazwa użytkownika" :value="username"/>
+        <Label title="Email" :value="email" noCapitalize/>
+        <Label title="Typ konta" :value="type" last class="color"/>
+      </aside>
+    </template>
   </Plate>
 </template>
 
@@ -31,7 +38,7 @@ export default class Spotify extends Vue {
 @import "../styles/colors";
 
 .details {
-  flex: 1;
+  /*flex: 1;*/
   display: flex;
   flex-direction: column;
   justify-content: space-between;

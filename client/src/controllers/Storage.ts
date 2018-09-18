@@ -103,8 +103,9 @@ class Storage {
 export default new Storage();
 
 export interface IStoreValues {
-  userId?: string;
-  header?: {
+  user?: {
+    id: string;
+    logged: boolean;
     username: string;
     avatar: string;
   };

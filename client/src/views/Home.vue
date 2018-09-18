@@ -29,7 +29,7 @@ import Header from "@/components/Header/Header.vue";
 export default class Home extends Vue {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .main {
   .feed {
     margin: 20px;
