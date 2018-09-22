@@ -21,11 +21,11 @@ async function bundle(cmd: any) {
   let options = {
     outFile: "",
     watch: cmd.watch,
-    cache: cmd.watch ? true : false,
+    cache: !!cmd.watch,
     cacheDir: ".cache",
-    minify: cmd.watch ? false : false,
+    minify: !!cmd.watch,
     target: "browser",
-    hmr: cmd.watch ? true : false,
+    hmr: !!cmd.watch,
     sourceMaps: false
   };
 
@@ -50,8 +50,8 @@ function run(entryFiles: string, options: any) {
 
 const handlers = {
   async onBundled(_: any) {
-    actions.saveChangedFiles();
-    actions.serviceWorker();
+    await actions.saveChangedFiles();
+    await actions.serviceWorker();
   },
 
   async onBuildStart(_: any) {

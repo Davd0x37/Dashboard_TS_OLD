@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import { spotifyConfig } from "../config/secretConfig";
+import { spotifyConfig } from "../config";
 import Authenticate from "../controller/Authenticate";
 
 const userAuthenticationID = "user_id";

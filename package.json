@@ -7,20 +7,23 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "api:serve": "cd ./api && yarn run dev",
-    "api:build": "cd ./api && yarn run prod",
-    "api:test": "cd ./api && yarn run test",
-    "api:test-watch": "cd ./api && yarn run test:watch",
-    "client:serve": "cd ./client && yarn run serve",
-    "client:build": "cd ./client && yarn run build",
-    "client:lint": "cd ./client && yarn run lint",
-    "client:test:unit": "cd ./client && yarn run test:unit",
-    "client:test:e2e": "cd ./client && yarn run test:e2e",
-    "client_vanilla:serve": "cd ./client_vanilla && yarn run dev",
-    "client_vanilla:build": "cd ./client_vanilla && yarn run prod",
-    "client_vanilla:test": "cd ./client_vanilla && yarn run test",
-    "client_vanilla:test-watch": "cd ./client_vanilla && yarn run test:watch",
+    "api:serve": "cd ./packages/Api.Node && yarn run dev",
+    "api:build": "cd ./packages/Api.Node && yarn run prod",
+    "api:test": "cd ./packages/Api.Node && yarn run test",
+    "api:test-watch": "cd ./packages/Api.Node && yarn run test:watch",
+    "client:serve": "cd ./packages/Client.Vue && yarn run serve",
+    "client:build": "cd ./packages/Client.Vue && yarn run build",
+    "client:lint": "cd ./packages/Client.Vue && yarn run lint",
+    "client:test:unit": "cd ./packages/Client.Vue && yarn run test:unit",
+    "client:test:e2e": "cd ./packages/Client.Vue && yarn run test:e2e",
+    "client_vanilla:serve": "cd ./packages/Client.Vanilla && yarn run dev",
+    "client_vanilla:build": "cd ./packages/Client.Vanilla && yarn run prod",
+    "client_vanilla:test": "cd ./packages/Client.Vanilla && yarn run test",
+    "client_vanilla:test-watch": "cd ./packages/Client.Vanilla && yarn run test:watch",
     "deploy": "docker-compose up",
-    "serve": "cd ./api && yarn run serve"
+    "serve": "cd ./packages/Api.Node && yarn run serve"
+  },
+  "devDependencies": {
+    "lerna": "^3.4.0"
   }
 }

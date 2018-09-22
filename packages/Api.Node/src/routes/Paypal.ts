@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import { paypalConfig } from "../config/secretConfig";
+import { paypalConfig } from "../config";
 import Authenticate from "../controller/Authenticate";
 import { generateRandomString } from "../utils/utils";
 
