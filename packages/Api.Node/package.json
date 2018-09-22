@@ -1,6 +1,6 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
@@ -28,8 +28,8 @@
     "prettier": "1.14.2",
     "ts-jest": "23.1.4",
     "ts-node": "7.0.1",
-    "tslint-config-prettier": "1.15.0",
     "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
     "typescript": "3.0.3"
   },
   "dependencies": {

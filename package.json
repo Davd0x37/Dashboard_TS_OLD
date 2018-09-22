@@ -1,11 +1,14 @@
 {
   "name": "dashboard",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "api:serve": "cd ./packages/Api.Node && yarn run dev",
     "api:build": "cd ./packages/Api.Node && yarn run prod",

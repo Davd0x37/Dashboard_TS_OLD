@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2018-09-06
+## [0.1.0] - 2018-09-22
+### Added
+- Lerna
+
+### Changed
+- Change packages structure
+
+
+## [0.0.9] - 2018-09-06
 ### Added
 - Vue.js and it's components
 
@@ -17,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Make one Dockerfile and docker-compose.
 - Restore yarn workspaces. Fixed docker copy files 😂🤦‍
+
 
 ## [0.0.7] - 2018-07-28
 ### Added
@@ -42,6 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - Old design which was from dribbble or behance
 
+
 ## [0.0.4] - 2018-06-25
 ### Added
 - Jest testing
@@ -54,6 +64,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Important
  - Use dts-gen to generate definition types for modules without types file. Use `baseUrl: '.'` in tsconfig for including tests. Wihtout it the compiler search probably in directory with ts-node.
 
+
 ## [0.0.3] - 2018-06-17
 ### Added
 - Parcel bundler
@@ -65,6 +76,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Directory structure overhaul. Move api and client dir into separate locations
 
+
 ## [0.0.2] - 2018-05-17
 ### Added
 - Paths to app and www directory in config file.
@@ -74,6 +86,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Directory structure overhaul. Move api and static files into app directory.
+
 
 ## [0.0.1] - 2018-05-06
 ### Added
@@ -86,7 +99,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - API and Client config in one webpack file.
 
-[1.0.0]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
+[0.1.0]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
+[0.0.9]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.8]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.7]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.6]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
