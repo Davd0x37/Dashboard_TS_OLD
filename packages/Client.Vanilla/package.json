@@ -1,5 +1,5 @@
 {
-  "name": "dashboard-client",
+  "name": "client.vanilla",
   "version": "0.1.0",
   "description": "Dashboard written in TypeScript",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
@@ -13,28 +13,28 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/chart.js": "2.7.30",
-    "@types/commander": "2.12.2",
-    "@types/jest": "23.3.1",
-    "@types/lodash": "4.14.116",
-    "babel-plugin-transform-runtime": "6.23.0",
-    "babel-runtime": "6.26.0",
-    "commander": "2.17.1",
-    "jest": "23.4.2",
-    "node-sass": "4.9.2",
-    "parcel-bundler": "1.9.7",
-    "prettier": "1.14.0",
-    "ts-jest": "23.0.1",
-    "ts-node": "7.0.0",
-    "tslint-config-prettier": "1.14.0",
-    "tslint": "5.11.0",
-    "typescript": "3.0.1"
+    "@types/chart.js": "^2.7.35",
+    "@types/commander": "^2.12.2",
+    "@types/jest": "^23.3.2",
+    "@types/lodash": "^4.14.116",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0",
+    "commander": "^2.18.0",
+    "jest": "^23.6.0",
+    "node-sass": "^4.9.3",
+    "parcel-bundler": "^1.9.7",
+    "prettier": "^1.14.3",
+    "ts-jest": "^23.10.1",
+    "ts-node": "^7.0.1",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
   },
   "dependencies": {
-    "apollo-boost": "0.1.12",
-    "chart.js": "2.7.2",
-    "graphql-tag": "2.9.2",
-    "lodash": "4.17.10"
+    "apollo-boost": "^0.1.16",
+    "chart.js": "^2.7.2",
+    "graphql-tag": "^2.9.2",
+    "lodash": "^4.17.11"
   },
   "babel": {
     "plugins": [
