@@ -1,6 +1,3 @@
-import gql from "graphql-tag";
-import { mutation } from "./Api";
-
 class Storage {
   protected isOnline: boolean = navigator.onLine;
 
@@ -105,42 +102,6 @@ class Storage {
         // LOL 🤦‍
       }
     }
-  }
-
-  /**
-   * Fetch data from server
-   *
-   * @protected
-   * @returns
-   * @memberof Storage
-   */
-  protected async fetchData() {
-    return mutation(gql`
-        mutation {
-          updateUserData(id: "${this.store.userId}") {
-            spotify {
-              email
-              username
-              type
-            }
-            digitalocean {
-              email
-              dropletLimit
-              total
-              lastCreatedDroplet
-            }
-            paypal {
-              username
-              email
-              phone
-              language
-              verified
-              country
-              zoneinfo
-            }
-          }
-        }
-      `);
   }
 }
 export default new Storage();

@@ -61,7 +61,7 @@ export const animate = {
    *
    * @param {any[]} styles
    */
-  async _run({ elements, timeout }: IAnimateSequence, styles: any[]) {
+  async _run({ elements, timeout = 0 }: IAnimateSequence, styles: any[]) {
     let i = 0;
     styles.forEach(async style => {
       await this._after(timeout * i++);

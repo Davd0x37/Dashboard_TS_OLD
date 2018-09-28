@@ -59,33 +59,3 @@ export const QueryUser = {
     }
   }
 };
-
-export const UserActions = [
-  {
-    action: "Change name",
-    icon: "signature",
-    view: `
-    <div>Username</div>
-    `
-  },
-  {
-    action: "Change password",
-    icon: "lock",
-    view: "changePassword"
-  },
-  {
-    action: "Change avatar",
-    icon: "user",
-    view: "changeAvatar"
-  },
-  {
-    action: "Change email",
-    icon: "envelope",
-    view: "changeEmail"
-  },
-  {
-    action: "Change settings",
-    icon: "cogs",
-    view: "changeSettings"
-  }
-];

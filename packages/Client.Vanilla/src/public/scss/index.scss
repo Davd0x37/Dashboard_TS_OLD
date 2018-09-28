@@ -4,16 +4,17 @@
 @import "mixins";
 
 // SECTIONS
-@import "bootstrap";
-@import "header";
-@import "main";
+@import "Bootstrap";
+@import "Header";
+@import "Main";
 
 // COMPONENTS
-@import "./components/tooltip";
-@import "./components/backdrop";
-@import "./components/plate";
-@import "./components/plates/spotify";
-@import "./components/plates/digitalocean";
-@import "./components/plates/paypal";
-// @import "./components/plates/facebook";
-@import "./components/authentication";
+@import "./components/items/ItemButton";
+@import "./components/items/ItemInput";
+@import "./components/items/ItemLabel";
+@import "./components/Tooltip";
+@import "./components/Backdrop";
+@import "./components/Plate";
+@import "./components/plates/DigitalOceanPlate";
+@import "./components/plates/PaypalPlate";
+@import "./components/plates/SpotifyPlate";

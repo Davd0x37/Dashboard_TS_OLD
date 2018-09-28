@@ -5,13 +5,6 @@
       <Label title="Email" :value="email" noCapitalize/>
       <Label title="Typ konta" :value="type" last class="color"/>
     </aside>
-    <template slot="back">
-      <aside class="details">
-        <Label title="Nazwa użytkownika" :value="username"/>
-        <Label title="Email" :value="email" noCapitalize/>
-        <Label title="Typ konta" :value="type" last class="color"/>
-      </aside>
-    </template>
   </Plate>
 </template>
 

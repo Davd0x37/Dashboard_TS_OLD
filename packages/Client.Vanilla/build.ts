@@ -17,8 +17,8 @@ program.option("-w, --watch [boolean]", "Watch", false).action(bundle);
 program.parse(process.argv);
 
 async function bundle(cmd: any) {
-  let entryFiles = "src/index.html";
-  let options = {
+  const entryFiles = "src/index.html";
+  const options = {
     outFile: "",
     watch: cmd.watch,
     cache: !!cmd.watch,
@@ -84,7 +84,7 @@ const actions = {
    */
   async serviceWorker() {
     const file = readFileSync(model.serviceWorker.file, "utf-8");
-    const changedFiles = this.normalizeFiles(model.changedFiles);
+    const changedFiles = this.stringifyFiles(model.changedFiles);
     const res = file.replace(model.serviceWorker.regex, changedFiles);
     writeFileSync(model.serviceWorker.file, res);
   },
@@ -95,7 +95,7 @@ const actions = {
    * @param {Set<any>} files
    * @returns {string}
    */
-  normalizeFiles(files: Set<any>): string {
+  stringifyFiles(files: Set<any>): string {
     const res: any[] = [];
     files.forEach(item => res.push(`"${item}"`));
     return res.toString();

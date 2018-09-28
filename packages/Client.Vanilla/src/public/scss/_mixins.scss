@@ -40,24 +40,15 @@ $mobileMin: 320px;
 
 @mixin queries($sizes...) {
   $queries: (
-    "mobileMin": "(min-width: #{$mobileMin})",
-    // 320
-      "mobileMax": "(max-width: #{$mobileMax})",
-    // 480
-      "mobileAll": "(min-width: #{$mobileMin}) and (max-width: #{$mobileMax})",
-    // 320 - 480
-      "tabletMin": "(min-width: #{$tabletMin})",
-    // 481
-      "tabletMax": "(max-width: #{$tabletMax})",
-    // 960
-      "tabletAll": "(min-width: #{$tabletMin}) and (max-width: #{$tabletMax})",
-    // 481 - 960
-      "desktopMin": "(min-width: #{$desktopMin})",
-    // 961
-      "desktopMax": "(max-width: #{$desktopMax})",
-    // 1280
-      "desktopAll": "(min-width: #{$desktopMin}) and (max-width: #{$desktopMax})",
-    // 961 - 1280
+    "mobileMin": "(min-width: #{$mobileMin})", // 320
+      "mobileMax": "(max-width: #{$mobileMax})", // 480
+      "mobileAll": "(min-width: #{$mobileMin}) and (max-width: #{$mobileMax})", // 320 - 480
+      "tabletMin": "(min-width: #{$tabletMin})", // 481
+      "tabletMax": "(max-width: #{$tabletMax})", // 960
+      "tabletAll": "(min-width: #{$tabletMin}) and (max-width: #{$tabletMax})", // 481 - 960
+      "desktopMin": "(min-width: #{$desktopMin})", // 961
+      "desktopMax": "(max-width: #{$desktopMax})", // 1280
+      "desktopAll": "(min-width: #{$desktopMin}) and (max-width: #{$desktopMax})", // 961 - 1280
       "desktopFull": "(min-width: #{$desktopFull})"// 1281+
   );
 

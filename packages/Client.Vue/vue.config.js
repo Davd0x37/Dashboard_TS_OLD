@@ -3,7 +3,7 @@ module.exports = {
     config.module
       .rule("mjs")
       .test(/\.mjs$/)
-      .include.add(/node_modules/)
+      .include.add(/(node_modules|"..\/..\/node_modules)/)
       .end()
       .type("javascript/auto")
       .end();
