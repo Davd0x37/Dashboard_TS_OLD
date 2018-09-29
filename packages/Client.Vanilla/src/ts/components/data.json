@@ -1,0 +1,123 @@
+{
+  "labels": [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ],
+  "options": {
+    "layout": {
+      "padding": {
+        "left": -10,
+        "right": 0,
+        "bottom": -10
+      }
+    },
+    "legend": {
+      "display": false
+    },
+    "scales": {
+      "xAxes": [
+        {
+          "barPercentage": 100,
+          "categoryPercentage": 1000,
+          "gridLines": {
+            "display": false
+          },
+          "ticks": {
+            "display": false
+          }
+        }
+      ],
+      "yAxes": [
+        {
+          "gridLines": {
+            "display": false
+          },
+          "scaleLabel": {
+            "display": false
+          },
+          "ticks": {
+            "display": false
+          }
+        }
+      ]
+    }
+  },
+  "dataset": [
+    {
+      "label": "Green",
+      "backgroundColor": {
+        "start": "rgba(43, 213, 99, 0.15)",
+        "stop": "rgba(0, 130, 21, 0.15)"
+      },
+      "pointRadius": 3,
+      "data": [
+        35,
+        24,
+        17,
+        4,
+        13,
+        2,
+        0,
+        35,
+        20,
+        28,
+        47,
+        45
+      ]
+    },
+    {
+      "label": "Blue",
+      "backgroundColor": {
+        "start": "rgba(0, 130, 21, 0.3)",
+        "stop": "rgba(161, 51, 213, 0.3)"
+      },
+      "pointRadius": 3,
+      "data": [
+        22,
+        19,
+        34,
+        3,
+        23,
+        21,
+        27,
+        29,
+        46,
+        26,
+        48,
+        7
+      ]
+    },
+    {
+      "label": "Purple",
+      "backgroundColor": {
+        "start": "rgba(161, 51, 213, 0.3)",
+        "stop": "rgba(215, 63, 89, 0.3)"
+      },
+      "pointRadius": 3,
+      "data": [
+        35,
+        18,
+        44,
+        47,
+        47,
+        35,
+        35,
+        10,
+        27,
+        16,
+        47,
+        19
+      ]
+    }
+  ]
+}

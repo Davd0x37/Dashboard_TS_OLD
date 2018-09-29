@@ -1,0 +1,16 @@
+.paypal-plate {
+  display: flex;
+  .details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .paypal--color-blue {
+    color: $paypal;
+  }
+  .paypal--color-card {
+    color: $primary-green;
+  }
+}

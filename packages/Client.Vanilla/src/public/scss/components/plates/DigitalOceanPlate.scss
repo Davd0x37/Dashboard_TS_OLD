@@ -1,0 +1,25 @@
+.digital-ocean-plate {
+  .details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @include queries("mobileMax") {
+      .wrap:nth-child(2) {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .other {
+    .chart {
+      border: 1px solid rgba($digital_ocean, 0.7);
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  }
+
+  .digital_ocean--color {
+    color: $digital_ocean;
+  }
+}
