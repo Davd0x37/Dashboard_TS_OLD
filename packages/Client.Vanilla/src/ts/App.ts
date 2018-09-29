@@ -9,13 +9,18 @@ class App {
     //
   }
 
-  public render(where: string, comps: any[]) {
-    let template = "";
-    const feed = document.querySelector(where)!;
+  public render(where: string, comps: any[], createDiv: boolean = true) {
+    const element = document.querySelector(where)!;
     getMetadataKeys(comps).forEach(comp => {
-      template += comp.component.render();
+      if(createDiv) {
+        const compContainer = document.createElement("div")
+        compContainer.id = comp.component.constructor.name
+        compContainer.innerHTML = comp.component.render();
+        element.appendChild(compContainer)
+      }else{
+        element.innerHTML = comp.component.render()
+      }
     });
-    feed.innerHTML = template;
   }
 }
 

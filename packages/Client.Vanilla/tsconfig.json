@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "moduleResolution": "node",
+//    "moduleResolution": "node",
     "lib": ["es2017", "esnext", "dom", "es6", "es7", "es2018", "es2016"],
     "removeComments": true,
     /* Strict Type-Checking Options */
@@ -32,7 +32,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
     // "baseUrl": "src/ts",
     // "paths": {
     //   "#/*": ["components/*"]

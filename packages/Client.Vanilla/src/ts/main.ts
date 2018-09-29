@@ -5,4 +5,4 @@ import Paypal from "./components/Paypal";
 import Spotify from "./components/Spotify";
 
 App.render("#app", [new Spotify(), new DigitalOcean(), new Paypal()]);
-App.render("#header", [new Header()]);
+App.render("#Header", [new Header()], false);
