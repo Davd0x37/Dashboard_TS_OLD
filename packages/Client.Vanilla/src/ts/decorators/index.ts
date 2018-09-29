@@ -11,7 +11,6 @@ export const Component = <T extends Constructor>() => {
 export const Prop = () => {
   return (target: any, key: string) => {
     Reflect.defineMetadata(`$Property:${key}`, key, target);
-    // console.log(target, key, target[key])
   };
 };
 export const Method = () => {

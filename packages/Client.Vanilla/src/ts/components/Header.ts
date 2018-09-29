@@ -36,8 +36,8 @@ export default class Header extends Triton {
       <!--</div>-->
     </div>
     <div class="user__profile">
-      <p class="user__name">${this.store.state.user.username}</p>
-      <img src="${this.store.state.user.avatar}" alt="Avatar" class="user__avatar">
+      <p class="user__name">${this.store.getter.user.username}</p>
+      <img src="${this.store.getter.user.avatar}" alt="Avatar" class="user__avatar">
     </div>`;
   }
 }

@@ -12,14 +12,18 @@
 import { Observer } from "../lib/Observer";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
-import { IState, State } from "./State";
+import { IStateStore, State } from "./State";
 
 export default class Store {
   public events: Observer;
-  public state: IState;
+  private state: IStateStore;
   private actions: any = Actions;
   private mutations: any = Mutations;
   private status: string = "unused";
+
+  public get getter() {
+    return this.state.store;
+  }
 
   constructor() {
     this.events = new Observer();
@@ -31,51 +35,27 @@ export default class Store {
         if (this.status !== "mutations") {
           console.warn(`Use mutation to set ${key}`);
         }
-        console.group("PROXY_SET");
-        console.log("TARGET", target);
-        console.log("KEY", key);
-        console.log("TARGET[KEY]", target[key].toString());
-        console.log("VALUE", value);
-        console.groupEnd();
-        this.events.notify("stateChange", this.state);
+        this.events.notify(`stateChange`, this.state.store);
         return Reflect.set(target, key, value, receiver);
       }
     });
   }
 
-  // store.dispatch('actionType', 'SOMEDATA') --> actions.actionType(this(Store) `commit`, 'SOMEDATA') --> Store.commit('actionType', 'SOMEDATA')
   public dispatch(type: string, payload: any): boolean {
     if (this.isFn("actions", type)) {
       this.status = "actions";
       this.actions[type]({ commit: this.commit }, payload);
-
       return true;
     }
     return false;
   }
 
-  // private commit(type: string, payload: any): boolean {
-  //   console.log(this);
-  //   if (this.isFn("mutations", type)) {
-  //     const state = this.mutations[type](this.state, payload);
-  //     this.state = { ...this.state, ...state };
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   // Use arrow function or .bind in dispatch
   private commit = (type: string, payload: any): boolean => {
     if (this.isFn("mutations", type)) {
       this.status = "mutations";
-      const newState = this.mutations[type](this.state, payload);
-      this.state = Object.assign(this.state, newState);
-      // for (const i in this.state) {
-      //   if (this.state.hasOwnProperty(i)) {
-      //     // @ts-ignore
-      //     // this.state[i] = newState[i];
-      //   }
-      // }
+      const newState = this.mutations[type](this.state.store, payload);
+      this.state.store = { ...this.state.store, ...newState };
       return true;
     }
     return false;

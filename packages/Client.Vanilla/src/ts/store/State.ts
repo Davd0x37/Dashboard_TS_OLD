@@ -1,9 +1,9 @@
-export interface IState {
-  user: {
-    username: string;
-    avatar: string;
-  };
-  service: {
+export interface IStateStore {
+  store: {
+    user: {
+      username: string;
+      avatar: string;
+    };
     Spotify: {
       username: string;
       email: string;
@@ -25,14 +25,15 @@ export interface IState {
     };
   };
 }
+export type IState = IStateStore['store']
 
-export const State: IState = {
-  user: {
-    avatar:
-      "https://images.8tracks.com/cover/i/009/400/711/mr_robot_fuck_society-866.jpg?rect=0,170,1047,1047&q=98&fm=jpg&fit=max&w=640&h=640",
-    username: "Vernon"
-  },
-  service: {
+export const State: IStateStore = {
+  store: {
+    user: {
+      avatar:
+        "https://images.8tracks.com/cover/i/009/400/711/mr_robot_fuck_society-866.jpg?rect=0,170,1047,1047&q=98&fm=jpg&fit=max&w=640&h=640",
+      username: "Vernon"
+    },
     Spotify: {
       username: "Vernon",
       email: "vernon@pm.me",

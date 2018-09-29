@@ -40,7 +40,8 @@
     "chart.js": "^2.7.2",
     "graphql-tag": "^2.9.2",
     "lodash": "^4.17.11",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "sanitize.css": "^7.0.3"
   },
   "babel": {
     "plugins": [

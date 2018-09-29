@@ -1,6 +1,3 @@
-// import Storage from "../../controller/Storage";
-// import { PlateComponent } from "../Component";
-
 import { Component, Method } from "../decorators";
 import Triton from "../lib/Triton";
 
@@ -20,28 +17,28 @@ export default class PaypalPlate extends Triton {
     <div class="plate__container paypal-plate">
       <aside class="details">
         <p class="label__title">Nazwa użytkownika</p>
-        <p class="label__value">${this.store.state.service.Paypal.username}</p>
+        <p class="label__value">${this.store.getter.Paypal.username}</p>
         <p class="label__title">Email</p>
         <p class="label__value label__value--no-capitalize paypal--color-blue">${
-          this.store.state.service.Paypal.email
+          this.store.getter.Paypal.email
         }</p>
         <p class="label__title">Numer telefonu</p>
         <p class="label__value paypal--color-blue label__last">${
-          this.store.state.service.Paypal.phone
+          this.store.getter.Paypal.phone
         }</p>
       </aside>
       <aside class="details">
         <p class="label__title">Kraj</p>
         <p class="label__value paypal--color-blue">${
-          this.store.state.service.Paypal.country
+          this.store.getter.Paypal.country
         }</p>
         <p class="label__title">Typ konta</p>
         <p class="label__value paypal--color-card">${
-          this.store.state.service.Paypal.verified
+          this.store.getter.Paypal.verified
         }</p>
         <p class="label__title">Miejscowość</p>
         <p class="label__value paypal--color-blue label__last">${
-          this.store.state.service.Paypal.zoneinfo
+          this.store.getter.Paypal.zoneinfo
         }
         </p>
       </aside>
