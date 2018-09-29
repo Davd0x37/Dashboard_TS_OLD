@@ -55,15 +55,30 @@ export default class DigitalOceanPlate extends Triton {
   </article>`;
   }
 
-  protected insertChart() {
+  @Method()
+  protected updateData() {
+    this.store.dispatch("setEmail", "MARK");
+  }
+
+  @Method()
+  protected postProcess(): void {
     // Get canvas
-    this.canvas = this.article.querySelector("#digital_ocean_chart");
+    this.canvas = document.querySelector(
+      "#digital_ocean_chart"
+    )! as HTMLCanvasElement;
     // Get context
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvas.getContext("2d")!;
     // Modify background colors in dataset
     this._modifyDataset();
     // Create chart
     this._createChart();
+
+    const handler = () => {
+      this.updateData();
+      el.removeEventListener("click", handler);
+    };
+    const el = document.querySelector(`#${this.className}`)!;
+    el.addEventListener("click", handler);
   }
 
   protected _createChart() {
@@ -104,41 +119,3 @@ export default class DigitalOceanPlate extends Triton {
     });
   }
 }
-
-// class DigitalOceanPlate extends PlateComponent {
-
-//   constructor() {
-//     super();
-//   }
-
-//   public create(): void {
-//     const template = this.view();
-//     this.createPlate(template);
-//     this.insertChart();
-//   }
-
-//   public update(): void {
-//     const template = this.view();
-//     this.article.innerHTML = template;
-//     this.insertChart();
-//   }
-
-//   /**
-//    * Generate template for DigitalOcean plate
-//    *
-//    * @protected
-//    * @returns {string}
-//    * @memberof DigitalOceanPlate
-//    */
-//   protected view(): string {
-//     const data = Storage.store.services.digitalocean;
-//     return ``;
-//   }
-
-//   protected controller() {
-//     // FILL
-//   }
-
-// }
-
-// export default new DigitalOceanPlate();

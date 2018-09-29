@@ -35,6 +35,7 @@ export default class Store {
         if (this.status !== "mutations") {
           console.warn(`Use mutation to set ${key}`);
         }
+        console.log(target, key, value);
         this.events.notify(`stateChange`, this.state.store);
         return Reflect.set(target, key, value, receiver);
       }

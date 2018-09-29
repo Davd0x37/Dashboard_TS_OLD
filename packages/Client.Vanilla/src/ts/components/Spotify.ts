@@ -3,7 +3,6 @@ import Triton from "../lib/Triton";
 
 @Component()
 export default class SpotifyPlate extends Triton {
-
   constructor() {
     super();
   }
@@ -30,5 +29,10 @@ export default class SpotifyPlate extends Triton {
       </aside>
     </div>
   </article>`;
+  }
+
+  @Method()
+  protected postProcess(): void {
+    //
   }
 }
