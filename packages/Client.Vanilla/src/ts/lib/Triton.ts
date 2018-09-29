@@ -1,11 +1,11 @@
 import Store from "../store/Store";
 
 export default abstract class Triton {
-  protected store: any = Store;
+  protected store: Store = new Store();
   protected className: string = this.constructor.name;
 
   protected constructor() {
-    this.store.events.subscribe("stateChange", () => this.update());
+    this.store.events.subscribe(`stateChange`, () => this.update());
   }
 
   protected abstract render(): string;

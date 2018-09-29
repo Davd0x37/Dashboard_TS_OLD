@@ -12,28 +12,33 @@
 import { Observer } from "../lib/Observer";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
-import State from "./State";
+import { IState, State } from "./State";
 
-class Store {
+export default class Store {
   public events: Observer;
-  public state: any;
+  public state: IState;
   private actions: any = Actions;
   private mutations: any = Mutations;
   private status: string = "unused";
 
   constructor() {
     this.events = new Observer();
-    this.state = new Proxy((State || {}), {
+    this.state = new Proxy(State || {}, {
       get: (target, p, receiver) => {
         return Reflect.get(target, p, receiver);
       },
-      set: (target: any, key: any, value: any) => {
+      set: (target: any, key: any, value: any, receiver: any) => {
         if (this.status !== "mutations") {
           console.warn(`Use mutation to set ${key}`);
         }
-        console.log("notify-state");
+        console.group("PROXY_SET");
+        console.log("TARGET", target);
+        console.log("KEY", key);
+        console.log("TARGET[KEY]", target[key].toString());
+        console.log("VALUE", value);
+        console.groupEnd();
         this.events.notify("stateChange", this.state);
-        return Reflect.set(target, key, value);
+        return Reflect.set(target, key, value, receiver);
       }
     });
   }
@@ -41,11 +46,8 @@ class Store {
   // store.dispatch('actionType', 'SOMEDATA') --> actions.actionType(this(Store) `commit`, 'SOMEDATA') --> Store.commit('actionType', 'SOMEDATA')
   public dispatch(type: string, payload: any): boolean {
     if (this.isFn("actions", type)) {
-      (this.status = "actions")
-      this.actions[type](
-        { commit: this.commit.bind(this), state: this.state },
-        payload
-      );
+      this.status = "actions";
+      this.actions[type]({ commit: this.commit }, payload);
 
       return true;
     }
@@ -68,10 +70,12 @@ class Store {
       this.status = "mutations";
       const newState = this.mutations[type](this.state, payload);
       this.state = Object.assign(this.state, newState);
-      // this.state = newState
-      // console.log(newState, this.state)
-      // this.state = Object.assign(this.state, 's')
-      // this.state = {...this.state, service: {DigitalOcean: {email: "TESTERERERE"}}}
+      // for (const i in this.state) {
+      //   if (this.state.hasOwnProperty(i)) {
+      //     // @ts-ignore
+      //     // this.state[i] = newState[i];
+      //   }
+      // }
       return true;
     }
     return false;
@@ -80,20 +84,4 @@ class Store {
   private isFn(section: "actions" | "mutations", fnName: string): boolean {
     return typeof this[section][fnName] === "function";
   }
-
-  // private proxy = (obj: any) => {
-  //   obj = new Proxy(obj, {
-  //     set: (state: any, key: string, value: any) => {
-  //       console.log('notify-state')
-  //       // state[key] = value;
-  //       Reflect.set(state, key, value);
-  //       this.events.notify("stateChange", this.state);
-  //       if (this.status !== "mutation") {
-  //         console.warn(`Use mutation to set ${key}`);
-  //       }
-  //       return true;
-  //     }
-  //   });
 }
-
-export default new Store();

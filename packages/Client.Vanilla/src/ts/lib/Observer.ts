@@ -7,7 +7,6 @@ export class Observer {
     if (!this.subscribers.hasOwnProperty(event)) {
       this.subscribers[event] = [];
     }
-    console.log('subscribe')
     return this.subscribers[event].push(...fn);
   }
 
@@ -15,7 +14,6 @@ export class Observer {
     if (!this.subscribers.hasOwnProperty(event)) {
       return [];
     }
-    console.log('notify')
 
     return this.subscribers[event].map((fn: IOFn) => fn(payload));
   }

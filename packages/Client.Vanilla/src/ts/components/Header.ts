@@ -1,16 +1,14 @@
 import { Component, Method, Prop } from "../decorators";
+import Triton from "../lib/Triton";
 
 @Component()
-export default class Header {
+export default class Header extends Triton {
   @Prop()
   private AppName: string = "Dashboard";
-  @Prop()
-  private action: string = "test";
-  @Prop()
-  private username: string = "Vernon";
-  @Prop()
-  private avatar: string =
-    "https://images.8tracks.com/cover/i/009/400/711/mr_robot_fuck_society-866.jpg?rect=0,170,1047,1047&q=98&fm=jpg&fit=max&w=640&h=640";
+
+  public constructor() {
+    super()
+  }
 
   @Method()
   public render() {
@@ -28,18 +26,18 @@ export default class Header {
           <i class="fas fa-microphone-alt fa-lg" style="color: #F5F7FA;"></i>
         </a>
       </div>
-      <div id="search__result" class="search__result">
-        <a class="search__item">
-          <div class="item__icon">
-            <i class="fas fa-{{type}}" style="font-size: 1.3rem; color: #59B369;"></i>
-          </div>
-          <p class="item__name">${this.action}</p>
-        </a>
-      </div>
+      <!--<div id="search__result" class="search__result">-->
+        <!--<a class="search__item">-->
+          <!--<div class="item__icon">-->
+            <!--<i class="fas fa-{{type}}" style="font-size: 1.3rem; color: #59B369;"></i>-->
+          <!--</div>-->
+          <!--<p class="item__name"></p>-->
+        <!--</a>-->
+      <!--</div>-->
     </div>
     <div class="user__profile">
-      <p class="user__name">${this.username}</p>
-      <img src="${this.avatar}" alt="Avatar" class="user__avatar">
+      <p class="user__name">${this.store.state.user.username}</p>
+      <img src="${this.store.state.user.avatar}" alt="Avatar" class="user__avatar">
     </div>`;
   }
 }

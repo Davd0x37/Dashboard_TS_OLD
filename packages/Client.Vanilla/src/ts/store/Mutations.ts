@@ -1,5 +1,7 @@
+import { IState } from "./State";
+
 export default {
-  setEmail(state: any, payload: any) {
+  setEmail(state: IState, payload: any) {
     state.service.Spotify.username = payload;
     return state;
   }
