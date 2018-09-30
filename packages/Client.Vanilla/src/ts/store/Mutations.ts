@@ -1,8 +1,31 @@
+import Storage from "../controller/Storage";
 import { IState } from "./State";
 
 export default {
-  setEmail(state: IState, payload: any) {
-    state.Spotify.username = payload;
+  updateSpotify(state: IState, payload: IState["Spotify"]) {
+    state.Spotify = { ...state.Spotify, ...payload };
+    return state;
+  },
+  updateDigitalOcean(state: IState, payload: IState["DigitalOcean"]) {
+    state.DigitalOcean = { ...state.DigitalOcean, ...payload };
+    return state;
+  },
+  updatePaypal(state: IState, payload: IState["Paypal"]) {
+    state.Paypal = { ...state.Paypal, ...payload };
+    return state;
+  },
+  updateUser(state: IState, payload: IState["user"]) {
+    state.user = { ...state.user, ...payload };
+    return state;
+  },
+
+  /**
+   * Get data from local storage and save in store
+   * If local storage doesn't have any data, it will not
+   * throw any error but simply save default data from store
+   */
+  saveInStorage(state: IState, payload: IState) {
+    state = { ...state, ...payload, ...Storage.storageData };
     return state;
   }
-}
+};

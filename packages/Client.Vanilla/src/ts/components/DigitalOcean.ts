@@ -56,11 +56,6 @@ export default class DigitalOceanPlate extends Triton {
   }
 
   @Method()
-  protected updateData() {
-    this.store.dispatch("setEmail", "MARK");
-  }
-
-  @Method()
   protected postProcess(): void {
     // Get canvas
     this.canvas = document.querySelector(
@@ -72,13 +67,6 @@ export default class DigitalOceanPlate extends Triton {
     this._modifyDataset();
     // Create chart
     this._createChart();
-
-    const handler = () => {
-      this.updateData();
-      el.removeEventListener("click", handler);
-    };
-    const el = document.querySelector(`#${this.className}`)!;
-    el.addEventListener("click", handler);
   }
 
   protected _createChart() {

@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 import { query } from "./Api";
-import Storage from "./Storage";
 
 export const QueryUser = {
   async authenticate(login: string, password: string): Promise<object> {
@@ -48,11 +47,6 @@ export const QueryUser = {
       }
       const newDate = new Date(`${year}-${month}-${date.getDate()}`);
       document.cookie = `user_id=${data.id}; expires=${newDate}`;
-      Storage.store = {
-        userId: data.id,
-        services: { ...data.services },
-        header: { avatar: data.avatar, username: data.login }
-      };
       return data;
     } else {
       return {};

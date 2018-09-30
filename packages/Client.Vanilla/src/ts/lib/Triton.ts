@@ -1,7 +1,7 @@
 import Store from "../store/Store";
 
 export default abstract class Triton {
-  protected store: Store = new Store();
+  protected store: typeof Store = Store;
   protected className: string = this.constructor.name;
 
   protected constructor() {
@@ -10,8 +10,9 @@ export default abstract class Triton {
 
   protected abstract render(): string;
 
-  protected postProcess(): void {/**/
-  };
+  protected postProcess(): void {
+    //
+  }
 
   private update(): void {
     document.querySelector(`#${this.className}`)!.innerHTML = this.render();

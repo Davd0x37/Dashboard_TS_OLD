@@ -14,7 +14,7 @@ import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";
 
-export default class Store {
+class Store {
   public events: Observer;
   private state: IStateStore;
   private actions: any = Actions;
@@ -35,13 +35,18 @@ export default class Store {
         if (this.status !== "mutations") {
           console.warn(`Use mutation to set ${key}`);
         }
-        console.log(target, key, value);
         this.events.notify(`stateChange`, this.state.store);
         return Reflect.set(target, key, value, receiver);
       }
     });
+    this.dispatch("saveInStorage", "");
   }
 
+  /**
+   * Execute selected action
+   * @param type
+   * @param payload
+   */
   public dispatch(type: string, payload: any): boolean {
     if (this.isFn("actions", type)) {
       this.status = "actions";
@@ -62,7 +67,14 @@ export default class Store {
     return false;
   };
 
+  /**
+   * Check if action or mutation is function
+   * @param section
+   * @param fnName
+   */
   private isFn(section: "actions" | "mutations", fnName: string): boolean {
     return typeof this[section][fnName] === "function";
   }
 }
+
+export default new Store();
