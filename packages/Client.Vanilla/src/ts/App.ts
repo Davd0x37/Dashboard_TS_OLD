@@ -1,4 +1,4 @@
-import { getMetadataKeys } from "./controller/Component";
+import { getMetadataKeys } from "./controller/Metadata";
 
 class App {
   constructor() {

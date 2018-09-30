@@ -16,14 +16,14 @@
     }
   }
 
-  .user__profile {
+  .user {
     display: flex;
     justify-content: flex-end;
+    flex: 1;
     align-items: center;
     @include queries("mobileMax") {
       justify-content: center;
     }
-
     @include queries("tabletMin") {
       margin-right: 20px;
     }
@@ -39,8 +39,8 @@
   }
 
   .search {
-    display: flex;
-    justify-content: space-between;
+    //display: flex;
+    //justify-content: space-between;
     background: #20262e;
     border-radius: 7px;
     border: 1px solid #374355;
@@ -52,9 +52,10 @@
     padding: 0 10px;
     z-index: 15;
 
-    .search__action {
+    .search__actions {
       align-items: center;
       display: flex;
+      flex: 1;
       height: 100%;
       justify-content: space-around;
     }
@@ -63,6 +64,7 @@
       background: transparent;
       border: none;
       width: 100%;
+      height: 100%;
     }
 
     .search__result {
