@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import { paypalConfig } from "../config";
-import Authenticate from "../controller/Authenticate";
-import { generateRandomString } from "../utils/utils";
+import { paypalConfig } from "../../config";
+import Authenticate from "../../controller/Authenticate";
+import { generateRandomString } from "../../utils/utils";
 
 const userAuthenticationID = "user_id";
 const router = express.Router();

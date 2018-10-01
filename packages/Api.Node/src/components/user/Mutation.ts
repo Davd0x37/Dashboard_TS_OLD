@@ -1,6 +1,6 @@
+import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../components";
 import { digitalOceanConfig } from "../../config";
-import { query } from "../../db";
-import { DigitalOceanUpdate, PaypalUpdate, SpotifyUpdate } from "../../services";
+import { query } from "../../controller/DB";
 import { hashPass } from "../../utils/crypto";
 import { getUser, loginAvailable } from "./Manager";
 
@@ -48,9 +48,9 @@ export default {
    * @returns {Promise<object>}
    */
   async updateUserData(_: any, { id }: any): Promise<object> {
-    await SpotifyUpdate(id);
-    await PaypalUpdate(id);
-    await DigitalOceanUpdate(id, digitalOceanConfig.authToken);
+    await SpotifyManager(id);
+    await PaypalManager(id);
+    await DigitalOceanManager(id, digitalOceanConfig.authToken);
     const res: any = await getUser(id);
     return res.services;
   }

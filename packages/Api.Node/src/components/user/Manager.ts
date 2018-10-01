@@ -1,4 +1,4 @@
-import { query } from "../../db";
+import { query } from "../../controller/DB";
 
 /**
  * Update user credentials

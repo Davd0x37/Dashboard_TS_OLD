@@ -14,12 +14,8 @@ export const DB = async () => {
 
 /**
  * Execute query
- *
  * @param {((_: any | Promise<any>) => any[] | Promise<any[]>)} queryFn
- * @param {{ tableName?: string; db?: string }} [{
- *     tableName = "general",
- *     db = "users"
- *   }={}]
+ * @param {{ tableName?: string; db?: string }} [{ tableName = "general", db = "users" }={}]
  * @returns
  */
 export const query = async (

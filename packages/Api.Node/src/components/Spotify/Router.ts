@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import { spotifyConfig } from "../config";
-import Authenticate from "../controller/Authenticate";
+import { spotifyConfig } from "../../config";
+import Authenticate from "../../controller/Authenticate";
 
 const userAuthenticationID = "user_id";
 const router = express.Router();

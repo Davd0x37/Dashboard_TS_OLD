@@ -1,43 +1,7 @@
 import request from "request";
 import { getUser, updateCredentials } from "../components/user/Manager";
+import {IAccessTokenParams, IAuthenticationParams, IAuthForm, IRefreshToken} from "../interfaces/IAuthenticate"
 import { generateRandomString } from "../utils/utils";
-
-interface IAuthenticationParams {
-  scopes: string;
-  redirect: string;
-  clientID: string;
-  url: string;
-  state?: string;
-  nonce?: string;
-}
-
-interface IAccessTokenParams {
-  code: string;
-  state: string;
-  Authorization: string;
-  url: string;
-  redirect_uri?: string;
-}
-
-interface IAuthForm {
-  url: string;
-  form: {
-    code?: string;
-    grant_type: string;
-    refresh_token?: string;
-    redirect_uri?: string;
-  };
-  headers: {
-    Authorization: string;
-  };
-  json: boolean;
-}
-
-interface IRefreshToken {
-  url: string;
-  auth: string;
-  refreshToken: string;
-}
 
 export default class Authenticate {
   protected id!: string;

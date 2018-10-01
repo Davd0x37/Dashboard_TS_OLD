@@ -3,6 +3,7 @@ import Triton from "../lib/Triton";
 
 @Component()
 export default class SpotifyPlate extends Triton {
+  public static i: number = 0;
   constructor() {
     super();
   }
@@ -19,9 +20,7 @@ export default class SpotifyPlate extends Triton {
         <p class="label__title">Nazwa użytkownika</p>
         <p class="label__value">${this.store.getter.Spotify.username}</p>
         <p class="label__title">Email</p>
-        <p class="label__value label__value--no-capitalize">${
-          this.store.getter.Spotify.email
-        }</p>
+        <p class="label__value label__value--no-capitalize">${this.store.getter.Spotify.email}</p>
         <p class="label__title">Typ konta</p>
         <p class="label__value label__last spotify__title--color">
           ${this.store.getter.Spotify.type}
@@ -33,6 +32,15 @@ export default class SpotifyPlate extends Triton {
 
   @Method()
   protected postProcess(): void {
-    //
+    const el = document.querySelector(`#${this.className}`)!;
+    const handler = () => {
+      this.store.dispatch("updateSpotify", {
+        username: `LELELE${SpotifyPlate.i++}`,
+        email: "WOW",
+        type: "NANANANAN"
+      });
+      el.removeEventListener("click", handler);
+    };
+    el.addEventListener("click", handler);
   }
 }

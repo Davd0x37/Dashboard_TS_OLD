@@ -1,7 +1,7 @@
 import request from "request";
-import { getUser, updateCredentials } from "../components/user/Manager";
-import { digitalOceanConfig } from "../config";
-import { timeToSeconds } from "../utils/utils";
+import { getUser, updateCredentials } from "../../components/user/Manager";
+import { digitalOceanConfig } from "../../config";
+import { timeToSeconds } from "../../utils/utils";
 
 interface IDropletData {
   total: number;

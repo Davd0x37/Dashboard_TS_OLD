@@ -1,7 +1,7 @@
 import request from "request";
 import log from "signale";
-import { getUser, updateCredentials } from "../components/user/Manager";
-import { spotifyConfig } from "../config";
+import { getUser, updateCredentials } from "../../components/user/Manager";
+import { spotifyConfig } from "../../config";
 
 export const update = async (id: string) => {
   try {

@@ -1,4 +1,4 @@
-import { query } from "../../db";
+import { query } from "../../controller/DB";
 import { hashPass } from "../../utils/crypto";
 
 // Need to be exported as object because we want to use spread operator
