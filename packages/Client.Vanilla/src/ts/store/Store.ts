@@ -13,6 +13,7 @@ import { Observer } from "../lib/Observer";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";
+import Storage from "../controller/Storage";
 
 class Store {
   public events: Observer;
@@ -39,7 +40,7 @@ class Store {
         return Reflect.set(target, key, value, receiver);
       }
     });
-    this.dispatch("saveInStorage", "");
+    this.dispatch('restoreStorage', '');
   }
 
   /**
@@ -62,6 +63,7 @@ class Store {
       this.status = "mutations";
       const newState = this.mutations[type](this.state.store, payload);
       this.state.store = { ...this.state.store, ...newState };
+      Storage.storageData = this.state.store;
       return true;
     }
     return false;

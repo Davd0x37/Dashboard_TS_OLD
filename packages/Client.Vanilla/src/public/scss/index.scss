@@ -1,12 +1,12 @@
 @import "~sanitize.css";
 @import "./lib/normalize";
 // UTILS
-@import "colors";
-@import "mixins";
+@import "./colors";
+@import "./mixins";
 // SECTIONS
-@import "Bootstrap";
-@import "Header";
-@import "Main";
+@import "./Bootstrap";
+@import "./Header";
+@import "./Main";
 
 // COMPONENTS
 @import "./components/items/ItemButton";

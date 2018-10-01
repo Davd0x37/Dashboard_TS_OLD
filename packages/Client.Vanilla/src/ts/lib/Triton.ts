@@ -5,7 +5,9 @@ export default abstract class Triton {
   protected className: string = this.constructor.name;
 
   protected constructor() {
-    this.store.events.subscribe(`stateChange`, () => this.update());
+    this.store.events.subscribe(`stateChange`, () => {
+      this.update();
+    });
   }
 
   protected abstract render(): string;

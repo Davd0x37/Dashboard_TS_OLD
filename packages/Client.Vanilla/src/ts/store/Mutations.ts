@@ -24,8 +24,12 @@ export default {
    * If local storage doesn't have any data, it will not
    * throw any error but simply save default data from store
    */
-  saveInStorage(state: IState, payload: IState) {
+  restoreStorage(state: IState, payload: IState) {
     state = { ...state, ...payload, ...Storage.storageData };
+    return state;
+  },
+  saveInStorage(state: IState, payload: IState) {
+    Storage.storageData = state;
     return state;
   }
 };

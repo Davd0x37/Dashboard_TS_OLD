@@ -21,6 +21,9 @@ export default {
     commit("updateUser", payload.user);
     Storage.storageData = payload;
   },
+  restoreStorage({ commit }: any, payload: IState) {
+    commit("restoreStorage", payload);
+  },
   saveInStorage({ commit }: any, payload: IState) {
     commit("saveInStorage", payload);
   }

@@ -23,5 +23,16 @@ class Storage {
   public set storageData(value: IState) {
     localStorage.setItem("user_data", JSON.stringify(value));
   }
+
+  public getStorage(): IState {
+    const data = localStorage.getItem("user_data");
+    if (data !== null) {
+      return JSON.parse(data);
+    }
+  }
+
+  public saveStorage(value: IState): void {
+    localStorage.setItem("user_data", JSON.stringify(value));
+  }
 }
 export default new Storage();
