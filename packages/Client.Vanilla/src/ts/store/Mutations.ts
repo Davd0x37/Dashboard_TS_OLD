@@ -28,7 +28,7 @@ export default {
     state = { ...state, ...payload, ...Storage.storageData };
     return state;
   },
-  saveInStorage(state: IState, payload: IState) {
+  saveInStorage(state: IState, _: IState) {
     Storage.storageData = state;
     return state;
   }

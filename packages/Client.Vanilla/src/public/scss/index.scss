@@ -4,17 +4,17 @@
 @import "./colors";
 @import "./mixins";
 // SECTIONS
-@import "./Bootstrap";
-@import "./Header";
-@import "./Main";
+@import "./bootstrap";
+@import "./header";
+@import "./main";
 
 // COMPONENTS
 @import "./components/items/ItemButton";
 @import "./components/items/ItemInput";
 @import "./components/items/ItemLabel";
-@import "./components/Tooltip";
-@import "./components/Backdrop";
-@import "./components/Plate";
+@import "./components/tooltip";
+@import "./components/backdrop";
+@import "./components/plate";
 @import "./components/plates/DigitalOceanPlate";
 @import "./components/plates/PaypalPlate";
 @import "./components/plates/SpotifyPlate";

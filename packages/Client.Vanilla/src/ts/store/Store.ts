@@ -9,11 +9,11 @@
  * }
  */
 
+import Storage from "../controller/Storage";
 import { Observer } from "../lib/Observer";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";
-import Storage from "../controller/Storage";
 
 class Store {
   public events: Observer;

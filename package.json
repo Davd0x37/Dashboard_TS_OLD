@@ -19,6 +19,8 @@
     "client:test:e2e": "cd ./packages/Client.Vue && yarn run test:e2e",
     "client_vanilla:serve": "cd ./packages/Client.Vanilla && yarn run dev",
     "client_vanilla:build": "cd ./packages/Client.Vanilla && yarn run prod",
+    "client_vanilla:serve:build": "cd ./packages/Client.Vanilla && yarn run dev:build",
+    "client_vanilla:build:build": "cd ./packages/Client.Vanilla && yarn run prod:build",
     "client_vanilla:test": "cd ./packages/Client.Vanilla && yarn run test",
     "client_vanilla:test-watch": "cd ./packages/Client.Vanilla && yarn run test:watch",
     "deploy": "docker-compose up"
