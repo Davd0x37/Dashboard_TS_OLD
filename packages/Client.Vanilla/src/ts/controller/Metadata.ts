@@ -1,3 +1,5 @@
+import "reflect-metadata"
+
 export enum MetdataKey {
   COMPONENT = 1,
   PROP,

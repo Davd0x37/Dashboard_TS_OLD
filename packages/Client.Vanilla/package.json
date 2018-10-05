@@ -15,36 +15,37 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@types/chart.js": "^2.7.35",
-    "@types/graphql": "^14.0.0",
-    "@types/jest": "^23.3.2",
-    "@types/lodash": "^4.14.116",
-    "@types/node": "^10.10.3",
-    "babel-core": "^6.26.3",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "commander": "^2.18.0",
-    "graphql": "^14.0.2",
-    "jest": "^23.6.0",
-    "node-sass": "^4.9.3",
-    "parcel-bundler": "^1.10.0",
-    "prettier": "^1.14.3",
-    "ts-jest": "^23.10.1",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.1"
+    "@types/chart.js": "2.7.37",
+    "@types/graphql": "14.0.1",
+    "@types/jest": "23.3.3",
+    "@types/lodash": "4.14.116",
+    "@types/node": "10.11.4",
+    "babel-core": "6.26.3",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-polyfill": "6.26.0",
+    "commander": "2.18.0",
+    "graphql": "14.0.2",
+    "husky": "1.1.1",
+    "jest": "23.6.0",
+    "node-sass": "4.9.3",
+    "parcel-bundler": "1.10.1",
+    "prettier": "1.14.3",
+    "ts-jest": "23.10.3",
+    "ts-node": "7.0.1",
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
+    "typescript": "3.1.1"
   },
   "dependencies": {
-    "apollo-boost": "^0.1.16",
-    "pouchdb-adapter-idb": "^7.0.0",
-    "rxdb": "^8.0.1",
-    "rxjs": "^6.3.3",
-    "chart.js": "^2.7.2",
-    "graphql-tag": "^2.9.2",
-    "lodash": "^4.17.11",
-    "reflect-metadata": "^0.1.12",
-    "sanitize.css": "^7.0.3"
+    "apollo-boost": "0.1.16",
+    "chart.js": "2.7.2",
+    "graphql-tag": "2.10.0",
+    "lodash": "4.17.11",
+    "pouchdb-adapter-idb": "7.0.0",
+    "reflect-metadata": "0.1.12",
+    "rxdb": "8.0.1",
+    "rxjs": "6.3.3",
+    "sanitize.css": "7.0.3"
   },
   "babel": {
     "plugins": [
@@ -57,19 +58,10 @@
       ]
     ]
   },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/**/**/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": "yarn test"
+    }
   }
 }

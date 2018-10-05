@@ -2,10 +2,10 @@ import cookieParser from "cookie-parser";
 import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
 import log from "signale";
+import PaypalRouter from "./components/Paypal/Router";
+import SpotifyRouter from "./components/Spotify/Router";
 import { resolvers } from "./graphql/Resolvers";
 import Schema from "./graphql/Schema.gql";
-import PaypalRouter from "./routes/Paypal";
-import SpotifyRouter from "./routes/Spotify";
 
 try {
   const server = new GraphQLServer({

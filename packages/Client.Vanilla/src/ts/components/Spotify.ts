@@ -32,16 +32,6 @@ export default class SpotifyPlate extends Triton {
 
   @Method()
   protected postProcess(): void {
-    const el = document.querySelector(`#${this.className}`)!;
-    const handler = () => {
-      this.store.dispatch("updateSpotify", {
-        username: this.store.getter.Spotify.username + "L",
-        email: "WOW",
-        type: "NANANANAN"
-      });
-
-      el.removeEventListener("click", handler);
-    };
-    el.addEventListener("click", handler);
+    // 
   }
 }
