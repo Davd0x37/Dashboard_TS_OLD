@@ -1,12 +1,13 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 import App from "./App";
-import DigitalOcean from "./components/DigitalOcean";
-import Header from "./components/Header";
-import Paypal from "./components/Paypal";
-import Spotify from "./components/Spotify";
+import { Header } from './components';
+import Spotify from './components/Spotify';
+import { domParse } from './utils/Parser';
 
-App.render("#app", [new Spotify(), new DigitalOcean(), new Paypal()]);
-App.render("#Header", [new Header()], false);
+App.render();
+App.mount();
+
+
 
 // import idb from "pouchdb-adapter-idb"
 // import RxDB from "rxdb";

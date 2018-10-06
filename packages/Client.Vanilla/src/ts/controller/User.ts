@@ -1,8 +1,14 @@
 import gql from "graphql-tag";
-import { query } from "./Api";
+import { mutation, query } from "./Api";
+
+export enum UserCodes {
+  AUTHENTICATED = 1,
+  REGISTERER,
+  NOTFOUND
+}
 
 export const QueryUser = {
-  async authenticate(login: string, password: string): Promise<object> {
+  async authenticate(login: string, password: string): Promise<object | UserCodes> {
     const res: any = await query(gql`
         query {
           authenticateUser(login: "${login}", password: "${password}") {
@@ -18,15 +24,14 @@ export const QueryUser = {
               }
               digitalocean {
                 email
-                dropletLimit
                 total
+                dropletLimit
                 lastCreatedDroplet
               }
               paypal {
                 username
                 email
                 phone
-                language
                 verified
                 country
                 zoneinfo
@@ -36,20 +41,23 @@ export const QueryUser = {
         }
       `);
     const data = res.authenticateUser;
-
     if (data !== null) {
-      const date = new Date();
-      let month = date.getMonth();
-      let year = date.getFullYear();
-      if (month + 1 > 12) {
-        year++;
-        month++;
-      }
-      const newDate = new Date(`${year}-${month}-${date.getDate()}`);
-      document.cookie = `user_id=${data.id}; expires=${newDate}`;
       return data;
     } else {
-      return {};
+      return UserCodes.NOTFOUND;
     }
+  },
+  async registerUser(login: string, password: string, email: string): Promise<boolean> {
+    const res: any = await mutation(gql`
+      mutation {
+        addUser(data: {
+          avatar: ""
+          email: "${login}"
+          login: "${password}"
+          password: "${email}"
+        })
+      }
+    `)
+    return res;
   }
 };

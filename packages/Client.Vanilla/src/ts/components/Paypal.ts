@@ -2,7 +2,7 @@ import { Component, Method } from "../decorators";
 import Triton from "../lib/Triton";
 
 @Component()
-export default class PaypalPlate extends Triton {
+class Paypal extends Triton {
   constructor() {
     super();
   }
@@ -46,3 +46,5 @@ export default class PaypalPlate extends Triton {
   </article>`;
   }
 }
+
+export default new Paypal()

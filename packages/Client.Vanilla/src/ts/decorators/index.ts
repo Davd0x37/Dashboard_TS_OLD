@@ -13,8 +13,15 @@ export const Prop = () => {
     Reflect.defineMetadata(`$Property:${key}`, key, target);
   };
 };
+
 export const Method = () => {
   return (target: any, key: string) => {
     Reflect.defineMetadata(`$Method:${key}`, target[key], target);
+  };
+};
+
+export const Route = (path: string) => {
+  return (target: any, key: string) => {
+    Reflect.defineMetadata(`$Route:${path}`, target[key], target);
   };
 };

@@ -1,10 +1,11 @@
 import { Chart } from "chart.js";
 import { Component, Method, Prop } from "../decorators";
 import Triton from "../lib/Triton";
+import { $ } from "../utils/DOM";
 import DigitalOceanConfig from "./data.json";
 
 @Component()
-export default class DigitalOceanPlate extends Triton {
+class DigitalOcean extends Triton {
   @Prop()
   protected canvas!: HTMLCanvasElement;
   @Prop()
@@ -27,9 +28,7 @@ export default class DigitalOceanPlate extends Triton {
       <div class="details">
         <aside class="wrap">
           <p class="label__title">Email</p>
-          <p class="label__value label__value--no-capitalize">${
-            this.store.getter.DigitalOcean.email
-          }</p>
+          <p class="label__value label__value--no-capitalize">${this.store.getter.DigitalOcean.email}</p>
           <p class="label__title">Ostatnio utworzony droplet</p>
           <p class="label__value label__last digital_ocean--color">${
             this.store.getter.DigitalOcean.lastCreatedDroplet
@@ -37,13 +36,9 @@ export default class DigitalOceanPlate extends Triton {
         </aside>
         <aside class="wrap">
           <p class="label__title">Limit dropletow</p>
-          <p class="label__value digital_ocean--color">${
-            this.store.getter.DigitalOcean.dropletLimit
-          }</p>
+          <p class="label__value digital_ocean--color">${this.store.getter.DigitalOcean.dropletLimit}</p>
           <p class="label__title">Dropletów</p>
-          <p class="label__value label__last digital_ocean--color">${
-            this.store.getter.DigitalOcean.total
-          }</p>
+          <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.total}</p>
         </aside>
       </div>
       <div class="other">
@@ -56,13 +51,12 @@ export default class DigitalOceanPlate extends Triton {
   }
 
   @Method()
-  protected postProcess(): void {
+  public mounted(): void {
     // Get canvas
-    this.canvas = document.querySelector(
-      "#digital_ocean_chart"
-    )! as HTMLCanvasElement;
+    this.canvas = $("#digital_ocean_chart")! as HTMLCanvasElement;
     // Get context
     this.ctx = this.canvas.getContext("2d")!;
+    console.log(this.ctx)
     // Modify background colors in dataset
     this._modifyDataset();
     // Create chart
@@ -82,12 +76,7 @@ export default class DigitalOceanPlate extends Triton {
 
   protected _createGradient(start: string, stop: string): CanvasGradient {
     const cv = this.canvas;
-    const gradient = this.ctx.createLinearGradient(
-      0,
-      cv.height / 2,
-      cv.width,
-      cv.height / 2
-    );
+    const gradient = this.ctx.createLinearGradient(0, cv.height / 2, cv.width, cv.height / 2);
     gradient.addColorStop(0, start);
     gradient.addColorStop(1, stop);
     return gradient;
@@ -95,15 +84,11 @@ export default class DigitalOceanPlate extends Triton {
 
   protected _modifyDataset(): void {
     DigitalOceanConfig.dataset.forEach((el: any) => {
-      if (
-        el.backgroundColor.hasOwnProperty("start") &&
-        el.backgroundColor.hasOwnProperty("stop")
-      ) {
-        el.backgroundColor = this._createGradient(
-          el.backgroundColor.start,
-          el.backgroundColor.stop
-        );
+      if (el.backgroundColor.hasOwnProperty("start") && el.backgroundColor.hasOwnProperty("stop")) {
+        el.backgroundColor = this._createGradient(el.backgroundColor.start, el.backgroundColor.stop);
       }
     });
   }
 }
+
+export default new DigitalOcean();

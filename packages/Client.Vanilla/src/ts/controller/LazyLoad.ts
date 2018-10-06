@@ -1,3 +1,5 @@
+import { $$ } from "../utils/DOM";
+
 enum EventAction {
   ADD,
   REMOVE
@@ -19,7 +21,7 @@ const data = {
  */
 export default (directive?: string) => {
   initDirective(directive);
-  data.elements = document.querySelectorAll(`[data-${data.options.directive}]`);
+  data.elements = $$(`[data-${data.options.directive}]`);
   events(EventAction.ADD);
 };
 

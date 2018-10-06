@@ -1,4 +1,5 @@
 import Store from "../store/Store";
+import { $ } from "../utils/DOM";
 
 export default abstract class Triton {
   protected store: typeof Store = Store;
@@ -10,14 +11,14 @@ export default abstract class Triton {
     });
   }
 
-  protected abstract render(): string;
-
-  protected postProcess(): void {
+  public abstract render(...args: any[]): string;
+  public mounted(...args: any[]): void {
     //
   }
+  
 
-  private update(): void {
-    document.querySelector(`#${this.className}`)!.innerHTML = this.render();
-    this.postProcess();
+  private update(...args: any[]): void {
+    // $(`#${this.className}`)!.inner = this.render();
+    this.mounted();
   }
 }

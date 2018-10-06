@@ -2,7 +2,7 @@ import { Component, Method } from "../decorators";
 import Triton from "../lib/Triton";
 
 @Component()
-export default class SpotifyPlate extends Triton {
+class Spotify extends Triton {
   public static i: number = 0;
   constructor() {
     super();
@@ -31,7 +31,9 @@ export default class SpotifyPlate extends Triton {
   }
 
   @Method()
-  protected postProcess(): void {
-    // 
+  public mounted(): void {
+    //
   }
 }
+
+export default new Spotify();

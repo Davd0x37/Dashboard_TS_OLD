@@ -3,7 +3,8 @@ import "reflect-metadata"
 export enum MetdataKey {
   COMPONENT = 1,
   PROP,
-  METHOD
+  METHOD,
+  ROUTE
 }
 
 function getKey(key: MetdataKey): any {
@@ -16,6 +17,9 @@ function getKey(key: MetdataKey): any {
     }
     case MetdataKey.METHOD: {
       return /\$Method/g;
+    }
+    case MetdataKey.ROUTE: {
+      return /\$Route/g;
     }
   }
 }
