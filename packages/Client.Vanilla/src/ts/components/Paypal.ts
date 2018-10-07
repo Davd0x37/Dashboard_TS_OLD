@@ -19,27 +19,19 @@ class Paypal extends Triton {
         <p class="label__title">Nazwa użytkownika</p>
         <p class="label__value">${this.store.getter.Paypal.username}</p>
         <p class="label__title">Email</p>
-        <p class="label__value label__value--no-capitalize paypal--color-blue">${
-          this.store.getter.Paypal.email
-        }</p>
+        <p class="label__value label__no-capitalize paypal--color-blue">${this.store.getter.Paypal.email}</p>
         <p class="label__title">Numer telefonu</p>
-        <p class="label__value paypal--color-blue label__last">${
-          this.store.getter.Paypal.phone
-        }</p>
+        <p class="label__value paypal--color-blue label__last">${this.store.getter.Paypal.phone}</p>
       </aside>
       <aside class="details">
         <p class="label__title">Kraj</p>
-        <p class="label__value paypal--color-blue">${
-          this.store.getter.Paypal.country
-        }</p>
+        <p class="label__value paypal--color-blue">${this.store.getter.Paypal.country}</p>
         <p class="label__title">Typ konta</p>
         <p class="label__value paypal--color-card">${
-          this.store.getter.Paypal.verified
+          this.store.getter.Paypal.verified ? "Zweryfikowane" : "Niezweryfikowane"
         }</p>
         <p class="label__title">Miejscowość</p>
-        <p class="label__value paypal--color-blue label__last">${
-          this.store.getter.Paypal.zoneinfo
-        }
+        <p class="label__value paypal--color-blue label__last">${this.store.getter.Paypal.zoneinfo}
         </p>
       </aside>
     </div>
@@ -47,4 +39,4 @@ class Paypal extends Triton {
   }
 }
 
-export default new Paypal()
+export default new Paypal();

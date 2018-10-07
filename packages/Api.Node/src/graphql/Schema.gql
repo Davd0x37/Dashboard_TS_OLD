@@ -18,16 +18,20 @@ type Mutation {
   changePassword(id: ID, password: String, newPassword: String): Boolean
   # Update user info
   updateUserData(id: ID!): Services!
+  # Update digitalocean token
+  updateDigitalOceanToken(id: ID!, token: String!): Boolean
 }
 ####### ----- END TYPES ----- #######
 
 ####### ----- User ----- #######
 type User {
-  id: ID!
+  id: ID
   avatar: String
-  email: String!
-  login: String!
-  services: Services!
+  email: String
+  login: String
+  DigitalOcean: DigitalOcean
+  Spotify: Spotify
+  Paypal: Paypal
 }
 
 input UserInput {
@@ -40,9 +44,9 @@ input UserInput {
 
 ####### ----- Services ----- #######
 type Services {
-  digitalocean: DigitalOcean!
-  spotify: Spotify!
-  paypal: Paypal!
+  DigitalOcean: DigitalOcean
+  Spotify: Spotify
+  Paypal: Paypal
 }
 
 input authTokens {
@@ -50,7 +54,7 @@ input authTokens {
   digitaloceanAuth: String
   paypalAuth: String
 }
-####### ----- END User ----- #######
+####### ----- END Services ----- #######
 
 ####### ----- DigitalOcean ----- #######
 type DigitalOcean {

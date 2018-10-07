@@ -10,7 +10,7 @@ export const spotifyConfig = {
 
 export const digitalOceanConfig = {
   api: "https://api.digitalocean.com/v2/",
-  authToken: "67e7d091391c02f45056470df718ea1696f5d87ec61dfe99aaf6bd1f50ba803d"
+  authToken: "04c0770f49f11645d7bc4b5fac942c9a052a15311653abe981755c5ed15cb901"
 };
 
 export const paypalConfigSandbox = {

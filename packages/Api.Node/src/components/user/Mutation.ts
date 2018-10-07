@@ -2,7 +2,7 @@ import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../compon
 import { digitalOceanConfig } from "../../config";
 import { query } from "../../controller/DB";
 import { hashPass } from "../../utils/crypto";
-import { getUser, loginAvailable } from "./Manager";
+import { fieldAvailable, getUser } from "./Manager";
 
 // Need to be exported as object because we want to use spread operator
 export default {
@@ -14,11 +14,34 @@ export default {
    * @returns {Promise<boolean>}
    */
   async addUser(_: any, { data }: any): Promise<boolean> {
-    if (loginAvailable(data.login)) {
+    if ((await fieldAvailable({ login: data.login })) && (await fieldAvailable({ email: data.email }))) {
       // Hash password
       data.password = await hashPass(data.password);
       // Save user credentials in database
-      await query(q => q.insert(data));
+      await query(q =>
+        q.insert({
+          ...data,
+          Spotify: {
+            username: "",
+            email: "",
+            type: ""
+          },
+          DigitalOcean: {
+            email: "",
+            total: "",
+            dropletLimit: "",
+            lastCreatedDroplet: ""
+          },
+          Paypal: {
+            username: "",
+            email: "",
+            phone: "",
+            verified: "",
+            country: "",
+            zoneinfo: ""
+          }
+        })
+      );
       return true;
     } else {
       // Login already taken
@@ -52,6 +75,11 @@ export default {
     await PaypalManager(id);
     await DigitalOceanManager(id, digitalOceanConfig.authToken);
     const res: any = await getUser(id);
-    return res.services;
+    return res;
+  },
+
+  async updateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
+    const req: any = query(async q => q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } }));
+    return !!req.inserted || !!req.replaced;
   }
 };

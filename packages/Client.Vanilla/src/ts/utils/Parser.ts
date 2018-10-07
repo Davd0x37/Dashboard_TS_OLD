@@ -18,21 +18,19 @@ export function parse(template: string, obj: any) {
 // \<\/?(?<Open>[a-zA-Z-_.]+)\/?\>(?<Content>[a-zA-Z]+)?(?<Closing>\<\/(\k<Open>)\>)?
 // Instead of ?P use \k for previously named group
 // To create group use ?<Name> instead of ?P<Name>
-export function parseComponent(template: string, components: any): string {
-  return template.replace(data.regexComponent, (matched: string, name: string, atrs: string) => {
+export function parseComponent(template: string, components: any): { components: string[]; template: string } {
+  const replacedComponents: string[] = [];
+  const parsedTemplate = template.replace(data.regexComponent, (matched: string, name: string, atrs: string) => {
     atrs = atrs !== undefined ? atrs.trim() : "";
     if (atrs !== "") {
+      replacedComponents.push(name);
       return `<div ${atrs}>${components[name].render() || matched}</div>`;
     }
+    replacedComponents.push(name);
     return (components[name].render() || matched) + "\n";
   });
-}
-
-export function extractComponents(template: string): any {
-  return template.replace(data.regexComponent, (_: string, name: string) => name);
-}
-
-export const domParse = (template: string): Element => {
-  const parser = new DOMParser()
-  return parser.parseFromString(template, 'text/html').body.firstChild! as Element
+  return {
+    components: replacedComponents,
+    template: parsedTemplate
+  };
 }

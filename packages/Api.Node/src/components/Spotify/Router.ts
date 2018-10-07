@@ -10,13 +10,17 @@ const auth = new Authenticate();
 
 // Redirect to spotify for authentication
 router.get("/authenticate", async (req: Request, res: Response) => {
-  const authUrl = await auth.authenticateAccount(req.cookies[userAuthenticationID], "spotify", {
-    clientID: spotifyConfig.clientID,
-    redirect: spotifyConfig.redirectURI,
-    scopes: spotifyConfig.userScopes.join("+"),
-    url: spotifyConfig.authenticateURL
-  });
-  res.redirect(authUrl);
+  try {
+    const authUrl = await auth.authenticateAccount(req.cookies[userAuthenticationID], "Spotify", {
+      clientID: spotifyConfig.clientID,
+      redirect: spotifyConfig.redirectURI,
+      scopes: spotifyConfig.userScopes.join("+"),
+      url: spotifyConfig.authenticateURL
+    });
+    res.redirect(authUrl);
+  } catch (e) {
+    throw Error(e)
+  }
 });
 
 // Redirect from spotify authenticator with success or error message

@@ -6,7 +6,7 @@ import { paypalConfig } from "../../config";
 export const update = async (id: string) => {
   try {
     const data: any = await getUser(id);
-    const { accessToken } = await data.authTokens.paypal;
+    const { accessToken } = await data.authTokens.Paypal;
     const options = {
       url: paypalConfig.paths.personalData,
       headers: { Authorization: "Bearer " + accessToken },
@@ -15,20 +15,17 @@ export const update = async (id: string) => {
 
     request.get(options, async (_: any, __: any, body: any) => {
       await updateCredentials(id, {
-        services: {
-          paypal: {
-            username: body.name,
-            email: body.email,
-            phone: body.phone_number,
-            verified: body.verified,
-            country: body.address.country,
-            zoneinfo: body.zoneinfo
-          }
+        Paypal: {
+          username: body.name,
+          email: body.email,
+          phone: body.phone_number,
+          verified: body.verified,
+          country: body.address.country,
+          zoneinfo: body.zoneinfo
         }
       });
     });
   } catch (e) {
-    log.error(e);
     throw Error(e);
   }
 };

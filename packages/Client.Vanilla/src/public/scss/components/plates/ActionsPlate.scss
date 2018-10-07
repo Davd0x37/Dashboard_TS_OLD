@@ -1,4 +1,4 @@
-.spotify-plate {
+.actions-plate {
   display: flex;
   justify-content: space-between;
   .details {
@@ -8,6 +8,10 @@
   }
 
   .color {
-    color: $spotify;
+    border-color: #ff922b;
+  }
+  .color:hover {
+    background: #ff922b;
+    border-color: #ff922b;
   }
 }

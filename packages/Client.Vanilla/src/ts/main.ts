@@ -1,11 +1,7 @@
 import 'babel-polyfill';
 import App from "./App";
-import { Header } from './components';
-import Spotify from './components/Spotify';
-import { domParse } from './utils/Parser';
 
-App.render();
-App.mount();
+App.run();
 
 
 

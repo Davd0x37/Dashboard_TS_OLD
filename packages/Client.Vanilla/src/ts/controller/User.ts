@@ -1,14 +1,8 @@
 import gql from "graphql-tag";
 import { mutation, query } from "./Api";
 
-export enum UserCodes {
-  AUTHENTICATED = 1,
-  REGISTERER,
-  NOTFOUND
-}
-
 export const QueryUser = {
-  async authenticate(login: string, password: string): Promise<object | UserCodes> {
+  async authenticate(login: string, password: string): Promise<object | boolean> {
     const res: any = await query(gql`
         query {
           authenticateUser(login: "${login}", password: "${password}") {
@@ -16,26 +10,24 @@ export const QueryUser = {
             avatar
             login
             email
-            services {
-              spotify {
-                email
-                username
-                type
-              }
-              digitalocean {
-                email
-                total
-                dropletLimit
-                lastCreatedDroplet
-              }
-              paypal {
-                username
-                email
-                phone
-                verified
-                country
-                zoneinfo
-              }
+            Spotify {
+              email
+              username
+              type
+            }
+            DigitalOcean {
+              email
+              total
+              dropletLimit
+              lastCreatedDroplet
+            }
+            Paypal {
+              username
+              email
+              phone
+              verified
+              country
+              zoneinfo
             }
           }
         }
@@ -44,7 +36,7 @@ export const QueryUser = {
     if (data !== null) {
       return data;
     } else {
-      return UserCodes.NOTFOUND;
+      return false;
     }
   },
   async registerUser(login: string, password: string, email: string): Promise<boolean> {
@@ -52,12 +44,46 @@ export const QueryUser = {
       mutation {
         addUser(data: {
           avatar: ""
-          email: "${login}"
-          login: "${password}"
-          password: "${email}"
+          email: "${email}"
+          login: "${login}"
+          password: "${password}"
         })
       }
-    `)
-    return res;
-  }
+    `);
+    return res.addUser;
+  },
+  
+  async updateUserData(id: string): Promise<object | boolean> {
+    const res: any = await mutation(gql`
+        mutation {
+          updateUserData(id: "${id}") {
+            Spotify {
+              email
+              username
+              type
+            }
+            DigitalOcean {
+              email
+              total
+              dropletLimit
+              lastCreatedDroplet
+            }
+            Paypal {
+              username
+              email
+              phone
+              verified
+              country
+              zoneinfo
+            }
+          }
+        }
+      `);
+    const data = res.updateUserData;
+    if (data !== null) {
+      return data;
+    } else {
+      return false;
+    }
+  },
 };

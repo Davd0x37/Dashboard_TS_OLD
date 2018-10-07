@@ -1,4 +1,3 @@
-import Storage from "../controller/Storage";
 import { IState } from "./State";
 
 export default {
@@ -19,7 +18,6 @@ export default {
     commit("updateDigitalOcean", payload.DigitalOcean);
     commit("updatePaypal", payload.Paypal);
     commit("updateUser", payload.user);
-    Storage.storageData = payload;
   },
   restoreStorage({ commit }: any, payload: IState) {
     commit("restoreStorage", payload);

@@ -3,7 +3,6 @@ import Triton from "../lib/Triton";
 
 @Component()
 class Spotify extends Triton {
-  public static i: number = 0;
   constructor() {
     super();
   }
@@ -20,7 +19,7 @@ class Spotify extends Triton {
         <p class="label__title">Nazwa użytkownika</p>
         <p class="label__value">${this.store.getter.Spotify.username}</p>
         <p class="label__title">Email</p>
-        <p class="label__value label__value--no-capitalize">${this.store.getter.Spotify.email}</p>
+        <p class="label__value label__no-capitalize">${this.store.getter.Spotify.email}</p>
         <p class="label__title">Typ konta</p>
         <p class="label__value label__last spotify__title--color">
           ${this.store.getter.Spotify.type}

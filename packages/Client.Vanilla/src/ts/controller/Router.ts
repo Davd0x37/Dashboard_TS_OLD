@@ -1,3 +1,4 @@
+import App from "../App";
 import { Route } from "../decorators";
 
 class Router {
@@ -9,25 +10,29 @@ class Router {
     return Reflect.getMetadata(`$Route:${path}`, this);
   }
 
+  public go(path: string) {
+    history.pushState({}, path, path);
+    App.run();
+  }
+
   @Route("/auth")
   public authenticate() {
     return /*html*/ `
     <Authenticate/>
+    <Actions id="Actions"/>
     `;
   }
 
   @Route("/")
   public index() {
-    // return /*html*/ `
-    // <Header id="Header"/>
-    // <main class="feed">
-    //   <Spotify id="Spotify"/>
-    //   <DigitalOcean id="DigitalOcean"/>
-    //   <Paypal id="Paypal"/>
-    // </main>
-    // `;
     return /*html*/ `
+    <Header id="Header"/>
+    <main class="feed">
+      <Spotify id="Spotify"/>
       <DigitalOcean id="DigitalOcean"/>
+      <Paypal id="Paypal"/>
+      <Actions id="Actions"/>
+    </main>
     `;
   }
 

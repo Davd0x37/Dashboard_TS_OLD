@@ -1,4 +1,4 @@
-import request from "request";
+import axios from "axios";
 import { getUser, updateCredentials } from "../../components/user/Manager";
 import { digitalOceanConfig } from "../../config";
 import { timeToSeconds } from "../../utils/utils";
@@ -15,7 +15,7 @@ interface IAccountData {
 
 /**
  * Get every account details needed to show user
- * 
+ *
  * @param {string} id
  * @param {string} [token]
  * @returns {Promise<void>}
@@ -25,13 +25,11 @@ export const update = async (id: string, token?: string): Promise<void> => {
   const account: IAccountData = await getAccount(authToken);
   const droplets: IDropletData = await getDroplet(authToken);
   await updateCredentials(id, {
-    services: {
-      digitalocean: {
-        total: droplets.total,
-        lastCreatedDroplet: droplets.lastCreatedDroplet,
-        email: account.email,
-        dropletLimit: account.dropletLimit
-      }
+    DigitalOcean: {
+      total: droplets.total,
+      lastCreatedDroplet: droplets.lastCreatedDroplet,
+      email: account.email,
+      dropletLimit: account.dropletLimit
     }
   });
 };
@@ -59,7 +57,7 @@ const getDroplet = async (authToken: string): Promise<IDropletData> => {
  * @returns {Promise<IAccountData>}
  */
 const getAccount = async (authToken: string): Promise<IAccountData> => {
-  const { data }: any = await getData("account", authToken);
+  const {data}: any = await getData("account", authToken);
   return {
     email: data.account.email,
     dropletLimit: data.account.droplet_limit
@@ -74,7 +72,7 @@ const getAccount = async (authToken: string): Promise<IAccountData> => {
  * @returns
  */
 const getData = async (type: string, authToken: string) => {
-  return request.get(`${digitalOceanConfig.api}/${type}`, {
+  return axios.get(`${digitalOceanConfig.api}${type}`, {
     headers: { Authorization: `Bearer ${authToken}` }
   });
 };
@@ -87,5 +85,5 @@ const getData = async (type: string, authToken: string) => {
  */
 const getAuthToken = async (id: string): Promise<string> => {
   const data: any = await getUser(id);
-  return data.authTokens.digitalocean.accessToken;
+  return data.authTokens.DigitalOcean.accessToken;
 };

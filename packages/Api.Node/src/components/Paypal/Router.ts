@@ -12,15 +12,19 @@ const auth = new Authenticate();
 
 // Redirect to spotify for authentication
 router.get("/authenticate", async (req: Request, res: Response) => {
-  const nonce = `${Date.now() + Buffer.from(generateRandomString(16, true)).toString("base64")}`;
-  const authUrl = await auth.authenticateAccount(req.cookies[userAuthenticationID], "paypal", {
-    clientID: paypalConfig.clientID,
-    redirect: paypalConfig.redirectURI,
-    scopes: paypalConfig.userScopes.join("+"),
-    url: paypalConfig.authenticateURL,
-    nonce
-  });
-  res.redirect(authUrl);
+  try {
+    const nonce = `${Date.now() + Buffer.from(generateRandomString(16, true)).toString("base64")}`;
+    const authUrl = await auth.authenticateAccount(req.cookies[userAuthenticationID], "Paypal", {
+      clientID: paypalConfig.clientID,
+      redirect: paypalConfig.redirectURI,
+      scopes: paypalConfig.userScopes.join("+"),
+      url: paypalConfig.authenticateURL,
+      nonce
+    });
+    res.redirect(authUrl);
+  } catch (e) {
+    throw Error(e);
+  }
 });
 
 // Redirect from spotify authenticator with success or error message

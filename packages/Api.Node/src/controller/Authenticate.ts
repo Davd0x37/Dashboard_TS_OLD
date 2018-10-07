@@ -1,6 +1,6 @@
 import request from "request";
 import { getUser, updateCredentials } from "../components/user/Manager";
-import {IAccessTokenParams, IAuthenticationParams, IAuthForm, IRefreshToken} from "../interfaces/IAuthenticate"
+import { IAccessTokenParams, IAuthenticationParams, IAuthForm, IRefreshToken } from "../interfaces/IAuthenticate";
 import { generateRandomString } from "../utils/utils";
 
 export default class Authenticate {

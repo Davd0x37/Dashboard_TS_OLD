@@ -28,7 +28,7 @@ class DigitalOcean extends Triton {
       <div class="details">
         <aside class="wrap">
           <p class="label__title">Email</p>
-          <p class="label__value label__value--no-capitalize">${this.store.getter.DigitalOcean.email}</p>
+          <p class="label__value label__no-capitalize">${this.store.getter.DigitalOcean.email}</p>
           <p class="label__title">Ostatnio utworzony droplet</p>
           <p class="label__value label__last digital_ocean--color">${
             this.store.getter.DigitalOcean.lastCreatedDroplet
@@ -56,7 +56,6 @@ class DigitalOcean extends Triton {
     this.canvas = $("#digital_ocean_chart")! as HTMLCanvasElement;
     // Get context
     this.ctx = this.canvas.getContext("2d")!;
-    console.log(this.ctx)
     // Modify background colors in dataset
     this._modifyDataset();
     // Create chart

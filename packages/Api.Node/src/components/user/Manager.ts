@@ -27,7 +27,7 @@ export const getUser = async (id: string): Promise<unknown> => {
  * @param {string} login
  * @returns {Promise<boolean>}
  */
-export const loginAvailable = async (login: string): Promise<boolean> => {
-  const user = await query(q => q.filter({ login }));
+export const fieldAvailable = async (field: {}): Promise<boolean> => {
+  const user = await query(q => q.filter({ ...field }));
   return user.length === 0;
 };

@@ -1,7 +1,7 @@
 .plate {
   min-width: 320px;
   @include queries("desktopFull") {
-    width: 450px;
+    width: 650px;
   }
 
   .plate__brand {
