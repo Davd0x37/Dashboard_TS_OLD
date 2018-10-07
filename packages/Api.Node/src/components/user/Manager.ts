@@ -8,7 +8,11 @@ import { query } from "../../controller/DB";
  * @returns {Promise<void>}
  */
 export const updateCredentials = async (id: string, config: unknown): Promise<void> => {
-  await query(q => q.get(id).update({ ...config }));
+  try {
+    await query(q => q.get(id).update({ ...config }));
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -18,7 +22,11 @@ export const updateCredentials = async (id: string, config: unknown): Promise<vo
  * @returns {Promise<unknown>}
  */
 export const getUser = async (id: string): Promise<unknown> => {
-  return query(q => q.get(id));
+  try {
+    return query(q => q.get(id));
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -28,6 +36,10 @@ export const getUser = async (id: string): Promise<unknown> => {
  * @returns {Promise<boolean>}
  */
 export const fieldAvailable = async (field: {}): Promise<boolean> => {
-  const user = await query(q => q.filter({ ...field }));
-  return user.length === 0;
+  try {
+    const user = await query(q => q.filter({ ...field }));
+    return user.length === 0;
+  } catch (e) {
+    throw Error(e);
+  }
 };

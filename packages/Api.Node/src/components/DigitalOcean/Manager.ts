@@ -21,17 +21,21 @@ interface IAccountData {
  * @returns {Promise<void>}
  */
 export const update = async (id: string, token?: string): Promise<void> => {
-  const authToken = token || (await getAuthToken(id));
-  const account: IAccountData = await getAccount(authToken);
-  const droplets: IDropletData = await getDroplet(authToken);
-  await updateCredentials(id, {
-    DigitalOcean: {
-      total: droplets.total,
-      lastCreatedDroplet: droplets.lastCreatedDroplet,
-      email: account.email,
-      dropletLimit: account.dropletLimit
-    }
-  });
+  try {
+    const authToken = token || (await getAuthToken(id));
+    const account: IAccountData = await getAccount(authToken);
+    const droplets: IDropletData = await getDroplet(authToken);
+    await updateCredentials(id, {
+      DigitalOcean: {
+        total: droplets.total,
+        lastCreatedDroplet: droplets.lastCreatedDroplet,
+        email: account.email,
+        dropletLimit: account.dropletLimit
+      }
+    });
+  } catch (e) {
+    throw Error(e);
+  }
 };
 /**
  * Get number of droplets. It can show list of droplets too
@@ -40,14 +44,18 @@ export const update = async (id: string, token?: string): Promise<void> => {
  * @returns {Promise<IDropletData>}
  */
 const getDroplet = async (authToken: string): Promise<IDropletData> => {
-  const { data }: any = await getData("droplets", authToken);
-  const now = timeToSeconds(Date.now());
-  const creationDate = timeToSeconds(Date.parse(data.droplets[0].created_at));
-  const createdAt = Math.round((now - creationDate) / (60 * 60 * 24));
-  return {
-    total: data.meta.total,
-    lastCreatedDroplet: createdAt
-  };
+  try {
+    const { data }: any = await getData("droplets", authToken);
+    const now = timeToSeconds(Date.now());
+    const creationDate = timeToSeconds(Date.parse(data.droplets[0].created_at));
+    const createdAt = Math.round((now - creationDate) / (60 * 60 * 24));
+    return {
+      total: data.meta.total,
+      lastCreatedDroplet: createdAt
+    };
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -57,11 +65,15 @@ const getDroplet = async (authToken: string): Promise<IDropletData> => {
  * @returns {Promise<IAccountData>}
  */
 const getAccount = async (authToken: string): Promise<IAccountData> => {
-  const {data}: any = await getData("account", authToken);
-  return {
-    email: data.account.email,
-    dropletLimit: data.account.droplet_limit
-  };
+  try {
+    const { data }: any = await getData("account", authToken);
+    return {
+      email: data.account.email,
+      dropletLimit: data.account.droplet_limit
+    };
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -72,9 +84,13 @@ const getAccount = async (authToken: string): Promise<IAccountData> => {
  * @returns
  */
 const getData = async (type: string, authToken: string) => {
-  return axios.get(`${digitalOceanConfig.api}${type}`, {
-    headers: { Authorization: `Bearer ${authToken}` }
-  });
+  try {
+    return axios.get(`${digitalOceanConfig.api}${type}`, {
+      headers: { Authorization: `Bearer ${authToken}` }
+    });
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -84,6 +100,10 @@ const getData = async (type: string, authToken: string) => {
  * @returns {Promise<string>}
  */
 const getAuthToken = async (id: string): Promise<string> => {
-  const data: any = await getUser(id);
-  return data.authTokens.DigitalOcean.accessToken;
+  try {
+    const data: any = await getUser(id);
+    return data.authTokens.DigitalOcean.accessToken;
+  } catch (e) {
+    throw Error(e);
+  }
 };

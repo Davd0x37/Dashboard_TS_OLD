@@ -14,38 +14,42 @@ export default {
    * @returns {Promise<boolean>}
    */
   async addUser(_: any, { data }: any): Promise<boolean> {
-    if ((await fieldAvailable({ login: data.login })) && (await fieldAvailable({ email: data.email }))) {
-      // Hash password
-      data.password = await hashPass(data.password);
-      // Save user credentials in database
-      await query(q =>
-        q.insert({
-          ...data,
-          Spotify: {
-            username: "",
-            email: "",
-            type: ""
-          },
-          DigitalOcean: {
-            email: "",
-            total: "",
-            dropletLimit: "",
-            lastCreatedDroplet: ""
-          },
-          Paypal: {
-            username: "",
-            email: "",
-            phone: "",
-            verified: "",
-            country: "",
-            zoneinfo: ""
-          }
-        })
-      );
-      return true;
-    } else {
-      // Login already taken
-      return false;
+    try {
+      if ((await fieldAvailable({ login: data.login })) && (await fieldAvailable({ email: data.email }))) {
+        // Hash password
+        data.password = await hashPass(data.password);
+        // Save user credentials in database
+        await query(q =>
+          q.insert({
+            ...data,
+            Spotify: {
+              username: "",
+              email: "",
+              type: ""
+            },
+            DigitalOcean: {
+              email: "",
+              total: "",
+              dropletLimit: "",
+              lastCreatedDroplet: ""
+            },
+            Paypal: {
+              username: "",
+              email: "",
+              phone: "",
+              verified: "",
+              country: "",
+              zoneinfo: ""
+            }
+          })
+        );
+        return true;
+      } else {
+        // Login already taken
+        return false;
+      }
+    } catch (e) {
+      throw Error(e);
     }
   },
 
@@ -57,10 +61,14 @@ export default {
    * @returns
    */
   async changePassword(_: any, { id, password, newPassword }: any): Promise<boolean> {
-    const req: any = query(async q =>
-      q.filter({ id, password: await hashPass(password) }).update({ password: await hashPass(newPassword) })
-    );
-    return !!req.replaced;
+    try {
+      const req: any = query(async q =>
+        q.filter({ id, password: await hashPass(password) }).update({ password: await hashPass(newPassword) })
+      );
+      return !!req.replaced;
+    } catch (e) {
+      throw Error(e);
+    }
   },
 
   /**
@@ -71,15 +79,23 @@ export default {
    * @returns {Promise<object>}
    */
   async updateUserData(_: any, { id }: any): Promise<object> {
-    await SpotifyManager(id);
-    await PaypalManager(id);
-    await DigitalOceanManager(id, digitalOceanConfig.authToken);
-    const res: any = await getUser(id);
-    return res;
+    try {
+      await SpotifyManager(id);
+      await PaypalManager(id);
+      await DigitalOceanManager(id, digitalOceanConfig.authToken);
+      const res: any = await getUser(id);
+      return res;
+    } catch (e) {
+      throw Error(e);
+    }
   },
 
   async updateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
-    const req: any = query(async q => q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } }));
-    return !!req.inserted || !!req.replaced;
+    try {
+      const req: any = query(async q => q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } }));
+      return !!req.inserted || !!req.replaced;
+    } catch (e) {
+      throw Error(e);
+    }
   }
 };

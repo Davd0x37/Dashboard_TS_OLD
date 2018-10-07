@@ -11,8 +11,12 @@ export default {
    * @returns {Promise<object>}
    */
   async authenticateUser(_: any, { login, password }: any): Promise<object> {
-    const req: any = await query(async q => q.filter({ login, password: await hashPass(password) }));
-    return req[0];
+    try {
+      const req: any = await query(async q => q.filter({ login, password: await hashPass(password) }));
+      return req[0];
+    } catch (e) {
+      throw Error(e);
+    }
   },
 
   /**
@@ -21,6 +25,10 @@ export default {
    * @returns {Promise<object[]>}
    */
   async getAllUsers(): Promise<object[]> {
-    return query(q => q);
+    try {
+      return query(q => q);
+    } catch (e) {
+      throw Error(e);
+    }
   }
 };

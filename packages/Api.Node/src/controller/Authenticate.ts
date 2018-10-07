@@ -17,21 +17,25 @@ export default class Authenticate {
    * @memberof Authenticate
    */
   public async authenticateAccount(id: string, service: string, options: IAuthenticationParams): Promise<string> {
-    this.id = id;
-    this.service = service;
-    // Generate state key for service authentication to ensure that result code is from service
-    const stateKey = generateRandomString(64);
-    // Add state key to user account
-    await this.updateTokens({ stateKey });
+    try {
+      this.id = id;
+      this.service = service;
+      // Generate state key for service authentication to ensure that result code is from service
+      const stateKey = generateRandomString(64);
+      // Add state key to user account
+      await this.updateTokens({ stateKey });
 
-    return (
-      `${options.url}?client_id=${options.clientID}` +
-      `&response_type=code` +
-      `&scope=${encodeURI(options.scopes)}` +
-      `&redirect_uri=${encodeURI(options.redirect)}` +
-      `&state=${options.state || stateKey}` +
-      `${options.nonce ? "&" + options.nonce : ""}`
-    );
+      return (
+        `${options.url}?client_id=${options.clientID}` +
+        `&response_type=code` +
+        `&scope=${encodeURI(options.scopes)}` +
+        `&redirect_uri=${encodeURI(options.redirect)}` +
+        `&state=${options.state || stateKey}` +
+        `${options.nonce ? "&" + options.nonce : ""}`
+      );
+    } catch (e) {
+      throw Error(e);
+    }
   }
 
   /**
@@ -42,37 +46,41 @@ export default class Authenticate {
    * @memberof Authenticate
    */
   public async getAccessToken({ code, state, Authorization, url, redirect_uri }: IAccessTokenParams): Promise<boolean> {
-    const stateKey = await this.getStateKey();
-    // If state key from request is different from one stored in db
-    // Return false and end authentication
-    if (state !== stateKey || state === null) {
-      return false;
-    } else {
-      // Reset state key
-      await this.updateTokens({ code, stateKey: "" });
+    try {
+      const stateKey = await this.getStateKey();
+      // If state key from request is different from one stored in db
+      // Return false and end authentication
+      if (state !== stateKey || state === null) {
+        return false;
+      } else {
+        // Reset state key
+        await this.updateTokens({ code, stateKey: "" });
 
-      // Generate authentication form
-      const form = this.authForm({
-        url,
-        form: {
-          code,
-          redirect_uri,
-          grant_type: "authorization_code"
-        },
-        headers: { Authorization },
-        json: true
-      });
+        // Generate authentication form
+        const form = this.authForm({
+          url,
+          form: {
+            code,
+            redirect_uri,
+            grant_type: "authorization_code"
+          },
+          headers: { Authorization },
+          json: true
+        });
 
-      // Send request to service to receive access token and refresh token
-      request.post(form, (err: any, response: request.Response, body: any) => {
-        if (!err && response.statusCode === 200) {
-          const accessToken = body.access_token;
-          const refreshToken = body.refresh_token;
-          // Store tokens in database
-          this.updateTokens({ accessToken, refreshToken });
-        }
-      });
-      return true;
+        // Send request to service to receive access token and refresh token
+        request.post(form, (err: any, response: request.Response, body: any) => {
+          if (!err && response.statusCode === 200) {
+            const accessToken = body.access_token;
+            const refreshToken = body.refresh_token;
+            // Store tokens in database
+            this.updateTokens({ accessToken, refreshToken });
+          }
+        });
+        return true;
+      }
+    } catch (e) {
+      throw Error(e);
     }
   }
 
@@ -83,24 +91,28 @@ export default class Authenticate {
    * @memberof Authenticate
    */
   public async refreshToken({ url, auth, refreshToken }: IRefreshToken) {
-    const authOptions = this.authForm({
-      url,
-      form: {
-        grant_type: "refresh_token",
-        refresh_token: refreshToken
-      },
-      headers: {
-        Authorization: auth
-      },
-      json: true
-    });
+    try {
+      const authOptions = this.authForm({
+        url,
+        form: {
+          grant_type: "refresh_token",
+          refresh_token: refreshToken
+        },
+        headers: {
+          Authorization: auth
+        },
+        json: true
+      });
 
-    request.post(authOptions, async (error: any, response: request.Response, body: any) => {
-      if (!error && response.statusCode === 200) {
-        const accessToken = body.access_token;
-        await this.updateTokens({ accessToken });
-      }
-    });
+      request.post(authOptions, async (error: any, response: request.Response, body: any) => {
+        if (!error && response.statusCode === 200) {
+          const accessToken = body.access_token;
+          await this.updateTokens({ accessToken });
+        }
+      });
+    } catch (e) {
+      throw Error(e);
+    }
   }
 
   /**
@@ -123,8 +135,12 @@ export default class Authenticate {
    * @memberof Authenticate
    */
   protected async getStateKey(): Promise<string> {
-    const user: any = await getUser(this.id);
-    return user.authTokens[this.service].stateKey;
+    try {
+      const user: any = await getUser(this.id);
+      return user.authTokens[this.service].stateKey;
+    } catch (e) {
+      throw Error(e);
+    }
   }
 
   /**
@@ -136,7 +152,11 @@ export default class Authenticate {
    * @memberof Authenticate
    */
   protected async updateTokens(tokens: object): Promise<void> {
-    await updateCredentials(this.id, { authTokens: { [this.service]: { ...tokens } } });
+    try {
+      await updateCredentials(this.id, { authTokens: { [this.service]: { ...tokens } } });
+    } catch (e) {
+      throw Error(e);
+    }
   }
 
   /**

@@ -6,10 +6,14 @@ import r from "rethinkdb";
  * @returns [Promise] active connection
  */
 export const DB = async () => {
-  return r.connect({
-    host: "localhost",
-    port: 28015
-  });
+  try {
+    return r.connect({
+      host: "localhost",
+      port: 28015
+    });
+  } catch (e) {
+    throw Error(e);
+  }
 };
 
 /**
@@ -36,8 +40,8 @@ export const query = async (
     } else {
       return res;
     }
-  } catch (error) {
-    throw Error(error);
+  } catch (e) {
+    throw Error(e);
   }
 };
 
@@ -53,7 +57,7 @@ export const createDB = async () => {
     r.db("users")
       .tableCreate("general")
       .run(db);
-  } catch (error) {
-    throw Error(error);
+  } catch (e) {
+    throw Error(e);
   }
 };

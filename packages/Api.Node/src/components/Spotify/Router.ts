@@ -19,24 +19,28 @@ router.get("/authenticate", async (req: Request, res: Response) => {
     });
     res.redirect(authUrl);
   } catch (e) {
-    throw Error(e)
+    throw Error(e);
   }
 });
 
 // Redirect from spotify authenticator with success or error message
 router.get("/authenticateResult", async (req: Request, res: Response) => {
-  const code = req.query.code;
-  const state = req.query.state;
+  try {
+    const code = req.query.code;
+    const state = req.query.state;
 
-  await auth.getAccessToken({
-    code,
-    state,
-    redirect_uri: spotifyConfig.redirectURI,
-    url: spotifyConfig.apiTokenService,
-    Authorization: auth.generateBasicAuthorization(spotifyConfig.clientID, spotifyConfig.clientSecret)
-  });
+    await auth.getAccessToken({
+      code,
+      state,
+      redirect_uri: spotifyConfig.redirectURI,
+      url: spotifyConfig.apiTokenService,
+      Authorization: auth.generateBasicAuthorization(spotifyConfig.clientID, spotifyConfig.clientSecret)
+    });
 
-  res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
+    res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
+  } catch (e) {
+    throw Error(e);
+  }
 });
 
 export default router;

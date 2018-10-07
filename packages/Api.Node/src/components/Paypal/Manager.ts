@@ -1,5 +1,4 @@
 import request from "request";
-import log from "signale";
 import { getUser, updateCredentials } from "../../components/user/Manager";
 import { paypalConfig } from "../../config";
 
