@@ -1,7 +1,7 @@
 // import {Authenticate, DigitalOcean, Header, Paypal, Spotify} from "./components";
 import Components from "./components";
 import Router from "./controller/Router";
-import { $ } from "./utils/DOM";
+import { $, $$ } from "./utils/DOM";
 import { parseComponent } from "./utils/Parser";
 
 class App {
@@ -28,12 +28,24 @@ class App {
       // @ts-ignore
       Components[comp].mounted();
     });
+    this.routeButtons();
   }
 
   private routeTemplates(): string {
     const path = window.location.pathname;
     const template = this.router.getPathTemplate(path);
     return (template && template()) || this.router.notFound();
+  }
+
+  private routeButtons(): void {
+    const buttons = $$("[data-router-go]");
+    buttons.forEach((btn: any) => {
+      btn.addEventListener("click", (e: any) => {
+        const title = btn.dataset.routerGo;
+        history.pushState({ title }, title, title);
+        this.run();
+      });
+    });
   }
 }
 

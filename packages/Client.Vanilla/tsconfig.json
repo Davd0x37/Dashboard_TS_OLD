@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
+    "sourceMap": false,
 //    "moduleResolution": "node",
     "lib": ["es2017", "esnext", "dom", "es6", "es7", "es2018", "es2016"],
     "removeComments": true,

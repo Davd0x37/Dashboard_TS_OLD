@@ -22,8 +22,8 @@ class Actions extends Triton {
     </header>
     <div class="plate__container actions-plate">
       <aside class="details">
-        <button class="btn color" id="home">Home</button>
-        <button class="btn color" id="auth">Authenticate</button>
+        <button class="btn color" data-router-go="/">Home</button>
+        <button class="btn color" data-router-go="/auth">Authenticate</button>
         <button class="btn color" id="refresh">Refresh data</button>
       </aside>
       <aside class="details">
@@ -59,20 +59,9 @@ class Actions extends Triton {
       }
     });
 
-    $(".actions-plate #auth")!.addEventListener("click", (e: any) => {
-      Router.go("/auth");
-    });
-    $(".actions-plate #home")!.addEventListener("click", (e: any) => {
-      Router.go("/");
-    });
-
     $(".actions-plate #digitalocean_add_token")!.addEventListener("click", async (e: any) => {
       const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
-      const res = await mutation(gql`
-      mutation {
-        updateDigitalOceanToken(id: "${this.store.getter.user.id}", token: "${token}")
-      }
-      `);
+      const res = await QueryUser.updateDigitalOceanToken(this.store.getter.user.id, token);
       if (res) {
         success("Poprawnie dodano token", () => null);
       } else {

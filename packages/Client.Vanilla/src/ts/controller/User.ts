@@ -1,34 +1,41 @@
 import gql from "graphql-tag";
 import { mutation, query } from "./Api";
 
+const fragments = `
+fragment Services on User {
+  Spotify {
+    email
+    username
+    type
+  }
+  DigitalOcean {
+    email
+    total
+    dropletLimit
+    lastCreatedDroplet
+  }
+  Paypal {
+    username
+    email
+    phone
+    verified
+    country
+    zoneinfo
+  }
+}
+`;
+
 export const QueryUser = {
   async authenticate(login: string, password: string): Promise<object | boolean> {
     const res: any = await query(gql`
+    ${fragments}
         query {
           authenticateUser(login: "${login}", password: "${password}") {
             id
             avatar
             login
             email
-            Spotify {
-              email
-              username
-              type
-            }
-            DigitalOcean {
-              email
-              total
-              dropletLimit
-              lastCreatedDroplet
-            }
-            Paypal {
-              username
-              email
-              phone
-              verified
-              country
-              zoneinfo
-            }
+            ...Services
           }
         }
       `);
@@ -52,30 +59,13 @@ export const QueryUser = {
     `);
     return res.addUser;
   },
-  
+
   async updateUserData(id: string): Promise<object | boolean> {
     const res: any = await mutation(gql`
+    ${fragments}
         mutation {
           updateUserData(id: "${id}") {
-            Spotify {
-              email
-              username
-              type
-            }
-            DigitalOcean {
-              email
-              total
-              dropletLimit
-              lastCreatedDroplet
-            }
-            Paypal {
-              username
-              email
-              phone
-              verified
-              country
-              zoneinfo
-            }
+            ...Services
           }
         }
       `);
@@ -86,4 +76,13 @@ export const QueryUser = {
       return false;
     }
   },
+
+  async updateDigitalOceanToken(id: string, token: string): Promise<boolean> {
+    const res = await mutation(gql`
+    mutation {
+      updateDigitalOceanToken(id: "${id}", token: "${token}")
+    }
+    `);
+    return !!res;
+  }
 };

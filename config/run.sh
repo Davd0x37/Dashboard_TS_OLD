@@ -44,6 +44,8 @@ elif [ "$action" = "deploy_client" ]; then
     cp /etc/letsencrypt/live/liquidash.pl/dhparam.pem $app_dir/config;
     cd $app_dir/packages/Api.Node && yarn;
     cd $app_dir/packages/Client.Vanilla && yarn;
+    cd $app_dir; rm -rf $app_dir/packages/Api.Node/dist; yarn run api:build;
     cd $app_dir; rm -rf $app_dir/packages/Client.Vanilla/dist; yarn run client_vanilla:build:build;
-    nginx -s stop; nginx -c $app_dir/nginx.conf;"
+    nginx -s stop; nginx -c $app_dir/nginx.conf;
+    cd $app_dir; yarn run api:deploy;"
 fi

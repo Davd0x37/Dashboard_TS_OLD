@@ -14,10 +14,24 @@ export default {
     commit("updateUser", payload);
   },
   updateAllData({ commit }: any, payload: IState) {
-    commit("updateSpotify", payload.Spotify);
-    commit("updateDigitalOcean", payload.DigitalOcean);
-    commit("updatePaypal", payload.Paypal);
-    commit("updateUser", payload.user);
+    const data = {
+      user: {
+        ...payload.user
+      },
+      Spotify: {
+        ...payload.Spotify
+      },
+      DigitalOcean: {
+        ...payload.DigitalOcean
+      },
+      Paypal: {
+        ...payload.Paypal
+      }
+    };
+    commit("updateSpotify", data.Spotify);
+    commit("updateDigitalOcean", data.DigitalOcean);
+    commit("updatePaypal", data.Paypal);
+    commit("updateUser", data.user);
   },
   restoreStorage({ commit }: any, payload: IState) {
     commit("restoreStorage", payload);
