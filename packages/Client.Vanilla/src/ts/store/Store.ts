@@ -9,8 +9,8 @@
  * }
  */
 
-import Storage from "../controller/Storage";
 import { Observer } from "../lib/Observer";
+import Storage from "../lib/Storage";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";

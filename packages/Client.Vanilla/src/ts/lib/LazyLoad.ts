@@ -1,4 +1,4 @@
-import { $$ } from "../utils/DOM";
+import { $$ } from "./DOM";
 
 enum EventAction {
   ADD,

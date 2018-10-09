@@ -1,8 +1,8 @@
 import { Chart } from "chart.js";
 import { Component, Method, Prop } from "../decorators";
+import { $ } from "../lib/DOM";
 import Triton from "../lib/Triton";
-import { $ } from "../utils/DOM";
-import DigitalOceanConfig from "./data.json";
+import DigitalOceanConfig from "./DigitalOceanData.json";
 
 @Component()
 class DigitalOcean extends Triton {

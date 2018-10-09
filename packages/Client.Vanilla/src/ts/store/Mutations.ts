@@ -1,4 +1,4 @@
-import Storage from "../controller/Storage";
+import Storage from "../lib/Storage";
 import { IState } from "./State";
 
 export default {

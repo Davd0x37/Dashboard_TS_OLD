@@ -1,32 +1,14 @@
+import { IDigitalOcean, IPaypal, ISpotify, IUser } from "../controller/User/Interface";
+
 export interface IStateStore {
   store: {
-    user: {
-      username: string;
-      avatar: string;
-      id: string;
-    };
-    Spotify: {
-      username: string;
-      email: string;
-      type: string;
-    };
-    DigitalOcean: {
-      email: string;
-      lastCreatedDroplet: number;
-      dropletLimit: number;
-      total: number;
-    };
-    Paypal: {
-      username: string;
-      email: string;
-      phone: number;
-      country: string;
-      verified: string;
-      zoneinfo: string;
-    };
+    user: IUser;
+    Spotify: ISpotify;
+    DigitalOcean: IDigitalOcean;
+    Paypal: IPaypal;
   };
 }
-export type IState = IStateStore['store']
+export type IState = IStateStore["store"];
 
 export const State: IStateStore = {
   store: {
@@ -34,7 +16,8 @@ export const State: IStateStore = {
       id: "",
       avatar:
         "https://images.8tracks.com/cover/i/009/400/711/mr_robot_fuck_society-866.jpg?rect=0,170,1047,1047&q=98&fm=jpg&fit=max&w=640&h=640",
-      username: "Vernon"
+      login: "Vernon",
+      email: "vernon@pm.me"
     },
     Spotify: {
       username: "Vernon",
@@ -50,7 +33,7 @@ export const State: IStateStore = {
     Paypal: {
       username: "Vernon",
       email: "vernon@pm.me",
-      phone: 123456789,
+      phone: "123456789",
       country: "Poland",
       verified: "Verified",
       zoneinfo: "Szczecin"

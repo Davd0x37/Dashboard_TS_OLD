@@ -1,12 +1,10 @@
-import { error, success } from "../controller/Alert";
 import Router from "../controller/Router";
-import { QueryUser } from "../controller/User";
+import { AuthenticateUser, RegisterUser } from "../controller/User/Manager";
 import { Component } from "../decorators";
+import { error, success } from "../lib/Alert";
 import { DataBinding } from "../lib/DataBinding";
+import { $ } from "../lib/DOM";
 import Triton from "../lib/Triton";
-import { IState } from "../store/State";
-import Store from "../store/Store";
-import { $, $$ } from "../utils/DOM";
 
 @Component()
 class Authenticate extends Triton {
@@ -71,8 +69,8 @@ class Authenticate extends Triton {
 
   private async authenticateUser(login: string, password: string) {
     if (login.length !== 0 && password.length !== 0) {
-      const res: any = await QueryUser.authenticate(login, password);
-      console.log(res)
+      const res: any = await AuthenticateUser({ login, password });
+      console.log(res);
       // if (res) {
       //   // Store.dispatch("updateAllData", res);
       //   document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
@@ -85,7 +83,7 @@ class Authenticate extends Triton {
 
   private async registerUser(login: string, password: string, email: string) {
     if (login.length !== 0 && password.length !== 0 && email.length !== 0) {
-      const res: any = await QueryUser.registerUser(login, password, email);
+      const res: any = await RegisterUser({ login, password, email });
       if (res) {
         success(`ZAREJESTROWANO!`, () => Router.go("/auth"));
       } else {

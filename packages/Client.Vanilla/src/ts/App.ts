@@ -1,8 +1,7 @@
-// import {Authenticate, DigitalOcean, Header, Paypal, Spotify} from "./components";
 import Components from "./components";
 import Router from "./controller/Router";
-import { $, $$ } from "./utils/DOM";
-import { parseComponent } from "./utils/Parser";
+import { $, $$ } from "./lib/DOM";
+import { parseComponent } from "./lib/Parser";
 
 class App {
   private selector: string = "#app";
@@ -12,15 +11,15 @@ class App {
   }
 
   public run() {
-    const components = this.render();
+    const { components } = this.render();
     this.mounted(components);
   }
 
-  private render(): string[] {
+  private render(): any {
     const template = this.routeTemplates();
     const parsed = parseComponent(template, Components);
     $(this.selector)!.innerHTML = parsed.template;
-    return parsed.components;
+    return parsed;
   }
 
   private mounted(cmp: any[]): void {
@@ -41,9 +40,8 @@ class App {
     const buttons = $$("[data-router-go]");
     buttons.forEach((btn: any) => {
       btn.addEventListener("click", (e: any) => {
-        const title = btn.dataset.routerGo;
-        history.pushState({ title }, title, title);
-        this.run();
+        const path = btn.dataset.routerGo;
+        this.router.go(path);
       });
     });
   }

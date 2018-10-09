@@ -1,5 +1,5 @@
 import Store from "../store/Store";
-import { $ } from "../utils/DOM";
+import { $ } from "./DOM";
 
 export default abstract class Triton {
   protected store: typeof Store = Store;

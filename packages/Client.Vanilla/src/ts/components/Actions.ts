@@ -1,12 +1,8 @@
-import gql from "graphql-tag";
-import { error, success } from "../controller/Alert";
-import { mutation } from "../controller/Api";
-import Router from "../controller/Router";
-import { QueryUser } from "../controller/User";
-import { Component, Method, Prop } from "../decorators";
+import { UpdateDigitalOceanToken, UpdateUser } from "../controller/User/Manager";
+import { Component, Method } from "../decorators";
+import { error, success } from "../lib/Alert";
+import { $ } from "../lib/DOM";
 import Triton from "../lib/Triton";
-import { $ } from "../utils/DOM";
-
 @Component()
 class Actions extends Triton {
   constructor() {
@@ -52,7 +48,7 @@ class Actions extends Triton {
 
     $(".actions-plate #refresh")!.addEventListener("click", async () => {
       try {
-        const res: any = await QueryUser.updateUserData(this.store.getter.user.id);
+        const res: any = await UpdateUser({ id: this.store.getter.user.id });
         await this.store.dispatch("updateAllData", { ...res });
       } catch (e) {
         error(e);
@@ -61,7 +57,7 @@ class Actions extends Triton {
 
     $(".actions-plate #digitalocean_add_token")!.addEventListener("click", async (e: any) => {
       const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
-      const res = await QueryUser.updateDigitalOceanToken(this.store.getter.user.id, token);
+      const res = await UpdateDigitalOceanToken({ id: this.store.getter.user.id, token });
       if (res) {
         success("Poprawnie dodano token", () => null);
       } else {

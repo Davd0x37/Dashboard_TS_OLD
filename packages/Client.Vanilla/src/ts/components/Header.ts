@@ -12,7 +12,7 @@ class Header extends Triton {
 
   @Method()
   public render() {
-    const username = this.store.getter.user.username;
+    const username = this.store.getter.user.login;
     const slicedUsername = username.length >= 6 ? username.slice(0, 6) + "..." : username;
     return /*html*/ `
     <header class="header">
