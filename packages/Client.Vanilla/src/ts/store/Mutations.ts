@@ -30,6 +30,7 @@ export default {
    */
   restoreStorage(state: IState, payload: IState) {
     state = { ...state, ...payload, ...Storage.storageData };
+    console.log(state)
     return state;
   },
   saveInStorage(state: IState, _: IState) {

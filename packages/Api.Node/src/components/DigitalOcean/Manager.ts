@@ -1,4 +1,5 @@
 import axios from "axios";
+import signale from "signale";
 import { getUser, updateCredentials } from "../../components/user/Manager";
 import { digitalOceanConfig } from "../../config";
 import { timeToSeconds } from "../../utils/utils";
@@ -34,6 +35,7 @@ export const update = async (id: string, token?: string): Promise<void> => {
       }
     });
   } catch (e) {
+    signale.error("DigitalOcean.Manager.update ------", e);
     throw Error(e);
   }
 };
@@ -54,6 +56,7 @@ const getDroplet = async (authToken: string): Promise<IDropletData> => {
       lastCreatedDroplet: createdAt
     };
   } catch (e) {
+    signale.error("DigitalOcean.Manager.getDroplet ------", e);
     throw Error(e);
   }
 };
@@ -72,6 +75,7 @@ const getAccount = async (authToken: string): Promise<IAccountData> => {
       dropletLimit: data.account.droplet_limit
     };
   } catch (e) {
+    signale.error("DigitalOcean.Manager.getAccount ------", e);
     throw Error(e);
   }
 };
@@ -89,6 +93,7 @@ const getData = async (type: string, authToken: string) => {
       headers: { Authorization: `Bearer ${authToken}` }
     });
   } catch (e) {
+    signale.error("DigitalOcean.Manager.getData ------", e);
     throw Error(e);
   }
 };
@@ -104,6 +109,7 @@ const getAuthToken = async (id: string): Promise<string> => {
     const data: any = await getUser(id);
     return data.authTokens.DigitalOcean.accessToken;
   } catch (e) {
+    signale.error("DigitalOcean.Manager.getAuthToken ------", e);
     throw Error(e);
   }
 };

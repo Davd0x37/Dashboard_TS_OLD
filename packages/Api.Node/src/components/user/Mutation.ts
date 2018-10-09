@@ -1,3 +1,4 @@
+import signale from "signale";
 import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../components";
 import { digitalOceanConfig } from "../../config";
 import { query } from "../../controller/DB";
@@ -54,6 +55,7 @@ export default {
         return false;
       }
     } catch (e) {
+      signale.error("User.Mutation.addUser ------", e);
       throw Error(e);
     }
   },
@@ -67,6 +69,7 @@ export default {
       );
       return !!req.replaced;
     } catch (e) {
+      signale.error("User.Mutation.changePassword ------", e);
       throw Error(e);
     }
   },
@@ -79,6 +82,7 @@ export default {
       const res: any = await getUser(id);
       return res;
     } catch (e) {
+      signale.error("User.Mutation.updateUserData ------", e);
       throw Error(e);
     }
   },
@@ -88,6 +92,7 @@ export default {
       const req: any = query(async q => q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } }));
       return !!req.inserted || !!req.replaced;
     } catch (e) {
+      signale.error("User.Mutation.updateDigitalOceanToken ------", e);
       throw Error(e);
     }
   }

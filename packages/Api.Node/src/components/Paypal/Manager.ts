@@ -1,4 +1,5 @@
 import request from "request";
+import signale from "signale";
 import { getUser, updateCredentials } from "../../components/user/Manager";
 import { paypalConfig } from "../../config";
 
@@ -25,6 +26,7 @@ export const update = async (id: string) => {
       });
     });
   } catch (e) {
+    signale.error("Paypal.Manager.update ------", e);
     throw Error(e);
   }
 };

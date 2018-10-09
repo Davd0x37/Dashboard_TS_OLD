@@ -1,3 +1,4 @@
+import signale from "signale";
 import { query } from "../../controller/DB";
 import { IUser } from "../../interfaces/IUser";
 
@@ -12,6 +13,7 @@ export const updateCredentials = async (id: string, config: unknown): Promise<vo
   try {
     await query(q => q.get(id).update({ ...config }));
   } catch (e) {
+    signale.error("User.Manager.updateCredentials ------", e);
     throw Error(e);
   }
 };
@@ -26,6 +28,7 @@ export const getUser = async (id: string): Promise<IUser> => {
   try {
     return query(q => q.get(id));
   } catch (e) {
+    signale.error("User.Manager.getUser ------", e);
     throw Error(e);
   }
 };
@@ -41,6 +44,7 @@ export const fieldAvailable = async (fields: {}): Promise<boolean> => {
     const field = await query(q => q.filter({ ...fields }));
     return field.length === 0;
   } catch (e) {
+    signale.error("User.Manager.fieldAvailable ------", e);
     throw Error(e);
   }
 };

@@ -40,10 +40,10 @@ class Actions extends Triton {
 
   @Method()
   public mounted(): void {
-    $(".actions-plate #spotify__authorize")!.addEventListener("click", (e: any) => {
+    $(".actions-plate #spotify__authorize")!.addEventListener("click", () => {
       window.open("http://localhost:4000/spotify/authenticate");
     });
-    $(".actions-plate #paypal__authorize")!.addEventListener("click", (e: any) => {
+    $(".actions-plate #paypal__authorize")!.addEventListener("click", () => {
       window.open("http://localhost:4000/paypal/authenticate");
     });
 
@@ -52,7 +52,7 @@ class Actions extends Triton {
         if (this.store.getter.id.length !== 0) {
           const res: IServices | Exists = await UpdateUser({ id: this.store.getter.id });
           if (res !== Exists.NotFound) {
-            await this.store.dispatch("updateAllData", { ...res });
+            await this.store.dispatch("updateAllData", { id: this.store.getter.id, ...res });
           }
         }
       } catch (e) {
@@ -60,7 +60,7 @@ class Actions extends Triton {
       }
     });
 
-    $(".actions-plate #digitalocean_add_token")!.addEventListener("click", async (e: any) => {
+    $(".actions-plate #digitalocean_add_token")!.addEventListener("click", async () => {
       if (this.store.getter.id.length !== 0) {
         const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
         const res = await UpdateDigitalOceanToken({ id: this.store.getter.id, token });

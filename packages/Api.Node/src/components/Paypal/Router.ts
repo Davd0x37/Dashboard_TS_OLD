@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
+import signale from "signale"
 import { paypalConfig } from "../../config";
 import Authenticate from "../../controller/Authenticate";
 import { generateRandomString } from "../../utils/utils";
@@ -23,6 +24,7 @@ router.get("/authenticate", async (req: Request, res: Response) => {
     });
     res.redirect(authUrl);
   } catch (e) {
+    signale.error("Paypal.Router.authenticate ------", e);
     throw Error(e);
   }
 });
@@ -42,6 +44,7 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
 
     res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
   } catch (e) {
+    signale.error("Paypal.Router.authenticateResult ------", e);
     throw Error(e);
   }
 });

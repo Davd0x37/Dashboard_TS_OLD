@@ -1,4 +1,5 @@
 import request from "request";
+import signale from "signale"
 import { getUser, updateCredentials } from "../../components/user/Manager";
 import { spotifyConfig } from "../../config";
 
@@ -22,6 +23,7 @@ export const update = async (id: string) => {
       });
     });
   } catch (e) {
+    signale.error("Spotify.Manager.update ------", e);
     throw Error(e);
   }
 };
