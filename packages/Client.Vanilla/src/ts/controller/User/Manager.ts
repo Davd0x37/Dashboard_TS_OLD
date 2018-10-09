@@ -3,13 +3,15 @@ import { mutation, query } from "../Api";
 import { Services } from "./Fragments";
 import { IServices, IUser } from "./Interface";
 
-export const AuthenticateUser = async ({
-  login,
-  password
-}: {
+interface IULogin {
   login: string;
   password: string;
-}): Promise<IUser | boolean> => {
+}
+interface IURegister extends IULogin {
+  email: string;
+}
+
+export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | boolean> => {
   const { authenticateUser }: { authenticateUser: IUser } = await query(gql`
   ${Services}
   query {
@@ -27,15 +29,7 @@ export const AuthenticateUser = async ({
   return authenticateUser !== null ? authenticateUser : false;
 };
 
-export const RegisterUser = async ({
-  login,
-  password,
-  email
-}: {
-  login: string;
-  password: string;
-  email: string;
-}): Promise<boolean> => {
+export const RegisterUser = async ({ login, password, email }: IURegister): Promise<boolean> => {
   const { addUser }: { addUser: boolean } = await mutation(gql`
   mutation {
     addUser(data: {

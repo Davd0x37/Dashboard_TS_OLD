@@ -26,6 +26,6 @@
     "deploy": "docker-compose up"
   },
   "devDependencies": {
-    "lerna": "^3.4.0"
+    "lerna": "^3.4.2"
   }
 }
