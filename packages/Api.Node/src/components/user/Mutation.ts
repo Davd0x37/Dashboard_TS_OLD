@@ -9,7 +9,10 @@ import { fieldAvailable, getUser } from "./Manager";
 export default {
   async addUser(_: any, { data }: any): Promise<boolean> {
     try {
-      if ((await fieldAvailable({ login: data.login })) && (await fieldAvailable({ email: data.email }))) {
+      if (
+        (await fieldAvailable({ user: { login: data.login } })) &&
+        (await fieldAvailable({ user: { email: data.email } }))
+      ) {
         // Hash password
         data.password = await hashPass(data.password);
         // Save user credentials in database
@@ -36,6 +39,12 @@ export default {
               verified: "",
               country: "",
               zoneinfo: ""
+            },
+            authTokens: {
+              accessToken: "",
+              code: "",
+              refreshToken: "",
+              stateKey: ""
             }
           })
         );
@@ -52,7 +61,9 @@ export default {
   async changePassword(_: any, { id, password, newPassword }: any): Promise<boolean> {
     try {
       const req: any = query(async q =>
-        q.filter({ id, password: await hashPass(password) }).update({ password: await hashPass(newPassword) })
+        q
+          .filter({ id, user: { password: await hashPass(password) } })
+          .update({ user: { password: await hashPass(newPassword) } })
       );
       return !!req.replaced;
     } catch (e) {

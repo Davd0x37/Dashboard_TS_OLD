@@ -36,10 +36,10 @@ export const getUser = async (id: string): Promise<IUser> => {
  * @param {string} login
  * @returns {Promise<boolean>}
  */
-export const fieldAvailable = async (field: {}): Promise<boolean> => {
+export const fieldAvailable = async (fields: {}): Promise<boolean> => {
   try {
-    const user = await query(q => q.filter({ ...field }));
-    return user.length === 0;
+    const field = await query(q => q.filter({ ...fields }));
+    return field.length === 0;
   } catch (e) {
     throw Error(e);
   }

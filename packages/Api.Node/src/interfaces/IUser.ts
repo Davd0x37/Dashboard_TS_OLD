@@ -32,6 +32,12 @@ export interface IUser {
   Spotify?: ISpotify;
   DigitalOcean?: IDigitalOcean;
   Paypal?: IPaypal;
+  authTokens?: {
+    accessToken: string;
+    code: string;
+    refreshToken: string;
+    stateKey: string;
+  }
 }
 
 export interface IServices extends IPaypal, ISpotify, IDigitalOcean {}

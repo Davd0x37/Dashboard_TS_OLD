@@ -1,6 +1,7 @@
 import request from "request";
 import { getUser, updateCredentials } from "../components/user/Manager";
 import { IAccessTokenParams, IAuthenticationParams, IAuthForm, IRefreshToken } from "../interfaces/IAuthenticate";
+import { IUser } from "../interfaces/IUser";
 import { generateRandomString } from "../utils/utils";
 
 export default class Authenticate {
@@ -9,12 +10,6 @@ export default class Authenticate {
 
   /**
    * Generate authentication url with needed state key
-   *
-   * @param {string} id
-   * @param {string} service
-   * @param {IAuthenticationParams} options
-   * @returns {Promise<string>}
-   * @memberof Authenticate
    */
   public async authenticateAccount(id: string, service: string, options: IAuthenticationParams): Promise<string> {
     try {
@@ -40,10 +35,6 @@ export default class Authenticate {
 
   /**
    * Send request to service in order to receive access and refresh tokens
-   *
-   * @param {IAccessTokenParams} { code, state, Authorization, url, redirect_uri }
-   * @returns {Promise<boolean>}
-   * @memberof Authenticate
    */
   public async getAccessToken({ code, state, Authorization, url, redirect_uri }: IAccessTokenParams): Promise<boolean> {
     try {
@@ -86,9 +77,6 @@ export default class Authenticate {
 
   /**
    * Receive new refresh token from service
-   *
-   * @param {IRefreshToken} { url, auth, refreshToken }
-   * @memberof Authenticate
    */
   public async refreshToken({ url, auth, refreshToken }: IRefreshToken) {
     try {
@@ -117,11 +105,6 @@ export default class Authenticate {
 
   /**
    * Generate basic authorization
-   *
-   * @param {string} clientId
-   * @param {string} clientSecret
-   * @returns {string}
-   * @memberof Authenticate
    */
   public generateBasicAuthorization(clientId: string, clientSecret: string): string {
     return `Basic ${Buffer.from(clientId + ":" + clientSecret).toString("base64")}`;
@@ -129,14 +112,11 @@ export default class Authenticate {
 
   /**
    * Get state key from database
-   *
-   * @protected
-   * @returns {Promise<string>}
-   * @memberof Authenticate
    */
   protected async getStateKey(): Promise<string> {
     try {
-      const user: any = await getUser(this.id);
+      const user: IUser = await getUser(this.id);
+      // @ts-ignore
       return user.authTokens[this.service].stateKey;
     } catch (e) {
       throw Error(e);
@@ -145,11 +125,6 @@ export default class Authenticate {
 
   /**
    * Update user tokens
-   *
-   * @protected
-   * @param {object} tokens
-   * @returns {Promise<void>}
-   * @memberof Authenticate
    */
   protected async updateTokens(tokens: object): Promise<void> {
     try {
@@ -161,16 +136,6 @@ export default class Authenticate {
 
   /**
    * Generate authentication form for request
-   *
-   * @protected
-   * @param {IAuthForm} {
-   *     url,
-   *     form: { code, grant_type, redirect_uri, refresh_token },
-   *     headers: { Authorization },
-   *     json
-   *   }
-   * @returns {IAuthForm}
-   * @memberof Authenticate
    */
   protected authForm({
     url,
