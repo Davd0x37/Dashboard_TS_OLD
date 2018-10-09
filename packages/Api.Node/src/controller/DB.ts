@@ -35,7 +35,7 @@ export const query = async (
     const res = await cb.run(await DB());
     // If sequence has property "toArray" then return it as array instead of object
     // otherwise return object
-    if ("toArray" in res) {
+    if (res !== null && "toArray" in res) {
       return res.toArray();
     } else {
       return res;

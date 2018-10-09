@@ -29,9 +29,13 @@ export interface IUserDetails {
 export interface IUser {
   id: string;
   user: IUserDetails;
-  Spotify?: ISpotify;
-  DigitalOcean?: IDigitalOcean;
-  Paypal?: IPaypal;
+  Spotify: ISpotify;
+  DigitalOcean: IDigitalOcean;
+  Paypal: IPaypal;
 }
 
 export interface IServices extends IPaypal, ISpotify, IDigitalOcean {}
+
+export enum Exists {
+  NotFound = 1
+}

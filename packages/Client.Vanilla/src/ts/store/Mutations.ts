@@ -18,6 +18,10 @@ export default {
     state.user = { ...state.user, ...payload };
     return state;
   },
+  updateID(state: IState, payload: IState["id"]) {
+    state.id = payload;
+    return state;
+  },
 
   /**
    * Get data from local storage and save in store

@@ -1,4 +1,5 @@
 import Router from "../controller/Router";
+import { Exists, IUser } from "../controller/User/Interface";
 import { AuthenticateUser, RegisterUser } from "../controller/User/Manager";
 import { Component } from "../decorators";
 import { error, success } from "../lib/Alert";
@@ -69,15 +70,14 @@ class Authenticate extends Triton {
 
   private async authenticateUser(login: string, password: string) {
     if (login.length !== 0 && password.length !== 0) {
-      const res: any = await AuthenticateUser({ login, password });
-      console.log(res);
-      // if (res) {
-      //   // Store.dispatch("updateAllData", res);
-      //   document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
-      //   success(`Witaj ${res.login}!`, () => Router.go("/"));
-      // } else {
-      //   error("Nie ma takiego użytkownika");
-      // }
+      const res: IUser | Exists = await AuthenticateUser({ login, password });
+      if (res !== Exists.NotFound) {
+        this.store.dispatch("updateAllData", res);
+        document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
+        success(`Witaj ${res.user.login}!`, () => Router.go("/"));
+      } else {
+        error("Nie ma takiego użytkownika");
+      }
     }
   }
 

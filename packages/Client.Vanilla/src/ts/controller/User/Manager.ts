@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import { mutation, query } from "../Api";
 import { Services } from "./Fragments";
-import { IServices, IUser } from "./Interface";
+import { Exists, IServices, IUser } from "./Interface";
 
 interface IULogin {
   login: string;
@@ -11,9 +11,8 @@ interface IURegister extends IULogin {
   email: string;
 }
 
-export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | boolean> => {
+export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | Exists.NotFound> => {
   const { authenticateUser }: { authenticateUser: IUser } = await query(gql`
-  ${Services}
   query {
     authenticateUser(login: "${login}", password: "${password}") {
       id
@@ -22,11 +21,11 @@ export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IU
         login
         email
       }
-      ...Services
+      ${Services}
     }
   }
   `);
-  return authenticateUser !== null ? authenticateUser : false;
+  return authenticateUser !== null ? authenticateUser : Exists.NotFound;
 };
 
 export const RegisterUser = async ({ login, password, email }: IURegister): Promise<boolean> => {
@@ -43,16 +42,15 @@ export const RegisterUser = async ({ login, password, email }: IURegister): Prom
   return addUser;
 };
 
-export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | boolean> => {
+export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | Exists.NotFound> => {
   const { updateUserData }: { updateUserData: IServices } = await mutation(gql`
-  ${Services}
   mutation {
     updateUserData(id: "${id}") {
-      ...Services
+      ${Services}
     }
   }
   `);
-  return updateUserData !== null ? updateUserData : false;
+  return updateUserData !== null ? updateUserData : Exists.NotFound;
 };
 
 export const UpdateDigitalOceanToken = async ({ id, token }: { id: string; token: string }): Promise<boolean> => {

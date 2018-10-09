@@ -13,8 +13,12 @@ export default {
   updateUser({ commit }: any, payload: IState["user"]) {
     commit("updateUser", payload);
   },
+  updateID({ commit }: any, payload: IState["user"]) {
+    commit("updateID", payload);
+  },
   updateAllData({ commit }: any, payload: IState) {
     const data = {
+      id: payload.id,
       user: {
         ...payload.user
       },
@@ -32,6 +36,7 @@ export default {
     commit("updateDigitalOcean", data.DigitalOcean);
     commit("updatePaypal", data.Paypal);
     commit("updateUser", data.user);
+    commit("updateID", data.id);
   },
   restoreStorage({ commit }: any, payload: IState) {
     commit("restoreStorage", payload);

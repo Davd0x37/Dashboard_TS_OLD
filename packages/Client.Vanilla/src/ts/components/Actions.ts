@@ -1,3 +1,4 @@
+import { Exists, IServices } from "../controller/User/Interface";
 import { UpdateDigitalOceanToken, UpdateUser } from "../controller/User/Manager";
 import { Component, Method } from "../decorators";
 import { error, success } from "../lib/Alert";
@@ -48,20 +49,26 @@ class Actions extends Triton {
 
     $(".actions-plate #refresh")!.addEventListener("click", async () => {
       try {
-        const res: any = await UpdateUser({ id: this.store.getter.user.id });
-        await this.store.dispatch("updateAllData", { ...res });
+        if (this.store.getter.id.length !== 0) {
+          const res: IServices | Exists = await UpdateUser({ id: this.store.getter.id });
+          if (res !== Exists.NotFound) {
+            await this.store.dispatch("updateAllData", { ...res });
+          }
+        }
       } catch (e) {
         error(e);
       }
     });
 
     $(".actions-plate #digitalocean_add_token")!.addEventListener("click", async (e: any) => {
-      const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
-      const res = await UpdateDigitalOceanToken({ id: this.store.getter.user.id, token });
-      if (res) {
-        success("Poprawnie dodano token", () => null);
-      } else {
-        error("Nie można dodać tokena");
+      if (this.store.getter.id.length !== 0) {
+        const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
+        const res = await UpdateDigitalOceanToken({ id: this.store.getter.id, token });
+        if (res) {
+          success("Poprawnie dodano token", () => null);
+        } else {
+          error("Nie można dodać tokena");
+        }
       }
     });
   }

@@ -1,4 +1,4 @@
-import { IDigitalOcean, IPaypal, ISpotify, IUser } from "../controller/User/Interface";
+import { IUser } from "../controller/User/Interface";
 
 export interface IStateStore {
   store: IUser;
