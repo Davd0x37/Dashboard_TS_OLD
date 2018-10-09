@@ -10,7 +10,7 @@ export default abstract class Triton {
   }
 
   public abstract render(...args: any[]): string;
-  public mounted(...args: any[]): void {
+  public mounted(..._: any[]): void {
     //
   }
   
@@ -20,7 +20,7 @@ export default abstract class Triton {
     });
   }
 
-  private update(...args: any[]): void {
+  private update(..._: any[]): void {
     const el = $(`#${this.className}`)
     if(el !== null) {
       el.innerHTML = this.render();

@@ -1,18 +1,12 @@
 import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../components";
 import { digitalOceanConfig } from "../../config";
 import { query } from "../../controller/DB";
+import { IServices } from "../../interfaces/IUser";
 import { hashPass } from "../../utils/crypto";
 import { fieldAvailable, getUser } from "./Manager";
 
 // Need to be exported as object because we want to use spread operator
 export default {
-  /**
-   * Add user to database
-   *
-   * @param {*} _
-   * @param {*} { data }
-   * @returns {Promise<boolean>}
-   */
   async addUser(_: any, { data }: any): Promise<boolean> {
     try {
       if ((await fieldAvailable({ login: data.login })) && (await fieldAvailable({ email: data.email }))) {
@@ -21,7 +15,9 @@ export default {
         // Save user credentials in database
         await query(q =>
           q.insert({
-            ...data,
+            user: {
+              ...data
+            },
             Spotify: {
               username: "",
               email: "",
@@ -53,13 +49,6 @@ export default {
     }
   },
 
-  /**
-   * Change user password
-   *
-   * @param {*} _
-   * @param {*} { id, password, newPassword }
-   * @returns
-   */
   async changePassword(_: any, { id, password, newPassword }: any): Promise<boolean> {
     try {
       const req: any = query(async q =>
@@ -71,14 +60,7 @@ export default {
     }
   },
 
-  /**
-   * Update user data with APIs
-   *
-   * @param {*} _
-   * @param {*} { id }
-   * @returns {Promise<object>}
-   */
-  async updateUserData(_: any, { id }: any): Promise<object> {
+  async updateUserData(_: any, { id }: any): Promise<IServices> {
     try {
       await SpotifyManager(id);
       await PaypalManager(id);

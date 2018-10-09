@@ -1,3 +1,5 @@
+import swal from "sweetalert2"
+
 export const error = (text: string) => {
   swal({
     position: 'center',

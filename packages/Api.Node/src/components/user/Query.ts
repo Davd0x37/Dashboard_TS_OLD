@@ -1,4 +1,5 @@
 import { query } from "../../controller/DB";
+import { IUser } from "../../interfaces/IUser";
 import { hashPass } from "../../utils/crypto";
 
 // Need to be exported as object because we want to use spread operator
@@ -12,7 +13,7 @@ export default {
    */
   async authenticateUser(_: any, { login, password }: any): Promise<object> {
     try {
-      const req: any = await query(async q => q.filter({ login, password: await hashPass(password) }));
+      const req: [IUser] = await query(async q => q.filter({ user: { login, password: await hashPass(password) } }));
       return req[0];
     } catch (e) {
       throw Error(e);

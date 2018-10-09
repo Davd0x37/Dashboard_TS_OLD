@@ -1,4 +1,5 @@
 import { query } from "../../controller/DB";
+import { IUser } from "../../interfaces/IUser";
 
 /**
  * Update user credentials
@@ -21,7 +22,7 @@ export const updateCredentials = async (id: string, config: unknown): Promise<vo
  * @param {string} id
  * @returns {Promise<unknown>}
  */
-export const getUser = async (id: string): Promise<unknown> => {
+export const getUser = async (id: string): Promise<IUser> => {
   try {
     return query(q => q.get(id));
   } catch (e) {

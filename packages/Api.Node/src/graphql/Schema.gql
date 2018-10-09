@@ -3,7 +3,6 @@ schema {
   mutation: Mutation
 }
 
-####### ----- TYPES ----- #######
 type Query {
   # Authenticate user by his login and password
   authenticateUser(login: String!, password: String!): User
@@ -21,17 +20,19 @@ type Mutation {
   # Update digitalocean token
   updateDigitalOceanToken(id: ID!, token: String!): Boolean
 }
-####### ----- END TYPES ----- #######
 
-####### ----- User ----- #######
 type User {
   id: ID
-  avatar: String
-  email: String
-  login: String
+  user: UserDetails
   DigitalOcean: DigitalOcean
   Spotify: Spotify
   Paypal: Paypal
+}
+
+type UserDetails {
+  avatar: String
+  email: String
+  login: String
 }
 
 input UserInput {
@@ -40,40 +41,26 @@ input UserInput {
   login: String!
   password: String!
 }
-####### ----- END User ----- #######
 
-####### ----- Services ----- #######
 type Services {
   DigitalOcean: DigitalOcean
   Spotify: Spotify
   Paypal: Paypal
 }
 
-input authTokens {
-  spotifyAuth: String
-  digitaloceanAuth: String
-  paypalAuth: String
+type Spotify {
+  email: String!
+  username: String!
+  type: String!
 }
-####### ----- END Services ----- #######
 
-####### ----- DigitalOcean ----- #######
 type DigitalOcean {
   email: String!
   total: String!
   dropletLimit: String!
   lastCreatedDroplet: String!
 }
-####### ----- END DigitalOcean ----- #######
 
-####### ----- Spotify ----- #######
-type Spotify {
-  email: String!
-  username: String!
-  type: String!
-}
-####### ----- END Spotify ----- #######
-
-####### ----- Paypal ----- #######
 type Paypal {
   username: String!
   email: String!
@@ -82,4 +69,3 @@ type Paypal {
   country: String!
   zoneinfo: String!
 }
-####### ----- END Paypal ----- #######

@@ -38,7 +38,7 @@ export const update = async (id: string, token?: string): Promise<void> => {
   }
 };
 /**
- * Get number of droplets. It can show list of droplets too
+ * Get number of droplets.
  *
  * @param {string} authToken
  * @returns {Promise<IDropletData>}

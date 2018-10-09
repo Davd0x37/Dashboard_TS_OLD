@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import { mutation, query } from "../Api";
 import { Services } from "./Fragments";
-import { IAuthenticateUser, IServices } from "./Interface";
+import { IServices, IUser } from "./Interface";
 
 export const AuthenticateUser = async ({
   login,
@@ -9,15 +9,17 @@ export const AuthenticateUser = async ({
 }: {
   login: string;
   password: string;
-}): Promise<IAuthenticateUser | boolean> => {
-  const { authenticateUser }: { authenticateUser: IAuthenticateUser } = await query(gql`
+}): Promise<IUser | boolean> => {
+  const { authenticateUser }: { authenticateUser: IUser } = await query(gql`
   ${Services}
   query {
     authenticateUser(login: "${login}", password: "${password}") {
       id
-      avatar
-      login
-      email
+      user {
+        avatar
+        login
+        email
+      }
       ...Services
     }
   }

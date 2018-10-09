@@ -39,7 +39,7 @@ class App {
   private routeButtons(): void {
     const buttons = $$("[data-router-go]");
     buttons.forEach((btn: any) => {
-      btn.addEventListener("click", (e: any) => {
+      btn.addEventListener("click", () => {
         const path = btn.dataset.routerGo;
         this.router.go(path);
       });
