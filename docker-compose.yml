@@ -91,6 +91,6 @@ services:
       - "traefik.frontend.rule=Host:traefik.liquidash.pl"
       - "traefik.port=8080"
 volumes:
-  ? dashboard_app
+  - dashboard_app
 networks:
-  ? dashboard
+  - dashboard
