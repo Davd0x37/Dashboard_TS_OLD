@@ -12,6 +12,7 @@ class Authenticate extends Triton {
   private login: string = "";
   private password: string = "";
   private email: string = "";
+  private avatar: string = "";
 
   constructor() {
     super();
@@ -45,8 +46,11 @@ class Authenticate extends Triton {
             <p class="label__title">Password</p>
             <input type="password" class="input" minlength="5" maxlength="40" data-v-model="password">
 
-            <p class="label__title" minlength="5" maxlength="80" data-v-model="email">E-mail</p>
-            <input type="email" class="input">
+            <p class="label__title">E-mail</p>
+            <input type="email" class="input" minlength="5" maxlength="80" data-v-model="email">
+
+            <p class="label__title">Avatar</p>
+            <input type="text" class="input" data-v-model="avatar">
 
             <input type="submit" id="register_submit" value="Register">
           </form>
@@ -61,11 +65,12 @@ class Authenticate extends Triton {
       this.login = v.login || this.login;
       this.password = v.password || this.password;
       this.email = v.email || this.email;
+      this.avatar = v.avatar || this.avatar;
     });
     const login = $(".authenticate > .container .tab #login_submit")!;
     login.addEventListener("click", () => this.authenticateUser(this.login, this.password));
     const register = $(".authenticate > .container .tab #register_submit")!;
-    register.addEventListener("click", () => this.registerUser(this.login, this.password, this.email));
+    register.addEventListener("click", () => this.registerUser(this.login, this.password, this.email, this.avatar));
   }
 
   private async authenticateUser(login: string, password: string) {
@@ -81,9 +86,9 @@ class Authenticate extends Triton {
     }
   }
 
-  private async registerUser(login: string, password: string, email: string) {
+  private async registerUser(login: string, password: string, email: string, avatar: string) {
     if (login.length !== 0 && password.length !== 0 && email.length !== 0) {
-      const res: any = await RegisterUser({ login, password, email });
+      const res: any = await RegisterUser({ login, password, email, avatar });
       if (res) {
         success(`ZAREJESTROWANO!`, () => Router.go("/auth"));
       } else {

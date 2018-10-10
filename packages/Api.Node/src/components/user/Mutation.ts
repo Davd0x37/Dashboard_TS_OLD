@@ -42,10 +42,24 @@ export default {
               zoneinfo: ""
             },
             authTokens: {
-              accessToken: "",
-              code: "",
-              refreshToken: "",
-              stateKey: ""
+              Spotify: {
+                accessToken: "",
+                code: "",
+                refreshToken: "",
+                stateKey: ""
+              },
+              DigitalOcean: {
+                accessToken: "",
+                code: "",
+                refreshToken: "",
+                stateKey: ""
+              },
+              Paypal: {
+                accessToken: "",
+                code: "",
+                refreshToken: "",
+                stateKey: ""
+              }
             }
           })
         );
@@ -89,7 +103,9 @@ export default {
 
   async updateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
     try {
-      const req: any = query(async q => q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } }));
+      const req: any = await query(async q =>
+        q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } })
+      );
       return !!req.inserted || !!req.replaced;
     } catch (e) {
       signale.error("User.Mutation.updateDigitalOceanToken ------", e);

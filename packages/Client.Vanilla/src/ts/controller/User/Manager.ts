@@ -9,6 +9,7 @@ interface IULogin {
 }
 interface IURegister extends IULogin {
   email: string;
+  avatar: string;
 }
 
 export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | Exists.NotFound> => {
@@ -28,11 +29,11 @@ export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IU
   return authenticateUser !== null ? authenticateUser : Exists.NotFound;
 };
 
-export const RegisterUser = async ({ login, password, email }: IURegister): Promise<boolean> => {
+export const RegisterUser = async ({ login, password, email, avatar }: IURegister): Promise<boolean> => {
   const { addUser }: { addUser: boolean } = await mutation(gql`
   mutation {
     addUser(data: {
-      avatar: ""
+      avatar: "${avatar}"
       email: "${email}"
       login: "${login}"
       password: "${password}"
@@ -59,5 +60,5 @@ export const UpdateDigitalOceanToken = async ({ id, token }: { id: string; token
     updateDigitalOceanToken(id: "${id}", token: "${token}")
   }
   `);
-  return !!updateDigitalOceanToken;
+  return updateDigitalOceanToken;
 };
