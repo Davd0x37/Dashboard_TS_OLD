@@ -52,7 +52,7 @@ services:
   db:
     image: rethinkdb:latest
     container_name: dashboard_db
-    command: rethinkdb --http-port 1337
+    command: rethinkdb --http-port 1337 --bind all
     ports:
       - "1337:1337"
       - "28015:28015"
@@ -66,8 +66,8 @@ services:
       - "traefik.docker.network=dashboard"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:db.liquidash.pl"
-      # - "traefik.port=1337"
-      - "traefik.port=28015"
+      - "traefik.port=1337"
+      # - "traefik.port=28015"
       # - "traefik.port=29015"
 
   # REVERSE PROXY
