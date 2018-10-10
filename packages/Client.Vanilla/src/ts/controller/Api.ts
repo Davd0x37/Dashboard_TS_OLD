@@ -1,7 +1,8 @@
 import ApolloClient from "apollo-boost";
+import { ApiURL } from "../../config";
 
 const client: ApolloClient<any> = new ApolloClient({
-  uri: "https://api.liquidash.pl"
+  uri: ApiURL
 });
 
 /**

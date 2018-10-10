@@ -1,3 +1,4 @@
+import { PaypalAuthenticate, SpotifyAuthenticate } from "../../config";
 import { Exists, IServices } from "../controller/User/Interface";
 import { UpdateDigitalOceanToken, UpdateUser } from "../controller/User/Manager";
 import { Component, Method } from "../decorators";
@@ -41,10 +42,10 @@ class Actions extends Triton {
   @Method()
   public mounted(): void {
     $(".actions-plate #spotify__authorize")!.addEventListener("click", () => {
-      window.open("http://localhost:4000/spotify/authenticate");
+      window.open(SpotifyAuthenticate);
     });
     $(".actions-plate #paypal__authorize")!.addEventListener("click", () => {
-      window.open("http://localhost:4000/paypal/authenticate");
+      window.open(PaypalAuthenticate);
     });
 
     $(".actions-plate #refresh")!.addEventListener("click", async () => {
