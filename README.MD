@@ -15,8 +15,10 @@ running.
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
 cd DashboardTS/
 yarn
-yarn run api:prod
-yarn run client:prod
+yarn lerna bootstrap
+yarn run api:build
+yarn run client_vanilla:build:build
+yarn run deploy
 ```
 
 ## Developing
@@ -27,6 +29,7 @@ Just clone repo and use command listed below. Yarn will do everything for you.
 
 ```shell
 yarn
+yarn lerna bootstrap
 ```
 
 ### Setting up Dev
@@ -35,10 +38,9 @@ Here's a brief intro about what a developer must do in order to start developing
 
 ```shell
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
-
 cd DashboardTS/
-
 yarn
+yarn lerna bootstrap
 ```
 
 ### Building
@@ -47,21 +49,14 @@ yarn
 
 ```shell
 yarn run api:build
-yarn run client:build
-yarn run client_vanilla:build
+yarn run client_vanilla:build:build
 ```
 > Development
 
 ```shell
 yarn run api:serve
-yarn run client:serve
+yarn run api:deploy
 yarn run client_vanilla:serve
-```
-
-> Nodemon server
-
-```shell
-yarn run serve
 ```
 
 ### Deploying / Publishing
