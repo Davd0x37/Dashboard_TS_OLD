@@ -1,6 +1,5 @@
 import signale from "signale";
 import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../components";
-import { digitalOceanConfig } from "../../config";
 import { query } from "../../controller/DB";
 import { IServices } from "../../interfaces/IUser";
 import { hashPass } from "../../utils/crypto";
