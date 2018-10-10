@@ -8,7 +8,7 @@ import r from "rethinkdb";
 export const DB = async () => {
   try {
     return r.connect({
-      host: "localhost",
+      host: "db.liquidash.pl",
       port: 28015
     });
   } catch (e) {

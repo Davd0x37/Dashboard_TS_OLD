@@ -1,6 +1,7 @@
 {
   "packages": [
-    "packages/*"
+    "packages/Api.Node",
+    "packages/Client.Vanilla"
   ],
   "version": "0.1.0",
   "npmClient": "yarn"
