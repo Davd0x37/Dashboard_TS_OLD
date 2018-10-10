@@ -22,9 +22,9 @@ elif [ "$action" = "git-new" ]; then
     mkdir $app_dir/config;
     cp /etc/letsencrypt/live/liquidash.pl/fullchain.pem $app_dir/config;
     cp /etc/letsencrypt/live/liquidash.pl/privkey.pem $app_dir/config;
-    cp /etc/letsencrypt/live/liquidash.pl/dhparam.pem $app_dir/config;
-    cd $app_dir/packages/Api.Node && yarn;
-    cd $app_dir/packages/Client.Vanilla && yarn;"
+    cp /etc/letsencrypt/live/liquidash.pl/dhparam.pem $app_dir/config;"
+    # cd $app_dir/packages/Api.Node && yarn;
+    # cd $app_dir/packages/Client.Vanilla && yarn;"
 elif [ "$action" = "api" ]; then
     ex "cd $app_dir; rm -rf $app_dir/packages/Api.Node/dist; yarn run api:build"
 elif [ "$action" = "client" ]; then

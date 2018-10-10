@@ -2,5 +2,6 @@ FROM node:latest
 ADD . /Dashboard
 WORKDIR /Dashboard
 RUN yarn
-RUN yarn api:prod
-RUN yarn client:prod
+RUN yarn lerna bootstrap
+RUN yarn api:build
+RUN yarn client_vanilla:build:build
