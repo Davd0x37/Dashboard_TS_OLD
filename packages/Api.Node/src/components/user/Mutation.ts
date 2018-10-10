@@ -92,7 +92,7 @@ export default {
     try {
       await SpotifyManager(id);
       await PaypalManager(id);
-      await DigitalOceanManager(id, digitalOceanConfig.authToken);
+      await DigitalOceanManager(id);
       const res: any = await getUser(id);
       return res;
     } catch (e) {
