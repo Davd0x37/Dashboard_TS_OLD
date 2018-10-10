@@ -42,10 +42,10 @@ class Actions extends Triton {
   @Method()
   public mounted(): void {
     $(".actions-plate #spotify__authorize")!.addEventListener("click", () => {
-      window.open(SpotifyAuthenticate);
+      window.open(`${SpotifyAuthenticate}?id=${this.store.getter.id}`);
     });
     $(".actions-plate #paypal__authorize")!.addEventListener("click", () => {
-      window.open(PaypalAuthenticate);
+      window.open(`${PaypalAuthenticate}?id=${this.store.getter.id}`);
     });
 
     $(".actions-plate #refresh")!.addEventListener("click", async () => {

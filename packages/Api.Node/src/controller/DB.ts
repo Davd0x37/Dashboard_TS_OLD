@@ -9,6 +9,7 @@ export const DB = async () => {
   try {
     return r.connect({
       host: "db.liquidash.pl",
+      // host: "localhost",
       port: 28015
     });
   } catch (e) {

@@ -4,7 +4,7 @@ import signale from "signale"
 import { spotifyConfig } from "../../config";
 import Authenticate from "../../controller/Authenticate";
 
-const userAuthenticationID = "user_id";
+// const userAuthenticationID = "user_id";
 const router = express.Router();
 
 const auth = new Authenticate();
@@ -12,7 +12,7 @@ const auth = new Authenticate();
 // Redirect to spotify for authentication
 router.get("/authenticate", async (req: Request, res: Response) => {
   try {
-    const authUrl = await auth.authenticateAccount(req.cookies[userAuthenticationID], "Spotify", {
+    const authUrl = await auth.authenticateAccount(req.query.id, "Spotify", {
       clientID: spotifyConfig.clientID,
       redirect: spotifyConfig.redirectURI,
       scopes: spotifyConfig.userScopes.join("+"),
