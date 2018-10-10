@@ -90,5 +90,7 @@ services:
       - "traefik.docker.network=dashboard"
       - "traefik.frontend.rule=Host:traefik.liquidash.pl"
       - "traefik.port=8080"
-volumes: dashboard_app
-networks: dashboard
+volumes: 
+  dashboard_app:
+networks: 
+  dashboard:
