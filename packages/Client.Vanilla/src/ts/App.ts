@@ -6,6 +6,7 @@ import { parseComponent } from "./lib/Parser";
 class App {
   private selector: string = "#app";
   private router: typeof Router = Router;
+
   constructor() {
     //
   }

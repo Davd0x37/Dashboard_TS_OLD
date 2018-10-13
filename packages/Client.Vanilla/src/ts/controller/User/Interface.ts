@@ -15,7 +15,7 @@ export interface IPaypal {
   username: string;
   email: string;
   phone: string;
-  verified: string; 
+  verified: string;
   country: string;
   zoneinfo: string;
 }
