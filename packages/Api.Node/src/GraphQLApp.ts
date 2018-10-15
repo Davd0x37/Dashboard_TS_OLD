@@ -29,7 +29,7 @@ try {
             }
           }
         : undefined),
-      playground: process.env.NODE_ENV === "prod" ? false : undefined
+      playground: process.env.NODE_ENV === "prod" ? false : '/'
     },
     () => log.start("Server is running on localhost:4000")
   );
