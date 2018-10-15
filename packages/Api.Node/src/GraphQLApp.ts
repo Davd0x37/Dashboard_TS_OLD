@@ -18,18 +18,27 @@ try {
 
   server.express.use("/spotify", SpotifyRouter);
   server.express.use("/paypal", PaypalRouter);
-
+  // server.start(
+  //   {
+  //     ...(process.env.NODE_ENV === "prod"
+  //       ? {
+  //           cors: {
+  //             origin: "https://liquidash.pl",
+  //             methods: ["POST", "GET"]
+  //           }
+  //         }
+  //       : undefined),
+  //     playground: process.env.NODE_ENV === "prod" ? false : '/'
+  //   },
+  //   () => log.start("Server is running on localhost:4000")
+  // );
   server.start(
     {
-      ...(process.env.NODE_ENV === "prod"
-        ? {
-            cors: {
-              origin: "https://liquidash.pl",
-              methods: ["POST", "GET"]
-            }
-          }
-        : undefined),
-      playground: process.env.NODE_ENV === "prod" ? false : '/'
+      cors: {
+        origin: "https://liquidash.pl",
+        methods: ["POST", "GET"]
+      },
+      playground: false
     },
     () => log.start("Server is running on localhost:4000")
   );
