@@ -18,14 +18,12 @@ elif [ "$action" = "git-pull" ]; then
     ex "cd $app_dir; git pull --force"
 elif [ "$action" = "git-new" ]; then
     ex "rm -rf $app_dir;
-    cd $app && git clone git@gitlab.com:DevDigitalNomad/DashboardTS.git;
-    mkdir $app_dir/config;
-    cp /etc/letsencrypt/live/liquidash.pl/* $app_dir/config;"
+    cd $app && git clone git@gitlab.com:DevDigitalNomad/DashboardTS.git;"
+    # mkdir $app_dir/config;
+    # cp /etc/letsencrypt/live/liquidash.pl/* $app_dir/config;
 elif [ "$action" = "deploy" ]; then
     ex "rm -rf $app_dir;
     cd $app && git clone git@gitlab.com:DevDigitalNomad/DashboardTS.git;
-    mkdir $app_dir/config;
-    cp /etc/letsencrypt/live/liquidash.pl/* $app_dir/config;
     yarn;
     yarn lerna bootstrap;
     cd $app_dir; rm -rf $app_dir/packages/Api.Node/dist; yarn run api:build;
