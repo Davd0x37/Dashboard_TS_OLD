@@ -21,10 +21,14 @@ try {
 
   server.start(
     {
-      cors: {
-        origin: "https://liquidash.pl",
-        methods: ["POST", "GET"]
-      },
+      ...(process.env.NODE_ENV === "prod"
+        ? {
+            cors: {
+              origin: "https://liquidash.pl",
+              methods: ["POST", "GET"]
+            }
+          }
+        : undefined),
       playground: process.env.NODE_ENV === "prod" ? false : undefined
     },
     () => log.start("Server is running on localhost:4000")
