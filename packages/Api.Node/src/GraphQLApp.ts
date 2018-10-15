@@ -19,7 +19,16 @@ try {
   server.express.use("/spotify", SpotifyRouter);
   server.express.use("/paypal", PaypalRouter);
 
-  server.start(() => log.start("Server is running on localhost:4000"));
+  server.start(
+    {
+      cors: {
+        origin: "https://liquidash.pl",
+        methods: ["POST", "GET"]
+      },
+      playground: process.env.NODE_ENV === "prod" ? false : undefined
+    },
+    () => log.start("Server is running on localhost:4000")
+  );
 } catch (e) {
   log.error(e);
   throw new Error(e);

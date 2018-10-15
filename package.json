@@ -23,7 +23,8 @@
     "client_vanilla:build:build": "cd ./packages/Client.Vanilla && yarn run prod:build",
     "client_vanilla:test": "cd ./packages/Client.Vanilla && yarn run test",
     "client_vanilla:test-watch": "cd ./packages/Client.Vanilla && yarn run test:watch",
-    "deploy": "docker-compose up --build"
+    "deploy:dev": "docker-compose -f docker-dev.yml up --build",
+    "deploy:prod": "docker-compose -f docker-prod.yml up --build"
   },
   "devDependencies": {
     "lerna": "^3.4.2"

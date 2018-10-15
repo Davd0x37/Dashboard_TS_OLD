@@ -12,7 +12,7 @@ services:
   api:
     image: node:latest
     container_name: dashboard_api
-    command: node /Dashboard/packages/Api.Node/dist/GraphQLApp.js
+    command: NODE_ENV=dev node /Dashboard/packages/Api.Node/dist/GraphQLApp.js
     ports:
       - "4000:4000"
     depends_on:
@@ -26,7 +26,7 @@ services:
       - "traefik.docker.network=dashboard"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:api.liquidash.pl"
-      # - "traefik.port=4000"
+      - "traefik.port=4000"
 
   # FRONTEND
   client:
@@ -54,7 +54,7 @@ services:
     container_name: dashboard_db
     command: rethinkdb --http-port 1337 --bind all
     ports:
-      # - "1337:1337"
+      - "1337:1337"
       - "28015:28015"
       - "29015:29015"
     volumes:
@@ -66,6 +66,7 @@ services:
       - "traefik.docker.network=dashboard"
       - "traefik.enable=true"
       - "traefik.frontend.rule=Host:db.liquidash.pl"
+      - "traefik.port=1337"
 
   # REVERSE PROXY
   reverse-proxy:
@@ -86,7 +87,7 @@ services:
       - "traefik.backend=DashboardReverseProxy"
       - "traefik.docker.network=dashboard"
       - "traefik.frontend.rule=Host:traefik.liquidash.pl"
-      # - "traefik.port=8080"
+      - "traefik.port=8080"
 volumes: 
   dashboard_app:
 networks: 
