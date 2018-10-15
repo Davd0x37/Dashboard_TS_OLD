@@ -12,7 +12,7 @@ services:
   api:
     image: node:latest
     container_name: dashboard_api
-    command: NODE_ENV=prod node /Dashboard/packages/Api.Node/dist/GraphQLApp.js
+    command: node /Dashboard/packages/Api.Node/dist/GraphQLApp.js
     ports:
       - "4000:4000"
     depends_on:
@@ -21,6 +21,8 @@ services:
       - dashboard_app:/Dashboard
     networks:
       - dashboard
+    environment:
+      - NODE_ENV=prod
     labels:
       - "traefik.backend=DashboardApi"
       - "traefik.docker.network=dashboard"
