@@ -35,7 +35,7 @@ try {
   server.start(
     {
       cors: {
-        origin: "https://liquidash.pl",
+        origin: ["https://liquidash.pl", "https://liquidash.pl/auth"],
         methods: ["POST", "GET"]
       },
       playground: false
