@@ -27,8 +27,8 @@ services:
       - "traefik.backend=DashboardApi"
       - "traefik.docker.network=dashboard"
       - "traefik.enable=true"
-      # - "traefik.frontend.rule=Host:api.liquidash.pl"
-      # - "traefik.port=4000"
+      - "traefik.frontend.rule=Host:api.liquidash.pl"
+      - "traefik.port=4000"
 
   # FRONTEND
   client:

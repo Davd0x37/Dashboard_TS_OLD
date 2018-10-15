@@ -34,13 +34,14 @@
 
   <link rel="manifest" href="manifest.webmanifest">
   <script src="ts/ServiceWorker.ts"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/7.0.3/sanitize.min.css">
+  <link defer rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/7.0.3/sanitize.min.css">
   <link rel="stylesheet" href="public/scss/index.scss">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  <link defer rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
 </head>
 
 <body>
+  <noscript>PLEASE ENABLE JAVASCRIPT</noscript>
   <div id="app"></div>
   <!-- <div id="background__backdrop" class="background__backdrop"></div>
   <div id="tooltip_cloud" class="tooltip">
@@ -59,7 +60,7 @@
       s.parentNode.insertBefore(wf, s);
     })(document);
   </script>
-  <script src="ts/main.ts"></script>
+  <script defer src="ts/main.ts"></script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ class Actions extends Triton {
       <aside class="details">
         <div>  
           <p class="label__title">DigitalOcean API Token</p>
-          <input type="text" id="digitalocean_api_token" class="input">
+          <input type="text" id="digitalocean_api_token" class="input" placeholder="Digital Ocean API Token">
         </div>
         <button class="btn color" id="digitalocean_add_token">Add api token</button>
       </aside>
