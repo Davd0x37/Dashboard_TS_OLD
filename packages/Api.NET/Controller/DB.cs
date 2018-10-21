@@ -4,13 +4,13 @@ using RethinkDb.Driver.Net;
 
 namespace Api.NET.Controller
 {
-    public class DB
+    public class Db
     {
         public static RethinkDB R = RethinkDB.R;
         public static IConnection Con;
         public static Table General = R.Table("general");
 
-        public DB()
+        public Db()
         {
             Con = R.Connection()
                 .Hostname("127.0.0.1")

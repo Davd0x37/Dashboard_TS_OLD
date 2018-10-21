@@ -1,24 +1,24 @@
 import request from "request";
 import signale from "signale"
-import { getUser, updateCredentials } from "../../components/user/Manager";
+import { GetUser, UpdateCredentials } from "../../components/user/Manager";
 import { spotifyConfig } from "../../config";
 
 export const update = async (id: string) => {
   try {
-    const data: any = await getUser(id);
-    const { accessToken } = await data.authTokens.Spotify;
+    const data: any = await GetUser(id);
+    const { AccessToken } = await data.AuthTokens.Spotify;
     const options = {
       url: `${spotifyConfig.api}me`,
-      headers: { Authorization: "Bearer " + accessToken },
+      headers: { Authorization: "Bearer " + AccessToken },
       json: true
     };
 
     request.get(options, async (_: any, __: any, body: any) => {
-      await updateCredentials(id, {
+      await UpdateCredentials(id, {
         Spotify: {
-          username: body.id,
-          email: body.email,
-          type: body.product
+          Username: body.id,
+          Email: body.email,
+          Type: body.product
         }
       });
     });

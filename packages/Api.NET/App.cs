@@ -11,7 +11,7 @@ namespace Api.NET
 
         public App(string appName)
         {
-            var db = new DB();
+            var db = new Db();
             _appName = appName;
             WelcomeMessage();
         }
@@ -23,7 +23,8 @@ namespace Api.NET
 
         public async Task<bool> Run()
         {
-            var res = await User.GetUser("a46a0cca-e3db-42f4-9360-27e958f1d8d5");
+            var res = await User.UpdateDigitalOceanToken("a46a0cca-e3db-42f4-9360-27e958f1d8d5", "OMG");
+            Console.Write(res);
             return true;
         }
     }

@@ -12,7 +12,7 @@ const auth = new Authenticate();
 // Redirect to spotify for authentication
 router.get("/authenticate", async (req: Request, res: Response) => {
   try {
-    const authUrl = await auth.authenticateAccount(req.query.id, "Spotify", {
+    const authUrl = await auth.AuthenticateAccount(req.query.id, "Spotify", {
       clientID: spotifyConfig.clientID,
       redirect: spotifyConfig.redirectURI,
       scopes: spotifyConfig.userScopes.join("+"),
@@ -31,12 +31,12 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
     const code = req.query.code;
     const state = req.query.state;
 
-    await auth.getAccessToken({
+    await auth.GetAccessToken({
       code,
       state,
       redirect_uri: spotifyConfig.redirectURI,
       url: spotifyConfig.apiTokenService,
-      Authorization: auth.generateBasicAuthorization(spotifyConfig.clientID, spotifyConfig.clientSecret)
+      Authorization: auth.GenerateBasicAuthorization(spotifyConfig.clientID, spotifyConfig.clientSecret)
     });
 
     res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));

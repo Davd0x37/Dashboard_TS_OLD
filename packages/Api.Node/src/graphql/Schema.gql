@@ -5,41 +5,41 @@ schema {
 
 type Query {
   # Authenticate user by his login and password
-  authenticateUser(login: String!, password: String!): User
+  AuthenticateUser(login: String!, password: String!): User
   # Get all users - returns array
-  getAllUsers: [User]!
+  GetAllUsers: [User]!
 }
 
 type Mutation {
   # Add user to database
-  addUser(data: UserInput!): Boolean
+  AddUser(data: UserInput!): Boolean
   # Change password
-  changePassword(id: ID, password: String, newPassword: String): Boolean
+  ChangePassword(id: ID, password: String, newPassword: String): Boolean
   # Update user info
-  updateUserData(id: ID!): Services!
+  UpdateUserData(id: ID!): Services!
   # Update digitalocean token
-  updateDigitalOceanToken(id: ID!, token: String!): Boolean
+  UpdateDigitalOceanToken(id: ID!, token: String!): Boolean
 }
 
 type User {
   id: ID
-  user: UserDetails
+  User: UserDetails
   DigitalOcean: DigitalOcean
   Spotify: Spotify
   Paypal: Paypal
 }
 
 type UserDetails {
-  avatar: String
-  email: String
-  login: String
+  Avatar: String
+  Email: String
+  Login: String
 }
 
 input UserInput {
-  avatar: String
-  email: String!
-  login: String!
-  password: String!
+  Avatar: String
+  Email: String!
+  Login: String!
+  Password: String!
 }
 
 type Services {
@@ -49,23 +49,23 @@ type Services {
 }
 
 type Spotify {
-  email: String!
-  username: String!
-  type: String!
+  Email: String!
+  Username: String!
+  Type: String!
 }
 
 type DigitalOcean {
-  email: String!
-  total: String!
-  dropletLimit: String!
-  lastCreatedDroplet: String!
+  Email: String!
+  Total: String!
+  DropletLimit: String!
+  LastCreatedDroplet: String!
 }
 
 type Paypal {
-  username: String!
-  email: String!
-  phone: String!
-  verified: String!
-  country: String!
-  zoneinfo: String!
+  Username: String!
+  Email: String!
+  Phone: String!
+  Verified: String!
+  Country: String!
+  Zoneinfo: String!
 }

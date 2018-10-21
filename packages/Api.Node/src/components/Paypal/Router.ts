@@ -15,7 +15,7 @@ const auth = new Authenticate();
 router.get("/authenticate", async (req: Request, res: Response) => {
   try {
     const nonce = `${Date.now() + Buffer.from(generateRandomString(16, true)).toString("base64")}`;
-    const authUrl = await auth.authenticateAccount(req.query.id, "Paypal", {
+    const authUrl = await auth.AuthenticateAccount(req.query.id, "Paypal", {
       clientID: paypalConfig.clientID,
       redirect: paypalConfig.redirectURI,
       scopes: paypalConfig.userScopes.join("+"),
@@ -35,11 +35,11 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
     const code = req.query.code;
     const state = req.query.state;
 
-    await auth.getAccessToken({
+    await auth.GetAccessToken({
       code,
       state,
       url: paypalConfig.apiTokenService,
-      Authorization: auth.generateBasicAuthorization(paypalConfig.clientID, paypalConfig.clientSecret)
+      Authorization: auth.GenerateBasicAuthorization(paypalConfig.clientID, paypalConfig.clientSecret)
     });
 
     res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));

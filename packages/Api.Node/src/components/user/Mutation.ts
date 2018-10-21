@@ -3,61 +3,61 @@ import { DigitalOceanManager, PaypalManager, SpotifyManager } from "../../compon
 import { query } from "../../controller/DB";
 import { IServices } from "../../interfaces/IUser";
 import { hashPass } from "../../utils/crypto";
-import { fieldAvailable, getUser } from "./Manager";
+import { FieldAvailable, GetUser } from "./Manager";
 
 // Need to be exported as object because we want to use spread operator
 export default {
-  async addUser(_: any, { data }: any): Promise<boolean> {
+  async AddUser(_: any, { data }: any): Promise<boolean> {
     try {
       if (
-        (await fieldAvailable({ user: { login: data.login } })) &&
-        (await fieldAvailable({ user: { email: data.email } }))
+        (await FieldAvailable({ User: { Login: data.Login } })) &&
+        (await FieldAvailable({ User: { Email: data.Email } }))
       ) {
         // Hash password
-        data.password = await hashPass(data.password);
+        data.Password = await hashPass(data.password);
         // Save user credentials in database
         await query(q =>
           q.insert({
-            user: {
+            User: {
               ...data
             },
             Spotify: {
-              username: "",
-              email: "",
-              type: ""
+              Username: "",
+              Email: "",
+              Type: ""
             },
             DigitalOcean: {
-              email: "",
-              total: "",
-              dropletLimit: "",
-              lastCreatedDroplet: ""
+              Email: "",
+              Total: "",
+              DropletLimit: "",
+              LastCreatedDroplet: ""
             },
             Paypal: {
-              username: "",
-              email: "",
-              phone: "",
-              verified: "",
-              country: "",
-              zoneinfo: ""
+              Username: "",
+              Email: "",
+              Phone: "",
+              Verified: "",
+              Country: "",
+              Zoneinfo: ""
             },
             authTokens: {
               Spotify: {
-                accessToken: "",
-                code: "",
-                refreshToken: "",
-                stateKey: ""
+                AccessToken: "",
+                Code: "",
+                RefreshToken: "",
+                StateKey: ""
               },
               DigitalOcean: {
-                accessToken: "",
-                code: "",
-                refreshToken: "",
-                stateKey: ""
+                AccessToken: "",
+                Code: "",
+                RefreshToken: "",
+                StateKey: ""
               },
               Paypal: {
-                accessToken: "",
-                code: "",
-                refreshToken: "",
-                stateKey: ""
+                AccessToken: "",
+                Code: "",
+                RefreshToken: "",
+                StateKey: ""
               }
             }
           })
@@ -73,12 +73,12 @@ export default {
     }
   },
 
-  async changePassword(_: any, { id, password, newPassword }: any): Promise<boolean> {
+  async ChangePassword(_: any, { id, newPassword }: any): Promise<boolean> {
     try {
       const req: any = query(async q =>
         q
-          .filter({ id, user: { password: await hashPass(password) } })
-          .update({ user: { password: await hashPass(newPassword) } })
+          .get(id)
+          .update({ User: { Password: await hashPass(newPassword) } })
       );
       return !!req.replaced;
     } catch (e) {
@@ -87,12 +87,12 @@ export default {
     }
   },
 
-  async updateUserData(_: any, { id }: any): Promise<IServices> {
+  async UpdateUserData(_: any, { id }: any): Promise<IServices> {
     try {
       await SpotifyManager(id);
       await PaypalManager(id);
       await DigitalOceanManager(id);
-      const res: any = await getUser(id);
+      const res: any = await GetUser(id);
       return res;
     } catch (e) {
       signale.error("User.Mutation.updateUserData ------", e);
@@ -100,10 +100,10 @@ export default {
     }
   },
 
-  async updateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
+  async UpdateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
     try {
       const req: any = await query(async q =>
-        q.get(id).update({ authTokens: { DigitalOcean: { accessToken: token } } })
+        q.get(id).update({ AuthTokens: { DigitalOcean: { AccessToken: token } } })
       );
       return !!req.inserted || !!req.replaced;
     } catch (e) {

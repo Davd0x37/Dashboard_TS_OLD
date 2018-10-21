@@ -1,27 +1,27 @@
 import request from "request";
 import signale from "signale";
-import { getUser, updateCredentials } from "../../components/user/Manager";
+import { GetUser, UpdateCredentials } from "../../components/user/Manager";
 import { paypalConfig } from "../../config";
 
 export const update = async (id: string) => {
   try {
-    const data: any = await getUser(id);
-    const { accessToken } = await data.authTokens.Paypal;
+    const data: any = await GetUser(id);
+    const { AccessToken } = await data.AuthTokens.Paypal;
     const options = {
       url: paypalConfig.paths.personalData,
-      headers: { Authorization: "Bearer " + accessToken },
+      headers: { Authorization: "Bearer " + AccessToken },
       json: true
     };
 
     request.get(options, async (_: any, __: any, body: any) => {
-      await updateCredentials(id, {
+      await UpdateCredentials(id, {
         Paypal: {
-          username: body.name,
-          email: body.email,
-          phone: body.phone_number,
-          verified: body.verified,
-          country: body.address.country,
-          zoneinfo: body.zoneinfo
+          Username: body.name,
+          Email: body.email,
+          Phone: body.phone_number,
+          Verified: body.verified,
+          Country: body.address.country,
+          Zoneinfo: body.zoneinfo
         }
       });
     });

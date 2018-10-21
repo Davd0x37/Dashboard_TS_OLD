@@ -12,9 +12,9 @@ export default {
    * @param {*} { login, password }
    * @returns {Promise<object>}
    */
-  async authenticateUser(_: any, { login, password }: any): Promise<object> {
+  async AuthenticateUser(_: any, { login, password }: any): Promise<object> {
     try {
-      const req: [IUser] = await query(async q => q.filter({ user: { login, password: await hashPass(password) } }));
+      const req: [IUser] = await query(async q => q.filter({ User: { Login: login, Password: await hashPass(password) } }));
       return req[0];
     } catch (e) {
       signale.error("User.Query.authenticateUser ------", e);
@@ -27,7 +27,7 @@ export default {
    *
    * @returns {Promise<object[]>}
    */
-  async getAllUsers(): Promise<object[]> {
+  async GetAllUsers(): Promise<object[]> {
     try {
       return query(q => q);
     } catch (e) {
