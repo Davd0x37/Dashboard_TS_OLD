@@ -26,7 +26,7 @@ export default class Authenticate {
         `&scope=${encodeURI(options.scopes)}` +
         `&redirect_uri=${encodeURI(options.redirect)}` +
         `&state=${options.state || StateKey}` +
-        `${options.nonce ? "&" + options.nonce : ""}`
+        `${options.nonce ? "&nonce" + options.nonce : ""}`
       );
     } catch (e) {
       throw Error(e);
