@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Api.NCore.Controllers;
 using Newtonsoft.Json;
@@ -6,10 +7,10 @@ namespace Api.NCore.Model.User
 {
     public class UserManager
     {
-        public static async Task<bool> AddUser(UserData user)
+        public static async Task<bool> AddUser(User user)
         {
             if (!await UserExists(user.Login, user.Email)) return false;
-            var res = await Db.Insert(user.GetObject()).RunAsync(Db.Con);
+            var res = await Db.Insert(user).RunAsync(Db.Con);
             return res.inserted == 1;
         }
 
@@ -21,9 +22,17 @@ namespace Api.NCore.Model.User
 
         public static async Task<UserData> GetUser(string id)
         {
-            var req = await Db.Get(id).RunAsync(Db.Con);
-            UserData res = JsonConvert.DeserializeObject<UserData>(req.ToString());
-            return res;
+            try
+            {
+                var req = await Db.Get(id).RunAsync(Db.Con);
+                UserData res = JsonConvert.DeserializeObject<UserData>(req.ToString());
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static async Task<bool> UpdateDigitalOceanToken(string id, string token)

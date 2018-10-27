@@ -5,8 +5,6 @@ namespace Api.NCore.Model.User
         public string Username;
         public string Email;
         public string Type;
-
-        public object GetObject() => new {Username, Email, Type};
     }
 
     public struct DigitalOcean
@@ -15,8 +13,6 @@ namespace Api.NCore.Model.User
         public int LastCreatedDroplet;
         public int DropletLimit;
         public int Total;
-
-        public object GetObject() => new {Email, LastCreatedDroplet, DropletLimit, Total};
     }
 
     public struct Paypal
@@ -27,37 +23,22 @@ namespace Api.NCore.Model.User
         public string Country;
         public string Verified;
         public string Zoneinfo;
-
-        public object GetObject() => new {Username, Email, Phone, Country, Verified, Zoneinfo};
     }
-    
-    public class UserData
+
+    public class User
     {
-        // ReSharper disable once InconsistentNaming
-        public string id;
         public string Avatar;
         public string Email;
         public string Login;
         public string Password;
+    }
+
+    public class UserData : User
+    {
+        public string id;
         public Spotify Spotify;
         public DigitalOcean DigitalOcean;
         public Paypal Paypal;
         public dynamic AuthTokens;
-
-        public object GetObject()
-        {
-            return new
-            {
-                id,
-                Avatar,
-                Email,
-                Login,
-                Password,
-                Spotify = Spotify.GetObject(),
-                DigitalOcean = DigitalOcean.GetObject(),
-                Paypal = Paypal.GetObject(),
-                AuthTokens
-            };
-        }
     }
 }

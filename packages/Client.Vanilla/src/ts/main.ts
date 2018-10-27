@@ -3,6 +3,7 @@ import App from "./App";
 
 App.run();
 
+
 // import idb from "pouchdb-adapter-idb"
 // import RxDB from "rxdb";
 // (async () => {

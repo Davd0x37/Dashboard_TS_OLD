@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import signale from "signale"
+import signale from "signale";
 import { spotifyConfig } from "../../config";
 import Authenticate from "../../controller/Authenticate";
 

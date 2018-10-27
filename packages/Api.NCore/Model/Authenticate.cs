@@ -32,7 +32,7 @@ namespace Api.NCore.Model
             if (param.State != stateKey || param.State == null) return false;
 
             // Update user tokens - Code and reset StateKey to ""
-//            await UpdateTokens(id, service, new {param.Code, StateKey = ""});
+            await UpdateTokens(id, service, new {param.Code, StateKey = ""});
             // Create form for post request
             var form = Generate.GenerateAuthForm(param);
             var req = await Client.SendAsync(form);
@@ -43,9 +43,19 @@ namespace Api.NCore.Model
 
         public static string GenerateBasicAuthorization(string clientId, string clientSecret)
         {
-            var encode =
-                Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", clientId, clientSecret)));
-            return $"Basic {encode}";
+            try
+            {
+                var encode =
+                    Convert.ToBase64String(Encoding.ASCII.GetBytes(string.Format("{0}:{1}", clientId, clientSecret)));
+                var rs = $"Basic {encode}";
+                Console.WriteLine(rs);
+                return rs;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /**
