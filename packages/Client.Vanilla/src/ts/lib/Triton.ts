@@ -1,4 +1,4 @@
-import i18n from "../lib/I18n";
+import i18n from "../lib/i18n";
 import Store from "../store/Store";
 import { $ } from "./DOM";
 
