@@ -14,7 +14,7 @@ export default {
         (await FieldAvailable({ User: { Email: data.Email } }))
       ) {
         // Hash password
-        data.Password = await hashPass(data.password);
+        data.Password = await hashPass(data.Password);
         // Save user credentials in database
         await query(q =>
           q.insert({
@@ -40,7 +40,7 @@ export default {
               Country: "",
               Zoneinfo: ""
             },
-            authTokens: {
+            AuthTokens: {
               Spotify: {
                 AccessToken: "",
                 Code: "",
@@ -68,7 +68,7 @@ export default {
         return false;
       }
     } catch (e) {
-      signale.error("User.Mutation.addUser ------", e);
+      signale.error("User.Mutation.AddUser ------", e);
       throw Error(e);
     }
   },
@@ -82,7 +82,7 @@ export default {
       );
       return !!req.replaced;
     } catch (e) {
-      signale.error("User.Mutation.changePassword ------", e);
+      signale.error("User.Mutation.ChangePassword ------", e);
       throw Error(e);
     }
   },
@@ -95,7 +95,7 @@ export default {
       const res: any = await GetUser(id);
       return res;
     } catch (e) {
-      signale.error("User.Mutation.updateUserData ------", e);
+      signale.error("User.Mutation.UpdateUserData ------", e);
       throw Error(e);
     }
   },
@@ -107,7 +107,7 @@ export default {
       );
       return !!req.inserted || !!req.replaced;
     } catch (e) {
-      signale.error("User.Mutation.updateDigitalOceanToken ------", e);
+      signale.error("User.Mutation.UpdateDigitalOceanToken ------", e);
       throw Error(e);
     }
   }

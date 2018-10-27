@@ -13,7 +13,7 @@ export const UpdateCredentials = async (id: string, config: unknown): Promise<vo
   try {
     await query(q => q.get(id).update({ ...config }));
   } catch (e) {
-    signale.error("User.Manager.updateCredentials ------", e);
+    signale.error("User.Manager.UpdateCredentials ------", e);
     throw Error(e);
   }
 };
@@ -28,7 +28,7 @@ export const GetUser = async (id: string): Promise<IUser> => {
   try {
     return query(q => q.get(id));
   } catch (e) {
-    signale.error("User.Manager.getUser ------", e);
+    signale.error("User.Manager.GetUser ------", e);
     throw Error(e);
   }
 };
@@ -39,12 +39,12 @@ export const GetUser = async (id: string): Promise<IUser> => {
  * @param {string} login
  * @returns {Promise<boolean>}
  */
-export const FieldAvailable = async (fields: {}): Promise<boolean> => {
+export const FieldAvailable = async (fields: any): Promise<boolean> => {
   try {
     const field = await query(q => q.filter({ ...fields }));
     return field.length === 0;
   } catch (e) {
-    signale.error("User.Manager.fieldAvailable ------", e);
+    signale.error("User.Manager.FieldAvailable ------", e);
     throw Error(e);
   }
 };

@@ -1,7 +1,7 @@
 import cookieParser from "cookie-parser";
 import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
-import log from "signale";
+import signale from "signale";
 import PaypalRouter from "./components/Paypal/Router";
 import SpotifyRouter from "./components/Spotify/Router";
 import { resolvers } from "./graphql/Resolvers";
@@ -29,9 +29,9 @@ try {
       },
       ...(env === "prod" ? { playground: false } : { playground: "/" })
     },
-    () => log.start(`Server is running!`)
+    () => signale.start(`Server is running!`)
   );
 } catch (e) {
-  log.error(e);
+  signale.error("GraphQLApp ------", e);
   throw new Error(e);
 }
