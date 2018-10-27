@@ -27,6 +27,6 @@
     "deploy:prod": "docker-compose -f docker-prod.yml up --build"
   },
   "devDependencies": {
-    "lerna": "^3.4.2"
+    "lerna": "^3.4.3"
   }
 }
