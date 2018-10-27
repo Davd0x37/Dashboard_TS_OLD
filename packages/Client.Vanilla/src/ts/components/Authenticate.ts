@@ -1,10 +1,10 @@
-import Router from "../controller/Router";
 import { Exists, IUser } from "../controller/User/Interface";
 import { AuthenticateUser, RegisterUser } from "../controller/User/Manager";
 import { Component } from "../decorators";
 import { error, success } from "../lib/Alert";
 import { DataBinding } from "../lib/DataBinding";
 import { $ } from "../lib/DOM";
+import Router from "../lib/Router";
 import Triton from "../lib/Triton";
 
 @Component()

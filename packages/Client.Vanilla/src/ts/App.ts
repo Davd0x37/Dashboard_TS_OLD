@@ -1,8 +1,8 @@
 import Components from "./components";
-import Router from "./controller/Router";
 import { $, $$ } from "./lib/DOM";
-import I18n from "./lib/I18n";
+import I18n from "./lib/i18n";
 import { parseComponent } from "./lib/Parser";
+import Router from "./lib/Router";
 
 class App {
   private selector: string = "#app";
