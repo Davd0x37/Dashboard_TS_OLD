@@ -44,14 +44,14 @@ export const RegisterUser = async ({ login, password, email, avatar }: IURegiste
 };
 
 export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | Exists.NotFound> => {
-  const { updateUserData }: { updateUserData: IServices } = await mutation(gql`
+  const { UpdateUserData }: { UpdateUserData: IServices } = await mutation(gql`
   mutation {
     UpdateUserData(id: "${id}") {
       ${Services}
     }
   }
   `);
-  return updateUserData !== null ? updateUserData : Exists.NotFound;
+  return UpdateUserData !== null ? UpdateUserData : Exists.NotFound;
 };
 
 export const UpdateDigitalOceanToken = async ({ id, token }: { id: string; token: string }): Promise<boolean> => {

@@ -79,9 +79,9 @@ class Authenticate extends Triton {
       if (res !== Exists.NotFound) {
         this.store.dispatch("updateAllData", res);
         document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
-        success(`${this.lang.data.Authenticate.welcome} ${res.User.Login}!`, () => Router.go("/"));
+        success(`${this.lang.data.Messages.welcome} ${res.User.Login}!`, () => Router.go("/"));
       } else {
-        error(this.lang.data.Authenticate.notFound);
+        error(this.lang.data.Messages.notFound);
       }
     }
   }
@@ -90,9 +90,9 @@ class Authenticate extends Triton {
     if (login.length !== 0 && password.length !== 0 && email.length !== 0) {
       const res: any = await RegisterUser({ login, password, email, avatar });
       if (res) {
-        success(this.lang.data.Authenticate.registered, () => Router.go("/auth"));
+        success(this.lang.data.Messages.registered, () => Router.go("/auth"));
       } else {
-        error(this.lang.data.Authenticate.userExists);
+        error(this.lang.data.Messages.userExists);
       }
     }
   }
