@@ -1,34 +1,34 @@
 export interface ISpotify {
-  email: string;
-  username: string;
-  type: string;
+  Email: string;
+  Username: string;
+  Type: string;
 }
 
 export interface IDigitalOcean {
-  email: string;
-  total: number;
-  dropletLimit: number;
-  lastCreatedDroplet: number;
+  Email: string;
+  Total: number;
+  DropletLimit: number;
+  LastCreatedDroplet: number;
 }
 
 export interface IPaypal {
-  username: string;
-  email: string;
-  phone: string;
-  verified: string;
-  country: string;
-  zoneinfo: string;
+  Username: string;
+  Email: string;
+  Phone: string;
+  Verified: string;
+  Country: string;
+  Zoneinfo: string;
 }
 
 export interface IUserDetails {
-  avatar: string;
-  login: string;
-  email: string;
+  Avatar: string;
+  Email: string;
+  Login: string;
 }
 
 export interface IUser {
   id: string;
-  user: IUserDetails;
+  User: IUserDetails;
   Spotify: ISpotify;
   DigitalOcean: IDigitalOcean;
   Paypal: IPaypal;

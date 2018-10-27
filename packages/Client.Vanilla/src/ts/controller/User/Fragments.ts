@@ -1,21 +1,21 @@
 export const Services = `
 Spotify {
-  email
-  username
-  type
+  Email
+  Username
+  Type
 }
 DigitalOcean {
-  email
-  total
-  dropletLimit
-  lastCreatedDroplet
+  Email
+  Total
+  DropletLimit
+  LastCreatedDroplet
 }
 Paypal {
-  username
-  email
-  phone
-  verified
-  country
-  zoneinfo
+  Username
+  Email
+  Phone
+  Verified
+  Country
+  Zoneinfo
 }
 `

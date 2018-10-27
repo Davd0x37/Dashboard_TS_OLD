@@ -13,40 +13,40 @@ interface IURegister extends IULogin {
 }
 
 export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | Exists.NotFound> => {
-  const { authenticateUser }: { authenticateUser: IUser } = await query(gql`
+  const { AuthenticateUser }: { AuthenticateUser: IUser } = await query(gql`
   query {
-    authenticateUser(login: "${login}", password: "${password}") {
+    AuthenticateUser(login: "${login}", password: "${password}") {
       id
-      user {
-        avatar
-        login
-        email
+      User {
+        Avatar
+        Login
+        Email
       }
       ${Services}
     }
   }
   `);
-  return authenticateUser !== null ? authenticateUser : Exists.NotFound;
+  return AuthenticateUser !== null ? AuthenticateUser : Exists.NotFound;
 };
 
 export const RegisterUser = async ({ login, password, email, avatar }: IURegister): Promise<boolean> => {
-  const { addUser }: { addUser: boolean } = await mutation(gql`
+  const { AddUser }: { AddUser: boolean } = await mutation(gql`
   mutation {
-    addUser(data: {
-      avatar: "${avatar}"
-      email: "${email}"
-      login: "${login}"
-      password: "${password}"
+    AddUser(data: {
+      Avatar: "${avatar}"
+      Email: "${email}"
+      Login: "${login}"
+      Password: "${password}"
     })
   }
   `);
-  return addUser;
+  return AddUser;
 };
 
 export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | Exists.NotFound> => {
   const { updateUserData }: { updateUserData: IServices } = await mutation(gql`
   mutation {
-    updateUserData(id: "${id}") {
+    UpdateUserData(id: "${id}") {
       ${Services}
     }
   }
@@ -55,10 +55,10 @@ export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | Ex
 };
 
 export const UpdateDigitalOceanToken = async ({ id, token }: { id: string; token: string }): Promise<boolean> => {
-  const { updateDigitalOceanToken }: { updateDigitalOceanToken: boolean } = await mutation(gql`
+  const { UpdateDigitalOceanToken }: { UpdateDigitalOceanToken: boolean } = await mutation(gql`
   mutation {
-    updateDigitalOceanToken(id: "${id}", token: "${token}")
+    UpdateDigitalOceanToken(id: "${id}", token: "${token}")
   }
   `);
-  return updateDigitalOceanToken;
+  return UpdateDigitalOceanToken;
 };
