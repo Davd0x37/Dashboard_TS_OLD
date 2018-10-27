@@ -28,17 +28,17 @@ class DigitalOcean extends Triton {
       <div class="details">
         <aside class="wrap">
           <p class="label__title">${this.lang.data.DigitalOcean.email}</p>
-          <p class="label__value label__no-capitalize">${this.store.getter.DigitalOcean.email}</p>
+          <p class="label__value label__no-capitalize">${this.store.getter.DigitalOcean.Email}</p>
           <p class="label__title">${this.lang.data.DigitalOcean.lastCreatedDroplet}</p>
-          <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.lastCreatedDroplet +
+          <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.LastCreatedDroplet +
             " " +
             this.lang.data.DigitalOcean.daysAgo}</p>
         </aside>
         <aside class="wrap">
           <p class="label__title">${this.lang.data.DigitalOcean.dropletLimit}</p>
-          <p class="label__value digital_ocean--color">${this.store.getter.DigitalOcean.dropletLimit}</p>
+          <p class="label__value digital_ocean--color">${this.store.getter.DigitalOcean.DropletLimit}</p>
           <p class="label__title">${this.lang.data.DigitalOcean.droplets}</p>
-          <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.total}</p>
+          <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.Total}</p>
         </aside>
       </div>
       <div class="other">

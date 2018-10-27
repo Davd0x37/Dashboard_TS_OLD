@@ -10,17 +10,17 @@ export default {
   updatePaypal({ commit }: any, payload: IState["Paypal"]) {
     commit("updatePaypal", payload);
   },
-  updateUser({ commit }: any, payload: IState["user"]) {
+  updateUser({ commit }: any, payload: IState["User"]) {
     commit("updateUser", payload);
   },
-  updateID({ commit }: any, payload: IState["user"]) {
+  updateID({ commit }: any, payload: IState["User"]) {
     commit("updateID", payload);
   },
   updateAllData({ commit }: any, payload: IState) {
     const data = {
       id: payload.id,
       user: {
-        ...payload.user
+        ...payload.User
       },
       Spotify: {
         ...payload.Spotify

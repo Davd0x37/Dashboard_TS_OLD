@@ -12,7 +12,7 @@ class Header extends Triton {
 
   @Method()
   public render() {
-    const username = this.store.getter.user.login;
+    const username = this.store.getter.User.Login;
     const slicedUsername = username.length >= 6 ? username.slice(0, 6) + "..." : username;
     return /*html*/ `
     <header class="header">
@@ -38,7 +38,7 @@ class Header extends Triton {
       <!--</div>-->
       <div class="user">
         <p class="user__name">${slicedUsername}</p>
-        <img src="${this.store.getter.user.avatar}" alt="Avatar" class="user__avatar">
+        <img src="${this.store.getter.User.Avatar}" alt="Avatar" class="user__avatar">
       </div>
     </header>`;
   }

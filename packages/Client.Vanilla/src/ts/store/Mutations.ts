@@ -14,8 +14,8 @@ export default {
     state.Paypal = { ...state.Paypal, ...payload };
     return state;
   },
-  updateUser(state: IState, payload: IState["user"]) {
-    state.user = { ...state.user, ...payload };
+  updateUser(state: IState, payload: IState["User"]) {
+    state.User = { ...state.User, ...payload };
     return state;
   },
   updateID(state: IState, payload: IState["id"]) {

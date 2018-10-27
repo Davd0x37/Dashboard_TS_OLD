@@ -79,7 +79,7 @@ class Authenticate extends Triton {
       if (res !== Exists.NotFound) {
         this.store.dispatch("updateAllData", res);
         document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
-        success(`${this.lang.data.Authenticate.welcome} ${res.user.login}!`, () => Router.go("/"));
+        success(`${this.lang.data.Authenticate.welcome} ${res.User.Login}!`, () => Router.go("/"));
       } else {
         error(this.lang.data.Authenticate.notFound);
       }
