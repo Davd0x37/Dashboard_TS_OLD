@@ -11,15 +11,16 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 # Install nodejs
-curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
+# curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
 # Install yarn
-curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+# curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 # Install rethinkdb
-sudo wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
-          -O /etc/yum.repos.d/rethinkdb.repo
+# sudo wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
+#           -O /etc/yum.repos.d/rethinkdb.repo
 
 # Install software
-sudo yum install -y nodejs gcc-c++ make yarn docker-ce git rethinkdb epel-release certbot
+sudo yum install -y docker-ce git epel-release certbot
+# sudo yum install -y nodejs gcc-c++ make yarn docker-ce git rethinkdb epel-release certbot
 
 # Start docker
 sudo systemctl start docker
@@ -36,7 +37,7 @@ mkdir $app_dir
 cd $app_dir
 # Clone repo
 git clone git@gitlab.com:DevDigitalNomad/DashboardTS.git
-cd DashboardTS && yarn
+# cd DashboardTS && yarn
 
 
 # ---- GENERATING DHE key ----
