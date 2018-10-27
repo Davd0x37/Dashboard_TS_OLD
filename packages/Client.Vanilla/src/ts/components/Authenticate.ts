@@ -22,37 +22,37 @@ class Authenticate extends Triton {
     return /*html*/ `
     <main class="authenticate">
       <input type="radio" name="tabs" id="login" checked="checked"/>
-      <label for="login">LOGIN</label>
+      <label for="login">${this.lang.data.Authenticate.loginLink}</label>
 
       <input type="radio" name="tabs" id="register" />
-      <label for="register">REGISTER</label>
+      <label for="register">${this.lang.data.Authenticate.registerLink}</label>
       <section class="container">
         <div class="tab login__tab">
           <form onsubmit="return false;">
-            <p class="label__title">Login</p>
+            <p class="label__title">${this.lang.data.Authenticate.login}</p>
             <input type="text" id="login__input" class="input" minlength="5" maxlength="40" data-v-model="login">
 
-            <p class="label__title">Password</p>
+            <p class="label__title">${this.lang.data.Authenticate.password}</p>
             <input type="password" id="password__input" class="input" minlength="5" maxlength="40" data-v-model="password">
 
-            <input type="submit" id="login_submit" value="Log in">
+            <input type="submit" id="login_submit" class="btn flex" value="${this.lang.data.Authenticate.loginLink}">
           </form>
         </div>
         <div class="tab register__tab">
           <form onsubmit="return false;">
-            <p class="label__title">Login</p>
+            <p class="label__title">${this.lang.data.Authenticate.login}</p>
             <input type="text" class="input" minlength="5" maxlength="40" data-v-model="login">
 
-            <p class="label__title">Password</p>
+            <p class="label__title">${this.lang.data.Authenticate.password}</p>
             <input type="password" class="input" minlength="5" maxlength="40" data-v-model="password">
 
-            <p class="label__title">E-mail</p>
+            <p class="label__title">${this.lang.data.Authenticate.email}</p>
             <input type="email" class="input" minlength="5" maxlength="80" data-v-model="email">
 
-            <p class="label__title">Avatar</p>
+            <p class="label__title">${this.lang.data.Authenticate.avatar}</p>
             <input type="text" class="input" data-v-model="avatar">
 
-            <input type="submit" id="register_submit" value="Register">
+            <input type="submit" id="register_submit" class="btn flex" value="${this.lang.data.Authenticate.registerLink}">
           </form>
         </div>
       </section>
@@ -79,9 +79,9 @@ class Authenticate extends Triton {
       if (res !== Exists.NotFound) {
         this.store.dispatch("updateAllData", res);
         document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
-        success(`Witaj ${res.user.login}!`, () => Router.go("/"));
+        success(`${this.lang.data.Authenticate.welcome} ${res.user.login}!`, () => Router.go("/"));
       } else {
-        error("Nie ma takiego użytkownika");
+        error(this.lang.data.Authenticate.notFound);
       }
     }
   }
@@ -90,9 +90,9 @@ class Authenticate extends Triton {
     if (login.length !== 0 && password.length !== 0 && email.length !== 0) {
       const res: any = await RegisterUser({ login, password, email, avatar });
       if (res) {
-        success(`ZAREJESTROWANO!`, () => Router.go("/auth"));
+        success(this.lang.data.Authenticate.registered, () => Router.go("/auth"));
       } else {
-        error(`USER ALREADY EXISTS`);
+        error(this.lang.data.Authenticate.userExists);
       }
     }
   }

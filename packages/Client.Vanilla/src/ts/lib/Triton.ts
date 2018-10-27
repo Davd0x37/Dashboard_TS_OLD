@@ -1,8 +1,10 @@
+import i18n from "../lib/I18n";
 import Store from "../store/Store";
 import { $ } from "./DOM";
 
 export default abstract class Triton {
   protected store: typeof Store = Store;
+  protected lang: typeof i18n = i18n;
   protected className: string = this.constructor.name;
 
   constructor() {

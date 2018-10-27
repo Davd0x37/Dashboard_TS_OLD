@@ -1,0 +1,50 @@
+{
+  "DigitalOcean": {
+    "email": "Email",
+    "lastCreatedDroplet": "Last created droplet",
+    "dropletLimit": "Droplet limit",
+    "droplets": "Droplets",
+    "daysAgo": "days ago"
+  },
+  "Spotify": {
+    "username": "Username",
+    "email": "Email",
+    "type": "Account type"
+  },
+  "Paypal": {
+    "username": "Username",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "country": "Country",
+    "type": "Account type",
+    "location": "Location",
+    "verified": "Verified",
+    "unverified": "Unverified"
+  },
+  "Authenticate": {
+    "loginLink": "Login",
+    "registerLink": "Register",
+    "login": "Login",
+    "password": "Password",
+    "email": "Email",
+    "avatar": "Avatar"
+  },
+  "Actions": {
+    "plateName": "Actions",
+    "homeLink": "Home",
+    "authLink": "Authenticate",
+    "refreshData": "Refresh data",
+    "authSpotify": "Authorize Spotify",
+    "authPaypal": "Authorize Paypal",
+    "digitalOceanToken": "DigitalOcean API Token",
+    "addToken": "Add API Token"
+  },
+  "Messages": {
+    "registered": "Registered!",
+    "userExists": "User already exists!",
+    "welcome": "Welcome",
+    "notFound": "User not exists!",
+    "addTokenSuccess": "Successfully added token",
+    "addTokenError": "Error while adding token"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "DigitalOcean": {
+    "email": "Email",
+    "lastCreatedDroplet": "Ostatnio utworzony droplet",
+    "dropletLimit": "Limit dropletow",
+    "droplets": "Dropletów",
+    "daysAgo": "dni temu"
+  },
+  "Spotify": {
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "type": "Typ konta"
+  },
+  "Paypal": {
+    "username": "Nazwa użytkownika",
+    "email": "Email",
+    "phoneNumber": "Numer telefonu",
+    "country": "Kraj",
+    "type": "Typ konta",
+    "location": "Miejscowość",
+    "verified": "Zweryfikowane",
+    "unverified": "Niezweryfikowane"
+  },
+  "Authenticate": {
+    "loginLink": "Logowanie",
+    "registerLink": "Rejestracja",
+    "login": "Login",
+    "password": "Hasło",
+    "email": "Email",
+    "avatar": "Avatar"
+  },
+  "Actions": {
+    "plateName": "Akcje",
+    "homeLink": "Strona główna",
+    "authLink": "Autoryzacja",
+    "refreshData": "Odśwież dane",
+    "authSpotify": "Autoryzuj Spotify",
+    "authPaypal": "Autoryzuj Paypal",
+    "digitalOceanToken": "DigitalOcean API Token",
+    "addToken": "Dodaj API Token"
+  },
+  "Messages": {
+    "registered": "Zarejestrowano!",
+    "userExists": "Użytkownik już istnieje!",
+    "welcome": "Witaj",
+    "notFound": "Nie ma takiego użytkownika!",
+    "addTokenSuccess": "Poprawnie dodano token",
+    "addTokenError": "Nie można dodać tokena"
+  }
+}

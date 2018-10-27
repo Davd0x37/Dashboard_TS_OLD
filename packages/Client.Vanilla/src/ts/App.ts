@@ -1,17 +1,20 @@
 import Components from "./components";
 import Router from "./controller/Router";
 import { $, $$ } from "./lib/DOM";
+import I18n from "./lib/I18n";
 import { parseComponent } from "./lib/Parser";
 
 class App {
   private selector: string = "#app";
   private router: typeof Router = Router;
+  private lang: typeof I18n = I18n;
 
   constructor() {
     //
   }
 
   public run() {
+    this.lang.load();
     const { components } = this.render();
     this.mounted(components);
   }

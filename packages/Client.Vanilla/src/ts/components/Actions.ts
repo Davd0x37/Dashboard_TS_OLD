@@ -5,6 +5,7 @@ import { Component, Method } from "../decorators";
 import { error, success } from "../lib/Alert";
 import { $ } from "../lib/DOM";
 import Triton from "../lib/Triton";
+
 @Component()
 class Actions extends Triton {
   constructor() {
@@ -16,24 +17,26 @@ class Actions extends Triton {
     return /*html*/ `<article class="plate">
     <header class="plate__brand">
       <i class="fab fa-galactic-senate fa-2x" style="color: #ff922b;"></i>
-      <h3 class="plate__title">Spotify</h3>
+      <h3 class="plate__title">${this.lang.data.Actions.plateName}</h3>
     </header>
     <div class="plate__container actions-plate">
       <aside class="details">
-        <button class="btn color" data-router-go="/">Home</button>
-        <button class="btn color" data-router-go="/auth">Authenticate</button>
-        <button class="btn color" id="refresh">Refresh data</button>
+        <button class="btn color" data-router-go="/">${this.lang.data.Actions.homeLink}</button>
+        <button class="btn color" data-router-go="/auth">${this.lang.data.Actions.authLink}</button>
+        <button class="btn color" id="refresh">${this.lang.data.Actions.refreshData}</button>
       </aside>
       <aside class="details">
-        <button class="btn color" id="spotify__authorize">Authorize Spotify</button>
-        <button class="btn color" id="paypal__authorize">Authorize Paypal</button>
+        <button class="btn color" id="spotify__authorize">${this.lang.data.Actions.authSpotify}</button>
+        <button class="btn color" id="paypal__authorize">${this.lang.data.Actions.authPaypal}</button>
       </aside>
       <aside class="details">
         <div>  
-          <p class="label__title">DigitalOcean API Token</p>
-          <input type="text" id="digitalocean_api_token" class="input" placeholder="Digital Ocean API Token">
+          <p class="label__title">${this.lang.data.Actions.digitalOceanToken}</p>
+          <input type="text" id="digitalocean_api_token" class="input" placeholder="${
+            this.lang.data.Actions.digitalOceanToken
+          }">
         </div>
-        <button class="btn color" id="digitalocean_add_token">Add api token</button>
+        <button class="btn color" id="digitalocean_add_token">${this.lang.data.Actions.addToken}</button>
       </aside>
     </div>
   </article>`;
@@ -66,9 +69,9 @@ class Actions extends Triton {
         const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
         const res = await UpdateDigitalOceanToken({ id: this.store.getter.id, token });
         if (res) {
-          success("Poprawnie dodano token", () => null);
+          success(this.lang.data.Messages.addTokenSuccess, () => null);
         } else {
-          error("Nie można dodać tokena");
+          error(this.lang.data.Messages.addTokenError);
         }
       }
     });
