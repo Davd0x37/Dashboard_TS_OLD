@@ -145,7 +145,7 @@ export default class Authenticate {
                 AccessToken,
                 RefreshToken,
                 ExpiresIn,
-                Scope
+                ...(Scope !== undefined ? { Scope } : "")
               }
             });
           }
