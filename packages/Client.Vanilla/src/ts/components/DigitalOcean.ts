@@ -32,7 +32,7 @@ class DigitalOcean extends Triton {
           <p class="label__title">${this.lang.data.DigitalOcean.lastCreatedDroplet}</p>
           <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.LastCreatedDroplet +
             " " +
-            this.lang.data.DigitalOcean.daysAgo}</p>
+            this.lang.data.DigitalOcean.hoursAgo}</p>
         </aside>
         <aside class="wrap">
           <p class="label__title">${this.lang.data.DigitalOcean.dropletLimit}</p>

@@ -4,7 +4,7 @@
     "lastCreatedDroplet": "Ostatnio utworzony droplet",
     "dropletLimit": "Limit dropletow",
     "droplets": "Dropletów",
-    "daysAgo": "dni temu"
+    "hoursAgo": "godzin temu"
   },
   "Spotify": {
     "username": "Nazwa użytkownika",

@@ -2,9 +2,16 @@ import request from "request";
 import signale from "signale";
 import { GetUser, UpdateCredentials } from "../../components/user/Manager";
 import { paypalConfig } from "../../config";
+import { RefreshTokens } from "../../controller/Authenticate";
 
 export const update = async (id: string) => {
   try {
+    await RefreshTokens({
+      id,
+      service: "Paypal",
+      url: paypalConfig.apiTokenService,
+      auth: { clientID: paypalConfig.clientID, clientSecret: paypalConfig.clientSecret }
+    });
     const data: any = await GetUser(id);
     const { AccessToken } = await data.AuthTokens.Paypal;
     const options = {

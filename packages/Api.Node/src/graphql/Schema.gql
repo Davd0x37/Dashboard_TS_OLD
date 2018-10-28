@@ -6,15 +6,11 @@ schema {
 type Query {
   # Authenticate user by his login and password
   AuthenticateUser(login: String!, password: String!): User
-  # Get all users - returns array
-  GetAllUsers: [User]!
 }
 
 type Mutation {
   # Add user to database
   AddUser(data: UserInput!): Boolean
-  # Change password
-  ChangePassword(id: ID, password: String, newPassword: String): Boolean
   # Update user info
   UpdateUserData(id: ID!): Services!
   # Update digitalocean token

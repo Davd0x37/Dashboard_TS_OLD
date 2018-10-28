@@ -1,6 +1,6 @@
 export interface IAuthenticationParams {
   scopes: string;
-  redirect: string;
+  redirect_uri: string;
   clientID: string;
   url: string;
   state?: string;
@@ -10,27 +10,20 @@ export interface IAuthenticationParams {
 export interface IAccessTokenParams {
   code: string;
   state: string;
-  Authorization: string;
+  Authorization: {
+    clientID: string;
+    clientSecret: string;
+  };
   url: string;
   redirect_uri?: string;
 }
 
-export interface IAuthForm {
-  url: string;
-  form: {
-    code?: string;
-    grant_type: string;
-    refresh_token?: string;
-    redirect_uri?: string;
-  };
-  headers: {
-    Authorization: string;
-  };
-  json: boolean;
-}
-
 export interface IRefreshToken {
+  id: string;
+  service: string;
   url: string;
-  auth: string;
-  refreshToken: string;
+  auth: {
+    clientID: string;
+    clientSecret: string;
+  };
 }

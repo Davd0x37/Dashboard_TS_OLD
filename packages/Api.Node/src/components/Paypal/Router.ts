@@ -1,11 +1,10 @@
 import express, { Request, Response } from "express";
 import { resolve } from "path";
-import signale from "signale"
+import signale from "signale";
 import { paypalConfig } from "../../config";
 import Authenticate from "../../controller/Authenticate";
 import { generateRandomString } from "../../utils/utils";
 
-// const userAuthenticationID = "user_id";
 const router = express.Router();
 
 // Create new instance of authenticator
@@ -17,9 +16,9 @@ router.get("/authenticate", async (req: Request, res: Response) => {
     const nonce = `${Date.now() + Buffer.from(generateRandomString(16, true)).toString("base64")}`;
     const authUrl = await auth.AuthenticateAccount(req.query.id, "Paypal", {
       clientID: paypalConfig.clientID,
-      redirect: paypalConfig.redirectURI,
+      redirect_uri: paypalConfig.redirectURI,
       scopes: paypalConfig.userScopes.join("+"),
-      url: paypalConfig.authenticateURL,
+      url: paypalConfig.authorizeUrl,
       nonce
     });
     res.redirect(authUrl);
@@ -35,14 +34,21 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
     const code = req.query.code;
     const state = req.query.state;
 
-    await auth.GetAccessToken({
+    const accessToken = await auth.GetAccessToken({
       code,
       state,
       url: paypalConfig.apiTokenService,
-      Authorization: auth.GenerateBasicAuthorization(paypalConfig.clientID, paypalConfig.clientSecret)
+      Authorization: {
+        clientID: paypalConfig.clientID,
+        clientSecret: paypalConfig.clientSecret
+      }
     });
 
-    res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
+    if (accessToken) {
+      res.sendFile(resolve(__dirname, "../src/views/authenticateSuccess.html"));
+    } else {
+      res.sendFile(resolve(__dirname, "../src/views/authenticateError.html"));
+    }
   } catch (e) {
     signale.error("Paypal.Router.authenticateResult ------", e);
     throw Error(e);

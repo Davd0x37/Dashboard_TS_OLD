@@ -18,12 +18,11 @@ interface IAccountData {
  * Get every account details needed to show user
  *
  * @param {string} id
- * @param {string} [token]
  * @returns {Promise<void>}
  */
-export const update = async (id: string, token?: string): Promise<void> => {
+export const update = async (id: string): Promise<void> => {
   try {
-    const authToken = token || (await GetAuthToken(id));
+    const authToken = await GetAccessToken(id);
     const account: IAccountData = await GetAccount(authToken);
     const droplets: IDropletData = await GetDroplet(authToken);
     await UpdateCredentials(id, {
@@ -50,7 +49,7 @@ const GetDroplet = async (authToken: string): Promise<IDropletData> => {
     const { data }: any = await getData("droplets", authToken);
     const now = timeToSeconds(Date.now());
     const creationDate = timeToSeconds(Date.parse(data.droplets[0].created_at));
-    const createdAt = Math.round((now - creationDate) / (60 * 60 * 24));
+    const createdAt = Math.round((now - creationDate) / (60 * 60));
     return {
       Total: data.meta.total,
       LastCreatedDroplet: createdAt
@@ -104,12 +103,12 @@ const getData = async (type: string, authToken: string) => {
  * @param {string} id
  * @returns {Promise<string>}
  */
-const GetAuthToken = async (id: string): Promise<string> => {
+const GetAccessToken = async (id: string): Promise<string> => {
   try {
     const data: any = await GetUser(id);
     return data.AuthTokens.DigitalOcean.AccessToken;
   } catch (e) {
-    signale.error("DigitalOcean.Manager.GetAuthToken ------", e);
+    signale.error("DigitalOcean.Manager.GetAccessToken ------", e);
     throw Error(e);
   }
 };

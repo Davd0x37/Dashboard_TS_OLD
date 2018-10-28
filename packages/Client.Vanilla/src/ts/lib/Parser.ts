@@ -1,15 +1,15 @@
 const data = {
-  regex: /{{([^{]+)}}/g,
+  // regex: /{{([^{]+)}}/g,
   // regexComponent: /<([a-zA-Z-_.]+)\/?>([a-zA-Z]+)?(<\/(\1)>)?/gm,
   // regexComponent: /<([a-zA-Z-_.]+)([a-zA-Z\s='"]+)?\/?>([a-zA-Z]+)?(<\/(\1)>)?/gm,
   regexComponent: /<([a-zA-Z0-9-_.]+)([a-zA-Z0-9\s='"]+)?\/>/gm
 };
 
-export function parse(template: string, obj: any) {
-  return template.replace(data.regex, (_: string, innerValue: string) => {
-    return (obj && obj[innerValue]) || "";
-  });
-}
+// export function parse(template: string, obj: any) {
+//   return template.replace(data.regex, (_: string, innerValue: string) => {
+//     return (obj && obj[innerValue]) || "";
+//   });
+// }
 
 // <([a-zA-Z]+)>([a-zA-Z]+)?(<\/\1\>)?
 // \<(?P<open>[a-zA-Z-_.]+)\>(?P<Content>[a-zA-Z]+)?(?P<Closing>\<\/(?P=open)\>)?

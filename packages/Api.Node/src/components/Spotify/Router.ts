@@ -4,7 +4,6 @@ import signale from "signale";
 import { spotifyConfig } from "../../config";
 import Authenticate from "../../controller/Authenticate";
 
-// const userAuthenticationID = "user_id";
 const router = express.Router();
 
 const auth = new Authenticate();
@@ -14,9 +13,9 @@ router.get("/authenticate", async (req: Request, res: Response) => {
   try {
     const authUrl = await auth.AuthenticateAccount(req.query.id, "Spotify", {
       clientID: spotifyConfig.clientID,
-      redirect: spotifyConfig.redirectURI,
+      redirect_uri: spotifyConfig.redirectURI,
       scopes: spotifyConfig.userScopes.join("+"),
-      url: spotifyConfig.authenticateURL
+      url: spotifyConfig.authorizeUrl
     });
     res.redirect(authUrl);
   } catch (e) {
@@ -31,15 +30,22 @@ router.get("/authenticateResult", async (req: Request, res: Response) => {
     const code = req.query.code;
     const state = req.query.state;
 
-    await auth.GetAccessToken({
+    const accessToken = await auth.GetAccessToken({
       code,
       state,
       redirect_uri: spotifyConfig.redirectURI,
       url: spotifyConfig.apiTokenService,
-      Authorization: auth.GenerateBasicAuthorization(spotifyConfig.clientID, spotifyConfig.clientSecret)
+      Authorization: {
+        clientID: spotifyConfig.clientID,
+        clientSecret: spotifyConfig.clientSecret
+      }
     });
 
-    res.sendFile(resolve(__dirname, "../src/views/authenticateResult.html"));
+    if (accessToken) {
+      res.sendFile(resolve(__dirname, "../src/views/authenticateSuccess.html"));
+    } else {
+      res.sendFile(resolve(__dirname, "../src/views/authenticateError.html"));
+    }
   } catch (e) {
     signale.error("Spotify.Router.authenticateResult ------", e);
     throw Error(e);

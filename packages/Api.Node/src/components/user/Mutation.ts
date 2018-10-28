@@ -20,45 +20,6 @@ export default {
           q.insert({
             User: {
               ...data
-            },
-            Spotify: {
-              Username: "",
-              Email: "",
-              Type: ""
-            },
-            DigitalOcean: {
-              Email: "",
-              Total: "",
-              DropletLimit: "",
-              LastCreatedDroplet: ""
-            },
-            Paypal: {
-              Username: "",
-              Email: "",
-              Phone: "",
-              Verified: "",
-              Country: "",
-              Zoneinfo: ""
-            },
-            AuthTokens: {
-              Spotify: {
-                AccessToken: "",
-                Code: "",
-                RefreshToken: "",
-                StateKey: ""
-              },
-              DigitalOcean: {
-                AccessToken: "",
-                Code: "",
-                RefreshToken: "",
-                StateKey: ""
-              },
-              Paypal: {
-                AccessToken: "",
-                Code: "",
-                RefreshToken: "",
-                StateKey: ""
-              }
             }
           })
         );
@@ -69,20 +30,6 @@ export default {
       }
     } catch (e) {
       signale.error("User.Mutation.AddUser ------", e);
-      throw Error(e);
-    }
-  },
-
-  async ChangePassword(_: any, { id, newPassword }: any): Promise<boolean> {
-    try {
-      const req: any = query(async q =>
-        q
-          .get(id)
-          .update({ User: { Password: await hashPass(newPassword) } })
-      );
-      return !!req.replaced;
-    } catch (e) {
-      signale.error("User.Mutation.ChangePassword ------", e);
       throw Error(e);
     }
   },
@@ -102,9 +49,7 @@ export default {
 
   async UpdateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
     try {
-      const req: any = await query(async q =>
-        q.get(id).update({ AuthTokens: { DigitalOcean: { AccessToken: token } } })
-      );
+      const req: any = await query(q => q.get(id).update({ AuthTokens: { DigitalOcean: { AccessToken: token } } }));
       return !!req.inserted || !!req.replaced;
     } catch (e) {
       signale.error("User.Mutation.UpdateDigitalOceanToken ------", e);

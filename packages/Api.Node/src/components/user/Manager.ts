@@ -19,10 +19,30 @@ export const UpdateCredentials = async (id: string, config: unknown): Promise<vo
 };
 
 /**
+ * Update auth tokens
+ *
+ * @param {{ id: string; service: string; tokens: object }} { id, service, tokens }
+ */
+export const UpdateTokens = async ({ id, service, tokens }: { id: string; service: string; tokens: unknown }) => {
+  try {
+    await UpdateCredentials(id, {
+      AuthTokens: {
+        [service]: {
+          ...tokens
+        }
+      }
+    });
+  } catch (e) {
+    signale.error("User.Manager.UpdateTokens ------", e);
+    throw Error(e);
+  }
+};
+
+/**
  * Get user details
  *
  * @param {string} id
- * @returns {Promise<unknown>}
+ * @returns {Promise<IUser>}
  */
 export const GetUser = async (id: string): Promise<IUser> => {
   try {
@@ -34,12 +54,12 @@ export const GetUser = async (id: string): Promise<IUser> => {
 };
 
 /**
- * Check if login is available
+ * Check if field is available
  *
- * @param {string} login
+ * @param {object} fields
  * @returns {Promise<boolean>}
  */
-export const FieldAvailable = async (fields: any): Promise<boolean> => {
+export const FieldAvailable = async (fields: object): Promise<boolean> => {
   try {
     const field = await query(q => q.filter({ ...fields }));
     return field.length === 0;

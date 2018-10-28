@@ -1,5 +1,5 @@
 import r from "rethinkdb";
-import signale = require("signale");
+import signale from "signale";
 
 /**
  * Connect with server and returns promise with active connection
@@ -9,8 +9,8 @@ import signale = require("signale");
 export const DB = async () => {
   try {
     return r.connect({
-      host: "db",
-      // host: "localhost",
+      // host: "db",
+      host: "localhost",
       port: 28015
     });
   } catch (e) {
@@ -23,7 +23,6 @@ export const DB = async () => {
  * Execute query
  * @param {((_: any | Promise<any>) => any[] | Promise<any[]>)} queryFn
  * @param {{ tableName?: string; db?: string }} [{ tableName = "general", db = "users" }={}]
- * @returns
  */
 export const query = async (
   queryFn: (_: any | Promise<any>) => any[] | Promise<any[]>,
@@ -45,24 +44,6 @@ export const query = async (
     }
   } catch (e) {
     signale.error("DB.query ------", e);
-    throw Error(e);
-  }
-};
-
-/**
- * Create tables in database
- *
- */
-export const createDB = async () => {
-  try {
-    const db = await DB();
-
-    r.dbCreate("users").run(db);
-    r.db("users")
-      .tableCreate("general")
-      .run(db);
-  } catch (e) {
-    signale.error("DB.createDB ------", e);
     throw Error(e);
   }
 };
