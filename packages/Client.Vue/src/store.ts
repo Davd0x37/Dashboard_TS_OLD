@@ -6,29 +6,29 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
-      username: "Vernon Roche",
+      username: "",
       avatar: "",
       logged: false
     },
     services: {
       spotify: {
-        username: "Jon Doe",
-        email: "jondoe@gmail.com",
-        type: "Free"
+        username: "",
+        email: "",
+        type: ""
       },
       digitalocean: {
-        lastCreatedDroplet: "0",
-        email: "jondoe@pm.me",
-        dropletLimit: "77",
-        total: "7"
+        lastCreatedDroplet: "",
+        email: "",
+        dropletLimit: "",
+        total: ""
       },
       paypal: {
-        username: "Jon Doe",
-        email: "jondoe@pm.me",
-        phone: "123 456 789",
-        verified: "Verified",
-        country: "Finland",
-        zoneinfo: "Helsinki"
+        username: "",
+        email: "",
+        phone: "",
+        verified: "",
+        country: "",
+        zoneinfo: ""
       }
     }
   },
