@@ -12,6 +12,10 @@ const GenerateBasicAuthorization = (clientID: string, clientSecret: string): str
   return `Basic ${Buffer.from(clientID + ":" + clientSecret).toString("base64")}`;
 };
 
+export const TokensNotExists = (service: string, tokens: IUser): boolean => {
+  return tokens.AuthTokens[service] === undefined || tokens.AuthTokens[service].AccessToken === undefined;
+};
+
 /**
  * Receive new refresh token from service
  */
@@ -19,9 +23,12 @@ export const RefreshTokens = async ({ id, service, url, auth }: IRefreshToken): 
   try {
     const basicAuth = GenerateBasicAuthorization(auth.clientID, auth.clientSecret);
     const user = await GetUser(id);
-    if (!user.AuthTokens[service]) {
+
+    // If service doesn't exists stop requesting refresh token
+    if (user.AuthTokens[service] === undefined) {
       return false;
     }
+
     const refreshToken = user.AuthTokens[service].RefreshToken;
     const authOptions = {
       url,
