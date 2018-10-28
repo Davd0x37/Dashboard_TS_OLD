@@ -21,9 +21,9 @@ export const State: IStateStore = {
     },
     DigitalOcean: {
       Email: "",
-      LastCreatedDroplet: 20,
-      DropletLimit: 10,
-      Total: 2
+      LastCreatedDroplet: 0,
+      DropletLimit: 0,
+      Total: 0
     },
     Paypal: {
       Username: "",
