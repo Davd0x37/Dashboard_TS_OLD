@@ -1,13 +1,13 @@
 import "babel-polyfill";
-import App from "./App";
 
-App.run();
+// import App from "./App";
 
+// App.run();
 
-// import idb from "pouchdb-adapter-idb"
+// // import idb from "pouchdb-adapter-idb"
 // import RxDB from "rxdb";
 // (async () => {
-//   RxDB.plugin(idb);
+//   // RxDB.plugin(idb);
 //   const db = await RxDB.create({
 //     name: "dashboard", // <- name
 //     adapter: "idb", // <- storage-adapter
@@ -38,3 +38,28 @@ App.run();
 //     schema
 //   })
 // })();
+
+import { create, fromEvent } from "./lib/Observable";
+
+// const obs = create([1, 2, 3, 4, 5])
+//   .map((item: number) => item * 2)
+//   .filter((item: number) => item > 0)
+//   .subscribe({
+//     next(val: any) {
+//       console.log(val);
+//     },
+//     error(err: any) {
+//       console.log(err);
+//     },
+//     complete() {
+//       console.log("DONE");
+//     }
+//   });
+// obs.unsubscribe();
+const el = fromEvent(document.querySelector("#ASD")! as HTMLElement, "click")
+// .debounce(-5)
+.subscribe({
+  next(val: any) {
+    console.log(val)
+  }
+})

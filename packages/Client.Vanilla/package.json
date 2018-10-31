@@ -43,7 +43,7 @@
     "lodash": "4.17.11",
     "pouchdb-adapter-idb": "7.0.0",
     "reflect-metadata": "0.1.12",
-    "rxdb": "8.0.2",
+    "rxdb": "8.0.3",
     "rxjs": "6.3.3",
     "sanitize.css": "8.0.0",
     "sweetalert2": "^7.28.10"
