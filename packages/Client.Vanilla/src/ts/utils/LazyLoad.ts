@@ -19,8 +19,7 @@ const data = {
 /**
  * @param {string} [directive]
  */
-export default (directive?: string) => {
-  initDirective(directive);
+export default () => {
   data.elements = $$(`[data-${data.options.directive}]`);
   events(EventAction.ADD);
 };
@@ -59,27 +58,4 @@ const scrollHandler = () => {
       data.replaced++;
     }
   });
-};
-
-const initDirective = (dir?: string) => {
-  if (dir) {
-    data.options.formattedDirective = formatDirective(dir);
-    data.options.directive = dir;
-  }
-};
-
-/**
- * Change directive format from 'v-lazy-load' to 'vLazyLoad'
- *
- * @param {string} str
- * @returns formatted directive
- */
-const formatDirective = (str: string) => {
-  return str
-    .split("-")
-    .map((word: string) => word.replace(word[0], word[0].toUpperCase()))
-    .reduce((prev: string, curr: string, index: number) => {
-      prev = index === 1 ? prev.toLowerCase() : prev;
-      return prev + curr;
-    });
 };

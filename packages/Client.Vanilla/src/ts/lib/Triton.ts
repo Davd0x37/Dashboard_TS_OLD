@@ -1,33 +1,31 @@
-import i18n from "../lib/i18n";
 import Store from "../store/Store";
-import { $ } from "./DOM";
+import { $ } from "../utils/DOM";
+import lang from "./I18n";
 
 export default abstract class Triton {
   protected store: typeof Store = Store;
-  protected lang: typeof i18n = i18n;
+  protected lang: any = lang;
   protected className: string = this.constructor.name;
 
   constructor() {
     this.stateChange();
   }
 
-  public abstract render(...args: any[]): string;
-  public mounted(..._: any[]): void {
-    //
-  }
-  
+  public abstract render(): string;
+  public abstract mounted(): void;
+
   protected stateChange() {
-    this.store.events.subscribe(`stateChange`, () => {
-      this.update();
+    this.store.events.subscribe(`stateChange`, async () => {
+      await this.update();
     });
   }
 
-  private update(..._: any[]): void {
-    const el = $(`#${this.className}`)
-    if(el !== null) {
-      el.innerHTML = this.render();
-      this.mounted();
+  private async update(): Promise<void> {
+    const el = $(`#${this.className}`);
+    if (el !== null) {
+      const view = await this.render();
+      el.innerHTML = view;
+      await this.mounted();
     }
   }
-
 }

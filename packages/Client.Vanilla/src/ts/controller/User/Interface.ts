@@ -35,7 +35,3 @@ export interface IUser {
 }
 
 export interface IServices extends IPaypal, ISpotify, IDigitalOcean {}
-
-export enum Exists {
-  NotFound = 1
-}

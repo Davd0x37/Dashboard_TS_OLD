@@ -1,13 +1,10 @@
-import { Component, Method } from "../decorators";
 import Triton from "../lib/Triton";
 
-@Component()
 class Paypal extends Triton {
   constructor() {
     super();
   }
 
-  @Method()
   public render() {
     return /*html*/ `<article class="plate">
     <header class="plate__brand">
@@ -16,26 +13,30 @@ class Paypal extends Triton {
     </header>
     <div class="plate__container paypal-plate">
       <aside class="details">
-        <p class="label__title">${this.lang.data.Paypal.username}</p>
+        <p class="label__title">${this.lang.Paypal.username}</p>
         <p class="label__value">${this.store.getter.Paypal.Username}</p>
-        <p class="label__title">${this.lang.data.Paypal.email}</p>
+        <p class="label__title">${this.lang.Paypal.email}</p>
         <p class="label__value label__no-capitalize paypal--color-blue">${this.store.getter.Paypal.Email}</p>
-        <p class="label__title">${this.lang.data.Paypal.phoneNumber}</p>
+        <p class="label__title">${this.lang.Paypal.phoneNumber}</p>
         <p class="label__value paypal--color-blue label__last">${this.store.getter.Paypal.Phone}</p>
       </aside>
       <aside class="details">
-        <p class="label__title">${this.lang.data.Paypal.country}</p>
+        <p class="label__title">${this.lang.Paypal.country}</p>
         <p class="label__value paypal--color-blue">${this.store.getter.Paypal.Country}</p>
-        <p class="label__title">${this.lang.data.Paypal.type}</p>
+        <p class="label__title">${this.lang.Paypal.type}</p>
         <p class="label__value paypal--color-card">${
-          this.store.getter.Paypal.Verified ? this.lang.data.Paypal.verified : this.lang.data.Paypal.unverified
+          this.store.getter.Paypal.Verified ? this.lang.Paypal.verified : this.lang.Paypal.unverified
         }</p>
-        <p class="label__title">${this.lang.data.Paypal.location}</p>
+        <p class="label__title">${this.lang.Paypal.location}</p>
         <p class="label__value paypal--color-blue label__last">${this.store.getter.Paypal.Zoneinfo}
         </p>
       </aside>
     </div>
   </article>`;
+  }
+
+  public mounted() {
+    //
   }
 }
 

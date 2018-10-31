@@ -1,9 +1,11 @@
 import "babel-polyfill";
+import App from "./lib/App";
 
-// import App from "./App";
+(async () => {
+  await App.run();
+})();
 
-// App.run();
-
+// let s = new Spotify()
 // // import idb from "pouchdb-adapter-idb"
 // import RxDB from "rxdb";
 // (async () => {
@@ -38,28 +40,3 @@ import "babel-polyfill";
 //     schema
 //   })
 // })();
-
-import { create, fromEvent } from "./lib/Observable";
-
-// const obs = create([1, 2, 3, 4, 5])
-//   .map((item: number) => item * 2)
-//   .filter((item: number) => item > 0)
-//   .subscribe({
-//     next(val: any) {
-//       console.log(val);
-//     },
-//     error(err: any) {
-//       console.log(err);
-//     },
-//     complete() {
-//       console.log("DONE");
-//     }
-//   });
-// obs.unsubscribe();
-const el = fromEvent(document.querySelector("#ASD")! as HTMLElement, "click")
-// .debounce(-5)
-.subscribe({
-  next(val: any) {
-    console.log(val)
-  }
-})

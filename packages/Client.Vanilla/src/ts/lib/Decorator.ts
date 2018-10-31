@@ -4,6 +4,7 @@ type Constructor = (new (...args: any[]) => any) | ((...args: any[]) => any);
 
 export const Component = <T extends Constructor>() => {
   return (target: T) => {
+    // const newClass = new target.prototype.constructor();
     Reflect.defineMetadata(`$Component`, target, target);
   };
 };

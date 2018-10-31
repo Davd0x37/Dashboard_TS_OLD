@@ -1,13 +1,12 @@
-import { Exists, IUser } from "../controller/User/Interface";
+import { IUser } from "../controller/User/Interface";
 import { AuthenticateUser, RegisterUser } from "../controller/User/Manager";
-import { Component } from "../decorators";
-import { error, success } from "../lib/Alert";
+import App from "../lib/App";
 import { DataBinding } from "../lib/DataBinding";
-import { $ } from "../lib/DOM";
-import Router from "../lib/Router";
+import { fromEvent } from "../lib/Observable";
 import Triton from "../lib/Triton";
+import { error, success } from "../utils/Alert";
+import { $ } from "../utils/DOM";
 
-@Component()
 class Authenticate extends Triton {
   private login: string = "";
   private password: string = "";
@@ -22,37 +21,37 @@ class Authenticate extends Triton {
     return /*html*/ `
     <main class="authenticate">
       <input type="radio" name="tabs" id="login" checked="checked"/>
-      <label for="login">${this.lang.data.Authenticate.loginLink}</label>
+      <label for="login">${this.lang.Authenticate.loginLink}</label>
 
       <input type="radio" name="tabs" id="register" />
-      <label for="register">${this.lang.data.Authenticate.registerLink}</label>
+      <label for="register">${this.lang.Authenticate.registerLink}</label>
       <section class="container">
         <div class="tab login__tab">
           <form onsubmit="return false;">
-            <p class="label__title">${this.lang.data.Authenticate.login}</p>
+            <p class="label__title">${this.lang.Authenticate.login}</p>
             <input type="text" id="login__input" class="input" minlength="5" maxlength="40" data-v-model="login">
 
-            <p class="label__title">${this.lang.data.Authenticate.password}</p>
+            <p class="label__title">${this.lang.Authenticate.password}</p>
             <input type="password" id="password__input" class="input" minlength="5" maxlength="40" data-v-model="password">
 
-            <input type="submit" id="login_submit" class="btn flex" value="${this.lang.data.Authenticate.loginLink}">
+            <input type="submit" id="login_submit" class="btn flex" value="${this.lang.Authenticate.loginLink}">
           </form>
         </div>
         <div class="tab register__tab">
           <form onsubmit="return false;">
-            <p class="label__title">${this.lang.data.Authenticate.login}</p>
+            <p class="label__title">${this.lang.Authenticate.login}</p>
             <input type="text" class="input" minlength="5" maxlength="40" data-v-model="login">
 
-            <p class="label__title">${this.lang.data.Authenticate.password}</p>
+            <p class="label__title">${this.lang.Authenticate.password}</p>
             <input type="password" class="input" minlength="5" maxlength="40" data-v-model="password">
 
-            <p class="label__title">${this.lang.data.Authenticate.email}</p>
+            <p class="label__title">${this.lang.Authenticate.email}</p>
             <input type="email" class="input" minlength="5" maxlength="80" data-v-model="email">
 
-            <p class="label__title">${this.lang.data.Authenticate.avatar}</p>
+            <p class="label__title">${this.lang.Authenticate.avatar}</p>
             <input type="text" class="input" data-v-model="avatar">
 
-            <input type="submit" id="register_submit" class="btn flex" value="${this.lang.data.Authenticate.registerLink}">
+            <input type="submit" id="register_submit" class="btn flex" value="${this.lang.Authenticate.registerLink}">
           </form>
         </div>
       </section>
@@ -66,22 +65,24 @@ class Authenticate extends Triton {
       this.password = v.password || this.password;
       this.email = v.email || this.email;
       this.avatar = v.avatar || this.avatar;
+      console.log(v.login)
     });
-    const login = $(".authenticate > .container .tab #login_submit")!;
-    login.addEventListener("click", () => this.authenticateUser(this.login, this.password));
-    const register = $(".authenticate > .container .tab #register_submit")!;
-    register.addEventListener("click", () => this.registerUser(this.login, this.password, this.email, this.avatar));
+    fromEvent($(".authenticate > .container .tab #login_submit")!, "click").subscribe({
+      next: async () => this.authenticateUser(this.login, this.password)
+    });
+    fromEvent($(".authenticate > .container .tab #register_submit")!, "click").subscribe({
+      next: async () => this.registerUser(this.login, this.password, this.email, this.avatar)
+    });
   }
 
   private async authenticateUser(login: string, password: string) {
     if (login.length !== 0 && password.length !== 0) {
-      const res: IUser | Exists = await AuthenticateUser({ login, password });
-      if (res !== Exists.NotFound) {
+      const res: IUser | false = await AuthenticateUser({ login, password });
+      if (res) {
         this.store.dispatch("updateAllData", res);
-        document.cookie = `user_id=${res.id}; expires=${new Date("2019")};`;
-        success(`${this.lang.data.Messages.welcome} ${res.User.Login}!`, () => Router.go("/"));
+        success(`${this.lang.Messages.welcome} ${res.User.Login}!`, () => App.go("/"));
       } else {
-        error(this.lang.data.Messages.notFound);
+        error(this.lang.Messages.notFound);
       }
     }
   }
@@ -90,9 +91,9 @@ class Authenticate extends Triton {
     if (login.length !== 0 && password.length !== 0 && email.length !== 0) {
       const res: any = await RegisterUser({ login, password, email, avatar });
       if (res) {
-        success(this.lang.data.Messages.registered, () => Router.go("/auth"));
+        success(this.lang.Messages.registered, () => App.go("/auth"));
       } else {
-        error(this.lang.data.Messages.userExists);
+        error(this.lang.Messages.userExists);
       }
     }
   }

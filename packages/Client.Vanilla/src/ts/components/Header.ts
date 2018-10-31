@@ -1,16 +1,12 @@
-import { Component, Method, Prop } from "../decorators";
 import Triton from "../lib/Triton";
 
-@Component()
 class Header extends Triton {
-  @Prop()
   private AppName: string = "Dashboard";
 
   constructor() {
     super();
   }
 
-  @Method()
   public render() {
     const username = this.store.getter.User.Login;
     // const slicedUsername = username.length >= 6 ? username.slice(0, 6) + "..." : username;
@@ -43,9 +39,8 @@ class Header extends Triton {
     </header>`;
   }
 
-  @Method()
   public mounted() {
-    // 
+    //
   }
 }
 

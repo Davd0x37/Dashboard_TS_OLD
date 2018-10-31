@@ -1,23 +1,17 @@
 import { Chart } from "chart.js";
-import { Component, Method, Prop } from "../decorators";
-import { $ } from "../lib/DOM";
 import Triton from "../lib/Triton";
+import { $ } from "../utils/DOM";
 import DigitalOceanConfig from "./DigitalOceanData.json";
 
-@Component()
 class DigitalOcean extends Triton {
-  @Prop()
   protected canvas!: HTMLCanvasElement;
-  @Prop()
   protected ctx!: CanvasRenderingContext2D;
-  @Prop()
   protected chart!: Chart;
 
   constructor() {
     super();
   }
 
-  @Method()
   public render(): string {
     return /*html*/ `<article class="plate">
     <header class="plate__brand">
@@ -27,17 +21,17 @@ class DigitalOcean extends Triton {
     <div class="plate__container digital-ocean-plate">
       <div class="details">
         <aside class="wrap">
-          <p class="label__title">${this.lang.data.DigitalOcean.email}</p>
+          <p class="label__title">${this.lang.DigitalOcean.email}</p>
           <p class="label__value label__no-capitalize">${this.store.getter.DigitalOcean.Email}</p>
-          <p class="label__title">${this.lang.data.DigitalOcean.lastCreatedDroplet}</p>
+          <p class="label__title">${this.lang.DigitalOcean.lastCreatedDroplet}</p>
           <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.LastCreatedDroplet +
             " " +
-            this.lang.data.DigitalOcean.hoursAgo}</p>
+            this.lang.DigitalOcean.hoursAgo}</p>
         </aside>
         <aside class="wrap">
-          <p class="label__title">${this.lang.data.DigitalOcean.dropletLimit}</p>
+          <p class="label__title">${this.lang.DigitalOcean.dropletLimit}</p>
           <p class="label__value digital_ocean--color">${this.store.getter.DigitalOcean.DropletLimit}</p>
-          <p class="label__title">${this.lang.data.DigitalOcean.droplets}</p>
+          <p class="label__title">${this.lang.DigitalOcean.droplets}</p>
           <p class="label__value label__last digital_ocean--color">${this.store.getter.DigitalOcean.Total}</p>
         </aside>
       </div>
@@ -50,7 +44,6 @@ class DigitalOcean extends Triton {
   </article>`;
   }
 
-  @Method()
   public mounted(): void {
     // Get canvas
     this.canvas = $("#digital_ocean_chart")! as HTMLCanvasElement;

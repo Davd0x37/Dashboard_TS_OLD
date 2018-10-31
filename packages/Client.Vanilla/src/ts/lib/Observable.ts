@@ -122,7 +122,7 @@ export const create = (values?: any) => {
  * @param {string} eventName
  * @returns new Observable
  */
-export const fromEvent = (element: HTMLElement, eventName: string) => {
+export const fromEvent = (element: Element, eventName: string) => {
   return new Observable((observer: Subscriber) => {
     const handler = (e: any) => observer.next(e);
     element.addEventListener(eventName, handler, false);

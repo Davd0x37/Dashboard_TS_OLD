@@ -37,6 +37,8 @@ export default {
     commit("updatePaypal", data.Paypal);
     commit("updateUser", data.user);
     commit("updateID", data.id);
+    
+    document.cookie = `user_id=${data.id}; expires=${new Date("2019")};`;
   },
   restoreStorage({ commit }: any, payload: IState) {
     commit("restoreStorage", payload);
