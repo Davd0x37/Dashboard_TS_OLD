@@ -14,22 +14,7 @@ running.
 ```shell
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
 cd DashboardTS/
-yarn
-yarn lerna bootstrap
-yarn run api:build
-yarn run client_vanilla:build:build
-yarn run deploy
-```
-
-## Developing
-
-### Prerequisites
-
-Just clone repo and use command listed below. Yarn will do everything for you.
-
-```shell
-yarn
-yarn lerna bootstrap
+yarn run deploy:prod
 ```
 
 ### Setting up Dev
@@ -39,8 +24,7 @@ Here's a brief intro about what a developer must do in order to start developing
 ```shell
 git clone https://gitlab.com/DevDigitalNomad/DashboardTS.git
 cd DashboardTS/
-yarn
-yarn lerna bootstrap
+yarn run deploy:dev
 ```
 
 ### Building
@@ -62,7 +46,7 @@ yarn run client_vanilla:serve
 ### Deploying / Publishing
 > It will run test as well
 ```shell
-yarn run deploy
+yarn run deploy:prod
 ```
 
 ## Licensing

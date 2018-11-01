@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { mutation, query } from "../Api";
+import { mutation, query } from "../../lib/Api";
 import { Services } from "./Fragments";
 import { IServices, IUser } from "./Interface";
 

@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2018-11-01
+### Added
+- Observable
+- Languages
+
+### Changed
+- Directory structure
+- Optimize some code
+
+### Removed
+- Unused code
+
+
 ## [0.2.0] - 2018-10-10
 ### Added
 - Docker
@@ -110,6 +123,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - API and Client config in one webpack file.
 
+[1.0.0]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.2.0]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.1.0]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master
 [0.0.9]: https://gitlab.com/DevDigitalNomad/DashboardTS/compare/master...master

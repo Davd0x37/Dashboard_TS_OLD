@@ -1,5 +1,5 @@
 import argon2 from "argon2";
-import signale = require("signale");
+import signale from "signale"
 
 /**
  * Hash password with argon2

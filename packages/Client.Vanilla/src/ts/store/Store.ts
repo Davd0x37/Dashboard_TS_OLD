@@ -9,14 +9,14 @@
  * }
  */
 
-import { Observer } from "../lib/Observer";
+import Observer from "../lib/Observer";
 import Storage from "../lib/Storage";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";
 
 class Store {
-  public events: Observer;
+  public events: typeof Observer = Observer;
   private state: IStateStore;
   private actions: any = Actions;
   private mutations: any = Mutations;
@@ -27,7 +27,6 @@ class Store {
   }
 
   constructor() {
-    this.events = new Observer();
     this.state = new Proxy(State || {}, {
       get: (target, p, receiver) => {
         return Reflect.get(target, p, receiver);
@@ -40,7 +39,7 @@ class Store {
         return Reflect.set(target, key, value, receiver);
       }
     });
-    this.dispatch('restoreStorage', '');
+    this.dispatch("restoreStorage", "");
   }
 
   /**

@@ -1,6 +1,6 @@
 type IOFn = (...args: any[]) => any;
 
-export class Observer {
+class Observer {
   public subscribers: any = {};
 
   public subscribe(event: string, ...fn: IOFn[]) {
@@ -19,3 +19,5 @@ export class Observer {
     return true;
   }
 }
+
+export default new Observer()

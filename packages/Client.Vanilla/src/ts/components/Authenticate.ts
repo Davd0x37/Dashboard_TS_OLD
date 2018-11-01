@@ -65,7 +65,6 @@ class Authenticate extends Triton {
       this.password = v.password || this.password;
       this.email = v.email || this.email;
       this.avatar = v.avatar || this.avatar;
-      console.log(v.login)
     });
     fromEvent($(".authenticate > .container .tab #login_submit")!, "click").subscribe({
       next: async () => this.authenticateUser(this.login, this.password)
