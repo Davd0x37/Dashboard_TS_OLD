@@ -40,3 +40,15 @@ import App from "./lib/App";
 //     schema
 //   })
 // })();
+
+/**
+ * HUSKY
+ *
+ * "husky": {
+ *   "hooks": {
+ *     "pre-commit": "yarn test",
+ *     "pre-push": "yarn test"
+ *   }
+ * }
+ *
+ */

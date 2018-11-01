@@ -1,7 +1,10 @@
-import en from "./en-EN.json"
-import pl from "./pl-PL.json"
+import en from "./en-EN.json";
+import pl from "./pl-PL.json";
 
-export { default as pl } from "./pl-PL.json";
-export { default as en } from "./en-EN.json";
+const langs = {
+  pl,
+  en
+};
 
-export default {pl, en};
+const lang = navigator.language.split("-")[0];
+export default langs[lang];
