@@ -11,11 +11,17 @@ import Store from "./store/Store";
   await App.run();
 
   Store.events.subscribe("stateChange", async () => {
-    await App.db.dashboard.findOne(Store.getter.id).update({
-      $set: {
-        ...Store.getter
-      }
-    });
+    const user = await App.db.dashboard.findOne().exec();
+    console.log(user)
+    if (user !== null) {
+      user.update({
+        $set: {
+          ...Store.getter
+        }
+      });
+    } else {
+      App.db.dashboard.insert(Store.getter);
+    }
   });
 })();
 

@@ -1,11 +1,11 @@
-import { IUser } from "../controller/User/Interface";
-import { AuthenticateUser, RegisterUser } from "../controller/User/Manager";
-import App from "../lib/App";
-import { DataBinding } from "../lib/DataBinding";
-import { fromEvent } from "../lib/Observable";
-import Triton from "../lib/Triton";
-import { error, success } from "../utils/Alert";
-import { $ } from "../utils/DOM";
+import { AuthenticateUser, RegisterUser } from '../controller/UserManager';
+import { IUserDocType } from '../db/Schema';
+import App from '../lib/App';
+import { DataBinding } from '../lib/DataBinding';
+import { fromEvent } from '../lib/Observable';
+import Triton from '../lib/Triton';
+import { error, success } from '../utils/Alert';
+import { $ } from '../utils/DOM';
 
 class Authenticate extends Triton {
   private login: string = "";
@@ -76,7 +76,7 @@ class Authenticate extends Triton {
 
   private async authenticateUser(login: string, password: string) {
     if (login.length !== 0 && password.length !== 0) {
-      const res: IUser | false = await AuthenticateUser({ login, password });
+      const res: IUserDocType | false = await AuthenticateUser({ login, password });
       if (res) {
         this.store.dispatch("updateAllData", res);
         success(`${this.lang.Messages.welcome} ${res.User.Login}!`, () => App.go("/"));

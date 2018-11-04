@@ -58,6 +58,11 @@ class App {
     return window.location.pathname;
   }
 
+  public async go(path: string) {
+    history.pushState({}, path, path);
+    await this.run();
+  }
+
   private routeButtons() {
     const buttons = $$("[data-router-go]");
     buttons.forEach((btn: any) => {
@@ -70,10 +75,6 @@ class App {
     });
   }
 
-  private async go(path: string) {
-    history.pushState({}, path, path);
-    await this.run();
-  }
 }
 
 export default new App();

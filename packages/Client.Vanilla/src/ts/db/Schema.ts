@@ -48,13 +48,13 @@ export const UserSchema: RxJsonSchema = {
           type: "string"
         },
         Total: {
-          type: "number"
+          type: "string"
         },
         DropletLimit: {
-          type: "number"
+          type: "string"
         },
         LastCreatedDroplet: {
-          type: "number"
+          type: "string"
         }
       }
     },
@@ -99,9 +99,9 @@ export interface IUserDocType {
   };
   DigitalOcean?: {
     Email?: string;
-    Total?: number;
-    DropletLimit?: number;
-    LastCreatedDroplet?: number;
+    Total?: string;
+    DropletLimit?: string;
+    LastCreatedDroplet?: string;
   };
   Paypal?: {
     Username?: string;

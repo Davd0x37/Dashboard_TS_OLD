@@ -1,7 +1,7 @@
-import { IUser } from "../controller/User/Interface";
+import { IUserDocType } from '../db/Schema';
 
 export interface IStateStore {
-  store: IUser;
+  store: IUserDocType;
 }
 export type IState = IStateStore["store"];
 
@@ -21,9 +21,9 @@ export const State: IStateStore = {
     },
     DigitalOcean: {
       Email: "",
-      LastCreatedDroplet: 0,
-      DropletLimit: 0,
-      Total: 0
+      LastCreatedDroplet: "0",
+      DropletLimit: "0",
+      Total: "0"
     },
     Paypal: {
       Username: "",

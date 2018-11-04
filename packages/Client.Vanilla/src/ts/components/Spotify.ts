@@ -14,12 +14,12 @@ export class Spotify extends Triton {
     <div class="plate__container spotify-plate">
       <aside class="details">
         <p class="label__title">${this.lang.Spotify.username}</p>
-        <p class="label__value">${this.store.getter.Spotify.Username}</p>
+        <p class="label__value">${this.store.getter.Spotify!.Username}</p>
         <p class="label__title">${this.lang.Spotify.email}</p>
-        <p class="label__value label__no-capitalize">${this.store.getter.Spotify.Email}</p>
+        <p class="label__value label__no-capitalize">${this.store.getter.Spotify!.Email}</p>
         <p class="label__title">${this.lang.Spotify.type}</p>
         <p class="label__value label__last spotify__title--color">
-          ${this.store.getter.Spotify.Type}
+          ${this.store.getter.Spotify!.Type}
         </p>
       </aside>
     </div>

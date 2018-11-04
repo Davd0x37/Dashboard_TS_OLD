@@ -47,13 +47,20 @@ export const update = async (id: string): Promise<void> => {
 const GetDroplet = async (authToken: string): Promise<IDropletData> => {
   try {
     const { data }: any = await getData("droplets", authToken);
-    const now = timeToSeconds(Date.now());
-    const creationDate = timeToSeconds(Date.parse(data.droplets[0].created_at));
-    const createdAt = Math.round((now - creationDate) / (60 * 60));
-    return {
-      Total: data.meta.total,
-      LastCreatedDroplet: createdAt
-    };
+    if (data.droplets.length >= 1) {
+      const now = timeToSeconds(Date.now());
+      const creationDate = timeToSeconds(Date.parse(data.droplets[0].created_at));
+      const createdAt = Math.round((now - creationDate) / (60 * 60));
+      return {
+        Total: data.meta.total,
+        LastCreatedDroplet: createdAt
+      };
+    } else {
+      return {
+        Total: data.meta.total,
+        LastCreatedDroplet: 0
+      };
+    }
   } catch (e) {
     signale.error("DigitalOcean.Manager.GetDroplet ------", e);
     throw Error(e);

@@ -1,14 +1,3 @@
-/**
- * Store {
- *   actions: methods/functions which invokes mutations
- *   mutations: methods/functions which modify store
- *   state: Storage where all data will be store
- *
- *   public dispatch(type `action name`, payload `data passed to action`): boolean -> invoke action
- *   private commit(type `mutation name`, payload `same as dispatch`): boolean -> will be invoked by dispatch
- * }
- */
-
 import Observer from "../lib/Observer";
 import Actions from "./Actions";
 import Mutations from "./Mutations";

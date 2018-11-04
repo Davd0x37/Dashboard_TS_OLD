@@ -1,10 +1,10 @@
-import { PaypalAuthenticate, SpotifyAuthenticate } from "../../config";
-import { IServices } from "../controller/User/Interface";
-import { UpdateDigitalOceanToken, UpdateUser } from "../controller/User/Manager";
-import { fromEvent } from "../lib/Observable";
-import Triton from "../lib/Triton";
-import { error, success } from "../utils/Alert";
-import { $ } from "../utils/DOM";
+import { PaypalAuthenticate, SpotifyAuthenticate } from '../../config';
+import { UpdateDigitalOceanToken, UpdateUser } from '../controller/UserManager';
+import { IUserDocType } from '../db/Schema';
+import { fromEvent } from '../lib/Observable';
+import Triton from '../lib/Triton';
+import { error, success } from '../utils/Alert';
+import { $ } from '../utils/DOM';
 
 class Actions extends Triton {
   constructor() {
@@ -52,7 +52,7 @@ class Actions extends Triton {
       next: async () => {
         try {
           if (this.store.getter.id.length !== 0) {
-            const res: IServices | false = await UpdateUser({ id: this.store.getter.id });
+            const res: IUserDocType | false = await UpdateUser({ id: this.store.getter.id });
             if (res) {
               await this.store.dispatch("updateAllData", { id: this.store.getter.id, ...res });
             }

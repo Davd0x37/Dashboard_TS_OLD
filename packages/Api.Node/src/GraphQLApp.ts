@@ -22,13 +22,13 @@ try {
   const env = process.env.NODE_ENV;
 
   server.start(
-    {
-      cors: {
-        origin: "https://liquidash.pl",
-        methods: ["POST", "GET"]
-      },
-      ...(env === "prod" ? { playground: false } : { playground: "/" })
-    },
+    // {
+    //   cors: {
+    //     origin: "https://liquidash.pl",
+    //     methods: ["POST", "GET"]
+    //   },
+    //   ...(env === "prod" ? { playground: false } : { playground: "/" })
+    // },
     () => signale.start(`Server is running!`)
   );
 } catch (e) {

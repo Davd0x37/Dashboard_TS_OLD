@@ -9,8 +9,8 @@ import signale from "signale";
 export const DB = async () => {
   try {
     return r.connect({
-      host: "db",
-      // host: "localhost",
+      // host: "db",
+      host: "localhost",
       port: 28015
     });
   } catch (e) {

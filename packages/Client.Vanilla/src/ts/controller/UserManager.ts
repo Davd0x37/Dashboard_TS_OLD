@@ -1,19 +1,10 @@
 import gql from "graphql-tag";
-import { mutation, query } from "../../lib/Api";
-import { Services } from "./Fragments";
-import { IServices, IUser } from "./Interface";
 
-interface IULogin {
-  login: string;
-  password: string;
-}
-interface IURegister extends IULogin {
-  email: string;
-  avatar: string;
-}
+import { IUserDocType } from "../db/Schema";
+import { mutation, query } from "../lib/Api";
 
-export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUser | false> => {
-  const { AuthenticateUser }: { AuthenticateUser: IUser } = await query(gql`
+export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUserDocType | false> => {
+  const { AuthenticateUser }: { AuthenticateUser: IUserDocType } = await query(gql`
   query {
     AuthenticateUser(login: "${login}", password: "${password}") {
       id
@@ -43,8 +34,8 @@ export const RegisterUser = async ({ login, password, email, avatar }: IURegiste
   return AddUser;
 };
 
-export const UpdateUser = async ({ id }: { id: string }): Promise<IServices | false> => {
-  const { UpdateUserData }: { UpdateUserData: IServices } = await mutation(gql`
+export const UpdateUser = async ({ id }: { id: string }): Promise<IUserDocType | false> => {
+  const { UpdateUserData }: { UpdateUserData: IUserDocType } = await mutation(gql`
   mutation {
     UpdateUserData(id: "${id}") {
       ${Services}
@@ -62,3 +53,34 @@ export const UpdateDigitalOceanToken = async ({ id, token }: { id: string; token
   `);
   return UpdateDigitalOceanToken;
 };
+
+interface IULogin {
+  login: string;
+  password: string;
+}
+interface IURegister extends IULogin {
+  email: string;
+  avatar: string;
+}
+
+export const Services = `
+Spotify {
+  Email
+  Username
+  Type
+}
+DigitalOcean {
+  Email
+  Total
+  DropletLimit
+  LastCreatedDroplet
+}
+Paypal {
+  Username
+  Email
+  Phone
+  Verified
+  Country
+  Zoneinfo
+}
+`;
