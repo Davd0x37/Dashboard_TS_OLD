@@ -3,9 +3,10 @@
   font-size: 100%;
   color: $primary-text;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+}
+
+body {
   background: $background;
-  width: 100vw;
-  height: 100%;
   background-attachment: fixed;
   background-size: cover;
 
@@ -13,10 +14,6 @@
     background: $background_mobile, $background_mobile_fallback;
   }
 }
-
-// body {
-//   height: 100vh;
-// }
 
 h3,
 p {

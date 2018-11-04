@@ -10,7 +10,6 @@
  */
 
 import Observer from "../lib/Observer";
-import Storage from "../lib/Storage";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { IStateStore, State } from "./State";
@@ -47,22 +46,21 @@ class Store {
    * @param type
    * @param payload
    */
-  public dispatch(type: string, payload: any): boolean {
+  public async dispatch(type: string, payload: any): Promise<boolean> {
     if (this.isFn("actions", type)) {
       this.status = "actions";
-      this.actions[type]({ commit: this.commit }, payload);
+      await this.actions[type]({ commit: this.commit }, payload);
       return true;
     }
     return false;
   }
 
   // Use arrow function or .bind in dispatch
-  private commit = (type: string, payload: any): boolean => {
+  private commit = async (type: string, payload: any): Promise<boolean> => {
     if (this.isFn("mutations", type)) {
       this.status = "mutations";
-      const newState = this.mutations[type](this.state.store, payload);
+      const newState = await this.mutations[type](this.state.store, payload);
       this.state.store = { ...this.state.store, ...newState };
-      Storage.storageData = this.state.store;
       return true;
     }
     return false;

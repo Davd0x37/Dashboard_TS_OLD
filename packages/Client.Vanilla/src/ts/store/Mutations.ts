@@ -1,5 +1,4 @@
-import Storage from "../lib/Storage";
-import { IState } from "./State";
+import { IState } from './State';
 
 export default {
   updateSpotify(state: IState, payload: IState["Spotify"]) {
@@ -20,20 +19,6 @@ export default {
   },
   updateID(state: IState, payload: IState["id"]) {
     state.id = payload;
-    return state;
-  },
-
-  /**
-   * Get data from local storage and save in store
-   * If local storage doesn't have any data, it will not
-   * throw any error but simply save default data from store
-   */
-  restoreStorage(state: IState, payload: IState) {
-    state = { ...state, ...payload, ...Storage.storageData };
-    return state;
-  },
-  saveInStorage(state: IState, _: IState) {
-    Storage.storageData = state;
     return state;
   }
 };

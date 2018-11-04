@@ -126,6 +126,7 @@ export const fromEvent = (element: Element, eventName: string) => {
   return new Observable((observer: Subscriber) => {
     const handler = (e: any) => observer.next(e);
     element.addEventListener(eventName, handler, false);
+
     return () => {
       element.removeEventListener(eventName, handler, false);
       observer.complete();

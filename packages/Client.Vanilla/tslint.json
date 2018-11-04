@@ -12,7 +12,9 @@
     "no-implicit-dependencies": false,
     "max-classes-per-file": false,
     "no-shadowed-variable": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "interface-name": false,
+    "interface-over-type-literal": false
   },
   "rulesDirectory": []
 }

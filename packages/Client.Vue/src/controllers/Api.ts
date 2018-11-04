@@ -1,16 +1,17 @@
 import ApolloClient from "apollo-boost";
+import { ApiURL } from "../config";
 
 const client: ApolloClient<any> = new ApolloClient({
-  uri: "http://localhost:4000"
+  uri: ApiURL
 });
 
 /**
  * Send request to API
  *
  * @param {*} req
- * @returns {Promise<unknown>}
+ * @returns {Promise<any>}
  */
-export const query = async (req: any): Promise<unknown> => {
+export const query = async (req: any): Promise<any> => {
   try {
     const res = await client.query({
       query: req
@@ -25,9 +26,9 @@ export const query = async (req: any): Promise<unknown> => {
  * Send mutation to API
  *
  * @param {*} req
- * @returns {Promise<unknown>}
+ * @returns {Promise<any>}
  */
-export const mutation = async (req: any): Promise<unknown> => {
+export const mutation = async (req: any): Promise<any> => {
   try {
     const res = await client.mutate({
       mutation: req

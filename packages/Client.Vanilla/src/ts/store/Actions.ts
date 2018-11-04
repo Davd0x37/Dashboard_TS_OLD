@@ -13,13 +13,13 @@ export default {
   updateUser({ commit }: any, payload: IState["User"]) {
     commit("updateUser", payload);
   },
-  updateID({ commit }: any, payload: IState["User"]) {
+  updateID({ commit }: any, payload: IState["id"]) {
     commit("updateID", payload);
   },
   updateAllData({ commit }: any, payload: IState) {
     const data = {
       id: payload.id,
-      user: {
+      User: {
         ...payload.User
       },
       Spotify: {
@@ -35,15 +35,9 @@ export default {
     commit("updateSpotify", data.Spotify);
     commit("updateDigitalOcean", data.DigitalOcean);
     commit("updatePaypal", data.Paypal);
-    commit("updateUser", data.user);
+    commit("updateUser", data.User);
     commit("updateID", data.id);
     
     document.cookie = `user_id=${data.id}; expires=${new Date("2019")};`;
-  },
-  restoreStorage({ commit }: any, payload: IState) {
-    commit("restoreStorage", payload);
-  },
-  saveInStorage({ commit }: any, payload: IState) {
-    commit("saveInStorage", payload);
   }
 };

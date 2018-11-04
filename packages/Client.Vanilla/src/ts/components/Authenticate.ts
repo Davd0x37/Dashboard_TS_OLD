@@ -15,7 +15,7 @@ class Authenticate extends Triton {
 
   constructor() {
     super();
-  }
+  } 
 
   public render() {
     return /*html*/ `

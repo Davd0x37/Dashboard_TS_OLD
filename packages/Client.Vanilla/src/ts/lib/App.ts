@@ -1,40 +1,64 @@
+import { RxDatabase } from "rxdb";
+
 import Components from "../components";
+import { IDashboardDatabaseCollections } from "../db/Schema";
+import Store from "../store/Store";
 import { $, $$ } from "../utils/DOM";
 import { fromEvent } from "./Observable";
 import { parseComponent } from "./Parser";
 import View from "./View";
 
-export default {
-  selector: "#app",
-  components: [] as any,
-  async run() {
+class App {
+  public db!: RxDatabase<IDashboardDatabaseCollections>;
+  private selector: string = "#app";
+  private components: any;
+
+  public init(db: RxDatabase<IDashboardDatabaseCollections>) {
+    this.db = db;
+  }
+
+  public async loadStore() {
+    const user = await this.db.dashboard.findOne().exec();
+    if (user !== null) {
+      const data = {
+        id: user.id,
+        User: user.User,
+        Spotify: user.Spotify,
+        DigitalOcean: user.DigitalOcean,
+        Paypal: user.Paypal
+      };
+      await Store.dispatch("updateAllData", data);
+    }
+  }
+
+  public async run() {
     await this.render();
     await this.mounted();
-  },
+  }
 
-  async render() {
+  public async render() {
     const location = this.getPath();
     const getView = await View.getView(location);
     const view = (getView && getView()) || View.notFound();
     const parsed = await parseComponent(view, Components);
     $(this.selector)!.innerHTML = parsed.template;
     this.components = parsed.components;
-  },
+  }
 
-  mounted() {
+  public mounted() {
     for (const comp of this.components) {
       if (Components[comp].mounted !== undefined) {
         Components[comp].mounted();
       }
     }
     this.routeButtons();
-  },
+  }
 
-  getPath(): string {
+  public getPath(): string {
     return window.location.pathname;
-  },
+  }
 
-  routeButtons() {
+  private routeButtons() {
     const buttons = $$("[data-router-go]");
     buttons.forEach((btn: any) => {
       fromEvent(btn, "click").subscribe({
@@ -44,10 +68,12 @@ export default {
         }
       });
     });
-  },
+  }
 
-  async go(path: string) {
+  private async go(path: string) {
     history.pushState({}, path, path);
     await this.run();
   }
-};
+}
+
+export default new App();
