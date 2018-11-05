@@ -1,0 +1,16 @@
+{
+  "name": "Dashboard",
+  "short_name": "Dashboard",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#000",
+  "theme_color": "#000",
+  "description": "Dashboard app.",
+  "icons": [
+    {
+      "src": "img/logo_1x.webp",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -16,14 +16,15 @@ const model = {
 program.option("-w, --watch [boolean]", "Watch", false).action(bundle);
 program.parse(process.argv);
 
+
 async function bundle(cmd: any) {
-  const entryFiles = "src/index.html";
+  const entryFiles = "public/index.html";
   const options = {
     outFile: "",
     watch: cmd.watch,
     cache: !!cmd.watch,
     cacheDir: ".cache",
-    minify: !!cmd.watch,
+    minify: !cmd.watch,
     target: "browser",
     hmr: !!cmd.watch,
     sourceMaps: false

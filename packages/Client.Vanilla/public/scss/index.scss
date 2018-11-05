@@ -1,0 +1,20 @@
+// @import "~sanitize.css";
+@import "./lib/normalize";
+// UTILS
+@import "./colors";
+@import "./mixins";
+// SECTIONS
+@import "./bootstrap";
+@import "./components/auth";
+@import "./header";
+@import "./main";
+
+// COMPONENTS
+@import "./components/items/ItemButton";
+@import "./components/items/ItemInput";
+@import "./components/items/ItemLabel";
+@import "./components/plate";
+@import "./components/plates/DigitalOceanPlate";
+@import "./components/plates/PaypalPlate";
+@import "./components/plates/SpotifyPlate";
+@import "./components/plates/ActionsPlate";

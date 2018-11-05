@@ -7,9 +7,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "parcel ./src/GraphQLApp.ts --target node --no-source-maps",
-    "prod": "parcel build ./src/GraphQLApp.ts --target node --no-source-maps --no-cache",
-    "serve": "nodemon ./dist/GraphQLApp.js",
+    "dev": "parcel ./app/App.ts --target node --no-source-maps",
+    "prod": "parcel build ./app/App.ts --target node --no-source-maps --no-cache",
+    "serve": "nodemon ./dist/App.js",
     "test:watch": "jest --watch",
     "test": "jest"
   },
@@ -49,20 +49,5 @@
     "rxdb": "8.0.3",
     "rxjs": "^6.3.3",
     "signale": "^1.3.0"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/**/**/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   }
 }
