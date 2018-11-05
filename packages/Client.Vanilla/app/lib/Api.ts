@@ -1,5 +1,5 @@
-import ApolloClient from "apollo-boost";
-import { ApiURL } from "#SH/Config";
+import { ApiURL } from '#SH/Config';
+import ApolloClient from 'apollo-boost';
 
 const client: ApolloClient<any> = new ApolloClient({
   uri: ApiURL

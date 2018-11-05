@@ -1,8 +1,8 @@
-import express, { Request, Response } from "express";
-import { resolve } from "path";
-import signale from "signale";
-import { spotifyConfig } from "#SH/Config";
-import Authenticate from "#/controller/Authenticate";
+import Authenticate from '#/controller/Authenticate';
+import { spotifyConfig } from '#SH/Config';
+import express, { Request, Response } from 'express';
+import { resolve } from 'path';
+import signale from 'signale';
 
 const router = express.Router();
 

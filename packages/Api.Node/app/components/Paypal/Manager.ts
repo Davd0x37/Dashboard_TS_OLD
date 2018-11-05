@@ -1,9 +1,8 @@
+import { GetUser, UpdateCredentials } from '#/components/user/Manager';
+import { TokensNotExists } from '#/controller/Authenticate';
+import { paypalConfig } from '#SH/Config';
 import request from 'request';
 import signale from 'signale';
-
-import { GetUser, UpdateCredentials } from '#/components/user/Manager';
-import { paypalConfig } from "#SH/Config";
-import { TokensNotExists } from '#/controller/Authenticate';
 
 export const update = async (id: string) => {
   try {

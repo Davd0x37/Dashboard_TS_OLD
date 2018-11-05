@@ -1,9 +1,13 @@
-import request from "request";
-import signale from "signale";
-import { GetUser, UpdateTokens } from "#/components/user/Manager";
-import { IAccessTokenParams, IAuthenticationParams, IRefreshToken, IUserDocType } from "#SH/Interfaces";
-import { IAuthTokens } from "#SH/Interfaces";
-import { generateRandomString } from "#SH/Utils";
+import { GetUser, UpdateTokens } from '#/components/user/Manager';
+import {
+  IAccessTokenParams,
+  IAuthenticationParams,
+  IAuthTokens,
+  IRefreshToken,
+} from '#SH/Interfaces';
+import { generateRandomString } from '#SH/Utils';
+import request from 'request';
+import signale from 'signale';
 
 /**
  * Generate basic authorization
@@ -22,7 +26,7 @@ export const TokensNotExists = (service: string, tokens: IAuthTokens): boolean =
 export const RefreshTokens = async ({ id, service, url, auth }: IRefreshToken): Promise<boolean> => {
   try {
     const basicAuth = GenerateBasicAuthorization(auth.clientID, auth.clientSecret);
-    const user: IAuthTokens = await GetUser(id);
+    const user: any = await GetUser(id);
 
     // If service doesn't exists stop requesting refresh token
     if (user.AuthTokens[service] === undefined) {
@@ -163,7 +167,7 @@ export default class Authenticate {
    */
   protected async GetStateKey(): Promise<string> {
     try {
-      const user: IAuthTokens = await GetUser(this.id);
+      const user: any = await GetUser(this.id);
       return user.AuthTokens[this.service].StateKey;
     } catch (e) {
       signale.error("Authenticate.GetStateKey ------", e);

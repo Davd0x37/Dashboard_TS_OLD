@@ -1,6 +1,6 @@
-import signale from "signale";
-import { query } from "#/controller/DB";
-import { IUserDocType, IAuthTokens } from "#SH/Interfaces";
+import { query } from '#/controller/DB';
+import { IAuthTokens, IUserDocType } from '#SH/Interfaces';
+import signale from 'signale';
 
 /**
  * Update user credentials

@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
-import { resolve } from "path";
-import signale from "signale";
-import { paypalConfig } from "#SH/Config";
-import Authenticate from "#/controller/Authenticate";
-import { generateRandomString } from "#SH/Utils";
+import Authenticate from '#/controller/Authenticate';
+import { paypalConfig } from '#SH/Config';
+import { generateRandomString } from '#SH/Utils';
+import express, { Request, Response } from 'express';
+import { resolve } from 'path';
+import signale from 'signale';
 
 const router = express.Router();
 

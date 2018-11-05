@@ -1,8 +1,8 @@
-import request from "request";
-import signale from "signale";
-import { GetUser, UpdateCredentials } from "#/components/user/Manager";
-import { spotifyConfig } from "#SH/Config";
-import { RefreshTokens, TokensNotExists } from "#/controller/Authenticate";
+import { GetUser, UpdateCredentials } from '#/components/user/Manager';
+import { RefreshTokens, TokensNotExists } from '#/controller/Authenticate';
+import { spotifyConfig } from '#SH/Config';
+import request from 'request';
+import signale from 'signale';
 
 export const update = async (id: string) => {
   try {

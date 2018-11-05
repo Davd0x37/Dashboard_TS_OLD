@@ -2,6 +2,12 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
+    "lib": [
+      "es2018",
+      "esnext",
+      "es2017",
+      "es2016"
+    ],
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "emitDecoratorMetadata": true,
@@ -26,5 +32,8 @@
       "#/*": ["app/*"],
       "#SH/*": ["../Shared/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

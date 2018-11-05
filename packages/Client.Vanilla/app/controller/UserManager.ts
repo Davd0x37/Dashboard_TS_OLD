@@ -1,7 +1,6 @@
-import gql from "graphql-tag";
-
-import { IUserDocType } from "#SH/Interfaces";
-import { mutation, query } from "#/lib/Api";
+import { mutation, query } from '#/lib/Api';
+import { IUserDocType } from '#SH/Interfaces';
+import gql from 'graphql-tag';
 
 export const AuthenticateUser = async ({ login, password }: IULogin): Promise<IUserDocType | false> => {
   const { AuthenticateUser }: { AuthenticateUser: IUserDocType } = await query(gql`

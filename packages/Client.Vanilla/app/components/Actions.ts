@@ -1,10 +1,10 @@
-import { PaypalAuthenticate, SpotifyAuthenticate } from '#SH/Config';
 import { UpdateDigitalOceanToken, UpdateUser } from '#/controller/UserManager';
-import { IUserDocType } from '#SH/Interfaces';
-import { fromEvent } from '#SH/Observable/Observable';
 import Triton from '#/lib/Triton';
 import { error, success } from '#/utils/Alert';
 import { $ } from '#/utils/DOM';
+import { PaypalAuthenticate, SpotifyAuthenticate } from '#SH/Config';
+import { IUserDocType } from '#SH/Interfaces';
+import { fromEvent } from '#SH/Observable/Observable';
 
 class Actions extends Triton {
   constructor() {

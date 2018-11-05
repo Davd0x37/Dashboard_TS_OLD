@@ -1,8 +1,8 @@
-import axios from "axios";
-import signale from "signale";
-import { GetUser, UpdateCredentials } from "#/components/user/Manager";
-import { digitalOceanConfig } from "#SH/Config";
-import { timeToSeconds } from "#SH/Utils";
+import { GetUser, UpdateCredentials } from '#/components/user/Manager';
+import { digitalOceanConfig } from '#SH/Config';
+import { timeToSeconds } from '#SH/Utils';
+import request from 'request';
+import signale from 'signale';
 
 interface IDropletData {
   Total: number;
@@ -95,7 +95,7 @@ const GetAccount = async (authToken: string): Promise<IAccountData> => {
  */
 const getData = async (type: string, authToken: string) => {
   try {
-    return axios.get(`${digitalOceanConfig.api}${type}`, {
+    return request.get(`${digitalOceanConfig.api}${type}`, {
       headers: { Authorization: `Bearer ${authToken}` }
     });
   } catch (e) {

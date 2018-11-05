@@ -1,9 +1,10 @@
-import signale from "signale";
-import { DigitalOceanManager, PaypalManager, SpotifyManager } from "#/components";
-import { query } from "#/controller/DB";
-import { IUserDocType } from "#SH/Interfaces";
-import { hashPass } from "#/utils/crypto";
-import { FieldAvailable, GetUser } from "./Manager";
+import { DigitalOceanManager, PaypalManager, SpotifyManager } from '#/components';
+import { query } from '#/controller/DB';
+import { hashPass } from '#/utils/crypto';
+import { IUserDocType } from '#SH/Interfaces';
+import signale from 'signale';
+
+import { FieldAvailable, GetUser } from './Manager';
 
 // Need to be exported as object because we want to use spread operator
 export default {

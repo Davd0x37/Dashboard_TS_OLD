@@ -27,6 +27,10 @@
     "deploy:prod": "docker-compose -f docker-prod.yml up --build"
   },
   "devDependencies": {
-    "lerna": "^3.4.3"
+    "lerna": "^3.4.3",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
   }
 }

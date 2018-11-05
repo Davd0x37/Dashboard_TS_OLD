@@ -1,11 +1,11 @@
 import { AuthenticateUser, RegisterUser } from '#/controller/UserManager';
-import { IUserDocType } from '#SH/Interfaces';
 import App from '#/lib/App';
 import { DataBinding } from '#/lib/DataBinding';
-import { fromEvent } from '#SH/Observable/Observable';
 import Triton from '#/lib/Triton';
 import { error, success } from '#/utils/Alert';
 import { $ } from '#/utils/DOM';
+import { IUserDocType } from '#SH/Interfaces';
+import { fromEvent } from '#SH/Observable/Observable';
 
 class Authenticate extends Triton {
   private login: string = "";
