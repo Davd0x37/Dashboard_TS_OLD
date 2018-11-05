@@ -1,6 +1,6 @@
 import signale from "signale";
 import { query } from "#/controller/DB";
-import { IUserDocType } from "#SH/Interfaces";
+import { IUserDocType, IAuthTokens } from "#SH/Interfaces";
 
 /**
  * Update user credentials
@@ -44,7 +44,7 @@ export const UpdateTokens = async ({ id, service, tokens }: { id: string; servic
  * @param {string} id
  * @returns {Promise<IUserDocType>}
  */
-export const GetUser = async (id: string): Promise<IUserDocType> => {
+export const GetUser = async (id: string): Promise<IUserDocType | IAuthTokens> => {
   try {
     return query(q => q.get(id));
   } catch (e) {

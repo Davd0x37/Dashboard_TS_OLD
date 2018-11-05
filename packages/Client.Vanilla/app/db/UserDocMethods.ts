@@ -1,5 +1,6 @@
-import { IUserDocMethods, IUserDocument } from "./Schema";
-import { IUserDocType } from "#SH/Interfaces";
+import { IUserDocType } from '#SH/Interfaces';
+
+import { IUserDocMethods, IUserDocument } from './Types';
 
 
 export const UserDocMethods: IUserDocMethods = {

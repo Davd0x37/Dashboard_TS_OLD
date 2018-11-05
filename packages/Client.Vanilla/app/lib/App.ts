@@ -1,12 +1,12 @@
-import { RxDatabase } from "rxdb";
+import Components from '#/components';
+import { IDashboardDatabaseCollections } from '#/db/Types';
+import Store from '#/store/Store';
+import { $, $$ } from '#/utils/DOM';
+import { fromEvent } from '#SH/Observable/Observable';
+import { RxDatabase } from 'rxdb';
 
-import Components from "#/components";
-import { IDashboardDatabaseCollections } from "#/db/Schema";
-import Store from "#/store/Store";
-import { $, $$ } from "#/utils/DOM";
-import { fromEvent } from "#SH/Observable/Observable";
-import { parseComponent } from "./Parser";
-import View from "./View";
+import { parseComponent } from './Parser';
+import View from './View';
 
 class App {
   public db!: RxDatabase<IDashboardDatabaseCollections>;

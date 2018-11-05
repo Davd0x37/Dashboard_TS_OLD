@@ -1,7 +1,7 @@
-import lang from "#/i18n";
-import Store from "#/store/Store";
-import { $ } from "#/utils/DOM";
-import Observer from "#SH/Observer";
+import lang from '#/i18n';
+import Store from '#/store/Store';
+import { $ } from '#/utils/DOM';
+import Observer from '#SH/Observer';
 
 export default abstract class Triton {
   protected store: typeof Store = Store;

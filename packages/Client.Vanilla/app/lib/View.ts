@@ -1,5 +1,6 @@
-import "reflect-metadata";
-import { Route } from "./Decorator";
+import 'reflect-metadata';
+
+import { Route } from './Decorator';
 
 class View {
   public getView(path: string): () => string {

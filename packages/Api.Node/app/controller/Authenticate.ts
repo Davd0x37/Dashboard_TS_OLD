@@ -1,7 +1,7 @@
 import request from "request";
 import signale from "signale";
 import { GetUser, UpdateTokens } from "#/components/user/Manager";
-import { IAccessTokenParams, IAuthenticationParams, IRefreshToken } from "#SH/Interfaces";
+import { IAccessTokenParams, IAuthenticationParams, IRefreshToken, IUserDocType } from "#SH/Interfaces";
 import { IAuthTokens } from "#SH/Interfaces";
 import { generateRandomString } from "#SH/Utils";
 

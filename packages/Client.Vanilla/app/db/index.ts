@@ -1,9 +1,11 @@
 // @ts-ignore
-import idb from "pouchdb-adapter-idb";
-import RxDB, { RxDatabase } from "rxdb";
+import idb from 'pouchdb-adapter-idb';
+import RxDB, { RxDatabase } from 'rxdb';
 
-import { IDashboardDatabaseCollections, UserSchema } from "./Schema";
-import { UserDocMethods } from "./UserDocMethods";
+import { UserSchema } from './Schema';
+import { IDashboardDatabaseCollections } from './Types';
+import { UserDocMethods } from './UserDocMethods';
+
 
 const DB_NAME = "dashboard_client_database";
 const ADAPTER = "idb";

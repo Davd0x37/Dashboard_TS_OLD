@@ -1,8 +1,8 @@
-import "babel-polyfill";
+import 'babel-polyfill';
 
-import { DB } from "#/db";
-import App from "#/lib/App";
-import Store from "#/store/Store";
+import { DB } from '#/db';
+import App from '#/lib/App';
+import Store from '#/store/Store';
 
 (async () => {
   const db = await DB.load();
