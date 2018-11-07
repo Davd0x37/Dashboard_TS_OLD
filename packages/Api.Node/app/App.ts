@@ -1,3 +1,5 @@
+// import { isFunction } from "util";
+
 import PaypalRouter from '#/components/Paypal/Router';
 import SpotifyRouter from '#/components/Spotify/Router';
 import { resolvers } from '#/graphql/Resolvers';
@@ -35,3 +37,30 @@ try {
   signale.error("GraphQLApp ------", e);
   throw new Error(e);
 }
+
+// const pipe = (...fns: any[]) => (...args: any[]) => fns.reduce((prev: any, curr: any) => {
+//   if(isFunction(prev) && isFunction(curr)) {
+//     return curr(prev(...args))
+//   }else if(!isFunction(prev) && isFunction(curr)) {
+//     return curr(prev)
+//   }
+// });
+
+// const data = [1, 2, 3, 4, 5];
+
+// pipe(
+//   data.map(i => i),
+//   (x: number, c: number) => [1,2,3,4,5, x, c],
+//   // data,
+//   (el: any) => console.log(el)
+// )(data)
+
+
+// const rec = (data, i) => {
+//   if(data[i] !== undefined) {
+//     console.log(data[i])
+//     rec(data, ++i);
+//   }else{
+//     return;
+//   }
+// }

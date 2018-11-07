@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "es2018",
+      "esnext",
+      "esnext.asynciterable",
+      "es2017",
+      "dom"
+    ],
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
     "emitDecoratorMetadata": true,
@@ -11,10 +18,11 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "removeComments": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "sourceMap": false,
     "strict": true,
     "strictFunctionTypes": true,
@@ -26,5 +34,13 @@
       "#/*": ["app/*"],
       "#SH/*": ["../Shared/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "app/**/*.ts",
+    "app/**/*.json",
+    "../Shared/**/*.ts"
+  ]
 }

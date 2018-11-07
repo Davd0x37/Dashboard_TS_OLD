@@ -4,15 +4,20 @@ const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const HappyPack = require("happypack");
 const ForkTS = require("fork-ts-checker-webpack-plugin");
+const HardSource = require("hard-source-webpack-plugin")
 
 module.exports = {
   mode: "production",
-  entry: "./app/App.ts",
+  entry: {
+    app: ["./app/App.ts"]
+  },
   target: "node",
   context: __dirname,
+  // watch: true,
   output: {
     path: resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "bundle.[name].js",
+    // library: "[name]_[hash]",
     pathinfo: false
   },
   module: {
@@ -48,7 +53,12 @@ module.exports = {
         }
       ]
     }),
-    new ForkTS({ checkSyntacticErrors: true })
+    new ForkTS({ checkSyntacticErrors: true }),
+    new webpack.DllPlugin({
+      path: resolve(__dirname, "dist", "[name]-manifest.json"),
+      name: "[name]_[hash]"
+    }),
+    new HardSource()
   ],
   externals: [nodeExternals()]
 };

@@ -1,77 +1,50 @@
 const version = "1.0.0";
 const cacheName = `Dashboard-${version}`;
-const filesToCache: any[] = ["/", "fluidity-inject-cache-files"];
+const filesToCache: any[] = [
+  "/",
+  "/index.html",
+  "app.js",
+  "app.css",
+  "background_bridge.jpg",
+  "background_mobile.webp"
+];
 
 const DashboardSW = {
-  /**
-   * Add files to cache
-   * @param {string[]} files
-   * @returns {Promise<void>}
-   */
-  cacheFiles(files: URL[] | string[]): Promise<void> {
-    return caches
-      .open(cacheName)
-      .then((cache: any) => {
-        return cache.addAll(files);
-      })
-      .then(() => {
-        // @ts-ignore
-        return self.skipWaiting();
-      });
+  async cacheFiles(files: any[]): Promise<void> {
+    const cache = await caches.open(cacheName);
+    await cache.addAll(files);
+    // @ts-ignore
+    return self.skipWaiting();
   },
 
-  /**
-   * Update cache
-   * Get newest files from server, put them into cache and then return response
-   * @param req
-   * @returns {Promise<Response>}
-   */
-  updateCache(req: Request, onlySelected: boolean = false): Promise<Response> {
-    return fetch(req).then((res: any) => {
-      caches.open(cacheName).then((cache: any) => {
-        if (onlySelected) {
-          filesToCache.map(item => {
-            const file = new URL(item, self.location.toString());
-            if (file.href === req.url) {
-              cache.put(req, res.clone());
-            }
-          });
-        } else {
+  async updateCache(req: Request, onlySelected: boolean = false): Promise<Response> {
+    const res = await fetch(req);
+    const cache = await caches.open(cacheName);
+    if (onlySelected) {
+      filesToCache.map(item => {
+        const file = new URL(item, self.location.toString());
+        if (file.href === req.url) {
           cache.put(req, res.clone());
         }
       });
-      return res;
-    });
+    } else {
+      cache.put(req, res.clone());
+    }
+    return res;
   },
 
-  /**
-   * Open cache and return promise with that cache ->
-   * Match returned cache with request and return promise with result ->
-   * If requested file cannot be downloaded or reject promise
-   * In fetch listener it will catch rejection and re-download files from server
-   * @param req
-   * @returns {Promise<Cache>}
-   */
-  filesFromCache(req: Request): Promise<Cache> {
-    return caches.open(cacheName).then((cache: any) => {
-      return cache.match(req).then((matching: any) => {
-        return matching || DashboardSW.filesFromServer(req);
-      });
-    });
+  async filesFromCache(req: Request): Promise<Response> {
+    const cache = await caches.open(cacheName);
+    const matching = await cache.match(req);
+    return matching || DashboardSW.filesFromServer(req);
   },
 
-  /**
-   * Download files from server
-   * @param {Request} req
-   * @returns {Promise<Response>}
-   */
-  filesFromServer(req: Request): Promise<Response> {
-    return fetch(req).then(res => res);
+  async filesFromServer(req: Request): Promise<Response> {
+    const res = await fetch(req);
+    return res;
   },
 
-  filesURL(files: string[]): URL[] {
-    return files.map(item => new URL(item, self.location.toString()));
-  }
+  filesURL: (files: string[]): URL[] => files.map(item => new URL(item, self.location.toString()))
 };
 
 /**
@@ -86,23 +59,16 @@ self.addEventListener("install", (event: any) => {
  * Make service worker main maintainer of site and remove old caches
  * if new version has arrived
  */
-self.addEventListener("activate", (event: any) => {
+self.addEventListener("activate", async (event: any) => {
+  const keys = await caches.keys();
   event.waitUntil(
-    caches
-      .keys()
-      .then(keys =>
-        Promise.all(
-          // @ts-ignore
-          keys.map((key: any) => {
-            if (!cacheName.includes(key)) {
-              return caches.delete(key);
-            }
-          })
-        )
-      )
-      .then(() => {
-        console.log(`${cacheName} now ready to handle fetches!`);
+    Promise.all(
+      keys.map((key: any) => {
+        if (!cacheName.includes(key)) {
+          return caches.delete(key);
+        }
       })
+    ).then(() => console.log(`${cacheName} now ready to handle fetches!`))
   );
   // @ts-ignore
   return self.clients.claim();
@@ -120,5 +86,5 @@ self.addEventListener("fetch", (event: any) => {
   }
   console.log("Serving the assets from cache");
   event.respondWith(DashboardSW.filesFromCache(event.request));
-  event.waitUntil(DashboardSW.updateCache(event.request));
+  event.waitUntil(DashboardSW.updateCache(event.request, true));
 });

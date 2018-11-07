@@ -1,13 +1,13 @@
 import Triton from '#/lib/Triton';
 import { $ } from '#/utils/DOM';
-import { Chart } from 'chart.js';
+// import { Chart } from 'chart.js';
 
 import DigitalOceanConfig from './DigitalOceanData.json';
 
 class DigitalOcean extends Triton {
   protected canvas!: HTMLCanvasElement;
   protected ctx!: CanvasRenderingContext2D;
-  protected chart!: Chart;
+  protected chart!: any;
 
   constructor() {
     super();
@@ -57,11 +57,12 @@ class DigitalOcean extends Triton {
   }
 
   protected _createChart() {
+    // @ts-ignore
     this.chart = new Chart(this.ctx, {
       type: "line",
-      // @ts-ignore
       data: {
         labels: DigitalOceanConfig.labels,
+        // @ts-ignore
         datasets: DigitalOceanConfig.dataset
       },
       options: DigitalOceanConfig.options

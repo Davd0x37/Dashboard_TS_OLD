@@ -1,4 +1,5 @@
-import 'babel-polyfill';
+
+import "../public/scss/index.scss"
 
 import { DB } from '#/db';
 import App from '#/lib/App';

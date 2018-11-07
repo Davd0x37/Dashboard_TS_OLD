@@ -2,7 +2,7 @@ if (navigator.serviceWorker.controller) {
   console.log("Service worker is active.");
 } else {
   navigator.serviceWorker
-    .register("./sw.ts", {
+    .register("./sw.js", {
       scope: "./"
     })
     .then((reg: any) => {
