@@ -1,8 +1,0 @@
-Hash: c25807f6707d7c3e53f3
-Version: webpack 4.25.1
-Time: 3306ms
-Built at: 2018-11-10 03:26:52
-  Asset      Size  Chunks             Chunk Names
-main.js  3.65 KiB       0  [emitted]  main
-Entrypoint main = main.js
-[0] ./app/App.ts 58 bytes {0}

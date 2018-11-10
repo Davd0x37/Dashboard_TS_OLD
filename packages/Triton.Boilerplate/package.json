@@ -7,15 +7,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "webpack --env.mode=production --config config/webpack.config.ts",
+    "build": "bundler -t node",
     "doc": "run-s doc:html && opn build/docs/index.html",
     "doc:html": "typedoc app/ --target ES6 --mode file --out build/docs",
     "fix": "run-s fix:*",
     "fix:tslint": "tslint --fix --project .",
     "fix:prettier": "prettier \"app/**/*.ts\" --write",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "bund": "bundler"
+    "test:watch": "jest --watch"
   },
   "engines": {
     "node": ">=10.13.0"

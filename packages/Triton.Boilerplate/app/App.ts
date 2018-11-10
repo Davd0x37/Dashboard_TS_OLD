@@ -4,6 +4,6 @@
 
 class XD {
   constructor() {
-    
+    console.log("ASD")
   }
 }

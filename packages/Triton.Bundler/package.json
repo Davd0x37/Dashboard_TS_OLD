@@ -12,7 +12,8 @@
   "private": true,
   "scripts": {
     "info": "npm-scripts-info",
-    "dev": "webpack-dev-server --hot --open --env.mode=development",
+    "build": "tsc",
+    "dev": "tsc --watch",
     "doc": "run-s doc:html && opn build/docs/index.html",
     "doc:html": "typedoc app/ --target ES6 --mode file --out build/docs",
     "fix": "run-s fix:*",

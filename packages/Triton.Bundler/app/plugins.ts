@@ -1,11 +1,11 @@
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import Fork from 'fork-ts-checker-webpack-plugin';
-import Happy from 'happypack';
-import Hard from 'hard-source-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import ScriptExtHtmlWebpackPlugin from 'script-ext-html-webpack-plugin';
-import { DllPlugin as Dll, Plugin } from 'webpack';
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import Fork from "fork-ts-checker-webpack-plugin";
+import Happy from "happypack";
+import Hard from "hard-source-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import ScriptExtHtmlWebpackPlugin from "script-ext-html-webpack-plugin";
+import { DllPlugin as Dll, Plugin, HotModuleReplacementPlugin } from "webpack";
 
 // Extract CSS
 export const CssExtract = ({
@@ -49,6 +49,10 @@ export const HtmlExtensions = (): Plugin =>
 
 // Copy file from dir to dir
 export const CopyPlugin = (copy: { from: string; to: string }[]): Plugin => new CopyWebpackPlugin(copy);
+
+// Hot Module Replacement
+export const HMR = ({ multiStep = true }: { multiStep?: boolean } = {}): Plugin =>
+  new HotModuleReplacementPlugin({ multiStep });
 
 // Speed improvements
 export const HappyPack = ({ threads = 2 }: { threads?: number } = {}): Plugin =>
