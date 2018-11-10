@@ -1,17 +1,15 @@
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
-import { IResolve } from "./Interfaces";
+import TerserPlugin from "terser-webpack-plugin";
 
-const resolvers: IResolve = {
-  resolve: ({
-    configFile = "tsconfig.json",
-    extensions = [".ts", ".tsx", ".js"]
-  }: {
-    configFile?: string;
-    extensions?: string[];
-  }) => ({
-    extensions,
-    plugins: [new TsconfigPathsPlugin({ configFile })]
-  })
-};
+export const resolve = ({
+  configFile = "tsconfig.json",
+  extensions = [".ts", ".tsx", ".js"]
+}: {
+  configFile?: string;
+  extensions?: string[];
+} = {}) => ({
+  extensions,
+  plugins: [new TsconfigPathsPlugin({ configFile })]
+});
 
-export default resolvers;
+export const optimizationMinimizer = () => new TerserPlugin({ parallel: 2 });

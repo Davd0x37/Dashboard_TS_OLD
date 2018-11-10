@@ -8,6 +8,3 @@ program
   .option("-d, --dev [bool]", "Use dev mode", false)
   .action(bundler)
   .parse(process.argv);
-
-export { default as interfaces } from "./Interfaces";
-export { default as modules } from "./modules";

@@ -1,50 +1,46 @@
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { IModules } from "./Interfaces";
+import { RuleSetRule } from "webpack";
 
-const modules: IModules = {
-  graphql: () => ({
-    test: /\.(gql|graphql)$/,
-    exclude: /node_modules/,
-    use: "raw-loader"
-  }),
+export const GraphqlModule = (): RuleSetRule => ({
+  test: /\.(gql|graphql)$/,
+  exclude: /node_modules/,
+  use: "raw-loader"
+});
 
-  html: ({ minimize = true }: { minimize?: boolean } = {}) => ({
-    test: /\.html$/,
-    use: [{ loader: "html-loader", options: { minimize } }]
-  }),
+export const HtmlModule = ({ minimize = true }: { minimize?: boolean } = {}): RuleSetRule => ({
+  test: /\.html$/,
+  use: [{ loader: "html-loader", options: { minimize } }]
+});
 
-  typescript: () => ({
-    test: /\.tsx?$/,
-    exclude: /node_modules/,
-    loader: "happypack/loader?id=ts"
-  }),
+export const TypescriptModule = (): RuleSetRule => ({
+  test: /\.tsx?$/,
+  exclude: /node_modules/,
+  loader: "happypack/loader?id=ts"
+});
 
-  javascript: () => ({
-    type: "javascript/auto",
-    test: /\.mjs?$/,
-    use: []
-  }),
+export const JavascriptModule = (): RuleSetRule => ({
+  type: "javascript/auto",
+  test: /\.mjs?$/,
+  use: []
+});
 
-  scss: () => ({
-    test: /\.scss$/,
-    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
-  }),
+export const ScssModule = (): RuleSetRule => ({
+  test: /\.scss$/,
+  use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+});
 
-  assets: ({ output = "./img/[name].[ext]" }: { output?: string } = {}) => ({
-    test: /\.(png|svg|jpg|gif|webp)$/,
-    use: [
-      {
-        loader: "url-loader",
-        options: {
-          name: output,
-          limit: 10000
-        }
-      },
-      {
-        loader: "img-loader"
+export const AssetsModule = ({ output = "./img/[name].[ext]" }: { output?: string } = {}): RuleSetRule => ({
+  test: /\.(png|svg|jpg|gif|webp)$/,
+  use: [
+    {
+      loader: "url-loader",
+      options: {
+        name: output,
+        limit: 10000
       }
-    ]
-  })
-};
-
-export default modules;
+    },
+    {
+      loader: "img-loader"
+    }
+  ]
+});

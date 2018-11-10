@@ -1,21 +1,25 @@
-import modules from "./modules";
-import plugins from "./plugins";
 import webpackConfig from "./webpack.config";
-import resolvers from "./settings";
+import { fileExistsSync } from "tsconfig-paths/lib/filesystem";
+import { resolve } from "path";
+import { IWebpackConfigFile } from "./Interfaces";
 
-export default async () => {
-  const mode = "development";
-  const target = "web";
+const data = {
+  configFile: "triton.config.js"
+};
+
+const configFile = async (config: string = data.configFile): Promise<IWebpackConfigFile> => {
+  const path = resolve(process.cwd(), config);
+  if (fileExistsSync(path)) {
+    return await import(path);
+  }
+  return {
+    output: {}
+  };
+};
+
+export default async (env: any) => {
   const config = webpackConfig({
-    mode,
-    context: process.cwd(),
-    target,
-    output: {},
-    module: {
-      rules: [modules.graphql(), modules.html({})]
-    },
-    plugins: [plugins.ForkTS()],
-    resolve: resolvers.resolve({})
+    output: {}
   });
   console.log(config);
 };
