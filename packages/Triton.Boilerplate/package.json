@@ -15,7 +15,7 @@
     "fix:prettier": "prettier \"app/**/*.ts\" --write",
     "test": "jest",
     "test:watch": "jest --watch",
-    "bund": "bundler -c template/triton.config.js"
+    "bund": "bundler"
   },
   "engines": {
     "node": ">=10.13.0"

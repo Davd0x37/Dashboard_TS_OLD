@@ -3,17 +3,20 @@ import { AssetsModule, HtmlModule, JavascriptModule, ScssModule, TypescriptModul
 import { CssExtract, ForkTS, HappyPack, HardSource, HtmlExtensions, HtmlPlugin } from "./plugins";
 import { optimizationMinimizer, resolve } from "./settings";
 import { Configuration } from "webpack";
+import { resolve as res } from "path";
+
+const r = (path: string) => res(process.cwd(), path);
 
 /**
  * Default settings for browser
  */
 export default (config: IWebpackConfigFile): Configuration => ({
-  entry: config.entry || "app/App.ts",
+  entry: config.entry || r("app/App.ts"),
   mode: config.mode || "production",
   context: config.context || process.cwd(),
   target: config.target || "web",
   output: {
-    path: config.output.path || "build/app",
+    path: config.output.path || r("build/app"),
     filename: config.output.filename || "[name].js"
   },
   resolve: config.resolve || resolve(),
@@ -31,5 +34,8 @@ export default (config: IWebpackConfigFile): Configuration => ({
   optimization: config.optimization || {
     minimizer: config.mode === "production" ? [optimizationMinimizer()] : []
   },
-  externals: config.externals
+  externals: config.externals,
+  resolveLoader: {
+    modules: [res(__dirname, "../", "node_modules")]
+  }
 });
