@@ -1,4 +1,4 @@
-import { Plugin, RuleSetRule, Resolve } from "webpack";
+import { Plugin, Resolve, RuleSetRule } from "webpack";
 
 export interface IWebpackConfigFile {
   mode?: "development" | "production";
@@ -22,5 +22,5 @@ export interface IWebpackConfigFile {
     port?: number;
     compress?: boolean;
     hot?: boolean;
-  }
+  };
 }

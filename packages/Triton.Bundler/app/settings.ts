@@ -1,12 +1,12 @@
-import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import TerserPlugin from "terser-webpack-plugin";
+import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 export const resolve = ({
   configFile = "tsconfig.json",
   extensions = [".ts", ".tsx", ".js"]
 }: {
-  configFile?: string;
-  extensions?: string[];
+  readonly configFile?: string;
+  readonly extensions?: string[];
 } = {}) => ({
   extensions,
   plugins: [new TsconfigPathsPlugin({ configFile })]

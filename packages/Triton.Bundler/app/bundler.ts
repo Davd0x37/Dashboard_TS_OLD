@@ -10,57 +10,37 @@ const data = {
   configFile: "triton.config.js"
 };
 
-const configFile = async (config: string = data.configFile): Promise<{ default: IWebpackConfigFile }> => {
+const configFile = async (
+  config: string = data.configFile
+): Promise<{ readonly default: IWebpackConfigFile }> => {
   const path = resolve(process.cwd(), config);
-  if (fileExistsSync(path)) {
-    const file = await import(path);
-    return file;
-  }
-  return {
-    default: { output: {} }
-  };
+  return fileExistsSync(path) ? import(path) : { default: { output: {} } };
+};
+
+const logHandler = (type: Readonly<string>) => (_: Error, stats: Stats) => {
+  const path = resolve(
+    __dirname,
+    "../",
+    `logs/${type}-${new Date()
+      .toISOString()
+      .replace(":", "-")
+      .replace(":", "-")}.txt`
+  );
+  return writeFileSync(path, stats, { encoding: "utf-8" });
 };
 
 export default async (env: any) => {
   const file = await configFile(env.config);
-  let config = webpackConfig(file.default);
-  if (env.target === "node") {
-    config = WebpackConfigNode({ output: {} });
-  }
-  if (env.dev) {
-    config.mode = "development";
-  }
-
-  const compiler = await webpack(config);
-  if (env.dev) {
-    await compiler.watch({}, (_: Error, stats: Stats) => {
-      writeFileSync(
-        resolve(
-          __dirname,
-          "../",
-          `logs/watch-${new Date()
-            .toISOString()
-            .replace(":", "-")
-            .replace(":", "-")}.txt`
-        ),
-        stats,
-        { encoding: "utf-8" }
-      );
-    })
-  } else {
-    await compiler.run((_: Error, stats: Stats) => {
-      writeFileSync(
-        resolve(
-          __dirname,
-          "../",
-          `logs/run-${new Date()
-            .toISOString()
-            .replace(":", "-")
-            .replace(":", "-")}.txt`
-        ),
-        stats,
-        { encoding: "utf-8" }
-      );
-    });
-  }
+  const mergedConfig: IWebpackConfigFile = {
+    ...file.default,
+    ...(env.dev && { mode: "development" })
+  };
+  const config =
+    env.target === "node"
+      ? webpackConfig(mergedConfig)
+      : WebpackConfigNode({ output: {} });
+  const compiler = webpack(config);
+  return env.dev
+    ? compiler.watch({}, logHandler("watch"))
+    : compiler.run(logHandler("run"));
 };

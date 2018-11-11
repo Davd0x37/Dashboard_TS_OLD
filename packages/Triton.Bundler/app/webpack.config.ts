@@ -1,8 +1,21 @@
 import { resolve as res } from "path";
 import { Configuration } from "webpack";
 import { IWebpackConfigFile } from "./Interfaces";
-import { AssetsModule, HtmlModule, JavascriptModule, ScssModule, TypescriptModule } from "./modules";
-import { CssExtract, ForkTS, HappyPack, HardSource, HtmlExtensions, HtmlPlugin } from "./plugins";
+import {
+  AssetsModule,
+  HtmlModule,
+  JavascriptModule,
+  ScssModule,
+  TypescriptModule
+} from "./modules";
+import {
+  CssExtract,
+  ForkTS,
+  HappyPack,
+  HardSource,
+  HtmlExtensions,
+  HtmlPlugin
+} from "./plugins";
 import { optimizationMinimizer, resolve } from "./settings";
 
 const r = (path: string) => res(process.cwd(), path);
@@ -21,7 +34,13 @@ export default (config: IWebpackConfigFile): Configuration => ({
   },
   resolve: config.resolve || resolve(),
   module: config.module || {
-    rules: [TypescriptModule(), JavascriptModule(), ScssModule(), AssetsModule(), HtmlModule()]
+    rules: [
+      TypescriptModule(),
+      JavascriptModule(),
+      ScssModule(),
+      AssetsModule(),
+      HtmlModule()
+    ]
   },
   plugins: config.plugins || [
     HappyPack(),

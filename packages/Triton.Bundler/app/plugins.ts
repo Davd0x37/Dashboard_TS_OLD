@@ -5,15 +5,15 @@ import Hard from "hard-source-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ScriptExtHtmlWebpackPlugin from "script-ext-html-webpack-plugin";
-import { DllPlugin as Dll, Plugin, HotModuleReplacementPlugin } from "webpack";
+import { DllPlugin as Dll, HotModuleReplacementPlugin, Plugin } from "webpack";
 
 // Extract CSS
 export const CssExtract = ({
   filename = "[name].css",
   chunkFilename = "[id].css"
 }: {
-  filename?: string;
-  chunkFilename?: string;
+  readonly filename?: string;
+  readonly chunkFilename?: string;
 } = {}): Plugin =>
   new MiniCssExtractPlugin({
     filename,
@@ -22,14 +22,14 @@ export const CssExtract = ({
 
 // Generate HTML file and insert assets
 export const HtmlPlugin = ({
-  template,
-  filename,
+  template = "public/index.html",
+  filename = "index.html",
   minify
 }: {
-  template: string;
-  filename: string;
-  minify?: {};
-}): Plugin =>
+  readonly template?: string;
+  readonly filename?: string;
+  readonly minify?: {};
+} = {}): Plugin =>
   new HtmlWebpackPlugin({
     template,
     filename,
@@ -48,14 +48,20 @@ export const HtmlExtensions = (): Plugin =>
   });
 
 // Copy file from dir to dir
-export const CopyPlugin = (copy: { from: string; to: string }[]): Plugin => new CopyWebpackPlugin(copy);
+export const CopyPlugin = (
+  copy: ReadonlyArray<{ readonly from: string; readonly to: string }>
+): Plugin => new CopyWebpackPlugin(copy);
 
 // Hot Module Replacement
-export const HMR = ({ multiStep = true }: { multiStep?: boolean } = {}): Plugin =>
+export const HMR = ({
+  multiStep = true
+}: { readonly multiStep?: boolean } = {}): Plugin =>
   new HotModuleReplacementPlugin({ multiStep });
 
 // Speed improvements
-export const HappyPack = ({ threads = 2 }: { threads?: number } = {}): Plugin =>
+export const HappyPack = ({
+  threads = 2
+}: { readonly threads?: number } = {}): Plugin =>
   new Happy({
     id: "ts",
     threads,
@@ -77,8 +83,8 @@ export const DllPlugin = ({
   path = "build/[name]-manifest.json",
   name = "[name]_[hash]"
 }: {
-  path?: string;
-  name?: string;
+  readonly path?: string;
+  readonly name?: string;
 }): Plugin =>
   new Dll({
     path,

@@ -7,7 +7,9 @@ export const GraphqlModule = (): RuleSetRule => ({
   use: "raw-loader"
 });
 
-export const HtmlModule = ({ minimize = true }: { minimize?: boolean } = {}): RuleSetRule => ({
+export const HtmlModule = ({
+  minimize = true
+}: { readonly minimize?: boolean } = {}): RuleSetRule => ({
   test: /\.html$/,
   use: [{ loader: "html-loader", options: { minimize } }]
 });
@@ -29,7 +31,9 @@ export const ScssModule = (): RuleSetRule => ({
   use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
 });
 
-export const AssetsModule = ({ output = "./img/[name].[ext]" }: { output?: string } = {}): RuleSetRule => ({
+export const AssetsModule = ({
+  output = "./img/[name].[ext]"
+}: { readonly output?: string } = {}): RuleSetRule => ({
   test: /\.(png|svg|jpg|gif|webp)$/,
   use: [
     {
