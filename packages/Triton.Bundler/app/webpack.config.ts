@@ -51,7 +51,7 @@ export default (config: IWebpackConfigFile): Configuration => ({
     HtmlExtensions()
   ],
   optimization: config.optimization || {
-    minimizer: config.mode === "production" ? [optimizationMinimizer()] : []
+    minimizer: config.mode === "development" ? [] : [optimizationMinimizer()]
   },
   externals: config.externals,
   resolveLoader: {
@@ -62,5 +62,10 @@ export default (config: IWebpackConfigFile): Configuration => ({
     ...(config.target === "web" ? { hot: true } : { hotOnly: true }),
     port: 9000,
     compress: true
+  },
+  watchOptions: { poll: false },
+  stats: "minimal",
+  node: {
+    __dirname: false
   }
 });

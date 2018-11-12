@@ -1,39 +1,39 @@
 {
-  "extends": ["tslint:latest", "tslint-config-prettier", "tslint-immutable"],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-immutable"],
   "rules": {
-    "semicolon": false,
-    "object-literal-sort-keys": false,
-    "prefer-object-spread": true,
-    "object-literal-shorthand": true,
-    "no-var-requires": false,
-    "no-console": false,
-    "no-implicit-dependencies": false,
-    "max-classes-per-file": false,
-    "no-shadowed-variable": false,
-    "no-namespace": false,
     "interface-name": false,
     "interface-over-type-literal": false,
+    "max-classes-per-file": false,
+    "no-console": false,
+    "no-implicit-dependencies": false,
+    "no-namespace": false,
+    "no-shadowed-variable": false,
     "no-submodule-imports": false,
+    "no-var-requires": false,
+    "object-literal-shorthand": true,
+    "object-literal-sort-keys": false,
+    "prefer-object-spread": true,
+    "semicolon": false,
 
     // Recommended built-in rules
-    "no-var-keyword": true,
     "no-parameter-reassignment": true,
+    "no-var-keyword": true,
     "typedef": [true, "call-signature"],
 
     // Immutability rules
-    "readonly-keyword": true,
-    "readonly-array": true,
-    "no-let": true,
-    "no-object-mutation": true,
     "no-delete": true,
+    "no-let": true,
     "no-method-signature": true,
+    "no-object-mutation": true,
+    "readonly-array": true,
+    "readonly-keyword": true,
 
     // Functional style rules
-    // "no-this": true,
-    // "no-class": true,
+    "no-this": true,
+    "no-class": true,
     "no-mixed-interface": true,
-    "no-expression-statement": [true, { "ignore-prefix": ["console.", "process.exit"] }],
-    // "no-if-statement": true
+    "no-expression-statement": [true, { "ignore-prefix": ["console.", "process.exit", "it"] }],
+    "no-if-statement": true
   },
   "linterOptions": {
     "exclude": ["app/**/*.json", "@types/**/*.*"]

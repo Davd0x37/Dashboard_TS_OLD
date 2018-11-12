@@ -1,11 +1,4 @@
 {
-  "name": <% package.name %>,
-  "version": <% package.version %>,
-  "description": <% package.description %>,
-  "repository": <% package.repository %>,
-  "author": <% package.author %>,
-  "license": <% package.license %>,
-  "private": <% package.private %>,
   "scripts": {
     "info": "npm-scripts-info",
     "dev": "bundler --open",

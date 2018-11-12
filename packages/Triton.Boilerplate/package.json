@@ -6,8 +6,12 @@
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
+  "bin": {
+    "boilerplate": "build/app/App.js"
+  },
   "scripts": {
-    "build": "bundler -t node",
+    "build": "tsc",
+    "dev": "tsc --watch",
     "doc": "run-s doc:html && opn build/docs/index.html",
     "doc:html": "typedoc app/ --target ES6 --mode file --out build/docs",
     "fix": "run-s fix:*",
@@ -21,20 +25,26 @@
   },
   "devDependencies": {
     "@types/jest": "23.3.9",
+    "@types/jsonfile": "4.0.1",
     "@types/lodash": "4.14.117",
+    "@types/ncp": "2.0.1",
     "@types/node": "10.12.2",
+    "@types/prompts": "1.1.1",
     "jest": "23.6.0",
     "npm-run-all": "4.1.3",
     "opn-cli": "3.1.0",
     "prettier": "1.14.3",
     "ts-jest": "23.10.4",
     "ts-node": "7.0.1",
-    "tslint": "5.11.0",
     "tslint-config-prettier": "1.15.0",
+    "tslint-immutable": "4.9.1",
+    "tslint": "5.11.0",
     "typescript": "3.1.6"
   },
   "dependencies": {
-    "@triton/bundler": "^1.1.0",
-    "commander": "2.19.0"
+    "commander": "2.19.0",
+    "jsonfile": "5.0.0",
+    "ncp": "2.0.0",
+    "prompts": "1.2.0"
   }
 }
