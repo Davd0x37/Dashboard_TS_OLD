@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017", "dom"],
     "outDir": "build/app",
-    "rootDir": "app",
     "declaration": true,
     "pretty": true,
     "removeComments": true,
@@ -16,7 +15,6 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "preserveSymlinks": true,
     "traceResolution": false,
 
@@ -40,6 +38,6 @@
       "#/*": ["app/*"]
     }
   },
-  "exclude": ["node_modules", "app/template/**/*.*"],
+  "exclude": ["node_modules"],
   "include": ["app/**/*.ts", "app/**/*.json"]
 }

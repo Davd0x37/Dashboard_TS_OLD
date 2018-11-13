@@ -5,11 +5,11 @@
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
   "license": "MIT",
+  "private": true,
   "main": "build/index.js",
   "bin": {
     "bundler": "build/index.js"
   },
-  "private": true,
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
