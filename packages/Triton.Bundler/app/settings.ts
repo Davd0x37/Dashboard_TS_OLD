@@ -13,3 +13,4 @@ export const resolve = ({
 });
 
 export const optimizationMinimizer = () => new TerserPlugin({ parallel: 2 });
+

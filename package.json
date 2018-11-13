@@ -6,31 +6,7 @@
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
-  "scripts": {
-    "api:serve": "cd ./packages/Api.Node && yarn run dev",
-    "api:build": "cd ./packages/Api.Node && yarn run prod",
-    "api:test": "cd ./packages/Api.Node && yarn run test",
-    "api:test-watch": "cd ./packages/Api.Node && yarn run test:watch",
-    "api:deploy": "cd ./packages/Api.Node && yarn run serve",
-    "client:serve": "cd ./packages/Client.Vue && yarn run serve",
-    "client:build": "cd ./packages/Client.Vue && yarn run build",
-    "client:lint": "cd ./packages/Client.Vue && yarn run lint",
-    "client:test:unit": "cd ./packages/Client.Vue && yarn run test:unit",
-    "client:test:e2e": "cd ./packages/Client.Vue && yarn run test:e2e",
-    "client_vanilla:serve": "cd ./packages/Client.Vanilla && yarn run dev",
-    "client_vanilla:build": "cd ./packages/Client.Vanilla && yarn run prod",
-    "client_vanilla:serve:build": "cd ./packages/Client.Vanilla && yarn run dev:build",
-    "client_vanilla:build:build": "cd ./packages/Client.Vanilla && yarn run prod:build",
-    "client_vanilla:test": "cd ./packages/Client.Vanilla && yarn run test",
-    "client_vanilla:test-watch": "cd ./packages/Client.Vanilla && yarn run test:watch",
-    "deploy:dev": "docker-compose -f docker-dev.yml up --build",
-    "deploy:prod": "docker-compose -f docker-prod.yml up --build"
-  },
   "devDependencies": {
-    "lerna": "^3.4.3",
-    "typescript": "^3.1.6"
-  },
-  "dependencies": {
-    "lodash": "^4.17.11"
+    "lerna": "^3.4.3"
   }
 }

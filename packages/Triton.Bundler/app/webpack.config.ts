@@ -30,7 +30,8 @@ export default (config: IWebpackConfigFile): Configuration => ({
   target: config.target || "web",
   output: {
     path: config.output.path || r("build/app"),
-    filename: config.output.filename || "[name].js"
+    filename: config.output.filename || "[name].js",
+    pathinfo: false
   },
   resolve: config.resolve || resolve(),
   module: config.module || {

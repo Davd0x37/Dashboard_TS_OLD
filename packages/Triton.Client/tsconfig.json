@@ -28,7 +28,8 @@
     "traceResolution": false,
     "baseUrl": ".",
     "paths": {
-      "#/*": ["app/*"]
+      "#/*": ["app/*"],
+      "#SH/*": ["../Triton.Shared/*"]
     }
   },
   "include": ["app/**/*.ts", "app/**/*.json"]

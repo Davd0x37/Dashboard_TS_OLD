@@ -10,8 +10,8 @@
     "boilerplate": "build/app/App.js"
   },
   "scripts": {
-    "build": "tsc",
     "dev": "tsc --watch",
+    "build": "tsc",
     "doc": "run-s doc:html && opn build/docs/index.html",
     "doc:html": "typedoc app/ --target ES6 --mode file --out build/docs",
     "fix": "run-s fix:*",
@@ -39,6 +39,7 @@
     "tslint-config-prettier": "1.15.0",
     "tslint-immutable": "4.9.1",
     "tslint": "5.11.0",
+    "typedoc": "0.13.0",
     "typescript": "3.1.6"
   },
   "dependencies": {

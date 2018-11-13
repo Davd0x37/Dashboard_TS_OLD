@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs";
+import { existsSync } from "fs";
 import { resolve } from "path";
-import { fileExistsSync } from "tsconfig-paths/lib/filesystem";
 import webpack, { Compiler, Stats } from "webpack";
 import { IWebpackConfigFile } from "./Interfaces";
 import webpackConfig from "./webpack.config";
@@ -10,7 +10,7 @@ const importConfigFile = async (
   config: string = "triton.config.js"
 ): Promise<{ readonly default: IWebpackConfigFile }> => {
   const path = resolve(process.cwd(), config);
-  return fileExistsSync(path) ? import(path) : { default: { output: {} } };
+  return existsSync(path) ? import(path) : { default: { output: {} } };
 };
 
 const logHandler = (type: Readonly<string>) => (_: Error, stats: Stats) => {

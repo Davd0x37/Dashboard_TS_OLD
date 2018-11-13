@@ -1,7 +1,10 @@
 {
   "packages": [
     "packages/Triton.Bundler",
-    "packages/Triton.Boilerplate"
+    "packages/Triton.Boilerplate",
+    "packages/Triton.Reactive",
+    "packages/Triton.Api",
+    "packages/Triton.Client"
   ],
   "version": "1.1.0",
   "npmClient": "yarn"

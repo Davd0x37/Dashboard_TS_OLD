@@ -5,7 +5,7 @@ import { IHandlers, Observer } from "./Observer";
 type FNSubscriber = (observer: Observer) => () => void;
 
 class Observable {
-  protected subscriber: FNSubscriber;
+  protected readonly subscriber: FNSubscriber;
 
   constructor(subscriber: FNSubscriber) {
     this.subscriber = subscriber;

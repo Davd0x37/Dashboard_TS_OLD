@@ -1,22 +1,16 @@
 
 defaultEntryPoints = ["http", "https"]
-#logLevel = "DEBUG"
 
 insecureSkipVerify = true
 
 [entryPoints]
 [entryPoints.http]
 address = ":80"
-# [entryPoints.http.whitelist]
-# sourceRange = ["185.183.104.141"]
-# useXForwardedFor = true
 [entryPoints.http.redirect]
 entryPoint = "https"
 
 [entryPoints.https]
 address = ":443"
-# [entryPoints.https.whitelist]
-# sourceRange = ["185.183.104.141"]
 useXForwardedFor = true
 [entryPoints.https.tls]
 [[entryPoints.https.tls.certificates]]
@@ -31,4 +25,3 @@ endpoint = "unix:///var/run/docker.sock"
 domain = "liquidash.pl"
 watch = true
 exposedByDefault = false
-#usebindportip = true

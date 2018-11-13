@@ -1,5 +1,5 @@
 import lang from "#/i18n";
-import Store from "#/store/Store";
+import Store from "#/store";
 import { $ } from "#/utils/DOM";
 import Observer from "#SH/Observer";
 
