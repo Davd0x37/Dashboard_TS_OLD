@@ -14,8 +14,8 @@ address = ":443"
 useXForwardedFor = true
 [entryPoints.https.tls]
 [[entryPoints.https.tls.certificates]]
-certFile = "/Dashboard/config/fullchain.pem"
-keyFile = "/Dashboard/config/privkey.pem"
+certFile = "/Dashboard/config/cert/fullchain.pem"
+keyFile = "/Dashboard/config/cert/privkey.pem"
 
 [api]
 dashboard = true

@@ -12,7 +12,7 @@ services:
   api:
     image: node:latest
     container_name: dashboard_api
-    command: node /Dashboard/packages/Api.Node/dist/GraphQLApp.js
+    command: node /Dashboard/packages/Triton.Api/build/app/App.js
     ports:
       - "4000:4000"
     depends_on:
@@ -34,7 +34,7 @@ services:
   client:
     image: nginx:stable
     container_name: dashboard_client
-    command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
+    command: nginx -c /Dashboard/config/nginx.conf -g "daemon off;"
     depends_on:
       - build
     volumes:
@@ -80,7 +80,7 @@ services:
       - "443:443"
       - "8080:8080"
     volumes:
-      - /usr/app/DashboardTS/traefik.toml:/traefik.toml
+      - /usr/app/DashboardTS/config/traefik.toml:/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
       - dashboard_app:/Dashboard
     networks:
@@ -90,7 +90,7 @@ services:
       - "traefik.docker.network=dashboard"
       # - "traefik.frontend.rule=Host:traefik.liquidash.pl"
       # - "traefik.port=8080"
-volumes: 
+volumes:
   dashboard_app:
-networks: 
+networks:
   dashboard:

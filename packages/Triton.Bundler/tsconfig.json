@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017"],
-    "outDir": "build",
+    "outDir": "build/app",
     "declaration": true,
     "pretty": true,
     "removeComments": true,
@@ -35,9 +35,10 @@
     "baseUrl": ".",
     "paths": {
       "*": ["./@types/*"],
-      "#/*": ["app/*"]
+      "#/*": ["app/*"],
+      "#SH/*": ["../Triton.Shared/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["app/**/*.ts"]
+  "include": ["app/**/*.ts", "app/**/*.json"]
 }

@@ -35,7 +35,8 @@
     "baseUrl": ".",
     "paths": {
       "*": ["./@types/*"],
-      "#/*": ["app/*"]
+      "#/*": ["app/*"],
+      "#SH/*": ["../Triton.Shared/*"]
     }
   },
   "exclude": ["node_modules"],

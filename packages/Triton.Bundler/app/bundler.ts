@@ -1,5 +1,4 @@
-import { writeFileSync } from "fs";
-import { existsSync } from "fs";
+import { existsSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import webpack, { Compiler, Stats } from "webpack";
 import { IWebpackConfigFile } from "./Interfaces";

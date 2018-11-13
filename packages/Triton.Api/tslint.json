@@ -1,5 +1,9 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-immutable"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-immutable"
+  ],
   "rules": {
     "interface-name": false,
     "interface-over-type-literal": false,
@@ -32,7 +36,10 @@
     // "no-this": true,
     // "no-class": true,
     "no-mixed-interface": true,
-    "no-expression-statement": [true, { "ignore-prefix": ["console.", "process.exit", "it"] }],
+    "no-expression-statement": [
+      true,
+      { "ignore-prefix": ["console.", "process.exit", "it"] }
+    ]
     // "no-if-statement": true
   },
   "linterOptions": {

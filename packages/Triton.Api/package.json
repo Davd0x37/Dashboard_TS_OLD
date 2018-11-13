@@ -1,7 +1,7 @@
 {
-  "name": "api.node",
+  "name": "@triton/api",
   "version": "1.1.0",
-  "description": "Dashboard written in TypeScript",
+  "description": "Triton API",
   "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
   "author": "DigitalNomad",
   "license": "MIT",
@@ -18,27 +18,30 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "engines": {
+    "node": ">=10.13.0"
+  },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.1",
     "@types/express": "^4.16.0",
     "@types/helmet": "^0.0.42",
-    "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.2",
+    "@types/jest": "23.3.9",
+    "@types/node": "10.12.2",
     "@types/request": "^2.48.0",
     "@types/rethinkdb": "^2.3.13",
     "@types/signale": "^1.2.0",
-    "jest": "^23.6.0",
+    "jest": "23.6.0",
     "nodemon": "^1.18.5",
     "npm-run-all": "4.1.3",
     "opn-cli": "3.1.0",
-    "prettier": "^1.14.3",
-    "ts-jest": "^23.10.4",
-    "ts-node": "^7.0.1",
-    "tslint-config-prettier": "^1.15.0",
+    "prettier": "1.14.3",
+    "ts-jest": "23.10.4",
+    "ts-node": "7.0.1",
+    "tslint-config-prettier": "1.15.0",
     "tslint-immutable": "4.9.1",
-    "tslint": "^5.11.0",
+    "tslint": "5.11.0",
     "typedoc": "0.13.0",
-    "typescript": "^3.1.6",
+    "typescript": "3.1.6",
     "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
@@ -55,7 +58,7 @@
     "signale": "^1.3.0"
   },
   "_moduleAliases": {
-    "#"      : ".",
-    "#SH"      : "../Triton.Shared"
+    "#": ".",
+    "#SH": "../Triton.Shared"
   }
 }
