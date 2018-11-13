@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
-    "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017"],
+    "module": "esnext",
+    "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017", "dom"],
     "outDir": "build",
     "declaration": true,
     "pretty": true,
@@ -39,5 +39,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["app/**/*.ts"]
+  "include": ["app/**/*.ts", "app/**/*.json"]
 }

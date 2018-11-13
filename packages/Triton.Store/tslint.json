@@ -29,11 +29,11 @@
     "readonly-keyword": true,
 
     // Functional style rules
-    // "no-this": true,
-    // "no-class": true,
+    "no-this": true,
+    "no-class": true,
     "no-mixed-interface": true,
     "no-expression-statement": [true, { "ignore-prefix": ["console.", "process.exit", "it"] }],
-    // "no-if-statement": true
+    "no-if-statement": true
   },
   "linterOptions": {
     "exclude": ["app/**/*.json", "@types/**/*.*"]

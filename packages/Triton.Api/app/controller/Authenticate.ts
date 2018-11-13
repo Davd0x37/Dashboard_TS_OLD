@@ -1,4 +1,4 @@
-import { GetUser, UpdateTokens } from '#/components/user/Manager';
+import { GetUser, UpdateTokens } from '../components/user/Manager';
 import {
   IAccessTokenParams,
   IAuthenticationParams,

@@ -1,33 +1,46 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "esnext",
     "module": "commonjs",
-    "lib": [
-      "es2018","esnext","es2017","es2016"
-    ],
+    "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017", "dom"],
+    "outDir": "build/app",
+    // "rootDir": "app",
+    "declaration": true,
+    "pretty": true,
+    "removeComments": true,
+    "sourceMap": false,
+
     "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "preserveSymlinks": true,
+    "traceResolution": false,
+
+    "alwaysStrict": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "sourceMap": false,
-    "strict": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
     "suppressImplicitAnyIndexErrors": true,
+
     "baseUrl": ".",
     "paths": {
+      "*": ["./@types/*"],
       "#/*": ["app/*"],
-      "#SH/*": ["../Shared/*"]
+      "#SH/*": ["../Triton.Shared/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"],
+  "include": ["app/**/*.ts", "app/**/*.json"]
 }
