@@ -1,6 +1,3 @@
-import Actions from "./Actions"
-import Mutations from "./Mutations"
-import Store from "./Store"
-import {State} from "./State"
+import Store from "./Store";
 
-export default new Store({Actions, Mutations, State})
+export default Store

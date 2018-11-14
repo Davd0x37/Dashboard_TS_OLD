@@ -1,23 +1,18 @@
-type IOFn = (...args: any[]) => any;
+type IOFn = (...args: any) => any;
 
-class Observer {
-  public subscribers: any = {};
+const subscribers: Map<any, any> = new Map();
 
-  public subscribe(event: string, ...fn: IOFn[]) {
-    if (this.subscribers[event] === undefined) {
-      this.subscribers[event] = [];
-    }
-    this.subscribers[event].push(...fn);
-  }
+const subscribe = (event: string, fn: ReadonlyArray<IOFn>) =>
+  subscribers[event] === undefined
+    ? subscribers.set(event, [])
+    : subscribers.set(event, [...subscribers.get(event), ...fn]);
 
-  public notify(event: string, payload: {}) {
-    if (this.subscribers[event] === undefined) {
-      return false;
-    }
+const notify = (event: string, payload: {}) =>
+  subscribers[event] === undefined
+    ? false
+    : subscribers.get(event).forEach((fn: IOFn) => fn(payload));
 
-    this.subscribers[event].forEach((fn: IOFn) => fn(payload));
-    return true;
-  }
-}
-
-export default new Observer()
+export default {
+  subscribe,
+  notify
+};

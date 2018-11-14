@@ -1,13 +1,9 @@
-import { fromEvent } from "#SH/Observable/Observable";
+import { fromEvent } from "./Observable/Observable";
 
 // @TODO: Return unsubscriber
-export const DataBinding = (h: any) => {
-  const elem = document.querySelectorAll("[data-v-model]");
-  elem.forEach((el: any) => {
+export const DataBinding = (h: any) =>
+  document.querySelectorAll("[data-v-model]").forEach((el: any) =>
     fromEvent(el, "keyup").subscribe({
-      next: (e: any) => {
-        h({ [el.dataset.vModel]: e.currentTarget.value });
-      }
-    });
-  });
-};
+      next: (e: any) => h({ [el.dataset.vModel]: e.currentTarget.value })
+    })
+  );

@@ -1,3 +1,4 @@
+// tslint:disable
 // @ts-ignore
 import { isArray, isObject } from "lodash";
 import { IHandlers, Observer } from "./Observer";

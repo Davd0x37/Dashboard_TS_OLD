@@ -1,25 +1,32 @@
 import "../public/scss/index.scss";
 
-import { DB } from "#/db";
-import App from "#/lib/App";
-import Store from "#/store/Store";
+// import { DB } from "#/db";
+// import App from "#/lib/App";
+// import Store from "#/store";
 
-(async () => {
-  const db = await DB.load();
-  App.init(db);
-  App.loadStore();
-  App.run();
+// (async () => {
+//   const db = await DB.load();
+//   App.init(db);
+//   App.loadStore();
+//   App.run();
 
-  Store.events.subscribe("stateChange", async () => {
-    const user = await App.db.dashboard.findOne().exec();
-    if (user !== null) {
-      user.update({
-        $set: {
-          ...Store.getter
-        }
-      });
-    } else {
-      App.db.dashboard.insert(Store.getter);
-    }
-  });
-})();
+//   Store.events.subscribe("stateChange", async () => {
+//     const user = await App.db.dashboard.findOne().exec();
+//     if (user !== null) {
+//       user.update({
+//         $set: {
+//           ...Store.getter
+//         }
+//       });
+//     } else {
+//       App.db.dashboard.insert(Store.getter);
+//     }
+//   });
+// })();
+
+import { render } from "#/components/Actions";
+import { $ } from "./utils/DOM";
+
+console.log(render());
+
+console.log($(`["@click"]`))

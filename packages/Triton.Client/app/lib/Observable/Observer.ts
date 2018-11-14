@@ -1,3 +1,4 @@
+// tslint:disable
 export interface IHandlers {
   next: (value?: any) => any;
   error?: (err: any) => void;

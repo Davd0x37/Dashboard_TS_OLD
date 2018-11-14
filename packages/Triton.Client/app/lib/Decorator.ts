@@ -20,8 +20,5 @@ import "reflect-metadata";
 //   };
 // };
 
-export const Route = (path: string) => {
-  return (target: any, key: string) => {
-    Reflect.defineMetadata(`$Route:${path}`, target[key], target);
-  };
-};
+export const Route = (path: string) => (target: any, key: string) =>
+  Reflect.defineMetadata(`$Route:${path}`, target[key], target);

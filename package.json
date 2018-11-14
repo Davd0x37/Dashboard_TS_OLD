@@ -6,7 +6,7 @@
   "author": "DigitalNomad",
   "license": "MIT",
   "private": true,
-  "devDependencies": {
+  "dependencies": {
     "lerna": "^3.4.3"
   }
 }

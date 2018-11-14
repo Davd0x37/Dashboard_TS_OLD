@@ -1,31 +1,25 @@
-import Triton from "#/lib/Triton";
+import events from "#/lib/Observer";
+import store from "#/store";
 
-class Header extends Triton {
-  private AppName: string = "Dashboard";
+const AppName: string = "Dashboard";
 
-  constructor() {
-    super();
-  }
-
-  public render() {
-    const username = this.store.getter.User.Login;
-    return /*html*/ `
+export const render = (): string => {
+  return /*html*/ `
     <header class="header">
       <div class="logo">
-        <a href="#">${this.AppName}</a>
+        <a href="#">${AppName}</a>
       </div>
       <div class="user">
-        <p class="user__name">${username}</p>
+        <p class="user__name">${store.getter().User.Login}</p>
         <img src="${
-          this.store.getter.User.Avatar
+          store.getter().User.Avatar
         }" alt="Avatar" class="user__avatar">
       </div>
     </header>`;
-  }
+};
 
-  public mounted() {
-    //
-  }
-}
+export const mounted = () => {
+  // FILL
+};
 
-export default new Header();
+export const update = () => events.subscribe(`stateChange`, [() => render()]);

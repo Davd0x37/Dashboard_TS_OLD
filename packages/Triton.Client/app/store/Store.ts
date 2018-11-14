@@ -1,75 +1,48 @@
-import {Observer} from "@triton/reactive";
+import Observer from "#/lib/Observer";
+import { FnType } from "#SH/Interfaces";
+import Actions from "./Actions";
+import Mutations from "./Mutations";
+import { State } from "./State";
+// tslint:disable
 
-export default class Store {
-  public events: typeof Observer = Observer;
-  private state: any;
-  private actions: any;
-  private mutations: any;
-  private status: string = "unused";
+/**
+ * UTILS
+ */
+const isFn = (section: FnType, fnName: string): boolean =>
+  typeof section[fnName] === "function";
 
-  public get getter() {
-    return this.state.store;
+/**
+ * Store Data
+ */
+const events = Observer;
+
+const state = new Proxy(State || {}, {
+  get: (target, p, receiver) => {
+    return Reflect.get(target, p, receiver);
+  },
+  set: (target: any, key: any, value: any, receiver: any) => {
+    const notify = events.notify(`stateChange`, state.store);
+    return Reflect.set(target, key, value, receiver);
   }
+});
 
-  constructor({ Actions, Mutations, State }: {Actions: object, Mutations: object, State: object}) {
-    this.actions = Actions;
-    this.mutations = Mutations;
+/**
+ * Store functions
+ */
+const dispatch = (type: string, payload: any): boolean =>
+  isFn(Actions, type) ? Actions[type]({ commit }, payload) : false;
 
-    this.state = new Proxy(State || {}, {
-      get: (target, p, receiver) => {
-        return Reflect.get(target, p, receiver);
-      },
-      set: (target: any, key: any, value: any, receiver: any) => {
-        if (this.status !== "mutations") {
-          console.warn(`Use mutation to set ${key}`);
-        }
-        this.events.notify(`stateChange`, this.state.store);
-        return Reflect.set(target, key, value, receiver);
-      }
-    });
-    if (this.actions["restoreStorage"]) {
-      this.dispatch("restoreStorage", "");
-    }
-  }
+const commit = (type: string, payload: any): boolean =>
+  isFn(Mutations, type)
+    ? (state.store = {
+        ...state.store,
+        ...Mutations[type](state.store, payload)
+      })
+    : false;
 
-  /**
-   * Execute selected action
-   *
-   * @param {string} type
-   * @param {*} payload
-   * @returns {Promise<boolean>}
-   * @memberof Store
-   */
-  public async dispatch(type: string, payload: any): Promise<boolean> {
-    if (this.isFn("actions", type)) {
-      this.status = "actions";
-      await this.actions[type]({ commit: this.commit }, payload);
-      return true;
-    }
-    return false;
-  }
+const getter = () => state.store;
 
-  // Use arrow function or .bind in dispatch
-  private commit = async (type: string, payload: any): Promise<boolean> => {
-    if (this.isFn("mutations", type)) {
-      this.status = "mutations";
-      const newState = await this.mutations[type](this.state.store, payload);
-      this.state.store = { ...this.state.store, ...newState };
-      return true;
-    }
-    return false;
-  };
-
-  /**
-   * Check if action or mutation is function
-   *
-   * @private
-   * @param {("actions" | "mutations")} section
-   * @param {string} fnName
-   * @returns {boolean}
-   * @memberof Store
-   */
-  private isFn(section: "actions" | "mutations", fnName: string): boolean {
-    return typeof this[section][fnName] === "function";
-  }
-}
+export default {
+  dispatch,
+  getter
+};

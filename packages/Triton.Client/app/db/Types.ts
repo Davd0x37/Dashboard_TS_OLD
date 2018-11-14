@@ -3,12 +3,7 @@ import { RxCollection, RxDatabase, RxDocument } from "rxdb";
 
 // User document methods
 export type IUserDocMethods = {
-  UpdateId: (data: IUserDocType["id"]) => boolean;
-  UpdateUser: (data: IUserDocType["User"]) => boolean;
-  UpdateSpotify: (data: IUserDocType["Spotify"]) => boolean;
-  UpdateDigitalOcean: (data: IUserDocType["DigitalOcean"]) => boolean;
-  UpdatePaypal: (data: IUserDocType["Paypal"]) => boolean;
-  Test: (text: string) => void;
+  readonly UpdateUserData: (data: IUserDocType) => boolean;
 };
 
 // User document with fields and methods
@@ -19,5 +14,5 @@ export type IUserCollection = RxCollection<IUserDocType, IUserDocMethods>;
 export type IDashboardDatabase = RxDatabase<IDashboardDatabaseCollections>;
 // Dashboard collections
 export type IDashboardDatabaseCollections = {
-  dashboard: IUserCollection;
+  readonly dashboard: IUserCollection;
 };

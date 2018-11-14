@@ -2,13 +2,13 @@ import { mutation, query } from "#/lib/Api";
 import { IUserDocType } from "#SH/Interfaces";
 import gql from "graphql-tag";
 
-export const AuthenticateUser = async ({
+export const authenticateUser = async ({
   login,
   password
-}: IULogin): Promise<IUserDocType | false> => {
+}: IULogin): Promise<IUserDocType> => {
   const {
     AuthenticateUser
-  }: { AuthenticateUser: IUserDocType } = await query(gql`
+  }: { readonly AuthenticateUser: IUserDocType } = await query(gql`
   query {
     AuthenticateUser(login: "${login}", password: "${password}") {
       id
@@ -21,16 +21,16 @@ export const AuthenticateUser = async ({
     }
   }
   `);
-  return AuthenticateUser !== null ? AuthenticateUser : false;
+  return AuthenticateUser;
 };
 
-export const RegisterUser = async ({
+export const registerUser = async ({
   login,
   password,
   email,
   avatar
 }: IURegister): Promise<boolean> => {
-  const { AddUser }: { AddUser: boolean } = await mutation(gql`
+  const { AddUser }: { readonly AddUser: boolean } = await mutation(gql`
   mutation {
     AddUser(data: {
       Avatar: "${avatar}"
@@ -43,33 +43,33 @@ export const RegisterUser = async ({
   return AddUser;
 };
 
-export const UpdateUser = async ({
+export const updateUser = async ({
   id
 }: {
-  id: string;
-}): Promise<IUserDocType | false> => {
+  readonly id: string;
+}): Promise<IUserDocType> => {
   const {
     UpdateUserData
-  }: { UpdateUserData: IUserDocType } = await mutation(gql`
+  }: { readonly UpdateUserData: IUserDocType } = await mutation(gql`
   mutation {
     UpdateUserData(id: "${id}") {
       ${Services}
     }
   }
   `);
-  return UpdateUserData !== null ? UpdateUserData : false;
+  return UpdateUserData;
 };
 
-export const UpdateDigitalOceanToken = async ({
+export const updateDigitalOceanToken = async ({
   id,
   token
 }: {
-  id: string;
-  token: string;
+  readonly id: string;
+  readonly token: string;
 }): Promise<boolean> => {
   const {
     UpdateDigitalOceanToken
-  }: { UpdateDigitalOceanToken: boolean } = await mutation(gql`
+  }: { readonly UpdateDigitalOceanToken: boolean } = await mutation(gql`
   mutation {
     UpdateDigitalOceanToken(id: "${id}", token: "${token}")
   }
@@ -78,13 +78,13 @@ export const UpdateDigitalOceanToken = async ({
 };
 
 interface IULogin {
-  login: string;
-  password: string;
+  readonly login: string;
+  readonly password: string;
 }
 
 interface IURegister extends IULogin {
-  email: string;
-  avatar: string;
+  readonly email: string;
+  readonly avatar: string;
 }
 
 export const Services = `

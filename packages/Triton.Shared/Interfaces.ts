@@ -67,3 +67,9 @@ export interface IRefreshToken {
     clientSecret: string;
   };
 }
+
+export interface FnType {
+  [key: string]: (
+    ...args: any | any[] | Promise<any | any[]>
+  ) => any | any[] | Promise<any | any[]>;
+}

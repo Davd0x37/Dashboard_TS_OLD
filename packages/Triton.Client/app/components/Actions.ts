@@ -1,90 +1,89 @@
-import { UpdateDigitalOceanToken, UpdateUser } from "#/controller/UserManager";
-import Triton from "#/lib/Triton";
-import { error, success } from "#/utils/Alert";
-import { $ } from "#/utils/DOM";
-import { PaypalAuthenticate, SpotifyAuthenticate } from "#SH/Config";
-import { IUserDocType } from "#SH/Interfaces";
-import { fromEvent } from "#SH/Observable/Observable";
+import lang from "#/i18n";
+import events from "#/lib/Observer";
 
-class Actions extends Triton {
-  constructor() {
-    super();
-  }
-
-  public render(): string {
-    return /*html*/ `<article class="plate">
+export const render = (): string => {
+  return /*html*/ `<article class="plate">
     <header class="plate__brand">
       <i class="fab fa-galactic-senate fa-2x" style="color: #ff922b;"></i>
-      <h3 class="plate__title">${this.lang.Actions.plateName}</h3>
+      <h3 class="plate__title">${lang.Actions.plateName}</h3>
     </header>
     <div class="plate__container actions-plate">
       <aside class="details">
-        <button class="btn color" data-router-go="/">${this.lang.Actions.homeLink}</button>
-        <button class="btn color" data-router-go="/auth">${this.lang.Actions.authLink}</button>
-        <button class="btn color" id="refresh">${this.lang.Actions.refreshData}</button>
+        <button class="btn color" data-router-go="/">${
+          lang.Actions.homeLink
+        }</button>
+        <button class="btn color" data-router-go="/auth">${
+          lang.Actions.authLink
+        }</button>
+        <button class="btn color" id="refresh">${
+          lang.Actions.refreshData
+        }</button>
       </aside>
       <aside class="details">
-        <button class="btn color" id="spotify__authorize">${this.lang.Actions.authSpotify}</button>
-        <button class="btn color" id="paypal__authorize">${this.lang.Actions.authPaypal}</button>
+        <button class="btn color" id="spotify__authorize" @click="${doS}">${
+          lang.Actions.authSpotify
+        }</button>
+        <button class="btn color" id="paypal__authorize">${
+          lang.Actions.authPaypal
+        }</button>
       </aside>
       <aside class="details">
         <div>  
-          <p class="label__title">${this.lang.Actions.digitalOceanToken}</p>
+          <p class="label__title">${lang.Actions.digitalOceanToken}</p>
           <input type="text" id="digitalocean_api_token" class="input" placeholder="${
-            this.lang.Actions.digitalOceanToken
+            lang.Actions.digitalOceanToken
           }">
         </div>
-        <button class="btn color" id="digitalocean_add_token">${this.lang.Actions.addToken}</button>
+        <button class="btn color" id="digitalocean_add_token">${
+          lang.Actions.addToken
+        }</button>
       </aside>
     </div>
   </article>`;
-  }
+};
 
-  public mounted(): void {
-    fromEvent($(".actions-plate #spotify__authorize")!, "click").subscribe({
-      next: () => window.open(`${SpotifyAuthenticate}?id=${this.store.getter.id}`)
-    });
-    fromEvent($(".actions-plate #paypal__authorize")!, "click").subscribe({
-      next: () => window.open(`${PaypalAuthenticate}?id=${this.store.getter.id}`)
-    });
+const doS = () => alert("LELEL")
 
-    fromEvent($(".actions-plate #refresh")!, "click").subscribe({
-      next: async () => {
-        try {
-          if (this.store.getter.id.length !== 0) {
-            const res: IUserDocType | false = await UpdateUser({
-              id: this.store.getter.id
-            });
-            if (res) {
-              await this.store.dispatch("updateAllData", {
-                id: this.store.getter.id,
-                ...res
-              });
-            }
-          }
-        } catch (e) {
-          error(e);
-        }
-      }
-    });
+// export const mounted = () => {
+//   const spotify = fromEvent(
+//     $(".actions-plate #spotify__authorize")!,
+//     "click"
+//   ).subscribe({
+//     next: () => window.open(`${SpotifyAuthenticate}?id=${store.getter().id}`)
+//   });
 
-    fromEvent($(".actions-plate #digitalocean_add_token")!, "click").subscribe({
-      next: async () => {
-        if (this.store.getter.id.length !== 0) {
-          const token = ($(".actions-plate #digitalocean_api_token") as HTMLInputElement)!.value;
-          const res = await UpdateDigitalOceanToken({
-            id: this.store.getter.id,
-            token
-          });
-          if (res) {
-            success(this.lang.Messages.addTokenSuccess, () => null);
-          } else {
-            error(this.lang.Messages.addTokenError);
-          }
-        }
-      }
-    });
-  }
-}
+//   const paypal = fromEvent(
+//     $(".actions-plate #paypal__authorize")!,
+//     "click"
+//   ).subscribe({
+//     next: () => window.open(`${PaypalAuthenticate}?id=${store.getter().id}`)
+//   });
 
-export default new Actions();
+//   const refresh = fromEvent($(".actions-plate #refresh")!, "click").subscribe({
+//     next: async () => updateUserData(store.getter().id)
+//   });
+
+//   const token = fromEvent(
+//     $(".actions-plate #digitalocean_add_token")!,
+//     "click"
+//   ).subscribe({
+//     next: async () => {}})
+//   //     if (store.getter().id.length !== 0) {
+//   //       const token = ($(
+//   //         ".actions-plate #digitalocean_api_token"
+//   //       ) as HTMLInputElement)!.value;
+//   //       const res = await UpdateDigitalOceanToken({
+//   //         id: store.getter().id,
+//   //         token
+//   //       });
+//   //       if (res) {
+//   //         success(lang.Messages.addTokenSuccess, () => null);
+//   //       } else {
+//   //         error(lang.Messages.addTokenError);
+//   //       }
+//   //     }
+//   //   }
+//   // });
+// };
+
+export const update = () => events.subscribe(`stateChange`, [() => render()]);

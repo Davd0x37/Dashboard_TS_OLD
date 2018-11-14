@@ -1,14 +1,15 @@
-require('module-alias/register')
+// tslint:disable
+require("module-alias/register");
 
-import PaypalRouter from './components/Paypal/Router';
-import SpotifyRouter from './components/Spotify/Router';
-import { resolvers } from './graphql/Resolvers';
+import cookieParser from "cookie-parser";
+import { GraphQLServer } from "graphql-yoga";
+import helmet from "helmet";
+import signale from "signale";
+import PaypalRouter from "./components/Paypal/Router";
+import SpotifyRouter from "./components/Spotify/Router";
+import { resolvers } from "./graphql/Resolvers";
 // @ts-ignore
-import Schema from './graphql/Schema.gql';
-import cookieParser from 'cookie-parser';
-import { GraphQLServer } from 'graphql-yoga';
-import helmet from 'helmet';
-import signale from 'signale';
+import Schema from "./graphql/Schema.gql";
 
 try {
   const server = new GraphQLServer({
@@ -16,15 +17,14 @@ try {
     resolvers
   });
 
-  server.express.use(helmet());
-  server.express.use(cookieParser());
-
-  server.express.use("/spotify", SpotifyRouter);
-  server.express.use("/paypal", PaypalRouter);
+  const use = server.express
+    .use(helmet())
+    .use(cookieParser())
+    .use("/spotify", SpotifyRouter)
+    .use("/paypal", PaypalRouter);
 
   // const env = process.env.NODE_ENV;
-
-  server.start(
+  const start = server.start(
     // {
     //   cors: {
     //     origin: "https://liquidash.pl",
@@ -35,6 +35,5 @@ try {
     () => signale.start(`Server is running!`)
   );
 } catch (e) {
-  signale.error("GraphQLApp ------", e);
-  throw new Error(e);
+  throw signale.error("GraphQLApp ------", e);
 }

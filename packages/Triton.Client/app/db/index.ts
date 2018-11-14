@@ -12,14 +12,14 @@ const DB_PASSWORD = "un5Dzx_DxB=5rnkvpdbznd&fh$n2eqm$fCWrdedg";
 
 export const DB = {
   async load(): Promise<RxDatabase<IDashboardDatabaseCollections>> {
-    RxDB.plugin(idb);
+    const plugin = RxDB.plugin(idb);
     const db = await RxDB.create<IDashboardDatabaseCollections>({
       name: DB_NAME,
       adapter: ADAPTER,
       password: DB_PASSWORD
     });
 
-    await db.collection({
+    const collection = await db.collection({
       name: "dashboard",
       schema: UserSchema,
       methods: UserDocMethods

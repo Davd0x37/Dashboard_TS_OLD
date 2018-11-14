@@ -1,6 +1,5 @@
 {
   "packages": [
-    "packages/Triton.Bundler",
     "packages/Triton.Api",
     "packages/Triton.Client"
   ],
