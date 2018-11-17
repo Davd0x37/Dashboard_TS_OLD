@@ -1,5 +1,10 @@
+import { updateUserData } from "#/controller/Actions";
+import { updateDigitalOceanToken } from "#/controller/UserManager";
 import lang from "#/i18n";
-import events from "#/lib/Observer";
+import store from "#/store";
+import { error, success } from "#/utils/Alert";
+import { $ } from "#/utils/DOM";
+import { PaypalAuthenticate, SpotifyAuthenticate } from "#SH/Config";
 
 export const render = (): string => {
   return /*html*/ `<article class="plate">
@@ -9,21 +14,19 @@ export const render = (): string => {
     </header>
     <div class="plate__container actions-plate">
       <aside class="details">
-        <button class="btn color" data-router-go="/">${
-          lang.Actions.homeLink
-        }</button>
-        <button class="btn color" data-router-go="/auth">${
+        <button class="btn color" v-router="/">${lang.Actions.homeLink}</button>
+        <button class="btn color" v-router="/auth">${
           lang.Actions.authLink
         }</button>
-        <button class="btn color" id="refresh">${
+        <button class="btn color" id="refresh" v-click="actions.refreshData">${
           lang.Actions.refreshData
         }</button>
       </aside>
       <aside class="details">
-        <button class="btn color" id="spotify__authorize" @click="${doS}">${
+        <button class="btn color" id="spotify__authorize" v-click="actions.authSpotify">${
           lang.Actions.authSpotify
         }</button>
-        <button class="btn color" id="paypal__authorize">${
+        <button class="btn color" id="paypal__authorize" v-click="actions.authPaypal">${
           lang.Actions.authPaypal
         }</button>
       </aside>
@@ -34,7 +37,7 @@ export const render = (): string => {
             lang.Actions.digitalOceanToken
           }">
         </div>
-        <button class="btn color" id="digitalocean_add_token">${
+        <button class="btn color" id="digitalocean_add_token" v-click="actions.digitalOceanToken(#digitalocean_api_token)">${
           lang.Actions.addToken
         }</button>
       </aside>
@@ -42,48 +45,27 @@ export const render = (): string => {
   </article>`;
 };
 
-const doS = () => alert("LELEL")
 
-// export const mounted = () => {
-//   const spotify = fromEvent(
-//     $(".actions-plate #spotify__authorize")!,
-//     "click"
-//   ).subscribe({
-//     next: () => window.open(`${SpotifyAuthenticate}?id=${store.getter().id}`)
-//   });
+export const actions = {
+  refreshData: () => updateUserData(store.getter().id),
 
-//   const paypal = fromEvent(
-//     $(".actions-plate #paypal__authorize")!,
-//     "click"
-//   ).subscribe({
-//     next: () => window.open(`${PaypalAuthenticate}?id=${store.getter().id}`)
-//   });
+  authSpotify: () =>
+    window.open(`${SpotifyAuthenticate}?id=${store.getter().id}`),
 
-//   const refresh = fromEvent($(".actions-plate #refresh")!, "click").subscribe({
-//     next: async () => updateUserData(store.getter().id)
-//   });
+  authPaypal: () =>
+    window.open(`${PaypalAuthenticate}?id=${store.getter().id}`),
 
-//   const token = fromEvent(
-//     $(".actions-plate #digitalocean_add_token")!,
-//     "click"
-//   ).subscribe({
-//     next: async () => {}})
-//   //     if (store.getter().id.length !== 0) {
-//   //       const token = ($(
-//   //         ".actions-plate #digitalocean_api_token"
-//   //       ) as HTMLInputElement)!.value;
-//   //       const res = await UpdateDigitalOceanToken({
-//   //         id: store.getter().id,
-//   //         token
-//   //       });
-//   //       if (res) {
-//   //         success(lang.Messages.addTokenSuccess, () => null);
-//   //       } else {
-//   //         error(lang.Messages.addTokenError);
-//   //       }
-//   //     }
-//   //   }
-//   // });
-// };
+  async digitalOceanToken(elem: string): Promise<boolean> {
+    const token = $(elem) as HTMLInputElement;
+    const id = store.getter().id;
+    const res = await updateDigitalOceanToken({
+      id,
+      token: token!.value
+    });
+    return res
+      ? success(lang.Messages.addTokenSuccess, () => null)
+      : error(lang.Messages.addTokenError);
+  }
+};
 
-export const update = () => events.subscribe(`stateChange`, [() => render()]);
+// export const update = () => events.subscribe(`stateChange`, [() => render()]);

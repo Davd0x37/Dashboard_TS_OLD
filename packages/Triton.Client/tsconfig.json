@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017", "dom"],
     "outDir": "build/app",
     "declaration": true,
     "pretty": true,
     "removeComments": true,
     "sourceMap": false,
+    "jsx": "react",
+    "jsxFactory": "createElement",
 
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
@@ -16,7 +18,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "preserveSymlinks": true,
-    "traceResolution": false,
+    // "traceResolution": false,
 
     "alwaysStrict": true,
     "strict": true,
@@ -28,7 +30,7 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    // "noUnusedLocals": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
 
