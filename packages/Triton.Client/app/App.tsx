@@ -33,7 +33,7 @@
 import Component from "./lib/Component";
 import { VElement } from "./vdom/Interfaces";
 import { createElement, mount } from "./vdom/VDOM";
-const root = document.querySelector("#app")!;
+const root = document.querySelector<HTMLElement>("#app")!;
 
 class App extends Component {
   protected state = {
@@ -54,7 +54,13 @@ class App extends Component {
     return (
       <div>
         <p>
-          <a styles={{backgroundColor: "red", fontSize: this.state.counter/2 + "rem"}} onClick={this.ale}>
+          <a
+            styles={{
+              backgroundColor: "red",
+              fontSize: this.state.counter / 2 + "rem"
+            }}
+            onClick={this.ale}
+          >
             counter: <p>{this.state.counter}</p>
           </a>
         </p>
@@ -63,4 +69,4 @@ class App extends Component {
   }
 }
 
-const mnt = mount(createElement(App, {}), root as HTMLElement);
+const mnt = mount(createElement(App, {}), root);

@@ -47,12 +47,14 @@ export const mountVElement = (
         // Remove "on" prefix and flatten them
         eventNames.forEach(event => {
           const name = event.replace("on", "").toLowerCase();
-          // @TODO: Check for just `val` not `(e: any) => val(e)`
-          newElement.addEventListener(name, (e: any) => val(e));
+          newElement.addEventListener(name, val);
         });
       } else {
         // If not, just assign as attribute
-        newElement.setAttribute(key, val);
+        // Check if it is not a style or classList
+        if (key !== "styles" && key !== "classList") {
+          newElement.setAttribute(key, val);
+        }
       }
     });
   }
