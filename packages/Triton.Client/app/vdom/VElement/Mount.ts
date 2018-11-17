@@ -7,8 +7,8 @@ export const mountVElement = (
 ): HTMLElement => {
   // Create element with tag passed in createElement
   const newElement: HTMLElement = document.createElement(element.tag);
-  // Save reference in createElement arguments
   /**
+   * Save reference in createElement arguments
    * Before
    * createElement(...) => {tag: "div", props: null, dom: null}
    * After

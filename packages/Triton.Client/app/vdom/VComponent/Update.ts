@@ -1,4 +1,4 @@
-import { VComponent } from "../Interfaces";
+import { VComponent, vClass } from "../Interfaces";
 import { update } from "../VDOM";
 
 // It will starts if you use other component in main component
@@ -7,11 +7,11 @@ export const updateVComponent = (
   nextElem: VComponent
 ) => {
   // Update only if both components has instance property
-  if (prevElem.instance && nextElem.instance) {
+  if (prevElem.instance) {
     // Get previous instance
     const { instance }: VComponent = prevElem;
     // Get previous rendered view
-    const { pCurrentElement } = instance;
+    const { pCurrentElement }: vClass = instance;
 
     // Get props
     const prevProps = prevElem.props;
@@ -20,7 +20,7 @@ export const updateVComponent = (
     // Copy reference to generated DOM Tree (Not VNodes)
     nextElem.dom = prevElem.dom;
     // Copy instance and props
-    nextElem.instance = prevElem.instance;
+    nextElem.instance = instance;
     nextElem.instance.props = { ...prevProps, ...nextProps };
 
     // Save old render and render new

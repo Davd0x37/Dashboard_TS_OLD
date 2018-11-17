@@ -1,4 +1,10 @@
-// import { mount } from "./vdom/Mount";
+// declare namespace JSX {
+//   interface IntrinsicElements {
+//     readonly [key: string]: any;
+//   }
+// }
+
+// import { mount } from "./lib/vdom/Mount";
 
 // import { DB } from "#/db";
 // import App from "#/lib/App";
@@ -24,4 +30,65 @@
 //   });
 // })();
 
+import Component from "./lib/Component";
+import { VElement } from "./vdom/Interfaces";
+import { createElement, mount } from "./vdom/VDOM";
+const root = document.querySelector<HTMLElement>("#app")!;
 
+class App extends Component {
+  protected state = {
+    counter: 1
+  };
+
+  constructor(props?: {}) {
+    super(props);
+  }
+
+  public ale = () => {
+    this.setState({
+      counter: this.state.counter + 1
+    });
+  };
+
+  public render(): VElement {
+    return (
+      <div>
+        <p>
+          <a
+            styles={{
+              backgroundColor: "red",
+              fontSize: this.state.counter / 2 + "rem"
+            }}
+            onClick={this.ale}
+          >
+            counter: <p>{this.state.counter}</p>
+          </a>
+          <NestedApp counter={this.state.counter} />
+        </p>
+      </div>
+    );
+  }
+}
+
+class NestedApp extends Component {
+  constructor(props?: { counter: number }) {
+    super(props);
+  }
+
+  public state = {
+    counter: this.props.counter
+  };
+
+  public updates = () => this.setState({ counter: this.state.counter + 1 });
+
+  public render(): VElement {
+    return (
+      <div>
+        NESTEDAPP
+        <a>{this.props.counter}</a>
+      </div>
+    );
+  }
+}
+
+const mnt = mount(<App/>, root);

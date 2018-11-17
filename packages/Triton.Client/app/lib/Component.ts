@@ -5,7 +5,7 @@ export default class Component {
   public pCurrentElement!: VElement;
   public pParentNode!: HTMLElement;
 
-  public props: {} = {};
+  public props: any = {};
   protected state: {} = {};
 
   constructor(props?: {}) {
