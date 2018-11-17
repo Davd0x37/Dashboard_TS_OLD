@@ -59,13 +59,11 @@ export const mountVElement = (
 
   // If element contains children
   if (element.children) {
-    if (Array.isArray(element.childrens) && element.childrens.length > 0) {
-      element.childrens.forEach(child => mount(child, newElement));
-    } else {
-      mount(element.childrens, newElement);
-    }
+    element.children.forEach(child => mount(child, newElement));
   }
 
+  // Append new DOM Tree
   parentNode.appendChild(newElement);
+
   return newElement;
 };

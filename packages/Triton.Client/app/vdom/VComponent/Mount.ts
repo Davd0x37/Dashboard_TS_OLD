@@ -1,16 +1,16 @@
-import { VElement, VComponent } from "../Interfaces";
+import { VComponent, vClass } from "../Interfaces";
 import { mount } from "../VDOM";
 
 export const mountVComponent = (input: VComponent, parentNode: HTMLElement) => {
-  const CMP = input.tag;
-  const instance: any = new CMP(input.props);
+  const CMP = input.tag as vClass;
+  const instance = new CMP(input.props);
   // Create DOM Tree Object
   const rendered = instance.render();
   // Save created DOM Tree Object
   instance._currentElement = rendered;
   // Save HTMLElement parent
   instance._parentNode = parentNode;
-  
+
   // console.log(input, instance)
   // Render HTMLElement and return it
   const dom: any = mount(rendered, parentNode);

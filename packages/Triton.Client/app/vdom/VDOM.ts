@@ -1,11 +1,4 @@
-import {
-  VElement,
-  VNodeList,
-  VNode,
-  VComponent,
-  vClass,
-  VText
-} from "./Interfaces";
+import { VComponent, VElement, VNode, VNodeList, VText } from "./Interfaces";
 import { createVComponent } from "./VComponent/Create";
 import { mountVComponent } from "./VComponent/Mount";
 import { updateVComponent } from "./VComponent/Update";
@@ -15,7 +8,7 @@ import { updateVElement } from "./VElement/Update";
 import { mountVText } from "./VText/Mount";
 
 export const createElement = (
-  tag: string | vClass,
+  tag: string | Function,
   props: {},
   ...children: VNodeList
 ) =>
@@ -23,7 +16,7 @@ export const createElement = (
     ? createVComponent(tag, props)
     : createVElement(tag, props, ...children);
 
-export const mount = (input: VNode & VText, parentNode: HTMLElement) => {
+export const mount = (input: VNode | VText, parentNode: HTMLElement) => {
   if (typeof input === "object") {
     if (typeof input.tag === "function") {
       // VComponent

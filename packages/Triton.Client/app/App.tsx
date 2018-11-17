@@ -29,49 +29,38 @@
 //     }
 //   });
 // })();
-// import Component from "./lib/Component";
-// import { VElement } from "./lib/vdom/Interfaces";
-// import { createElement, mount } from "./lib/vdom/VDOM";
-// const root = document.querySelector("#app")!;
 
-// class App extends Component {
-//   protected state = {
-//     counter: 1
-//   };
+import Component from "./lib/Component";
+import { VElement } from "./vdom/Interfaces";
+import { createElement, mount } from "./vdom/VDOM";
+const root = document.querySelector("#app")!;
 
-//   constructor(props?: {}) {
-//     super(props);
-//   }
+class App extends Component {
+  protected state = {
+    counter: 1
+  };
 
-//   public ale = () => {
-//     this.setState({
-//       counter: this.state.counter + 1
-//     });
-//   };
+  constructor(props?: {}) {
+    super(props);
+  }
 
-//   public render(): VElement {
-//     return (
-//       <div>
-//         <p>
-//           <a onClick={this.ale}>
-//             counter: <p>{this.state.counter}</p>
-//           </a>
-//         </p>
-//       </div>
-//     );
-//   }
-// }
+  public ale = () => {
+    this.setState({
+      counter: this.state.counter + 1
+    });
+  };
 
-// const mnt = mount(createElement(App, {}), root as HTMLElement);
-
-function createElement(tag: string, props: {}, ...children: any[]) {
-  Object.entries(props).forEach(([key, val]) => {
-    const eventNames = key.match(/on[a-zA-Z]+/g);
-    console.log(eventNames, val)
-  })
+  public render(): VElement {
+    return (
+      <div>
+        <p>
+          <a styles={{backgroundColor: "red", fontSize: this.state.counter/2 + "rem"}} onClick={this.ale}>
+            counter: <p>{this.state.counter}</p>
+          </a>
+        </p>
+      </div>
+    );
+  }
 }
-const xd = (
-  <div>
-    <p classList="btn feed" onclick="click" onmousemove="mousemove">lel</p>
-  </div>
-);
+
+const mnt = mount(createElement(App, {}), root as HTMLElement);

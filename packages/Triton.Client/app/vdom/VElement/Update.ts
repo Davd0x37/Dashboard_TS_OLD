@@ -10,18 +10,26 @@ export const updateVElement = (prevElem: VElement, nextElem: VElement) => {
     updateChildren(prevElem.children, nextElem.children, dom!);
   }
 
+  // Assign new styles
   if (
     prevElem.props &&
     nextElem.props &&
-    prevElem.props.styles !== nextElem.props.styles
+    prevElem.props.styles &&
+    nextElem.props.styles
   ) {
-    const prevStyles = prevElem.props.styles;
-    const nextStyles = nextElem.props.styles;
-    prevStyles &&
-      nextStyles &&
-      (nextElem.props.styles = [...prevStyles, ...nextStyles]);
+    // Save styles in props
+    nextElem.props.styles = {
+      ...prevElem.props.styles,
+      ...nextElem.props.styles
+    };
+    
+    // And use them in DOM element
+    Object.entries(nextElem.props.styles).forEach(
+      ([key, val]) => nextElem.dom && (nextElem.dom.style[key] = val)
+    );
   }
 };
+
 export const updateChildren = (
   prevElem: VNodeList,
   nextElem: VNodeList,

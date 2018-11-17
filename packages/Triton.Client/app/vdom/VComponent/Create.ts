@@ -1,4 +1,4 @@
-import { VElement, VComponent } from '../Interfaces';
+import { VComponent } from "../Interfaces";
 
 export const createVComponent = (tag: Function, props: {}): VComponent => ({
   tag,

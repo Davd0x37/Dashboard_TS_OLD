@@ -3,6 +3,7 @@ export type vClass = {
   new (...args: any[]): any;
   props?: {};
   _currentElement: VNode;
+  _parentNode: HTMLElement;
   render: () => VNode;
 };
 
@@ -23,7 +24,7 @@ export type VElement = {
 export type VComponent = {
   tag: Function | { new (...args: any[]): any };
   props: {};
-  instance: vClass;
+  instance: vClass | null;
   dom?: HTMLElement | null;
 };
 
