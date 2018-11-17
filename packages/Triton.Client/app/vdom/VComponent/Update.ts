@@ -23,9 +23,10 @@ export const updateVComponent = (
     nextElem.instance = instance;
     nextElem.instance.props = { ...prevProps, ...nextProps };
 
-    // Save old render and render new
+    // Save old render and render new one
     const prevRender = pCurrentElement;
-    const nextRender = instance.render();
+    // const nextRender = instance.render();
+    const nextRender = nextElem.instance.render();
     nextElem.instance.pCurrentElement = nextRender;
 
     // Update childrens

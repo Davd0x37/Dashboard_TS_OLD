@@ -12,7 +12,6 @@ export const mountVComponent = (input: VComponent, parentNode: HTMLElement) => {
   // Save HTMLElement parent
   instance.pParentNode = parentNode;
 
-  // console.log(input, instance)
   // Render HTMLElement and return it
   const dom: any = mount(rendered, parentNode);
 
