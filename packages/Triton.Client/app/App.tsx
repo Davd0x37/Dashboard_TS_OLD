@@ -29,50 +29,49 @@
 //     }
 //   });
 // })();
-import Component from "./lib/Component";
-import { VElement } from "./lib/vdom/Interfaces";
-import { createElement, mount } from "./lib/vdom/VDOM";
-const root = document.querySelector("#app")!;
+// import Component from "./lib/Component";
+// import { VElement } from "./lib/vdom/Interfaces";
+// import { createElement, mount } from "./lib/vdom/VDOM";
+// const root = document.querySelector("#app")!;
 
-class App extends Component {
-  protected state = {
-    counter: 1
-  };
+// class App extends Component {
+//   protected state = {
+//     counter: 1
+//   };
 
-  constructor(props?: {}) {
-    super(props);
-  }
+//   constructor(props?: {}) {
+//     super(props);
+//   }
 
-  public ale = () => {
-    this.setState({
-      counter: this.state.counter + 1
-    });
-  };
+//   public ale = () => {
+//     this.setState({
+//       counter: this.state.counter + 1
+//     });
+//   };
 
-  public render(): VElement {
-    return (
-      <div>
-        <p>
-          <a onClick={this.ale}>OMG</a>
-          <a>{this.state.counter}</a>
-          <NestedApp />
-        </p>
-      </div>
-    );
-  }
+//   public render(): VElement {
+//     return (
+//       <div>
+//         <p>
+//           <a onClick={this.ale}>
+//             counter: <p>{this.state.counter}</p>
+//           </a>
+//         </p>
+//       </div>
+//     );
+//   }
+// }
+
+// const mnt = mount(createElement(App, {}), root as HTMLElement);
+
+function createElement(tag: string, props: {}, ...children: any[]) {
+  Object.entries(props).forEach(([key, val]) => {
+    const eventNames = key.match(/on[a-zA-Z]+/g);
+    console.log(eventNames, val)
+  })
 }
-
-class NestedApp extends Component {
-  protected state = {
-    name: "Ma"
-  };
-  constructor(props?: {}) {
-    super(props);
-  }
-
-  public render(): VElement {
-    return <div>NestedApp</div>;
-  }
-}
-
-const mnt = mount(createElement(App, {}), root as HTMLElement);
+const xd = (
+  <div>
+    <p classList="btn feed" onclick="click" onmousemove="mousemove">lel</p>
+  </div>
+);

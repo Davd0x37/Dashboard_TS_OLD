@@ -1,5 +1,5 @@
-import { update } from "./vdom/VDOM";
-import { VElement, VNode } from "./vdom/Interfaces";
+import { VElement } from "#/vdom/Interfaces";
+import { update } from "#/vdom/VDOM";
 
 export default class Component {
   public _currentElement!: VElement;

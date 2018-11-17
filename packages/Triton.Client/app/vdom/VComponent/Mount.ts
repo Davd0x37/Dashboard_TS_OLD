@@ -1,7 +1,7 @@
-import { VElement } from "../Interfaces";
+import { VElement, VComponent } from "../Interfaces";
 import { mount } from "../VDOM";
 
-export const mountVComponent = (input: VElement, parentNode: HTMLElement) => {
+export const mountVComponent = (input: VComponent, parentNode: HTMLElement) => {
   const CMP = input.tag;
   const instance: any = new CMP(input.props);
   // Create DOM Tree Object

@@ -6,6 +6,6 @@ export const updateVText = (
   parentNode: HTMLElement
 ) => {
   if (prevElem !== nextElem) {
-    parentNode.firstChild!.textContent = nextElem.toString();
+    parentNode.textContent = nextElem.toString();
   }
 };

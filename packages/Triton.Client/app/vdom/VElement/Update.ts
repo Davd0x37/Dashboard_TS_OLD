@@ -6,19 +6,8 @@ export const updateVElement = (prevElem: VElement, nextElem: VElement) => {
   const dom = prevElem.dom;
   nextElem.dom = dom;
 
-  if (prevElem.childrens && nextElem.childrens) {
-    // DOM always exists
-    if (
-      Array.isArray(prevElem.childrens) &&
-      Array.isArray(nextElem.childrens)
-    ) {
-      updateChildren(prevElem.childrens, nextElem.childrens, dom!);
-    } else if (
-      typeof prevElem.childrens === "string" &&
-      typeof nextElem.childrens === "string"
-    ) {
-      updateChildren([prevElem.childrens], [nextElem.childrens], dom!);
-    }
+  if (prevElem.children && nextElem.children) {
+    updateChildren(prevElem.children, nextElem.children, dom!);
   }
 
   if (

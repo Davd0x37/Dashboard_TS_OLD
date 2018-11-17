@@ -1,12 +1,12 @@
-import { VElement, VNodeList } from '../Interfaces';
+import { VElement, VNodeList } from "../Interfaces";
 
 export const createVElement = (
   tag: string,
   props: VElement["props"],
-  ...children: VNodeList
+  ...childrens: VNodeList
 ): VElement => ({
   tag,
   props,
-  childrens: children,
+  children: childrens,
   dom: null
 });
