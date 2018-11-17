@@ -4,7 +4,6 @@ import { update } from "#/vdom/VDOM";
 export default class Component {
   public pCurrentElement!: VElement;
   public pParentNode!: HTMLElement;
-  // private _pendingState: any = null;
 
   public props: {} = {};
   protected state: {} = {};

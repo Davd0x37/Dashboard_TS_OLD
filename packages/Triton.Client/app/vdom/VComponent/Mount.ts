@@ -8,9 +8,9 @@ export const mountVComponent = (input: VComponent, parentNode: HTMLElement) => {
   // Create DOM Tree Object
   const rendered = instance.render();
   // Save created DOM Tree Object
-  instance._currentElement = rendered;
+  instance.pCurrentElement = rendered;
   // Save HTMLElement parent
-  instance._parentNode = parentNode;
+  instance.pParentNode = parentNode;
 
   // console.log(input, instance)
   // Render HTMLElement and return it

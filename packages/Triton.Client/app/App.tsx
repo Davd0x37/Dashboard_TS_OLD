@@ -1,10 +1,4 @@
-// declare namespace JSX {
-//   interface IntrinsicElements {
-//     readonly [key: string]: any;
-//   }
-// }
-
-// import { mount } from "./lib/vdom/Mount";
+// import { mount } from "./vdom/Mount";
 
 // import { DB } from "#/db";
 // import App from "#/lib/App";
