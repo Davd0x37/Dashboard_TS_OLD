@@ -11,7 +11,7 @@ export const updateVComponent = (
     // Get previous instance
     const { instance }: VComponent = prevElem;
     // Get previous rendered view
-    const { _currentElement } = instance;
+    const { pCurrentElement } = instance;
 
     // Get props
     const prevProps = prevElem.props;
@@ -24,9 +24,9 @@ export const updateVComponent = (
     nextElem.instance.props = { ...prevProps, ...nextProps };
 
     // Save old render and render new
-    const prevRender = _currentElement;
+    const prevRender = pCurrentElement;
     const nextRender = instance.render();
-    nextElem.instance._currentElement = nextRender;
+    nextElem.instance.pCurrentElement = nextRender;
 
     // Update childrens
     // Pass DOM Tree not instance (VNodes)

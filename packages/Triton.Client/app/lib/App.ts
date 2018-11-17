@@ -7,7 +7,6 @@
 // import { parseComponent } from "./Parser";
 // import View from "./View";
 
-
 // class App {
 //   public db!: RxDatabase<IDashboardDatabaseCollections>;
 //   private selector: string = "#app";

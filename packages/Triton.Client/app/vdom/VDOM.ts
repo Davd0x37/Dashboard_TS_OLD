@@ -1,4 +1,11 @@
-import { VComponent, VElement, VNode, VNodeList, VText } from "./Interfaces";
+import {
+  VComponent,
+  VElement,
+  vFNType,
+  VNode,
+  VNodeList,
+  VText
+} from "./Interfaces";
 import { createVComponent } from "./VComponent/Create";
 import { mountVComponent } from "./VComponent/Mount";
 import { updateVComponent } from "./VComponent/Update";
@@ -8,7 +15,7 @@ import { updateVElement } from "./VElement/Update";
 import { mountVText } from "./VText/Mount";
 
 export const createElement = (
-  tag: string | Function,
+  tag: string | vFNType,
   props: {},
   ...children: VNodeList
 ) =>

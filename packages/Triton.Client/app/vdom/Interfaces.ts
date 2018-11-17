@@ -1,11 +1,14 @@
 // Class Type
 export type vClass = {
-  new (...args: any[]): any;
   props?: {};
-  _currentElement: VNode;
-  _parentNode: HTMLElement;
+  pCurrentElement: VNode;
+  pParentNode: HTMLElement;
   render: () => VNode;
+  new (...args: any[]): any;
 };
+
+// Function type
+export type vFNType = (...args: any[]) => any;
 
 // String/number type
 export type VText = string | number;
@@ -22,7 +25,7 @@ export type VElement = {
 };
 // Component - Class
 export type VComponent = {
-  tag: Function | { new (...args: any[]): any };
+  tag: (...args: any[]) => any | { new (...args: any[]): any };
   props: {};
   instance: vClass | null;
   dom?: HTMLElement | null;

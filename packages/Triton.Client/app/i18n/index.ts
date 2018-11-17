@@ -1,4 +1,3 @@
-
 // @ts-ignore
 import en from "./en-EN.json";
 // @ts-ignore

@@ -2,8 +2,8 @@ import { VElement } from "#/vdom/Interfaces";
 import { update } from "#/vdom/VDOM";
 
 export default class Component {
-  public _currentElement!: VElement;
-  public _parentNode!: HTMLElement;
+  public pCurrentElement!: VElement;
+  public pParentNode!: HTMLElement;
   // private _pendingState: any = null;
 
   public props: {} = {};
@@ -13,20 +13,20 @@ export default class Component {
     this.props = props || this.props;
   }
 
-  protected setState(state: {}) {
+  public render(): any {
+    //
+  }
+
+  protected setState(state: {}): void {
     this.state = { ...this.state, ...state };
     this.updateComponent();
   }
 
-  private updateComponent() {
-    const prevElement = this._currentElement;
+  private updateComponent(): void {
+    const prevElement = this.pCurrentElement;
     const nextElement = this.render();
-    this._currentElement = nextElement;
+    this.pCurrentElement = nextElement;
 
     update(prevElement, nextElement);
-  }
-
-  public render(): any {
-    //
   }
 }

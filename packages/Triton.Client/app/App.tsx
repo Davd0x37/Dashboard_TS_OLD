@@ -30,43 +30,4 @@
 //   });
 // })();
 
-import Component from "./lib/Component";
-import { VElement } from "./vdom/Interfaces";
-import { createElement, mount } from "./vdom/VDOM";
-const root = document.querySelector<HTMLElement>("#app")!;
 
-class App extends Component {
-  protected state = {
-    counter: 1
-  };
-
-  constructor(props?: {}) {
-    super(props);
-  }
-
-  public ale = () => {
-    this.setState({
-      counter: this.state.counter + 1
-    });
-  };
-
-  public render(): VElement {
-    return (
-      <div>
-        <p>
-          <a
-            styles={{
-              backgroundColor: "red",
-              fontSize: this.state.counter / 2 + "rem"
-            }}
-            onClick={this.ale}
-          >
-            counter: <p>{this.state.counter}</p>
-          </a>
-        </p>
-      </div>
-    );
-  }
-}
-
-const mnt = mount(createElement(App, {}), root);

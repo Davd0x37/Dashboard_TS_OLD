@@ -1,4 +1,4 @@
-import { VText } from '../Interfaces';
+import { VText } from "../Interfaces";
 
 export const mountVText = (
   input: VText,

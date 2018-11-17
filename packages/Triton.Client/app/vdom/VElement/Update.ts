@@ -22,7 +22,7 @@ export const updateVElement = (prevElem: VElement, nextElem: VElement) => {
       ...prevElem.props.styles,
       ...nextElem.props.styles
     };
-    
+
     // And use them in DOM element
     Object.entries(nextElem.props.styles).forEach(
       ([key, val]) => nextElem.dom && (nextElem.dom.style[key] = val)

@@ -45,7 +45,6 @@ export const render = (): string => {
   </article>`;
 };
 
-
 export const actions = {
   refreshData: () => updateUserData(store.getter().id),
 
