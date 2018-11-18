@@ -2,7 +2,7 @@ import Observer from "#/lib/Observer";
 import { FnType } from "#SH/Interfaces";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
-import { State } from "./State";
+import { State, IState } from "./State";
 
 /**
  * UTILS
@@ -20,7 +20,7 @@ const state = new Proxy(State || {}, {
     return Reflect.get(target, p, receiver);
   },
   set: (target: any, key: any, value: any, receiver: any) => {
-    events.notify(`stateChange`, state.store);
+    events.notify("stateChange", state.store);
     return Reflect.set(target, key, value, receiver);
   }
 });
@@ -31,13 +31,13 @@ const state = new Proxy(State || {}, {
 const dispatch = (type: string, payload: any): boolean =>
   isFn(Actions, type) ? Actions[type]({ commit }, payload) : false;
 
-const commit = (type: string, payload: any): boolean =>
+const commit = (type: string, payload: any): IState =>
   isFn(Mutations, type)
     ? (state.store = {
         ...state.store,
         ...Mutations[type](state.store, payload)
       })
-    : false;
+    : state.store;
 
 const getter = () => state.store;
 

@@ -53,6 +53,15 @@ export const mountVElement = (
         }
       }
 
+      // Two way data binding
+      const dataBinding = key.match(/v-bind/g);
+      if (dataBinding) {
+        // @TODO: Remove function and add watcher instead
+        dataBinding.forEach(() => {
+          newElement.addEventListener("keyup", (e: any) => val(e.target.value));
+        });
+      }
+
       // Check if it is not a style or classList
       if (key !== "styles" && key !== "classList") {
         newElement.setAttribute(key, val);

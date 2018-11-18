@@ -29,4 +29,6 @@ export default class Header extends Component {
       </header>
     );
   }
+
+  public mounted() {}
 }

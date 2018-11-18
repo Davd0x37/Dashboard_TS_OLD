@@ -1,16 +1,21 @@
 type IOFn = (...args: any) => any;
 
-const subscribers: Map<any, any> = new Map();
+let subscribers = {};
 
-const subscribe = (event: string, fn: ReadonlyArray<IOFn>) =>
-  subscribers[event] === undefined
-    ? subscribers.set(event, [])
-    : subscribers.set(event, [...subscribers.get(event), ...fn]);
+const subscribe = (event: string, fn: IOFn) => {
+  if (subscribers[event] === undefined) {
+    subscribers[event] = [];
+  }
+  subscribers[event].push(fn);
+};
 
-const notify = (event: string, payload: {}) =>
-  subscribers[event] === undefined
-    ? false
-    : subscribers.get(event).forEach((fn: IOFn) => fn(payload));
+const notify = (event: string, payload: {}) => {
+  if (subscribers[event] === undefined) {
+    return false;
+  }
+  subscribers[event].map((fn: IOFn) => fn(payload));
+  return true;
+};
 
 export default {
   subscribe,

@@ -35,28 +35,22 @@ declare global {
     await Store.dispatch("UpdateUserData", data);
   }
 
-  Events.subscribe("stateChange", [
-    async () => {
-      console.log(Store.getter())
-      const userExec = await db.dashboard.findOne().exec();
-      if (userExec !== null) {
-        userExec.update({
-          $set: {
-            ...Store.getter()
-          }
-        });
-      } else {
-        db.dashboard.insert(Store.getter());
-      }
+  Events.subscribe("stateChange", async () => {
+    console.log(Store.getter());
+    const userExec = await db.dashboard.findOne().exec();
+    if (userExec !== null) {
+      userExec.update({
+        $set: {
+          ...Store.getter()
+        }
+      });
+    } else {
+      db.dashboard.insert(Store.getter());
     }
-  ]);
+  });
 })();
 
 class App extends Component {
-  protected state = {
-    counter: 1
-  };
-
   constructor(props?: {}) {
     super(props);
   }

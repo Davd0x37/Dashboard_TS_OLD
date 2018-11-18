@@ -26,15 +26,15 @@ export default class Actions extends Component {
           <aside class="details">
             <button class="btn color">{lang.Actions.homeLink}</button>
             <button class="btn color">{lang.Actions.authLink}</button>
-            <button class="btn color" id="refresh" onClick={this.refreshData}>
+            <button class="btn color" id="refresh" onClick={() => this.refreshData()}>
               {lang.Actions.refreshData}
             </button>
           </aside>
           <aside class="details">
-            <button class="btn color" onClick={this.authSpotify}>
+            <button class="btn color" onClick={() => this.authSpotify()}>
               {lang.Actions.authSpotify}
             </button>
-            <button class="btn color" onClick={this.authPaypal}>
+            <button class="btn color" onClick={() => this.authPaypal()}>
               {lang.Actions.authPaypal}
             </button>
           </aside>
@@ -48,7 +48,7 @@ export default class Actions extends Component {
                 placeholder={lang.Actions.digitalOceanToken}
               />
             </div>
-            <button class="btn color" onClick={this.digitalOceanToken.bind(this)}>
+            <button class="btn color" onClick={() => this.digitalOceanToken()}>
               {lang.Actions.addToken}
             </button>
           </aside>
@@ -74,8 +74,7 @@ export default class Actions extends Component {
   }
 
   public authSpotify = () => {
-    // window.open(`${SpotifyAuthenticate}?id=${store.getter().id}`);
-    this.setState({id: "1"})
+    window.open(`${SpotifyAuthenticate}?id=${store.getter().id}`);
   }
 
   public authPaypal() {

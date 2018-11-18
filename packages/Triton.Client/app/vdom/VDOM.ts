@@ -51,6 +51,5 @@ export const update = (
       updateVComponent(prevElem as VComponent, nextElem as VComponent);
     }
   } else {
-    // Otherwise render everything
   }
 };
