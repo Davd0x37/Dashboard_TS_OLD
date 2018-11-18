@@ -1,0 +1,17 @@
+.actions-plate {
+  display: flex;
+  justify-content: space-between;
+  .details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .color {
+    border-color: #ff922b;
+  }
+  .color:hover {
+    background: #ff922b;
+    border-color: #ff922b;
+  }
+}

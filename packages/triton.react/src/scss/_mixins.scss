@@ -1,0 +1,64 @@
+// ------------ BUTTONS  ------------
+@mixin item__btn($color, $pressed_background, $btn_name: "", $padding: 10px 20px) {
+  .item__btn#{$btn_name} {
+    background: transparent;
+    text-transform: uppercase;
+    border: 1px solid $color;
+    border-radius: 5px;
+    padding: $padding;
+    font-size: 1.1rem;
+    color: $color;
+    outline: none;
+    will-change: transition;
+    transition: background-color 300ms, color 300ms;
+
+    &:hover {
+      background: $color;
+      color: $primary-text;
+    }
+
+    &:active {
+      background: $pressed_background;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3) inset;
+      color: $primary-text;
+    }
+  }
+}
+
+/**
+* http://sass-lang.com/documentation/Sass/Script/Functions.html#map_get-instance_method
+* Great function 😍
+*/
+
+$desktopFull: 1281px;
+$desktopMax: 1280px;
+$desktopMin: 961px;
+$tabletMax: 960px;
+$tabletMin: 481px;
+$mobileMax: 480px;
+$mobileMin: 320px;
+
+@mixin queries($sizes...) {
+  $queries: (
+    "mobileMin": "(min-width: #{$mobileMin})", // 320
+      "mobileMax": "(max-width: #{$mobileMax})", // 480
+      "mobileAll": "(min-width: #{$mobileMin}) and (max-width: #{$mobileMax})", // 320 - 480
+      "tabletMin": "(min-width: #{$tabletMin})", // 481
+      "tabletMax": "(max-width: #{$tabletMax})", // 960
+      "tabletAll": "(min-width: #{$tabletMin}) and (max-width: #{$tabletMax})", // 481 - 960
+      "desktopMin": "(min-width: #{$desktopMin})", // 961
+      "desktopMax": "(max-width: #{$desktopMax})", // 1280
+      "desktopAll": "(min-width: #{$desktopMin}) and (max-width: #{$desktopMax})", // 961 - 1280
+      "desktopFull": "(min-width: #{$desktopFull})"// 1281+
+  );
+
+  $mainQuery: "screen";
+
+  @each $query in $sizes {
+    $mainQuery: $mainQuery + " and " + map-get($queries, $query);
+  }
+
+  @media #{$mainQuery} {
+    @content;
+  }
+}

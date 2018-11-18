@@ -32,5 +32,5 @@ export type VComponent = {
   dom?: HTMLElement | null;
 };
 
-export type VNode = VElement | VComponent; // | VText;
+export type VNode = VElement | VComponent;
 export type VNodeList = VNode[] & VText[];

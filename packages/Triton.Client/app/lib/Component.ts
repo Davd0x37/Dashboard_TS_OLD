@@ -36,6 +36,6 @@ export default class Component {
     const nextElement = this.render();
     this.pCurrentElement = nextElement;
 
-    update(prevElement, nextElement);
+    update(prevElement, nextElement, this.pParentNode);
   }
 }

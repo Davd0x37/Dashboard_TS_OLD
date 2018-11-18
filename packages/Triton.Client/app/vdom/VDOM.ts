@@ -40,10 +40,12 @@ export const mount = (input: VNode | VText, parentNode: HTMLElement) => {
 
 export const update = (
   prevElem: VElement | VComponent,
-  nextElem: VElement | VComponent
+  nextElem: VElement | VComponent,
+  parentNode?: HTMLElement
 ) => {
   // If previous rendered element is the same as new one
   // Then just update childrens
+  // console.log(prevElem, nextElem)
   if (prevElem.tag === nextElem.tag) {
     if (typeof prevElem.tag === "string") {
       updateVElement(prevElem as VElement, nextElem as VElement);
@@ -51,5 +53,6 @@ export const update = (
       updateVComponent(prevElem as VComponent, nextElem as VComponent);
     }
   } else {
+    // @TODO: Replace whole node
   }
 };
