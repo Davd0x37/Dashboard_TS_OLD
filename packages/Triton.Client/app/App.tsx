@@ -1,39 +1,56 @@
-// declare namespace JSX {
-//   interface IntrinsicElements {
-//     readonly [key: string]: any;
-//   }
-// }
-
-// import { mount } from "./lib/vdom/Mount";
-
-// import { DB } from "#/db";
-// import App from "#/lib/App";
-// import Store from "#/store";
-
-// (async () => {
-//   const db = await DB.load();
-//   App.init(db);
-//   App.loadStore();
-//   App.run();
-
-//   Store.events.subscribe("stateChange", async () => {
-//     const user = await App.db.dashboard.findOne().exec();
-//     if (user !== null) {
-//       user.update({
-//         $set: {
-//           ...Store.getter
-//         }
-//       });
-//     } else {
-//       App.db.dashboard.insert(Store.getter);
-//     }
-//   });
-// })();
-
+import "babel-polyfill";
+import Actions from "#/components/Actions";
+import Authenticate from "#/components/Authenticate";
+import DigitalOcean from "#/components/DigitalOcean";
+import Header from "#/components/Header";
+import Paypal from "#/components/Paypal";
+import Spotify from "#/components/Spotify";
+import { DB } from "#/db";
+import Events from "#/lib/Observer";
+import Store from "#/store";
 import Component from "./lib/Component";
 import { VElement } from "./vdom/Interfaces";
 import { createElement, mount } from "./vdom/VDOM";
-const root = document.querySelector<HTMLElement>("#app")!;
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elem: string]: any;
+    }
+  }
+}
+
+(async () => {
+  const db = await DB.load();
+
+  const user = await db.dashboard.findOne().exec();
+  if (user !== null) {
+    const data = {
+      id: user.id,
+      User: user.User,
+      Spotify: user.Spotify,
+      DigitalOcean: user.DigitalOcean,
+      Paypal: user.Paypal
+    };
+    await Store.dispatch("UpdateUserData", data);
+  }
+
+  Events.subscribe("stateChange", [
+    async () => {
+      console.log(Store.getter())
+      const userExec = await db.dashboard.findOne().exec();
+      if (userExec !== null) {
+        userExec.update({
+          $set: {
+            ...Store.getter()
+          }
+        });
+      } else {
+        db.dashboard.insert(Store.getter());
+      }
+    }
+  ]);
+})();
 
 class App extends Component {
   protected state = {
@@ -44,51 +61,19 @@ class App extends Component {
     super(props);
   }
 
-  public ale = () => {
-    this.setState({
-      counter: this.state.counter + 1
-    });
-  };
-
   public render(): VElement {
     return (
-      <div>
-        <p>
-          <a
-            styles={{
-              backgroundColor: "red",
-              fontSize: this.state.counter / 2 + "rem"
-            }}
-            onClick={this.ale}
-          >
-            counter: <p>{this.state.counter}</p>
-          </a>
-          <NestedApp counter={this.state.counter} />
-        </p>
-      </div>
+      <main class="feed">
+        <Header />
+        <Spotify />
+        <Paypal />
+        <DigitalOcean />
+        <Actions />
+        <Authenticate />
+      </main>
     );
   }
 }
 
-class NestedApp extends Component {
-  constructor(props?: { counter: number }) {
-    super(props);
-  }
-
-  public state = {
-    counter: this.props.counter
-  };
-
-  public updates = () => this.setState({ counter: this.state.counter + 1 });
-
-  public render(): VElement {
-    return (
-      <div>
-        NESTEDAPP
-        <a>{this.props.counter}</a>
-      </div>
-    );
-  }
-}
-
-const mnt = mount(<App/>, root);
+const root = document.querySelector<HTMLElement>("#app")!;
+const mnt = mount(<App />, root);

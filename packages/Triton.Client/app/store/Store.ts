@@ -3,7 +3,6 @@ import { FnType } from "#SH/Interfaces";
 import Actions from "./Actions";
 import Mutations from "./Mutations";
 import { State } from "./State";
-// tslint:disable
 
 /**
  * UTILS

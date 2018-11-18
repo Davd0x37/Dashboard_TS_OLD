@@ -10,8 +10,8 @@ export const State: IStateStore = {
   store: {
     id: "",
     User: {
-      Avatar: "",
-      Login: "",
+      Avatar: "https://yt3.ggpht.com/a-/AN66SAwdQriG6vbRpwlzgnvmIW5pDostKUfLaAnmJA=s48-mo-c-c0xffffffff-rj-k-no",
+      Login: "Vernon",
       Email: ""
     },
     Spotify: {

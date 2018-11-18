@@ -45,6 +45,8 @@
     "welcome": "Witaj",
     "notFound": "Nie ma takiego użytkownika!",
     "addTokenSuccess": "Poprawnie dodano token",
-    "addTokenError": "Nie można dodać tokena"
+    "addTokenError": "Nie można dodać tokena",
+    "updateUserDataSuccess": "Pomyślnie zaktualizowano dane",
+    "updateUserDataError": "Błąd podczas aktualizowania danych!"
   }
 }

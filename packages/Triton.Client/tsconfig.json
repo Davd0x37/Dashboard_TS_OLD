@@ -17,8 +17,9 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "preserveSymlinks": true,
-    // "traceResolution": false,
+    "traceResolution": false,
 
     "alwaysStrict": true,
     "strict": true,
@@ -42,5 +43,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["app/**/*.ts", "app/**/*.json"]
+  "include": ["app/**/*.tsx", "app/**/*.ts", "app/**/*.json"]
 }

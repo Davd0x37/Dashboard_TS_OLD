@@ -4,6 +4,7 @@ export type vClass = {
   pCurrentElement: VNode;
   pParentNode: HTMLElement;
   render: () => VNode;
+  mounted: () => void;
   new (...args: any[]): any;
 };
 

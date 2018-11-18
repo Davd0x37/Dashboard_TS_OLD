@@ -21,4 +21,7 @@ export const mountVComponent = (input: VComponent, parentNode: HTMLElement) => {
   input.dom = dom;
 
   parentNode.appendChild(dom);
+
+  // Run mounted method after creating and mounting element
+  instance.mounted();
 };

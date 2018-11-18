@@ -45,6 +45,8 @@
     "welcome": "Welcome",
     "notFound": "User not exists!",
     "addTokenSuccess": "Successfully added token",
-    "addTokenError": "Error while adding token"
+    "addTokenError": "Error while adding token",
+    "updateUserDataSuccess": "Successfully updated data",
+    "updateUserDataError": "Error while updating data!"
   }
 }

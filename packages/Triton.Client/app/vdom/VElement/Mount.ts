@@ -40,21 +40,22 @@ export const mountVElement = (
 
     // Attach events and other attributes
     Object.entries(element.props).forEach(([key, val]: [string, any]) => {
-      // Test event name if starts with "on" eg. onClick or onclick
-      const eventNames = key.match(/on[a-zA-Z]+/g);
-      // If is event
-      if (eventNames) {
-        // Remove "on" prefix and flatten them
-        eventNames.forEach(event => {
-          const name = event.replace("on", "").toLowerCase();
-          newElement.addEventListener(name, val);
-        });
-      } else {
-        // If not, just assign as attribute
-        // Check if it is not a style or classList
-        if (key !== "styles" && key !== "classList") {
-          newElement.setAttribute(key, val);
+      if (!element.props!.hasOwnProperty("ignoreEvents")) {
+        // Test event name if starts with "on" eg. onClick or onclick
+        const eventNames = key.match(/on[a-zA-Z]+/g);
+        // If is event
+        if (eventNames) {
+          // Remove "on" prefix and flatten them
+          eventNames.forEach(event => {
+            const name = event.replace("on", "").toLowerCase();
+            newElement.addEventListener(name, (e: any) => val(e));
+          });
         }
+      }
+
+      // Check if it is not a style or classList
+      if (key !== "styles" && key !== "classList") {
+        newElement.setAttribute(key, val);
       }
     });
   }

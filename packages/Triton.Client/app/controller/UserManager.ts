@@ -6,9 +6,7 @@ export const authenticateUser = async ({
   login,
   password
 }: IULogin): Promise<IUserDocType> => {
-  const {
-    AuthenticateUser
-  }: { readonly AuthenticateUser: IUserDocType } = await query(gql`
+  const { AuthenticateUser } = await query(gql`
   query {
     AuthenticateUser(login: "${login}", password: "${password}") {
       id
@@ -30,7 +28,7 @@ export const registerUser = async ({
   email,
   avatar
 }: IURegister): Promise<boolean> => {
-  const { AddUser }: { readonly AddUser: boolean } = await mutation(gql`
+  const { AddUser } = await mutation(gql`
   mutation {
     AddUser(data: {
       Avatar: "${avatar}"
@@ -48,9 +46,7 @@ export const updateUser = async ({
 }: {
   readonly id: string;
 }): Promise<IUserDocType> => {
-  const {
-    UpdateUserData
-  }: { readonly UpdateUserData: IUserDocType } = await mutation(gql`
+  const { UpdateUserData } = await mutation(gql`
   mutation {
     UpdateUserData(id: "${id}") {
       ${Services}
@@ -67,9 +63,7 @@ export const updateDigitalOceanToken = async ({
   readonly id: string;
   readonly token: string;
 }): Promise<boolean> => {
-  const {
-    UpdateDigitalOceanToken
-  }: { readonly UpdateDigitalOceanToken: boolean } = await mutation(gql`
+  const { UpdateDigitalOceanToken } = await mutation(gql`
   mutation {
     UpdateDigitalOceanToken(id: "${id}", token: "${token}")
   }
