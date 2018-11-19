@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import { translate, WithNamespaces } from "react-i18next";
 import "./App.scss";
+import DigitalOcean from "./components/Plates/DigitalOcean";
+import Spotify from "./components/Plates/Spotify";
+import Paypal from "./components/Plates/Paypal";
 
-import Spotify from "./components/Spotify/Spotify";
-class App extends Component<WithNamespaces> {
+class App extends Component {
   public render() {
-    const { t } = this.props;
     return (
       <div className="App">
         <Spotify />
+        <DigitalOcean />
+        <Paypal />
       </div>
     );
   }
 }
 
-export default translate()(App);
+export default App;

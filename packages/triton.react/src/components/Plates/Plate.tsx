@@ -1,7 +1,7 @@
 import "./Plate.scss";
 
-
 import React, { Component } from "react";
+import styled from "styled-components"
 
 interface IPlateProps {
   plateBrand: string;
@@ -9,13 +9,14 @@ interface IPlateProps {
   plateBrandColor: string;
 }
 
-class Plate extends Component<IPlateProps> {
-  public state = {
-    username: "",
-    email: "",
-    type: ""
-  };
+const Article = styled.article`
+  min-width: 320px;
+  @include queries("desktopFull") {
+    width: 650px;
+  }
+`
 
+class Plate extends Component<IPlateProps> {
   render() {
     return (
       <article className="plate">
