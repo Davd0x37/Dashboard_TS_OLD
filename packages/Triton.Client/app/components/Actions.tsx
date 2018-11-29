@@ -24,8 +24,8 @@ export default class Actions extends Component {
         </header>
         <div class="plate__container actions-plate">
           <aside class="details">
-            <button class="btn color">{lang.Actions.homeLink}</button>
-            <button class="btn color">{lang.Actions.authLink}</button>
+            <button class="btn color" v-link="/">{lang.Actions.homeLink}</button>
+            <button class="btn color" v-link="/auth">{lang.Actions.authLink}</button>
             <button class="btn color" id="refresh" onClick={() => this.refreshData()}>
               {lang.Actions.refreshData}
             </button>

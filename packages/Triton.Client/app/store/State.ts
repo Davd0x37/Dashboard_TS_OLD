@@ -1,7 +1,7 @@
 import { IUserDocType } from "#SH/Interfaces";
 // tslint:disable
 
-interface IStateStore {
+export interface IStateStore {
   store: IUserDocType;
 }
 export type IState = IStateStore["store"];

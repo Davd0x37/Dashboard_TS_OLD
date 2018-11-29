@@ -17,19 +17,19 @@ export type VText = string | number;
 export type VElement = {
   tag: string;
   props: {
-    classList?: string;
+    className?: string;
     styles?: {};
     [key: string]: any;
   } | null;
   children?: VNodeList;
-  dom?: HTMLElement | null;
+  dom: HTMLElement | null;
 };
 // Component - Class
 export type VComponent = {
   tag: (...args: any[]) => any | { new (...args: any[]): any };
   props: {};
   instance: vClass | null;
-  dom?: HTMLElement | null;
+  dom: HTMLElement | null;
 };
 
 export type VNode = VElement | VComponent;

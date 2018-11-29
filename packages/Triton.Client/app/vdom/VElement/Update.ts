@@ -1,32 +1,29 @@
-import { VElement, VNodeList, VText } from "../Interfaces";
+import { VElement, VNodeList } from "../Interfaces";
 import { update } from "../VDOM";
 import { updateVText } from "../VText/Update";
+import { assignStyles } from "./Style";
 
 export const updateVElement = (prevElem: VElement, nextElem: VElement) => {
+  // Copy previous dom reference
   const dom = prevElem.dom;
   nextElem.dom = dom;
 
-  if (prevElem.children && nextElem.children) {
-    updateChildren(prevElem.children, nextElem.children, dom!);
+  if (prevElem.children && nextElem.children && dom) {
+    updateChildren(prevElem.children, nextElem.children, dom);
   }
 
   // Assign new styles
-  if (
-    prevElem.props &&
-    nextElem.props &&
-    prevElem.props.styles &&
-    nextElem.props.styles
-  ) {
-    // Save styles in props
-    nextElem.props.styles = {
-      ...prevElem.props.styles,
-      ...nextElem.props.styles
-    };
+  if (nextElem.props && nextElem.props.styles) {
+    if (prevElem.props && prevElem.props.styles) {
+      // Copy previous styles
+      nextElem.props.styles = {
+        ...prevElem.props.styles,
+        ...nextElem.props.styles
+      };
+    }
 
     // And use them in DOM element
-    Object.entries(nextElem.props.styles).forEach(
-      ([key, val]) => nextElem.dom && (nextElem.dom.style[key] = val)
-    );
+    nextElem.dom && assignStyles(nextElem.props.styles, nextElem.dom);
   }
 };
 
@@ -35,14 +32,15 @@ export const updateChildren = (
   nextElem: VNodeList,
   parentDom: HTMLElement
 ) => {
-  for (let i = 0; i < prevElem.length; i++) {
-    if (
-      (typeof prevElem[i] === "string" && typeof nextElem[i] === "string") ||
-      (typeof prevElem[i] === "number" && typeof nextElem[i] === "number")
-    ) {
-      updateVText(prevElem[i] as VText, nextElem[i] as VText, parentDom);
-    } else {
-      update(prevElem[i] as VElement, nextElem[i] as VElement);
+  if (prevElem.length === nextElem.length) {
+    for (let i = 0; i < prevElem.length; i++) {
+      if (isVText(prevElem[i]) && isVText(nextElem[i])) {
+        updateVText(prevElem[i], nextElem[i], parentDom);
+      } else {
+        update(prevElem[i], nextElem[i]);
+      }
     }
   }
 };
+
+const isVText = (el: any) => typeof el === "string" || typeof el === "number";

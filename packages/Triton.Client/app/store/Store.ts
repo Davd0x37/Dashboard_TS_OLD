@@ -20,7 +20,7 @@ const state = new Proxy(State || {}, {
     return Reflect.get(target, p, receiver);
   },
   set: (target: any, key: any, value: any, receiver: any) => {
-    events.notify("stateChange", state.store);
+    events.notify("stateChange", value);
     return Reflect.set(target, key, value, receiver);
   }
 });
@@ -43,5 +43,6 @@ const getter = () => state.store;
 
 export default {
   dispatch,
-  getter
+  getter,
+  state: state.store
 };

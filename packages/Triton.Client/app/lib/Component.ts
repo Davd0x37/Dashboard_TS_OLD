@@ -1,4 +1,4 @@
-import Store from "#/store";
+import Store from "#/store/Store";
 import { VElement } from "#/vdom/Interfaces";
 import { update } from "#/vdom/VDOM";
 import Observer from "./Observer";
@@ -8,13 +8,12 @@ export default class Component {
   public pParentNode!: HTMLElement;
 
   public props: any = {};
-  public watchers: any = {};
+  // public watchers: any = {};
   protected state: {} = {};
   protected store: typeof Store = Store;
 
   constructor(props?: {}) {
     this.props = props || this.props;
-    // Observer.subscribe("stateChange", data => {debugger; this.setState({ ...data })});
   }
 
   public render(): any {
@@ -22,7 +21,9 @@ export default class Component {
   }
 
   public mounted(): void {
-    //
+    // Observer.subscribe("stateChange", () => {
+    //   this.updateComponent();
+    // });
   }
 
   protected setState(state: {}): void {
@@ -31,11 +32,11 @@ export default class Component {
     this.updateComponent();
   }
 
-  private updateComponent(): void {
+  protected updateComponent(): void {
     const prevElement = this.pCurrentElement;
     const nextElement = this.render();
     this.pCurrentElement = nextElement;
 
-    update(prevElement, nextElement, this.pParentNode);
+    update(prevElement, nextElement);
   }
 }

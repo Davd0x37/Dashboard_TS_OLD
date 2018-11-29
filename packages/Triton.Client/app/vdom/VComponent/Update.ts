@@ -17,7 +17,7 @@ export const updateVComponent = (
     const prevProps = prevElem.props;
     const nextProps = nextElem.props;
 
-    // Copy reference to generated DOM Tree (Not VNodes)
+    // Copy reference
     nextElem.dom = prevElem.dom;
     // Copy instance and props
     nextElem.instance = instance;
@@ -25,7 +25,6 @@ export const updateVComponent = (
 
     // Save old render and render new one
     const prevRender = pCurrentElement;
-    // const nextRender = instance.render();
     const nextRender = nextElem.instance.render();
     nextElem.instance.pCurrentElement = nextRender;
 

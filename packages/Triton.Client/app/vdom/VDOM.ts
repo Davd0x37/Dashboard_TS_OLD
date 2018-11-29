@@ -14,6 +14,12 @@ import { mountVElement } from "./VElement/Mount";
 import { updateVElement } from "./VElement/Update";
 import { mountVText } from "./VText/Mount";
 
+/**
+ * Create Virtual Dom Tree
+ * @param tag string | vFNType
+ * @param props any
+ * @param children VNodeList
+ */
 export const createElement = (
   tag: string | vFNType,
   props: {},
@@ -40,12 +46,10 @@ export const mount = (input: VNode | VText, parentNode: HTMLElement) => {
 
 export const update = (
   prevElem: VElement | VComponent,
-  nextElem: VElement | VComponent,
-  parentNode?: HTMLElement
+  nextElem: VElement | VComponent
 ) => {
   // If previous rendered element is the same as new one
   // Then just update childrens
-  // console.log(prevElem, nextElem)
   if (prevElem.tag === nextElem.tag) {
     if (typeof prevElem.tag === "string") {
       updateVElement(prevElem as VElement, nextElem as VElement);
@@ -53,6 +57,12 @@ export const update = (
       updateVComponent(prevElem as VComponent, nextElem as VComponent);
     }
   } else {
-    // @TODO: Replace whole node
+    // @TODO: Add option for toggling text
+    if (typeof prevElem.tag === "function") {
+      // While updating, instance always exists
+      mount(nextElem, (prevElem as VComponent).instance!.pParentNode);
+      // @TODO: replace remove with something else
+      prevElem.dom!.remove();
+    }
   }
 };
