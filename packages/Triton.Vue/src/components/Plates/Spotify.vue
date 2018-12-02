@@ -1,8 +1,25 @@
 <template>
-  <VPlate brandIcon="spotify" brandTitle="Spotify" brandClass="spotify-plate" brandColor="#B5EB00">
-    <VLabel v-bind:title="$t('Username')" v-bind:value="Username"/>
-    <VLabel v-bind:title="$t('Email')" v-bind:value="Email" noCapitalize="true"/>
-    <VLabel v-bind:title="$t('Type')" v-bind:value="Type" isLast="true" addClass="color"/>
+  <VPlate
+    brandIcon="spotify"
+    brandTitle="Spotify"
+    brandClass="spotify-plate"
+    brandColor="#B5EB00"
+  >
+    <VLabel
+      v-bind:title="$t('Username')"
+      v-bind:value="Service.Username"
+    />
+    <VLabel
+      v-bind:title="$t('Email')"
+      v-bind:value="Service.Email"
+      noCapitalize="true"
+    />
+    <VLabel
+      v-bind:title="$t('Type')"
+      v-bind:value="Service.Type"
+      isLast="true"
+      addClass="color"
+    />
   </VPlate>
 </template>
 
@@ -18,9 +35,9 @@ import VLabel from "@/components/Utils/VLabel.vue";
   }
 })
 export default class Spotify extends Vue {
-  protected Username: string = this.$store.state.Spotify.Username;
-  protected Type: string = this.$store.state.Spotify.Type;
-  protected Email: string = this.$store.state.Spotify.Email;
+  protected get Service() {
+    return this.$store.state.data.Spotify;
+  }
 }
 </script>
 

@@ -20,7 +20,8 @@
     "paths": {
       "@/*": [
         "src/*"
-      ]
+      ],
+      "#SH/*": ["../Triton.Shared/*"]
     },
     "lib": [
       "esnext",

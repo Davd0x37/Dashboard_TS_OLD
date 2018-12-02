@@ -5,33 +5,28 @@
         <a href="#">{{AppName}}</a>
       </div>
       <div class="user">
-        <p class="user__name">{{Username}}</p>
-        <img :src="Avatar" alt="Avatar" class="user__avatar" v-on:click="xd()"/>
+        <p class="user__name">{{Data.Login}}</p>
+        <img
+          :src="Data.Avatar"
+          alt="Avatar"
+          class="user__avatar"
+        />
       </div>
     </header>
-    <!--<router-link to="/">XD</router-link>-->
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
+import store from "@/store";
 
+@Component
 export default class App extends Vue {
   protected AppName: string = "Dashboard";
-  protected Avatar: string = this.$store.state.User.Avatar;
-  protected Username: string = this.$store.state.User.Login;
 
-  public xd() {
-    setTimeout(
-      () =>
-        this.$store.dispatch("UpdateUserData", {
-          User: { Login: "OMGOMGOMG" }
-        }),
-      2000
-    );
-    this.Username = "ASDASD"
-    console.log(this.Username)
+  protected get Data() {
+    return this.$store.state.data.User;
   }
 }
 </script>

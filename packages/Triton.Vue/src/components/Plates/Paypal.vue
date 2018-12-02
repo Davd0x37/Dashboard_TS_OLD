@@ -1,14 +1,45 @@
 <template>
-  <VPlate brandIcon="paypal" brandTitle="Paypal" brandClass="paypal-plate" brandColor="#0D96D9">
+  <VPlate
+    brandIcon="paypal"
+    brandTitle="Paypal"
+    brandClass="paypal-plate"
+    brandColor="#0D96D9"
+  >
     <aside class="wrap">
-      <VLabel v-bind:title="$t('Username')" v-bind:value="Username"/>
-      <VLabel v-bind:title="$t('Email')" v-bind:value="Email" noCapitalize="true" addClass="paypal--color-blue"/>
-      <VLabel v-bind:title="$t('Phone')" v-bind:value="Phone" isLast="true" addClass="paypal--color-blue"/>
+      <VLabel
+        v-bind:title="$t('Username')"
+        v-bind:value="Service.Username"
+      />
+      <VLabel
+        v-bind:title="$t('Email')"
+        v-bind:value="Service.Email"
+        noCapitalize="true"
+        addClass="paypal--color-blue"
+      />
+      <VLabel
+        v-bind:title="$t('Phone')"
+        v-bind:value="Service.Phone"
+        isLast="true"
+        addClass="paypal--color-blue"
+      />
     </aside>
     <aside class="wrap">
-      <VLabel v-bind:title="$t('Country')" v-bind:value="Country" addClass="paypal--color-blue"/>
-      <VLabel v-bind:title="$t('Zoneinfo')" v-bind:value="Zoneinfo" addClass="paypal--color-card"/>
-      <VLabel v-bind:title="$t('Verified')" v-bind:value="Verified ? $t('Verified') : $t('Unverified')" isLast="true" addClass="paypal--color-blue"/>
+      <VLabel
+        v-bind:title="$t('Country')"
+        v-bind:value="Service.Country"
+        addClass="paypal--color-blue"
+      />
+      <VLabel
+        v-bind:title="$t('Zoneinfo')"
+        v-bind:value="Service.Zoneinfo"
+        addClass="paypal--color-card"
+      />
+      <VLabel
+        v-bind:title="$t('Verified')"
+        v-bind:value="Service.Verified ? $t('Verified') : $t('Unverified')"
+        isLast="true"
+        addClass="paypal--color-blue"
+      />
     </aside>
   </VPlate>
 </template>
@@ -25,12 +56,9 @@ import VLabel from "@/components/Utils/VLabel.vue";
   }
 })
 export default class Paypal extends Vue {
-  protected Username: string = this.$store.state.Paypal.Username;
-  protected Email: string = this.$store.state.Paypal.Email;
-  protected Phone: string = this.$store.state.Paypal.Phone;
-  protected Country: string = this.$store.state.Paypal.Country;
-  protected Zoneinfo: string = this.$store.state.Paypal.Zoneinfo;
-  protected Verified: boolean = this.$store.state.Paypal.Verified;
+  protected get Service() {
+    return this.$store.state.data.Paypal;
+  }
 }
 </script>
 

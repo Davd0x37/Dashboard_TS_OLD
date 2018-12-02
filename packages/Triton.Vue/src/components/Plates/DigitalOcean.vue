@@ -1,13 +1,34 @@
 <template>
-  <VPlate brandIcon="digital-ocean" brandTitle="DigitalOcean" brandClass="digital-ocean-plate" brandColor="#0080FF">
+  <VPlate
+    brandIcon="digital-ocean"
+    brandTitle="DigitalOcean"
+    brandClass="digital-ocean-plate"
+    brandColor="#0080FF"
+  >
     <aside class="wrap">
-      <VLabel v-bind:title="$t('Email')" v-bind:value="Email"/>
-      <VLabel v-bind:title="$t('LastCreatedDroplet')" v-bind:value="LastCreatedDroplet + ' ' + $t('LastCreatedDroplet')"
-              isLast="true" addClass="color"/>
+      <VLabel
+        v-bind:title="$t('Email')"
+        v-bind:value="Service.Email"
+      />
+      <VLabel
+        v-bind:title="$t('LastCreatedDroplet')"
+        v-bind:value="Service.LastCreatedDroplet + ' ' + $t('LastCreatedDroplet')"
+        isLast="true"
+        addClass="color"
+      />
     </aside>
     <aside class="wrap">
-      <VLabel v-bind:title="$t('DropletLimit')" v-bind:value="DropletLimit" addClass="color"/>
-      <VLabel v-bind:title="$t('Droplets')" v-bind:value="Droplets" isLast="true" addClass="color"/>
+      <VLabel
+        v-bind:title="$t('DropletLimit')"
+        v-bind:value="Service.DropletLimit"
+        addClass="color"
+      />
+      <VLabel
+        v-bind:title="$t('Droplets')"
+        v-bind:value="Service.Droplets"
+        isLast="true"
+        addClass="color"
+      />
     </aside>
   </VPlate>
 </template>
@@ -24,11 +45,9 @@ import VLabel from "@/components/Utils/VLabel.vue";
   }
 })
 export default class DigitalOcean extends Vue {
-  protected Email: string = this.$store.state.DigitalOcean.Email;
-  protected LastCreatedDroplet: string = this.$store.state.DigitalOcean
-    .LastCreatedDroplet;
-  protected DropletLimit: string = this.$store.state.DigitalOcean.DropletLimit;
-  protected Droplets: string = this.$store.state.DigitalOcean.Total;
+  protected get Service() {
+    return this.$store.state.data.DigitalOcean;
+  }
 }
 </script>
 
