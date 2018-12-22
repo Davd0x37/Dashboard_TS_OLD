@@ -8,8 +8,5 @@
   "private": true,
   "dependencies": {
     "lerna": "^3.4.3"
-  },
-  "devDependencies": {
-    "typescript": "^3.1.6"
   }
 }

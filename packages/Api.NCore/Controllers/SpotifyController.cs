@@ -11,8 +11,8 @@ namespace Api.NCore.Controllers
     public class SpotifyController : ControllerBase
     {
         private const string ServiceName = "Spotify";
-        private const string ClientId = "5022d32a21ad45a3bfce0835142a3d2c";
-        private const string ClientSecret = "1c385db25c474181841aabcc6385e457";
+        private const string ClientId = "";
+        private const string ClientSecret = "";
         private const string RedirectUri = "https://localhost:5001/spotify/result";
         private const string TokenUri = "https://accounts.spotify.com/api/token";
         private const string AuthorizeUri = "https://accounts.spotify.com/authorize";

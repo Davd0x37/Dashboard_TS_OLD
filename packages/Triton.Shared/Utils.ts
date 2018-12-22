@@ -1,22 +1,18 @@
 /**
- * Convert timestamp to seconds
- *
- * @param {number} time
- * @returns
- */
-export const timeToSeconds = (time: number) => {
-  return Math.round(time / 1000);
-};
-
-/**
  * Generate random string from passed range
  *
  * @param {number} length
- * @returns {string}
+ * @param {boolean} [onlyNumbers]
+ * @returns {Promise<string>}
  */
-export const generateRandomString = (length: number, onlyNumbers?: boolean): string => {
+export const generateRandomString = (
+  length: number,
+  onlyNumbers?: boolean,
+  promise: boolean = false
+): string | Promise<string> => {
   let text = "";
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const numbers = "0123456789";
 
   if (onlyNumbers) {
@@ -28,5 +24,5 @@ export const generateRandomString = (length: number, onlyNumbers?: boolean): str
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
   }
-  return text;
+  return promise ? Promise.resolve(text) : text;
 };

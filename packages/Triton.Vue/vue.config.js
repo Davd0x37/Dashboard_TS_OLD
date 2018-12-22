@@ -5,6 +5,10 @@ module.exports = {
     name: "Dashboard"
   },
 
+  devServer: {
+    port: 3030
+  },
+
   pluginOptions: {
     i18n: {
       locale: "en",

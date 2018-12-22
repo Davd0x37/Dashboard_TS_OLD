@@ -4,7 +4,7 @@
     "module": "commonjs",
     "lib": ["es2018", "esnext", "esnext.asynciterable", "es2017"],
     "outDir": "build/app",
-    "declaration": true,
+    "declaration": false,
     "pretty": true,
     "removeComments": true,
     "sourceMap": false,
@@ -39,6 +39,5 @@
       "#SH/*": ["../Triton.Shared/*"]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["app/**/*.ts", "app/**/*.json"]
+  "exclude": ["node_modules"]
 }

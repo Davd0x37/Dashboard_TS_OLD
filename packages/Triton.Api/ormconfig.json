@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "vernon",
+  "password": "mvBDmz><KgbqyksJ!iX8ztezada4gkiqf;fgh$j3",
+  "database": "Triton",
+  "synchronize": true,
+  "logging": false,
+  "entities": ["build/app/entity/**/*.js"],
+  "migrations": ["build/app/migration/**/*.js"],
+  "subscribers": ["build/app/subscriber/**/*.js"],
+  "cli": {
+    "entitiesDir": "app/entity",
+    "migrationsDir": "app/migration",
+    "subscribersDir": "app/subscriber"
+  }
+}
