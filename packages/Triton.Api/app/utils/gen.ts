@@ -1,16 +1,15 @@
+// tslint:disable
 /**
  * Generate random string from passed range
  *
  * @param {number} size size of generated string
- * @param {boolean} [onlyNumbers] generate only numbers?
- * @param {boolean} [promise=false] should return promise?
- * @returns {(string | Promise<string>)} generated string or promise
+ * @param {boolean} [onlyNumbers=false] generate only numbers?
+ * @returns {string} generated string
  */
 export const generateRandomString = (
   size: number,
-  onlyNumbers?: boolean,
-  promise: boolean = false
-): string | Promise<string> => {
+  onlyNumbers: boolean = false
+): string => {
   let text = "";
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -25,5 +24,5 @@ export const generateRandomString = (
       text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
   }
-  return promise ? Promise.resolve(text) : text;
+  return text;
 };

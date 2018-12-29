@@ -9,6 +9,7 @@
  * }) -> string
  *
  * -> url?response_type=code&scope=email+profile+avatar&redirect_uri=http...
+ * ```
  *
  * @param {string} url URL
  * @param {object} obj Queries

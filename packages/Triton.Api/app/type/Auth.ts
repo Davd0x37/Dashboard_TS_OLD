@@ -1,43 +1,8 @@
-export interface IServiceType {
-  id: string;
-  service: string;
-}
-
-export interface IAuthTokens {
-  AuthTokens: {
-    [key: string]: {
-      AccessToken: string;
-      Code: string;
-      RefreshToken: string;
-      StateKey: string;
-    };
-  };
-}
-
-export interface IAuthenticationParams {
-  scopes: string;
-  redirect_uri: string;
-  clientID: string;
-  url: string;
-  state?: string;
-  nonce?: string;
-}
-
-export interface IAccessTokenParams {
-  code: string;
-  state: string;
-  Authorization: {
-    clientID: string;
-    clientSecret: string;
-  };
-  url: string;
-  redirect_uri?: string;
-}
-
-export interface IRefreshToken {
-  url: string;
-  auth: {
-    clientID: string;
-    clientSecret: string;
-  };
+export interface IServiceTokens {
+  readonly accessToken?: string;
+  readonly refreshToken?: string;
+  readonly expiresIn?: number;
+  readonly tokenType?: string;
+  readonly updateTime?: Date;
+  readonly state?: string;
 }

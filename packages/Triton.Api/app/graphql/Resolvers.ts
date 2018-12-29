@@ -1,9 +1,9 @@
-import UserMutation from "../components/user/Mutation";
-import UserQuery from "../components/user/Query";
+import UserMutation from "@/components/user/Mutation";
+// import UserQuery from "../components/user/Query";
 export const resolvers = {
-  Query: {
-    ...UserQuery
-  },
+  // Query: {
+  //   ...UserQuery
+  // },
   Mutation: {
     ...UserMutation
   }

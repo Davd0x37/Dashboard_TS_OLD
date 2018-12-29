@@ -1,60 +1,44 @@
-import { DigitalOceanManager, PaypalManager, SpotifyManager } from '#/components';
-import { query } from '#/controller/DB';
-import { hashPass } from '#/utils/crypto';
-// import { IUserDocType } from '#SH/Interfaces';
-import signale from 'signale';
+import { servicesOAuth } from "@CFG/services";
+import { requestServiceData } from "@COMP/service/Manager";
+import { User } from "@ENTITY/User";
+import { hashPass } from "@UTILS/crypto";
+import { log } from "@UTILS/log";
 
-import { fieldAvailable, getUser } from './Manager';
-
-// Need to be exported as object because we want to use spread operator
 export default {
-  async AddUser(_: any, { data }: any): Promise<boolean> {
+  // User input is defined in graphql schema
+  // We know it will be valid as long as schema contains valid fields declarations
+  addUser: async (_: any, { data }: any): Promise<boolean> => {
     try {
-      if (
-        (await fieldAvailable({ User: { Login: data.Login } })) &&
-        (await fieldAvailable({ User: { Email: data.Email } }))
-      ) {
-        // Hash password
-        data.Password = await hashPass(data.Password);
-        // Save user credentials in database
-        await query(q =>
-          q.insert({
-            User: {
-              ...data
-            }
+      data.password = await hashPass(data.password);
+      await User.insert(data);
+      return true;
+    } catch (e) {
+      return log(e, false);
+    }
+  },
+  // Fetch services assigned to user and select from services.ts file
+  updateUserData: async (_: any, { id }: any): Promise<boolean> => {
+    try {
+      const req = await Promise.all(
+        Object.entries(servicesOAuth).map(
+          async ([service, { paths, requestedData }]) => ({
+            [service]: await Promise.all(
+              paths.map(
+                async path =>
+                  await requestServiceData(path, id, service, requestedData)
+              )
+            )
           })
-        );
-        return true;
-      } else {
-        // Login already taken
-        return false;
-      }
-    } catch (e) {
-      signale.error("User.Mutation.AddUser ------", e);
-      throw Error(e);
-    }
-  },
+        )
+      );
 
-  async UpdateUserData(_: any, { id }: any): Promise<IUserDocType> {
-    try {
-      await SpotifyManager(id);
-      await PaypalManager(id);
-      await DigitalOceanManager(id);
-      const res: any = await getUser(id);
-      return res;
-    } catch (e) {
-      signale.error("User.Mutation.UpdateUserData ------", e);
-      throw Error(e);
-    }
-  },
+      const saveReq = await Promise.all(
+        req.map(service => Object.entries(service).forEach(([key, val]) => console.log(key, JSON.stringify(val))))
+      );
 
-  async UpdateDigitalOceanToken(_: any, { id, token }: any): Promise<boolean> {
-    try {
-      const req: any = await query(q => q.get(id).update({ AuthTokens: { DigitalOcean: { AccessToken: token } } }));
-      return !!req.inserted || !!req.replaced;
+      return true;
     } catch (e) {
-      signale.error("User.Mutation.UpdateDigitalOceanToken ------", e);
-      throw Error(e);
+      return log(e, false);
     }
   }
 };

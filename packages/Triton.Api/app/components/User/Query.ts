@@ -1,26 +1,25 @@
-import { query } from '#/controller/DB';
-import { hashPass } from '#/utils/crypto';
-// import { IUserDocType } from '#SH/Interfaces';
-import signale from 'signale';
+import { User } from "@/entity/User";
+import { hashPass } from "@UTILS/crypto";
+import { log } from "@UTILS/log";
 
-// Need to be exported as object because we want to use spread operator
 export default {
   /**
    * Get user from database
    *
    * @param {*} _
-   * @param {*} { login, password }
-   * @returns {Promise<object>}
+   * @param {*} { login, password } User login and password
+   * @returns {(Promise<User | null>)} User or null if not found/bad credentials
    */
-  async AuthenticateUser(_: any, { login, password }: any): Promise<object> {
+  async authenticateUser(
+    _: any,
+    { login, password }: any
+  ): Promise<User | null> {
     try {
-      const req: [IUserDocType] = await query(async q =>
-        q.filter({ User: { Login: login, Password: await hashPass(password) } })
-      );
-      return req[0];
+      return User.findOneOrFail({
+        where: { login, password: await hashPass(password) }
+      });
     } catch (e) {
-      signale.error("User.Query.authenticateUser ------", e);
-      throw Error(e);
+      return log(e, null);
     }
   }
 };

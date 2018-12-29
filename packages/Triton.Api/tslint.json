@@ -5,19 +5,10 @@
     "tslint-immutable"
   ],
   "rules": {
-    "interface-name": false,
-    "interface-over-type-literal": false,
-    "max-classes-per-file": false,
-    "no-console": false,
-    "no-implicit-dependencies": false,
-    "no-namespace": false,
-    "no-shadowed-variable": false,
     "no-submodule-imports": false,
     "no-var-requires": false,
-    "object-literal-shorthand": true,
     "object-literal-sort-keys": false,
-    "prefer-object-spread": true,
-    "semicolon": false,
+    "member-ordering": false,
 
     // Recommended built-in rules
     "no-parameter-reassignment": true,
@@ -28,21 +19,12 @@
     "no-delete": true,
     "no-let": true,
     "no-method-signature": true,
-    "no-object-mutation": true,
+    // "no-object-mutation": true,
     // "readonly-array": true,
     // "readonly-keyword": true,
 
     // Functional style rules
     // "no-this": true,
-    // "no-class": true,
     "no-mixed-interface": true
-    // "no-expression-statement": [
-    //   true,
-    //   { "ignore-prefix": ["console.", "process.exit", "it"] }
-    // ],
-    // "no-if-statement": true
-  },
-  "linterOptions": {
-    "exclude": ["app/**/*.json", "@types/**/*.*"]
   }
 }

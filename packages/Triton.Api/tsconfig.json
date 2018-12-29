@@ -32,11 +32,15 @@
     "noUnusedParameters": true,
     "suppressImplicitAnyIndexErrors": true,
 
+    // Not working with outDir option
     "baseUrl": ".",
     "paths": {
-      "*": ["./@types/*"],
-      "#/*": ["app/*"],
-      "#SH/*": ["../Triton.Shared/*"]
+      "@/*": ["app/*"],
+      "@ENTITY/*": ["app/entity/*"],
+      "@COMP/*": ["app/components/*"],
+      "@UTILS/*": ["app/utils/*"],
+      "@CFG/*": ["app/config/*"],
+      "@TYPE/*": ["app/type/*"]
     }
   },
   "exclude": ["node_modules"]
