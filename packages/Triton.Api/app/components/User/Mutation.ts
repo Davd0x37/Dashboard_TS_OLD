@@ -1,19 +1,20 @@
-import { servicesOAuth } from "@CFG/services";
-import { requestServiceData } from "@COMP/service/Manager";
-import { User } from "@ENTITY/User";
-import { hashPass } from "@UTILS/crypto";
-import { log } from "@UTILS/log";
+import { requestServiceData } from "@/components/service";
+import { servicesOAuth } from "@/config/services";
+import { User } from "@/entity";
+import { hashPass } from "@/utils/crypto";
+import { AppError } from "@UTILS/log";
 
 export default {
   // User input is defined in graphql schema
   // We know it will be valid as long as schema contains valid fields declarations
-  addUser: async (_: any, { data }: any): Promise<boolean> => {
+  addUser: async (__: any, { data }: any): Promise<boolean> => {
     try {
       data.password = await hashPass(data.password);
-      await User.insert(data);
-      return true;
-    } catch (e) {
-      return log(e, false);
+      return await User.insert(data)
+        .then(_ => true)
+        .catch(err => AppError(err, false));
+    } catch (err) {
+      return AppError(err, false);
     }
   },
   // Fetch services assigned to user and select from services.ts file
@@ -33,12 +34,16 @@ export default {
       );
 
       const saveReq = await Promise.all(
-        req.map(service => Object.entries(service).forEach(([key, val]) => console.log(key, JSON.stringify(val))))
+        req.map(service =>
+          Object.entries(service).forEach(([key, val]) =>
+            console.log(key, JSON.stringify(val))
+          )
+        )
       );
 
       return true;
-    } catch (e) {
-      return log(e, false);
+    } catch (err) {
+      return AppError(err, false);
     }
   }
 };

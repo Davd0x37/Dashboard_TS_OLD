@@ -1,6 +1,6 @@
-import { User } from "@/entity/User";
-import { hashPass } from "@UTILS/crypto";
-import { log } from "@UTILS/log";
+import { User } from "@/entity";
+import { hashPass } from "@/utils/crypto";
+import { AppError } from "@/utils/log";
 
 export default {
   /**
@@ -15,11 +15,11 @@ export default {
     { login, password }: any
   ): Promise<User | null> {
     try {
-      return User.findOneOrFail({
+      return await User.findOneOrFail({
         where: { login, password: await hashPass(password) }
       });
-    } catch (e) {
-      return log(e, null);
+    } catch (err) {
+      return AppError(err, null);
     }
   }
 };

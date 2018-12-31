@@ -8,11 +8,14 @@ import {
 import { AuthTokens } from "./AuthTokens";
 import { Service } from "./Service";
 
-import { log } from "@UTILS/log";
+import { AppError } from "@/utils/log";
 @Entity({ name: "Users" })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public readonly id!: string;
+
+  @Column("text", { nullable: true })
+  public avatar?: string;
 
   @Column("varchar", { length: 512, unique: true, nullable: false })
   public login!: string;
@@ -22,9 +25,6 @@ export class User extends BaseEntity {
 
   @Column("varchar", { length: 512, unique: true, nullable: false })
   public email!: string;
-
-  @Column("text", { nullable: true })
-  public avatar?: string;
 
   @Column("timestamptz", { nullable: false, default: new Date() })
   public registerDate!: Date;
@@ -39,28 +39,26 @@ export class User extends BaseEntity {
   public services?: Service[];
 
   /**
-   * Return user with given id
+   * Find user by id
    *
    * @param {string} id User id
-   * @returns {Promise<User | null>} User if exists otherwise null
+   * @returns {(Promise<User | null>)} User or null if not found
    */
-  public static getUserById(id: string): Promise<User | null> {
+  public static async getById(id: string): Promise<User | null> {
     try {
-      return this.findOneOrFail(id);
+      return await this.findOneOrFail(id);
     } catch (err) {
-      return log(err, null);
+      return AppError(err, null);
     }
   }
 
   /**
-   * Get user ID by his state key
-   * Created for authenticating third party services
+   * Get user ID by his state key.
+   *
    * @param {string} state State key
-   * @returns {Promise<string | null>} User ID
+   * @returns {(Promise<string | null>)} User ID or null if state key has been delete
    */
-  public static async getUserIdByStateKey(
-    state: string
-  ): Promise<string> {
+  public static async getIdByStateKey(state: string): Promise<string | null> {
     try {
       const id = await AuthTokens.findOneOrFail({
         where: { state },
@@ -68,7 +66,7 @@ export class User extends BaseEntity {
       });
       return id.user.id;
     } catch (err) {
-      return log(err, null);
+      return AppError(err, null);
     }
   }
 }

@@ -2,9 +2,9 @@
 /**
  * Generate random string from passed range
  *
- * @param {number} size size of generated string
- * @param {boolean} [onlyNumbers=false] generate only numbers?
- * @returns {string} generated string
+ * @param {number} size Size of generated string
+ * @param {boolean} [onlyNumbers=false] Generate only numbers?
+ * @returns {string} Generated string
  */
 export const generateRandomString = (
   size: number,

@@ -1,4 +1,5 @@
-import { log } from "@UTILS/log";
+import { entityExists, entityExistsThrow } from "@/components/user";
+import { AppError } from "@/utils/log";
 import {
   BaseEntity,
   Column,
@@ -14,7 +15,7 @@ export class Service extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public readonly id!: string;
 
-  @ManyToOne(_ => User, user => user.services)
+  @ManyToOne(_ => User, user => user.services, { nullable: false })
   @JoinColumn()
   public user!: User;
 
@@ -27,10 +28,12 @@ export class Service extends BaseEntity {
   /**
    * Update service data
    *
+   * @static
    * @param {string} id User id
    * @param {string} serviceName Service name
    * @param {string} data Updated data
    * @returns {Promise<boolean>} True if update succeed or false
+   * @memberof Service
    */
   public static async updateData(
     id: string,
@@ -38,76 +41,92 @@ export class Service extends BaseEntity {
     data: string
   ): Promise<boolean> {
     try {
-      const _ = await this.createQueryBuilder()
-        .update()
-        .set({ data })
-        .where("user = :id", { id })
-        .andWhere("serviceName = :serviceName", { serviceName })
-        .execute();
-      return true;
+      await entityExistsThrow(id, serviceName, this);
+
+      return await this.update({ user: { id }, serviceName }, { data }).then(
+        _ => true,
+        err => AppError(err, false)
+      );
     } catch (err) {
-      return log(err, false);
+      return AppError(err, false);
     }
   }
 
   /**
    * Create new service and assign it to the user
    *
+   * @static
    * @param {string} id User id
    * @param {string} serviceName Service name
-   * @param {string} data Everything that need to be stored in database
-   * Must be stringified object
+   * @param {string} data Everything that needs to be stored in database
+   * must be stringified object
+   * @param {boolean} [update=false] Should update existing service instead of creating?
    * @returns {Promise<boolean>} Success or failure state
+   * @memberof Service
    */
   public static async saveService(
     id: string,
     serviceName: string,
-    data: string
+    data: string,
+    update: boolean = false
   ): Promise<boolean> {
     try {
-      const newService = this.create({ serviceName, data }).save();
+      const serviceExists = await entityExists(id, serviceName, this);
 
-      await this.createQueryBuilder()
-        .relation(User, "services")
-        .of(id)
-        .add(newService);
+      if (!serviceExists) {
+        if (update) {
+          return await this.updateData(id, serviceName, data);
+        }
+        return false;
+      }
 
-      return true;
-    } catch (e) {
-      return log(e, false);
+      return await this.create({
+        user: { id },
+        serviceName,
+        data
+      })
+        .save()
+        .then(_ => true, err => AppError(err, false));
+    } catch (err) {
+      return AppError(err, false);
     }
   }
 
   /**
    * Get service assigned to user id
    *
+   * @static
    * @param {string} id User id
    * @param {string} serviceName service name
-   * @returns {Promise<Service | null>} Service or undefined if not found
+   * @returns {(Promise<Service | null>)} Service or undefined if not found
+   * @memberof Service
    */
   public static async getServiceByName(
     id: string,
     serviceName: string
-  ): Promise<Service> {
+  ): Promise<Service | null> {
     try {
-      return this.findOneOrFail({ where: { user: id, serviceName } });
-    } catch (e) {
-      return log(e, null);
+      return await this.findOneOrFail({ where: { user: { id }, serviceName } });
+    } catch (err) {
+      return AppError(err, null);
     }
   }
 
   /**
    * Get all services assigned to user
    *
+   * @static
    * @param {string} id User id
-   * @returns {Promise<Service[] | null>} Array of services or null if not found
+   * @returns {(Promise<Service[] | null>)} Array of services or null if not found
+   * @memberof Service
    */
   public static async getServiceById(id: string): Promise<Service[] | null> {
     try {
-      const service = await this.find({ where: { user: id } });
+      const service = await this.find({ where: { user: { id } } });
       return service.length > 0 ? service : null;
-    } catch (e) {
-      return log(e, null);
+    } catch (err) {
+      // Return null and print error because user ID may be incorrect
+      return AppError(err, null);
     }
   }
 }

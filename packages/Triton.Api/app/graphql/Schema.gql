@@ -11,7 +11,7 @@ type Query {
 type Mutation {
   addUser(data: UserInput!): Boolean!
   # Fetch new data from service
-  # @HINT: Maybe add selecting service(s)? 
+  # @HINT: Maybe add selecting services? 
   updateUserData(id: ID!): Boolean!
   # Update token
   updateBasicToken(id: ID!, serviceName: String!, token: String!): Boolean!

@@ -1,7 +1,8 @@
 import { AuthTokens } from "@ENTITY/AuthTokens";
-import { log } from "@UTILS/log";
+import { AppError } from "@UTILS/log";
 import { get } from "got";
 import { pick } from "lodash";
+
 /**
  * First get user data and check if tokens are exists
  * then fetch data from api and return it as promise
@@ -19,22 +20,24 @@ export const requestServiceData = async (
   pickData?: string[]
 ): Promise<{} | null> => {
   try {
-    const { accessToken } = await AuthTokens.getAuthTokenByName(
-      id,
-      serviceName
-    );
+    const tokens = await AuthTokens.getAuthTokenByName(id, serviceName);
 
-    if (accessToken) {
+    if (tokens === null || tokens.accessToken === null) {
+      return null;
+    }
+
+    if (tokens.accessToken) {
       if (pickData) {
-        const data = await fetchServiceData(path, accessToken);
+        const data = await fetchServiceData(path, tokens.accessToken);
         return pick(data, pickData);
       } else {
-        return fetchServiceData(path, accessToken);
+        return fetchServiceData(path, tokens.accessToken);
       }
     }
+
     return null;
-  } catch (e) {
-    return log(e, e, true);
+  } catch (err) {
+    return AppError(err, null);
   }
 };
 
@@ -46,7 +49,8 @@ export const requestServiceData = async (
  * @param {boolean} [json=true] Should return parsed json or string?
  * - If is set to true it will return parsed json (default=true)
  * - Otherwise raw data (string) will be returned
- * @returns {Promise<{} | null>} Requested data
+ * @returns {Promise<{} | null>} Requested data or null if cannot
+ * authenticate or nothing has fetched
  */
 export const fetchServiceData = (
   api: string,
@@ -58,4 +62,4 @@ export const fetchServiceData = (
     ...(json && { json })
   })
     .then(data => data.body)
-    .catch(err => log(err, null));
+    .catch(err => AppError(err, null));

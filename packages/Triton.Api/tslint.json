@@ -19,12 +19,6 @@
     "no-delete": true,
     "no-let": true,
     "no-method-signature": true,
-    // "no-object-mutation": true,
-    // "readonly-array": true,
-    // "readonly-keyword": true,
-
-    // Functional style rules
-    // "no-this": true,
     "no-mixed-interface": true
   }
 }

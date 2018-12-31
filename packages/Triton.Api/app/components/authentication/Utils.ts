@@ -1,4 +1,4 @@
-import got, { post } from "got";
+import { GotPromise, post } from "got";
 
 export const basicAuth = (clientID: string, clientSecret: string): string =>
   `Basic ${Buffer.from(clientID + ":" + clientSecret).toString("base64")}`;
@@ -11,7 +11,7 @@ export const requestTokens = ({
   body: {};
   auth: string;
   url: string;
-}): got.GotPromise<any> =>
+}): GotPromise<any> =>
   post(url, {
     form: true,
     body,

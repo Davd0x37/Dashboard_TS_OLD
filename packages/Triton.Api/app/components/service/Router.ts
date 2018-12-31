@@ -1,3 +1,4 @@
+import { AppError } from "@/utils/log";
 import { servicesOAuth } from "@CFG/services";
 import {
   getAccessToken,
@@ -10,6 +11,7 @@ const router = express.Router();
 
 /**
  * @TODO: Write some documentation or something 🤦‍
+ * - And use templates instead of html files
  */
 router.get("/:serviceName", async (req: Request, res: Response) => {
   try {
@@ -26,15 +28,19 @@ router.get("/:serviceName", async (req: Request, res: Response) => {
     }
 
     const authUrl = await requestAuthentication(
-      // @TODO: Fix this!!
+      // @FIXME: Fix this!!
       req.query.id,
       serviceName,
       servicesOAuth[serviceName]
     );
 
-    return authUrl && res.redirect(authUrl);
-  } catch (e) {
-    throw Error(e);
+    return res.redirect(authUrl);
+  } catch (err) {
+    res.sendFile(
+      resolve(__dirname, "../../../../app/views/authenticateError.html")
+    );
+
+    return AppError(err, false);
   }
 });
 
@@ -57,25 +63,24 @@ router.get(
         return false;
       }
 
-      const accessToken: boolean = await getAccessToken(
+      const accessToken = await getAccessToken(
         serviceName,
         servicesOAuth[serviceName],
         { code, state }
       );
 
-      // @TODO: Fix view path
-      if (accessToken) {
-        res.sendFile(
-          resolve(__dirname, "../../../../app/views/authenticateSuccess.html")
-        );
-      } else {
-        res.sendFile(
-          resolve(__dirname, "../../../../app/views/authenticateError.html")
-        );
-      }
+      // @FIXME: Fix view path
+      res.sendFile(
+        resolve(__dirname, "../../../../app/views/authenticateSuccess.html")
+      );
+
       return true;
-    } catch (e) {
-      throw Error(e);
+    } catch (err) {
+      res.sendFile(
+        resolve(__dirname, "../../../../app/views/authenticateError.html")
+      );
+
+      return AppError(err, false);
     }
   }
 );

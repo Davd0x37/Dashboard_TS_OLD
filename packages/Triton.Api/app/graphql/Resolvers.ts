@@ -1,10 +1,9 @@
-import UserMutation from "@/components/user/Mutation";
-// import UserQuery from "../components/user/Query";
+import { Mutation, Query } from "@COMP/user";
 export const resolvers = {
-  // Query: {
-  //   ...UserQuery
-  // },
+  Query: {
+    ...Query
+  },
   Mutation: {
-    ...UserMutation
+    ...Mutation
   }
 };

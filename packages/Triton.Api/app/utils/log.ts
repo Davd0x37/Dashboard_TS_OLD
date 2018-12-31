@@ -1,12 +1,19 @@
 import { error } from "signale";
 
-// Maybe change undefined to enum type?
-export const log = (err: any, ret?: any, prom: boolean = false) => {
+/**
+ * It will log error and return value that should be returned
+ * just as normal return
+ *
+ * @template T
+ * @param {*} err Error message
+ * @param {T} ret Return value
+ * @returns {T}
+ */
+export const AppError = <T>(err: any, ret: T): T => {
   const env = process.env.NODE_ENV;
   if (env !== "prod") {
     // Error only in dev mode
     error(err);
   }
-
-  return prom === false ? ret : Promise.reject(err);
+  return ret;
 };
