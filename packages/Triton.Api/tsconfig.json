@@ -35,13 +35,8 @@
     // Not working with outDir option
     "baseUrl": ".",
     "paths": {
-      "@/*": ["app/*"],
-      "@ENTITY/*": ["app/entity/*"],
-      "@COMP/*": ["app/components/*"],
-      "@UTILS/*": ["app/utils/*"],
-      "@CFG/*": ["app/config/*"],
-      "@TYPE/*": ["app/type/*"]
+      "@/*": ["app/*"]
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "tests"]
 }

@@ -1,4 +1,4 @@
-import { Mutation, Query } from "@COMP/user";
+import { Mutation, Query } from "@/components/user";
 export const resolvers = {
   Query: {
     ...Query

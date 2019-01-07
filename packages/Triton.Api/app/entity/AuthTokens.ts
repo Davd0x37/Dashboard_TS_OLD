@@ -1,4 +1,4 @@
-import { entityExists, entityExistsThrow } from "@/components/user";
+import { entityExists } from "@/repository/Manager";
 import { IServiceTokens } from "@/type";
 import { AppError } from "@/utils/log";
 import {
@@ -33,15 +33,14 @@ export class AuthTokens extends BaseEntity {
   @Column("int", { nullable: true })
   public expiresIn?: number;
 
-  @Column("character varying", { length: 128, nullable: true })
+  @Column("text", { nullable: true })
   public state?: string;
 
-  @Column("timestamptz", { nullable: false, default: new Date() })
-  public updateTime!: Date;
+  @Column("timestamptz", { nullable: true })
+  public updateTime?: Date;
 
   /**
-   * Update authentication tokens
-   *
+   * Update authentication tokens.
    * @static
    * @param {string} id User id
    * @param {string} serviceName Service name
@@ -54,61 +53,46 @@ export class AuthTokens extends BaseEntity {
     serviceName: string,
     tokens: IServiceTokens
   ): Promise<boolean> {
-    try {
-      await entityExistsThrow(id, serviceName, this);
+    const exists = await entityExists(id, serviceName, this);
 
-      return await this.update(
+    return (
+      exists &&
+      (await this.update(
         { user: { id }, serviceName },
         { ...tokens, updateTime: new Date() }
-      ).then(_ => true, err => AppError(err, false));
-    } catch (err) {
-      return AppError(err, false);
-    }
+      ).then(_ => true, err => AppError(err, false)))
+    );
   }
 
   /**
-   * Create new tokens and assign them to user
-   *
-   * #Note: Or update existing
-   *
+   * Create new tokens and assign them to user.
    * @param {string} id User id
    * @param {string} serviceName Service name
    * @param {IServiceTokens} tokens Tokens that will be saved in database
-   * @param {boolean} [update=false] Should update tokens instead of creating?
-   * @returns {Promise<boolean>} Boolean depending on success or failure
+   * @returns {Promise<boolean>} False if tokens exists or true if not
    * @memberof AuthTokens
    */
   public static async saveTokens(
     id: string,
     serviceName: string,
-    tokens: IServiceTokens,
-    update: boolean = false
+    tokens: IServiceTokens
   ): Promise<boolean> {
-    try {
-      const tokensExists = await entityExists(id, serviceName, this);
+    const tokensExists = await entityExists(id, serviceName, this);
 
-      if (!tokensExists) {
-        if (update) {
-          return await this.updateTokens(id, serviceName, tokens);
-        }
-        return false;
-      }
-
-      return await this.create({
+    return (
+      !tokensExists &&
+      (await this.create({
         user: { id },
         serviceName,
         ...tokens
       })
         .save()
-        .then(_ => true, err => AppError(err, false));
-    } catch (err) {
-      return AppError(err, false);
-    }
+        .then(_ => true, err => AppError(err, false)))
+    );
   }
 
   /**
-   * Get auth tokens assigned to user id
-   *
+   * Get auth tokens assigned to user id.
    * @static
    * @param {string} id User id
    * @param {string} serviceName service name
@@ -127,8 +111,7 @@ export class AuthTokens extends BaseEntity {
   }
 
   /**
-   * Get all auth tokens assigned to user
-   *
+   * Get all auth tokens assigned to user.
    * @static
    * @param {string} id User id
    * @returns {(Promise<AuthTokens[] | null>)} Array of auth tokens or null if not found
@@ -146,8 +129,7 @@ export class AuthTokens extends BaseEntity {
   }
 
   /**
-   * Get user state key
-   *
+   * Get user state key.
    * @static
    * @param {string} id User id
    * @param {string} serviceName Service name

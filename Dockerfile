@@ -1,6 +1,6 @@
 FROM node:latest
 
-USER watisthis
+USER userxd
 
 ADD . /Dashboard
 WORKDIR /Dashboard

@@ -1,7 +1,6 @@
 // tslint:disable
 /**
- * Generate random string from passed range
- *
+ * Generate random string from passed range.
  * @param {number} size Size of generated string
  * @param {boolean} [onlyNumbers=false] Generate only numbers?
  * @returns {string} Generated string

@@ -1,5 +1,5 @@
 /**
- * Return query string
+ * Return query string.
  *
  * ```
  * queryString("url", {

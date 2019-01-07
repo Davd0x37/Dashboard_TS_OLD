@@ -1,4 +1,4 @@
-import { IServices } from "@TYPE/services";
+import { IServices } from "@/type";
 
 const env = process.env;
 

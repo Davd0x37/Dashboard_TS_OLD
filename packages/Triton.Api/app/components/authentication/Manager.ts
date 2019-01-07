@@ -1,9 +1,10 @@
-import { setupServiceTokens } from "@/components/user";
-import { AuthTokens, User } from "@/entity";
+import { setupServiceTokens } from "@/components/service";
+import { AuthTokens } from "@/entity";
 import { IServices } from "@/type";
 import { generateRandomString } from "@/utils/gen";
 import { AppError } from "@/utils/log";
 import { queryString } from "@/utils/net";
+import { readSession } from "../memory";
 import { basicAuth, requestTokens } from "./Utils";
 
 /**
@@ -16,27 +17,32 @@ import { basicAuth, requestTokens } from "./Utils";
  *
  * **IMPURE**
  *
- * @param {string} id User id
+ * @param {string} token Generated JWT token
  * @param {string} serviceName Service name
  * @param {IServices} serviceSettings Options needed to generate authentication url
  * @returns {Promise<string>} Generated query string or false if failed
  */
 export const requestAuthentication = async (
-  id: string,
+  token: string,
   serviceName: string,
   serviceSettings: IServices
 ): Promise<string> => {
   try {
-    const { authorizeURL, clientID, userScopes, redirectURL } = serviceSettings;
+    const userID = await readSession(token);
+    if (userID === null) {
+      return Promise.reject("Wrong token!1");
+    }
 
-    const state = generateRandomString(64);
+    const { authorizeURL, clientID, userScopes, redirectURL } = serviceSettings;
     const nonce = `${Date.now() +
       Buffer.from(generateRandomString(16, true)).toString("base64")}`;
 
     // Maybe instead of returning boolean, just throw exception?
-    const setup = await setupServiceTokens(id, serviceName, { state });
+    const setup = await setupServiceTokens(userID, serviceName, {
+      state: token
+    });
     if (!setup) {
-      return Promise.reject(false);
+      throw AppError("Error occurs during setting up account!", null);
     }
 
     return queryString(authorizeURL, {
@@ -44,16 +50,16 @@ export const requestAuthentication = async (
       response_type: "code",
       scope: encodeURI(userScopes.join("+")),
       redirect_uri: encodeURI(redirectURL),
-      state,
+      state: token,
       nonce
     });
   } catch (err) {
-    throw AppError(err, false);
+    throw AppError(err, "Something went wrong!");
   }
 };
 
 /**
- * Request access tokens with received code and state key
+ * Request access tokens with received code and state key.
  *
  * #NOTE: Returns only boolean if tokens are updated or state keys are different
  * otherwise it will reject and throw proper error message.
@@ -73,6 +79,11 @@ export const getAccessToken = async (
   { code, state }: { code: string; state: string }
 ): Promise<boolean> => {
   try {
+    const encryptedID = await readSession(state);
+    if (encryptedID === null) {
+      return Promise.reject("You shall not pass!");
+    }
+
     // Destructure
     const {
       clientID,
@@ -81,14 +92,9 @@ export const getAccessToken = async (
       tokenService
     } = serviceSettings;
 
-    const id = await User.getIdByStateKey(state);
-    if (id === null) {
-      return false;
-    }
-
-    const stateKey = await AuthTokens.getStateKey(id, serviceName);
+    const stateKey = await AuthTokens.getStateKey(encryptedID, serviceName);
     if (state !== stateKey || state === null) {
-      return false;
+      return Promise.reject("Do not try this with me!");
     }
 
     const encodedAuth = basicAuth(clientID, clientSecret);
@@ -106,7 +112,7 @@ export const getAccessToken = async (
     // Now we can save our new tokens and delete state key
     // It is somehow dangerous to store it for long time
     // Because we can get user id using state key
-    return AuthTokens.updateTokens(id, serviceName, {
+    return AuthTokens.updateTokens(encryptedID, serviceName, {
       accessToken: body.access_token,
       refreshToken: body.refresh_token,
       tokenType: body.token_type,
@@ -114,12 +120,13 @@ export const getAccessToken = async (
       state: ""
     });
   } catch (err) {
-    throw AppError(err, false);
+    throw AppError(err, "Something went wrong!");
   }
 };
 
 /**
- * Receive new refresh token from service
+ * Receive new refresh token from service.
+ *
  * **IMPURE**
  *
  * @param {string} id User id

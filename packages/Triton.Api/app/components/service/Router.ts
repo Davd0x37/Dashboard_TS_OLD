@@ -1,44 +1,45 @@
-import { AppError } from "@/utils/log";
-import { servicesOAuth } from "@CFG/services";
 import {
   getAccessToken,
   requestAuthentication
-} from "@COMP/authentication/Manager";
+} from "@/components/authentication";
+import { servicesOAuth } from "@/config/services";
+import { AppError } from "@/utils/log";
 import express, { Request, Response } from "express";
-import { resolve } from "path";
 
 const router = express.Router();
-
 /**
- * @TODO: Write some documentation or something 🤦‍
- * - And use templates instead of html files
+ * User opens `api.path/services/serviceName`
+ * then page redirects to selected service
+ * for authentication. If user is successfully
+ * authenticated, service will redirect to
+ * `api.path/services/serviceName/authenticateResult`
  */
 router.get("/:serviceName", async (req: Request, res: Response) => {
   try {
-    if (req.query.id === undefined) {
-      res.send("GIVE ME YOUR ID AND I WILL GIVE YOU NOTHING 🐱‍🐉");
+    if (req.query.token === undefined) {
+      res.render("error", {
+        message: "YOU DO NOT HAVE TOKEN THAT I NEED 🐱‍🐉"
+      });
+
       return false;
     }
 
     const serviceName = req.params.serviceName.toLowerCase();
-
     if (servicesOAuth[serviceName] === undefined) {
-      res.send("WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍");
+      res.render("error", {
+        message: "WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍"
+      });
+
       return false;
     }
-
     const authUrl = await requestAuthentication(
-      // @FIXME: Fix this!!
-      req.query.id,
+      req.query.token,
       serviceName,
       servicesOAuth[serviceName]
     );
-
     return res.redirect(authUrl);
   } catch (err) {
-    res.sendFile(
-      resolve(__dirname, "../../../../app/views/authenticateError.html")
-    );
+    res.render("error", { message: err });
 
     return AppError(err, false);
   }
@@ -51,7 +52,9 @@ router.get(
       const serviceName = req.params.serviceName.toLowerCase();
 
       if (servicesOAuth[serviceName] === undefined) {
-        res.send("WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍");
+        res.render("error", {
+          message: "WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍"
+        });
         return false;
       }
 
@@ -59,26 +62,22 @@ router.get(
       const state = req.query.state;
 
       if (code === undefined || state === undefined) {
-        res.send("I NEED CODE AND STATE TO DO SOMETHING 🤔");
+        res.render("error", {
+          message: "YOU PASSED WRONG URL 🤔"
+        });
         return false;
       }
 
-      const accessToken = await getAccessToken(
-        serviceName,
-        servicesOAuth[serviceName],
-        { code, state }
-      );
+      await getAccessToken(serviceName, servicesOAuth[serviceName], {
+        code,
+        state
+      });
 
-      // @FIXME: Fix view path
-      res.sendFile(
-        resolve(__dirname, "../../../../app/views/authenticateSuccess.html")
-      );
+      res.render("success");
 
       return true;
     } catch (err) {
-      res.sendFile(
-        resolve(__dirname, "../../../../app/views/authenticateError.html")
-      );
+      res.render("error", { message: err });
 
       return AppError(err, false);
     }

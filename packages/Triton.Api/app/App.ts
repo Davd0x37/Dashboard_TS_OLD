@@ -10,20 +10,25 @@ import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
 import { resolve } from "path";
 import { fatal, start } from "signale";
-import { createConnection } from "typeorm";
+import { Connection } from "typeorm";
+import { unseal } from "./components/vault";
+import { igniteConnection } from "./CreateConnection";
+import { firstRun } from "./Setup";
 
-createConnection()
-  .then(async (_: any) => {
+igniteConnection()
+  .then(async (_: Connection) => {
+    await firstRun()
+    await unseal();
+
     const env = process.env.NODE_ENV;
-
     // Create GraphQL server
-    // @TODO: Fix importing schema
     const server = new GraphQLServer({
-      typeDefs: loadGQLSchema(
-        resolve(__dirname, "../../app/graphql/Schema.gql")
-      ),
+      typeDefs: loadGQLSchema(resolve("app/graphql/Schema.gql")),
       resolvers
     });
+
+    server.express.set("view engine", "pug");
+    server.express.set("views", resolve("app/views"));
 
     // Add middlewares and routes
     server.express
@@ -34,15 +39,13 @@ createConnection()
     // Start server with/out cors
     server.start(
       {
-        ...(env === "prod"
-          ? {
-              cors: {
-                origin: cors.origin,
-                methods: cors.methods
-              }
-            }
-          : {}),
-        ...(env === "prod" ? { playground: false } : { playground: "/" })
+        ...(env === "prod" && {
+          cors: {
+            origin: cors.origin,
+            methods: cors.methods
+          }
+        }),
+        playground: env === "prod" ? false : "/"
       },
       () => start(`Server is running!`)
     );

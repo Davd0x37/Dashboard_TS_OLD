@@ -11,14 +11,14 @@ type Query {
 type Mutation {
   addUser(data: UserInput!): Boolean!
   # Fetch new data from service
-  # @HINT: Maybe add selecting services? 
-  updateUserData(id: ID!): Boolean!
+  # @HINT: Maybe add selecting services?
+  updateUserData(session_id: String!): Boolean!
   # Update token
   updateBasicToken(id: ID!, serviceName: String!, token: String!): Boolean!
 }
 
 type User {
-  id: ID!
+  session_id: String!
   avatar: String
   email: String!
   isOnline: Boolean!
@@ -31,5 +31,4 @@ input UserInput {
   isOnline: Boolean!
   login: String!
   password: String!
-  registerDate: String!
 }

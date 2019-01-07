@@ -1,4 +1,4 @@
-import { entityExists, entityExistsThrow } from "@/components/user";
+import { entityExists } from "@/repository/Manager";
 import { AppError } from "@/utils/log";
 import {
   BaseEntity,
@@ -26,8 +26,7 @@ export class Service extends BaseEntity {
   public serviceName!: string;
 
   /**
-   * Update service data
-   *
+   * Update service data.
    * @static
    * @param {string} id User id
    * @param {string} serviceName Service name
@@ -40,61 +39,51 @@ export class Service extends BaseEntity {
     serviceName: string,
     data: string
   ): Promise<boolean> {
-    try {
-      await entityExistsThrow(id, serviceName, this);
+    const exists = await entityExists(id, serviceName, this);
 
-      return await this.update({ user: { id }, serviceName }, { data }).then(
+    return (
+      exists &&
+      (await this.update({ user: { id }, serviceName }, { data }).then(
         _ => true,
         err => AppError(err, false)
-      );
-    } catch (err) {
-      return AppError(err, false);
-    }
+      ))
+    );
   }
 
   /**
-   * Create new service and assign it to the user
-   *
+   * Create new service and assign it to the user.
    * @static
    * @param {string} id User id
    * @param {string} serviceName Service name
    * @param {string} data Everything that needs to be stored in database
    * must be stringified object
-   * @param {boolean} [update=false] Should update existing service instead of creating?
-   * @returns {Promise<boolean>} Success or failure state
+   * @returns {Promise<boolean>} False if service exists/wrong user ID
+   * or true if created one
    * @memberof Service
    */
   public static async saveService(
     id: string,
     serviceName: string,
-    data: string,
-    update: boolean = false
+    data: string
   ): Promise<boolean> {
-    try {
-      const serviceExists = await entityExists(id, serviceName, this);
+    // If service exists it will return true
+    // If User ID is incorrect or something went wrong then we receive false
+    const serviceExists = await entityExists(id, serviceName, this);
 
-      if (!serviceExists) {
-        if (update) {
-          return await this.updateData(id, serviceName, data);
-        }
-        return false;
-      }
-
-      return await this.create({
+    return (
+      !serviceExists &&
+      (await this.create({
         user: { id },
         serviceName,
         data
       })
         .save()
-        .then(_ => true, err => AppError(err, false));
-    } catch (err) {
-      return AppError(err, false);
-    }
+        .then(_ => true, err => AppError(err, false)))
+    );
   }
 
   /**
-   * Get service assigned to user id
-   *
+   * Get service assigned to user id.
    * @static
    * @param {string} id User id
    * @param {string} serviceName service name
@@ -113,8 +102,7 @@ export class Service extends BaseEntity {
   }
 
   /**
-   * Get all services assigned to user
-   *
+   * Get all services assigned to user.
    * @static
    * @param {string} id User id
    * @returns {(Promise<Service[] | null>)} Array of services or null if not found

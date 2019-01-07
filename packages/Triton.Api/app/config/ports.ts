@@ -1,0 +1,1 @@
+export const REDIS_PORT = 7777

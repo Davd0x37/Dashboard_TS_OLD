@@ -1,49 +1,36 @@
-import { AuthTokens } from "@ENTITY/AuthTokens";
-import { AppError } from "@UTILS/log";
+import { AuthTokens, Service } from "@/entity";
+import { IServiceTokens } from "@/type";
+import { AppError } from "@/utils/log";
 import { get } from "got";
 import { pick } from "lodash";
 
 /**
  * First get user data and check if tokens are exists
- * then fetch data from api and return it as promise
- *
+ * then fetch data from api and return it as promise.
  * @param {string} path API path
- * @param {string} id User id
- * @param {string} serviceName Service name
+ * @param {string} accessToken Access token
  * @param {string[]} [pickData] Array of properties to return from response
  * @returns {(Promise<{} | null>)} Requested data
  */
 export const requestServiceData = async (
   path: string,
-  id: string,
-  serviceName: string,
+  accessToken: string,
   pickData?: string[]
 ): Promise<{} | null> => {
   try {
-    const tokens = await AuthTokens.getAuthTokenByName(id, serviceName);
-
-    if (tokens === null || tokens.accessToken === null) {
-      return null;
+    if (pickData) {
+      const data = await fetchServiceData(path, accessToken);
+      return pick(data, pickData);
+    } else {
+      return fetchServiceData(path, accessToken);
     }
-
-    if (tokens.accessToken) {
-      if (pickData) {
-        const data = await fetchServiceData(path, tokens.accessToken);
-        return pick(data, pickData);
-      } else {
-        return fetchServiceData(path, tokens.accessToken);
-      }
-    }
-
-    return null;
   } catch (err) {
     return AppError(err, null);
   }
 };
 
 /**
- * Fetch data from API
- *
+ * Fetch data from API.
  * @param {string} api Api url
  * @param {string} authToken Authentication token
  * @param {boolean} [json=true] Should return parsed json or string?
@@ -63,3 +50,29 @@ export const fetchServiceData = (
   })
     .then(data => data.body)
     .catch(err => AppError(err, null));
+
+/**
+ * Setup user new tokens and service.
+ * Create new service row or do nothing if exists.
+ * Do the same with tokens.
+ * @param {string} id User id
+ * @param {string} serviceName Service name
+ * @param {IServiceTokens} tokens Selected tokens
+ * @returns {Promise<boolean>} False if cannot update or create tokens.
+ */
+export const setupServiceTokens = async (
+  id: string,
+  serviceName: string,
+  tokens: IServiceTokens
+): Promise<boolean> => {
+  try {
+    await Service.saveService(id, serviceName, "");
+    const saveTokens = await AuthTokens.saveTokens(id, serviceName, tokens);
+    const updateTokens =
+      !saveTokens && (await AuthTokens.updateTokens(id, serviceName, tokens));
+
+    return saveTokens || updateTokens;
+  } catch (err) {
+    return AppError(err, false);
+  }
+};

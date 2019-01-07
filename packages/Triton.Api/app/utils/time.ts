@@ -1,6 +1,5 @@
 /**
- * Convert timestamp to seconds
- *
+ * Convert timestamp to seconds.
  * @param {number} time
  * @returns
  */

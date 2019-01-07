@@ -1,18 +1,41 @@
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "vernon",
-  "password": "mvBDmz><KgbqyksJ!iX8ztezada4gkiqf;fgh$j3",
-  "database": "Triton",
-  "synchronize": true,
-  "logging": false,
-  "entities": ["build/app/entity/**/*.js"],
-  "migrations": ["build/app/migration/**/*.js"],
-  "subscribers": ["build/app/subscriber/**/*.js"],
-  "cli": {
-    "entitiesDir": "app/entity",
-    "migrationsDir": "app/migration",
-    "subscribersDir": "app/subscriber"
+[
+  {
+    "name": "production",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "vernon",
+    "password": "mvBDmz><KgbqyksJ!iX8ztezada4gkiqf;fgh$j3",
+    "database": "Triton",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["build/app/entity/*.js"],
+    "migrations": ["build/app/migration/*.js"],
+    "subscribers": ["build/app/subscriber/*.js"],
+    "cli": {
+      "entitiesDir": "app/entity",
+      "migrationsDir": "app/migration",
+      "subscribersDir": "app/subscriber"
+    }
+  },
+  {
+    "name": "test",
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "vernon",
+    "password": "mvBDmz><KgbqyksJ!iX8ztezada4gkiqf;fgh$j3",
+    "database": "TritonTest",
+    "synchronize": true,
+    "logging": false,
+    "dropSchema": true,
+    "entities": ["app/entity/*.ts"],
+    "migrations": ["app/migration/*.ts"],
+    "subscribers": ["app/subscriber/*.ts"],
+    "cli": {
+      "entitiesDir": "app/entity",
+      "migrationsDir": "app/migration",
+      "subscribersDir": "app/subscriber"
+    }
   }
-}
+]
