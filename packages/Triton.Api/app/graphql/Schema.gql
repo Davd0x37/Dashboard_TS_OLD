@@ -23,6 +23,7 @@ type User {
   email: String!
   isOnline: Boolean!
   registerDate: String!
+  services: [Service]
 }
 
 input UserInput {
@@ -31,4 +32,9 @@ input UserInput {
   isOnline: Boolean!
   login: String!
   password: String!
+}
+
+type Service {
+  serviceName: String!
+  data: String!
 }

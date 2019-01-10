@@ -49,7 +49,18 @@ export const AES256_AR2 = {
     });
   },
 
-  Encrypt: async (data: string, password: string) => {
+  /**
+   * Encrypt data and return buffer as base64 string
+   * Salt from 0 to 64
+   * IV 64-128
+   * Authentication tag 128-144
+   * Encrypted data 144-x
+   * 
+   * @param {string} data Data to encrypt
+   * @param {string} password Strong password
+   * @returns {Promise<string>} Encrypted data
+   */
+  Encrypt: async (data: string, password: string): Promise<string> => {
     const salt = randomBytes(64); // Create random salt
     const initVec = randomBytes(64); // Create vector initializer
     // Hash password and salt
@@ -69,7 +80,13 @@ export const AES256_AR2 = {
     );
   },
 
-  Decrypt: async (buffer: string, password: string) => {
+  /**
+   * Decrypt data from base64 buffer
+   * @param {string} buffer Buffer saved in base64 string
+   * @param {string} password Password
+   * @returns {Promise<string>} Decrypted data
+   */
+  Decrypt: async (buffer: string, password: string): Promise<string> => {
     const decode = Buffer.from(buffer, "base64");
     const [salt, initVec, authTag, encrypted] = [
       decode.slice(0, 64),

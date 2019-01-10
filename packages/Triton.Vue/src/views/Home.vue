@@ -1,21 +1,45 @@
 <template>
   <div class="home">
-    <Spotify />
-    <DigitalOcean />
-    <Paypal />
-    <Actions />
+    <VPlate
+      v-for="srv in services"
+      :key="srv.serviceName"
+      brandIcon="paypal"
+      :brandTitle="srv.serviceName"
+      brandClass="paypal-plate"
+      brandColor="#0D96D9"
+    >
+      <div>{{getData(srv.data)}}</div>
+    </VPlate>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import DigitalOcean from "@/components/Plates/DigitalOcean.vue";
-import Spotify from "@/components/Plates/Spotify.vue";
-import Paypal from "@/components/Plates/Paypal.vue";
-import Actions from "@/components/Plates/Actions.vue";
+import { Component, Vue, Watch } from "vue-property-decorator";
+import VPlate from "@/components/VPlate.vue";
+import { query } from "@/lib/Api";
+import gql from "graphql-tag";
 
 @Component({
-  components: { Paypal, Spotify, DigitalOcean, Actions }
+  components: { VPlate }
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  protected services?: Array<{
+    serviceName: string;
+    data: string;
+  }> = [
+    {
+      serviceName: "LELs",
+      data: '{"name":"asdasdasd","age":"2"}'
+    },
+    {
+      serviceName: "LEL",
+      data: '{"name":"omg","age":"asdasdasd2"}'
+    }
+  ];
+
+  protected getData(service: string): string {
+    const req = JSON.parse(service);
+    return req;
+  }
+}
 </script>

@@ -1,4 +1,4 @@
-import { IUserDocType } from "#SH/Interfaces";
+import { IUserDocType } from "@/types/Interface";
 import { RxCollection, RxDatabase, RxDocument } from "rxdb";
 
 // User document methods

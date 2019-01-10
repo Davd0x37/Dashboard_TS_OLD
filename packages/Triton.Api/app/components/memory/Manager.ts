@@ -43,3 +43,11 @@ export const saveSession = async (
     return AppError(err, false);
   }
 };
+
+export const deleteSession = async (session: string): Promise<boolean> => {
+  try {
+    return await redis.del(`session:${session}`).then(n => n === 1 ? true : false)
+  } catch (err) {
+    return AppError(err, false)
+  }
+}

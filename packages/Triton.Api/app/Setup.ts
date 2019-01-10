@@ -1,21 +1,32 @@
 import { randomBytes } from "crypto";
-import { existsSync } from "fs";
-import { createFileSync } from "fs-extra";
-import { resolve } from "path";
+// import { existsSync } from "fs";
+// import { createFileSync } from "fs-extra";
+import { post } from "got";
+// import { resolve } from "path";
 import { write } from "./components/vault";
-import { secrets } from "./config/vault";
+import { apiVersion, endpoint, secrets } from "./config/vault";
 import { AppError } from "./utils/log";
 
-const file = "./Setup.log";
+// const file = "./setup.log";
 
 export const firstRun = async () => {
   try {
-    if (existsSync(resolve(file))) {
-      return false;
-    }
-    await createVault();
+    const exs = process.env.VAULT_EXISTS
 
-    createFileSync(resolve(file));
+    // After restart we don't want to create new vault
+    // if (existsSync(resolve(file))) {
+    //   return false;
+    // }
+
+    // We can stop creating new vault
+    if (exs) {
+      return false
+    }
+
+    await createVault()
+    await initVault();
+
+    // createFileSync(resolve(file));
     return true;
   } catch (err) {
     throw AppError(err, err);
@@ -23,6 +34,23 @@ export const firstRun = async () => {
 };
 
 const createVault = async () => {
+  try {
+    const req = await post(`${endpoint}/${apiVersion}/sys/mounts/keys`, {
+      headers: {
+        "X-Vault-Token": process.env.VAULT_TOKEN
+      },
+      body: JSON.stringify({
+        type: "kv",
+        version: "2"
+      })
+    })
+    return req.statusCode === 204
+  } catch (err) {
+    throw AppError(err, err)
+  }
+}
+
+const initVault = async () => {
   try {
     const value = secrets.encrypt.reduce(
       (prev, curr) => ({

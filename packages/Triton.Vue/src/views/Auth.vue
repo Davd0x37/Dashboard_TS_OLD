@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Authenticate from "@/components/Plates/Authenticate.vue";
-import Actions from "@/components/Plates/Actions.vue";
+import Authenticate from "@/components/Authenticate.vue";
+import Actions from "@/components/Actions.vue";
 
 @Component({
   components: { Authenticate, Actions }

@@ -8,7 +8,8 @@ import { UserDocMethods } from "./UserDocMethods";
 
 const DB_NAME = "dashboard_client_database";
 const ADAPTER = "idb";
-const DB_PASSWORD = "un5Dzx_DxB=5rnkvpdbznd&fh$n2eqm$fCWrdedg";
+const DB_PASSWORD =
+  "1%U_h6^~U7gtjz<lEK9,+hcEK1z0$&=3O>Fz]:l{b8*UL<NLbohK?,WK{5lbku)=aZIV#KUFdfd12THoz=q&CN-2@D?<ZZ~~E_[/";
 
 export const DB = {
   async load(): Promise<RxDatabase<IDashboardDatabaseCollections>> {

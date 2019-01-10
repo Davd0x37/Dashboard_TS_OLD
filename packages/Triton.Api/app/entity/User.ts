@@ -32,6 +32,9 @@ export class User extends BaseEntity {
   @Column("boolean", { nullable: false })
   public isOnline!: boolean;
 
+  @Column("text", { nullable: true })
+  public sessionId?: string;
+
   @OneToMany(_ => AuthTokens, token => token.user)
   public tokens?: AuthTokens[];
 
@@ -69,6 +72,14 @@ export class User extends BaseEntity {
       return user;
     } catch (err) {
       return AppError(err, null);
+    }
+  }
+
+  public static async updateSession(id: string, sessionId: string): Promise<boolean | false> {
+    try {
+      return await this.update({ id }, { sessionId }).then(_ => true).catch(err => AppError(err, false))
+    } catch (err) {
+      return AppError(err, false)
     }
   }
 }

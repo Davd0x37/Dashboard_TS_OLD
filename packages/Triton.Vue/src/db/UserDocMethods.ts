@@ -1,4 +1,4 @@
-import { IUserDocType } from "#SH/Interfaces";
+import { IUserDocType } from "@/types/Interface";
 
 import { IUserDocMethods, IUserDocument } from "./Types";
 

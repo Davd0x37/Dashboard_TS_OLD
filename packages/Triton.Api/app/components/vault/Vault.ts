@@ -1,5 +1,6 @@
 import { apiVersion, endpoint } from "@/config/vault";
 import { AppError } from "@/utils/log";
+// @ts-ignore
 import vlt from "node-vault";
 
 const token = process.env.VAULT_TOKEN;

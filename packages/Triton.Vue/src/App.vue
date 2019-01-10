@@ -5,9 +5,9 @@
         <a href="#">{{AppName}}</a>
       </div>
       <div class="user">
-        <p class="user__name">{{Data.Login}}</p>
+        <p class="user__name">{{Data}}</p>
         <img
-          :src="Data.Avatar"
+          :src="Data"
           alt="Avatar"
           class="user__avatar"
         />
@@ -26,7 +26,7 @@ export default class App extends Vue {
   protected AppName: string = "Dashboard";
 
   protected get Data() {
-    return this.$store.state.data.User;
+    return "LEL";
   }
 }
 </script>
