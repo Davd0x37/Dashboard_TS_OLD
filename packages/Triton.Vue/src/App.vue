@@ -5,15 +5,11 @@
         <a href="#">{{AppName}}</a>
       </div>
       <div class="user">
-        <p class="user__name">{{Data}}</p>
-        <img
-          :src="Data"
-          alt="Avatar"
-          class="user__avatar"
-        />
+        <p class="user__name">{{User.email}}</p>
+        <img :src="User.avatar" alt="Avatar" class="user__avatar">
       </div>
     </header>
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
@@ -25,8 +21,42 @@ import store from "@/store";
 export default class App extends Vue {
   protected AppName: string = "Dashboard";
 
-  protected get Data() {
-    return "LEL";
+  constructor() {
+    super();
+    // @ts-ignore
+    this.$store.subscribeAction(async (mut, state) => {
+      if (mut.type === "UserManager") {
+        if (mut.payload.action === "Register") {
+          // @ts-ignore
+          await this.$db.dashboard.insert(mut.payload.data);
+          // @ts-ignore
+          // const usr = await this.$db.dashboard.findOne().exec();
+        }
+        if (mut.payload.action === "Login") {
+          // @ts-ignore
+          const usr = await this.$db.dashboard.findOne().exec();
+          if (usr === null) {
+            await this.$db.dashboard.insert(mut.payload.data);
+          } else {
+            usr!.updateUserData(mut.payload.data);
+          }
+        }
+      }
+    });
+  }
+
+  async created() {
+    const usr = await this.$db.dashboard.findOne().exec();
+    if (usr !== null) {
+      this.$store.dispatch("UserManager", {
+        action: "update",
+        data: usr!.getData()
+      });
+    }
+  }
+
+  protected get User() {
+    return this.$store.state.data;
   }
 }
 </script>

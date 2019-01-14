@@ -6,22 +6,8 @@
     <section class="container">
       <div class="tab LoginLink" v-if="activeTab">
         <form onsubmit="return false;">
-          <VInput
-            :title="$t('Login')"
-            id="Login"
-            type="text"
-            minlength="5"
-            maxlength="40"
-            :value.sync="login"
-          />
-          <VInput
-            :title="$t('Password')"
-            id="Password"
-            type="password"
-            minlength="5"
-            maxlength="40"
-            :value.sync="password"
-          />
+          <VInput :title="$t('Login')" id="Login" type="text" :value.sync="login"/>
+          <VInput :title="$t('Password')" id="Password" type="password" :value.sync="password"/>
           <VInput
             :title="$t('LoginLink')"
             id="LoginButton"
@@ -33,31 +19,10 @@
       </div>
       <div class="tab RegisterLink" v-else>
         <form onsubmit="return false;">
-          <VInput
-            :title="$t('Login')"
-            id="LoginNew"
-            type="text"
-            minlength="5"
-            maxlength="40"
-            :value.sync="login"
-          />
-          <VInput
-            :title="$t('Password')"
-            id="PasswordNew"
-            type="password"
-            minlength="5"
-            maxlength="40"
-            :value.sync="password"
-          />
+          <VInput :title="$t('Login')" id="LoginNew" type="text" :value.sync="login"/>
+          <VInput :title="$t('Password')" id="PasswordNew" type="password" :value.sync="password"/>
 
-          <VInput
-            :title="$t('Email')"
-            id="Email"
-            type="email"
-            minlength="5"
-            maxlength="80"
-            :value.sync="email"
-          />
+          <VInput :title="$t('Email')" id="Email" type="email" :value.sync="email"/>
           <VInput :title="$t('Avatar')" id="Avatar" type="text" :value.sync="avatar"/>
           <VInput
             :title="$t('RegisterLink')"
@@ -78,6 +43,7 @@ import VPlate from "@/components/VPlate.vue";
 import VLabel from "@/components/Utils/VLabel.vue";
 import VButton from "@/components/Utils/VButton.vue";
 import VInput from "@/components/Utils/VInput.vue";
+import { signIn, register } from "@/lib/User";
 
 @Component({
   components: {
@@ -99,8 +65,19 @@ export default class Authenticate extends Vue {
     this.activeTab = open;
   }
 
-  protected authenticate(e: any) {}
-  protected register(e: any) {}
+  protected async authenticate(e: any) {
+    const req = await signIn(this.login, this.password);
+    console.log(req);
+  }
+  protected async register(e: any) {
+    const req = await register(this.$db, {
+      login: this.login,
+      password: this.password,
+      email: this.email,
+      avatar: this.avatar
+    });
+    console.log(req);
+  }
 }
 </script>
 

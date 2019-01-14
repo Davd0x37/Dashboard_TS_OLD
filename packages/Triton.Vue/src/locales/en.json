@@ -1,3 +1,15 @@
 {
-  "message": "hello i18n !!"
+  "display_name": "",
+  "email": "",
+  "product": "",
+  "followers.total": "LELEL",
+
+  "Actions.RefreshData": "Refresh user data",
+  "Actions.HomeLink": "Home",
+  "Actions.AuthLink" :"Authorization",
+  "Actions.AdminLink": "Administration",
+  "Actions.AuthSpotify": "Authenticate Spotify",
+  "Actions.AuthPaypal": "Authenticate Paypal",
+  "Actions.DigitalOceanApiToken": "DigitalOcean Api Token",
+  "Actions.AddToken": "Add DigitalOcean Api Token"
 }

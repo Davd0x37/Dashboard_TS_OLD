@@ -95,7 +95,7 @@ export class AuthTokens extends BaseEntity {
    * Get auth tokens assigned to user id.
    * @static
    * @param {string} id User id
-   * @param {string} serviceName service name
+   * @param {string} serviceName Service name
    * @returns {(Promise<AuthTokens | null>)} Auth tokens or null if not found
    * @memberof AuthTokens
    */

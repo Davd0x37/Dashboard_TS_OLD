@@ -20,6 +20,7 @@ export const requestServiceData = async (
   try {
     if (pickData) {
       const data = await fetchServiceData(path, accessToken);
+      console.log(pickData)
       return pick(data, pickData);
     } else {
       return fetchServiceData(path, accessToken);

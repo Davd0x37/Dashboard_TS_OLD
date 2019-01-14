@@ -6,6 +6,8 @@ import { UserSchema } from "./Schema";
 import { IDashboardDatabaseCollections } from "./Types";
 import { UserDocMethods } from "./UserDocMethods";
 
+
+// @TODO: Change password encryption to user password
 const DB_NAME = "dashboard_client_database";
 const ADAPTER = "idb";
 const DB_PASSWORD =
@@ -13,14 +15,15 @@ const DB_PASSWORD =
 
 export const DB = {
   async load(): Promise<RxDatabase<IDashboardDatabaseCollections>> {
-    const plugin = RxDB.plugin(idb);
+    RxDB.plugin(idb);
     const db = await RxDB.create<IDashboardDatabaseCollections>({
       name: DB_NAME,
       adapter: ADAPTER,
       password: DB_PASSWORD
     });
+    await db.waitForLeadership();
 
-    const collection = await db.collection({
+    await db.collection({
       name: "dashboard",
       schema: UserSchema,
       methods: UserDocMethods

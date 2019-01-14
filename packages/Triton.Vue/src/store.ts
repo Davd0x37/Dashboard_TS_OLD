@@ -1,31 +1,30 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { IUserDocType } from "@/types/Interface";
+import { IUserDocType, IUserManager } from "@/types/Interface";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    session_id: "",
-    avatar: "",
-    email: "",
-    registerDate: "",
-    isOnline: false,
-    services: [{
-      serviceName: "",
-      data: "",
-    }]
-
+    data: {
+      session_id: "",
+      // role: "admin",
+      avatar: "",
+      email: "",
+      registerDate: "",
+      isOnline: false,
+      services: undefined
+    }
   },
   mutations: {
-    UpdateUserData(state: IUserDocType, payload: IUserDocType) {
-      const newState = { ...state, ...payload };
+    UserManager(state: IUserDocType, payload: IUserManager) {
+      const newState = { ...state.data, ...payload.data };
       Vue.set(state, "data", newState);
     }
   },
   actions: {
-    UpdateUserData({ commit }: any, payload: IUserDocType) {
-      commit("UpdateUserData", payload);
-    }
+    UserManager({ commit }: any, payload: IUserManager) {
+      commit("UserManager", payload);
+    },
   }
 });

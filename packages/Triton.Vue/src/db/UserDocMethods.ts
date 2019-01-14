@@ -1,10 +1,13 @@
 import { IUserDocType } from "@/types/Interface";
 
 import { IUserDocMethods, IUserDocument } from "./Types";
-
+import { omit } from "lodash";
 export const UserDocMethods: IUserDocMethods = {
-  UpdateUserData(this: IUserDocument, _: IUserDocType): boolean {
-    // this.atomicSet("User", data)
+  updateUserData(this: IUserDocument, data: IUserDocType["data"]): boolean {
+    this.update({ $set: data });
     return true;
+  },
+  getData(this: IUserDocument): IUserDocType["data"] {
+    return omit(this.toJSON(), "_rev");
   }
 };

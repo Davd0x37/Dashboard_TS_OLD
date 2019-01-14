@@ -6,15 +6,21 @@ schema {
 type Query {
   # Authenticate user by his login and password
   authenticateUser(login: String!, password: String!): User
+  # Fetch new data from service
+  # @HINT: Maybe add selecting services?
+  updateUserData(session_id: String!): [Service]
 }
 
 type Mutation {
   addUser(data: UserInput!): Boolean!
-  # Fetch new data from service
-  # @HINT: Maybe add selecting services?
-  updateUserData(session_id: String!): Boolean!
+
+  addService(data: ServiceInput!, update: Boolean): Boolean!
   # Update token
-  updateBasicToken(id: ID!, serviceName: String!, token: String!): Boolean!
+  updateBasicToken(
+    session_id: String!
+    serviceName: String!
+    token: String!
+  ): Boolean!
 }
 
 type User {
@@ -32,6 +38,19 @@ input UserInput {
   isOnline: Boolean!
   login: String!
   password: String!
+}
+
+input ServiceInput {
+  serviceName: String!
+  apiURL: String!
+  tokenService: String
+  authorizeURL: String
+  userScopes: [String!]!
+  clientID: String
+  clientSecret: String
+  paths: [String!]!
+  requestedData: [String!]!
+  tokenType: String!
 }
 
 type Service {

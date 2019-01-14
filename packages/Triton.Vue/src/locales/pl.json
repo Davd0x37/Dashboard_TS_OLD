@@ -1,0 +1,15 @@
+{
+  "display_name": "",
+  "email": "",
+  "product": "",
+  "followers.total": "LELEL",
+
+  "Actions.RefreshData": "Odśwież dane",
+  "Actions.HomeLink": "Strona główna",
+  "Actions.AuthLink": "Autoryzacja",
+  "Actions.AdminLink": "Administracja",
+  "Actions.AuthSpotify": "Autoryzuj Spotify",
+  "Actions.AuthPaypal": "Autoryzuj Paypal",
+  "Actions.DigitalOceanApiToken": "DigitalOcean Api Token",
+  "Actions.AddToken": "Dodaj DigitalOcean Api Token"
+}

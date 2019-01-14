@@ -6,78 +6,40 @@ export const UserSchema: RxJsonSchema = {
   version: 0,
   keyCompression: true,
   type: "object",
-  required: ["id", "User"],
+  required: ["session_id"],
   properties: {
-    id: {
+    session_id: {
       type: "string",
-      primary: true
-    },
-    User: {
-      type: "object",
       encrypted: true,
-      properties: {
-        Avatar: {
-          type: "string"
-        },
-        Email: {
-          type: "string"
-        },
-        Login: {
-          type: "string"
-        }
-      }
     },
-    Spotify: {
-      type: "object",
-      properties: {
-        Email: {
-          type: "string"
-        },
-        Username: {
-          type: "string"
-        },
-        Type: {
-          type: "string"
-        }
-      }
+    avatar: {
+      encrypted: true,
+      type: "string"
     },
-    DigitalOcean: {
-      type: "object",
-      properties: {
-        Email: {
-          type: "string"
-        },
-        Total: {
-          type: "string"
-        },
-        DropletLimit: {
-          type: "string"
-        },
-        LastCreatedDroplet: {
-          type: "string"
-        }
-      }
+    email: {
+      primary: true,
+      type: "string"
     },
-    Paypal: {
-      type: "object",
-      properties: {
-        Username: {
-          type: "string"
-        },
-        Email: {
-          type: "string"
-        },
-        Phone: {
-          type: "string"
-        },
-        Verified: {
-          type: "string"
-        },
-        Country: {
-          type: "string"
-        },
-        Zoneinfo: {
-          type: "string"
+    registerDate: {
+      encrypted: true,
+      type: "string"
+    },
+    isOnline: {
+      encrypted: true,
+      type: "boolean"
+    },
+    services: {
+      encrypted: true,
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          serviceName: {
+            type: "string"
+          },
+          data: {
+            type: "string"
+          }
         }
       }
     }

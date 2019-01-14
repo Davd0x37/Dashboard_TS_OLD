@@ -7,26 +7,29 @@
   >
     <aside class="details">
       <router-link to="/">
-        <VButton id="HomeLink" :value="$t('HomeLink')" addClass="color"/>
+        <VButton id="HomeLink" :value="$t('Actions.HomeLink')" addClass="color"/>
       </router-link>
       <router-link to="/auth">
-        <VButton id="AuthLink" :value="$t('AuthLink')" addClass="color"/>
+        <VButton id="AuthLink" :value="$t('Actions.AuthLink')" addClass="color"/>
       </router-link>
-      <VButton id="RefreshData" :value="$t('RefreshData')" addClass="color"/>
+      <router-link to="/admin">
+        <VButton id="AdminLink" :value="$t('Actions.AdminLink')" addClass="color"/>
+      </router-link>
+      <VButton id="RefreshData" :value="$t('Actions.RefreshData')" addClass="color"/>
     </aside>
     <aside class="details">
-      <VButton id="AuthSpotify" :value="$t('AuthSpotify')" addClass="color"/>
-      <VButton id="AuthPaypal" :value="$t('AuthPaypal')" addClass="color"/>
+      <VButton id="AuthSpotify" :value="$t('Actions.AuthSpotify')" addClass="color"/>
+      <VButton id="AuthPaypal" :value="$t('Actions.AuthPaypal')" addClass="color"/>
     </aside>
     <aside class="details">
       <VInput
         type="text"
         title="Api Token"
         id="DigitalOceanApiToken"
-        :placeholder="$t('DigitalOceanApiToken')"
+        :placeholder="$t('Actions.DigitalOceanApiToken')"
       />
 
-      <VButton id="AddToken" :value="$t('AddToken')" addClass="color"/>
+      <VButton id="AddToken" :value="$t('Actions.AddToken')" addClass="color"/>
     </aside>
   </VPlate>
 </template>
@@ -46,7 +49,9 @@ import VInput from "@/components/Utils/VInput.vue";
     VInput
   }
 })
-export default class Actions extends Vue {}
+export default class Actions extends Vue {
+  protected user = this.$store.state.data
+}
 </script>
 
 <style lang="scss">
@@ -71,25 +76,3 @@ export default class Actions extends Vue {}
 }
 </style>
 
-<i18n>
-  {
-  "en": {
-  "RefreshData": "Refresh user data",
-  "HomeLink": "Home",
-  "AuthLink" :"Authorization",
-  "AuthSpotify": "Authenticate Spotify",
-  "AuthPaypal": "Authenticate Paypal",
-  "DigitalOceanApiToken": "DigitalOcean Api Token",
-  "AddToken": "Add DigitalOcean Api Token"
-  },
-  "pl": {
-  "RefreshData": "Odśwież dane",
-  "HomeLink": "Strona główna",
-  "AuthLink" :"Autoryzacja",
-  "AuthSpotify": "Autoryzuj Spotify",
-  "AuthPaypal": "Autoryzuj Paypal",
-  "DigitalOceanApiToken": "DigitalOcean Api Token",
-  "AddToken": "Dodaj DigitalOcean Api Token"
-  }
-  }
-</i18n>

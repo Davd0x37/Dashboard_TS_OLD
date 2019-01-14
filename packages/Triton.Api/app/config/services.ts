@@ -98,6 +98,13 @@ export const servicesBasic = {
     paths: [
       "https://api.digitalocean.com/v2/account",
       "https://api.digitalocean.com/v2/droplets"
+    ],
+    requestedData: [
+      "account.droplet_limit",
+      "account.email",
+      "account.email_verified",
+      "account.status",
+      "meta.total"
     ]
   }
 };

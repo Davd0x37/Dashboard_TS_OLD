@@ -10,8 +10,8 @@
       :name="[tab ? tab : id]"
       :class="[type !== 'submit' ? 'input' : '', addClass ? addClass : '']"
       :placeholder="placeholder ? placeholder : ''"
-      :minlength="[minLength ? minLength : '']"
-      :maxlength="[maxLength ? maxLength : '']"
+      :minlength="[minlength ? minlength : '']"
+      :maxlength="[maxlength ? maxlength : '']"
       v-on:click="click"
       @input="$emit('update:value', $event.target.value)"
     />
@@ -30,8 +30,8 @@ export default class VInput extends Vue {
   @Prop() protected tab?: string;
   @Prop() protected value?: any;
   @Prop() protected checked?: string;
-  @Prop() protected minLength?: string;
-  @Prop() protected maxLength?: string;
+  @Prop() protected minlength?: string;
+  @Prop() protected maxlength?: string;
 
   @Prop() protected addClass?: string;
   @Prop() protected placeholder?: string;

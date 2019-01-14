@@ -1,17 +1,26 @@
 // User document type
 export interface IUserDocType {
-
-  session_id: string;
-  avatar: string;
-  email: string;
-  registerDate: string;
-  isOnline: boolean;
-  services: [{
-    serviceName: string;
-    data: string;
-  }];
-
+  data: {
+    session_id: string;
+    avatar: string;
+    email: string;
+    registerDate: string;
+    isOnline: boolean;
+    // role: string;
+    services?: [
+      {
+        serviceName: string;
+        data: string;
+      }
+    ];
+  };
 }
+
+export interface IAction {
+  action: string;
+}
+
+export type IUserManager = IAction & IUserDocType
 
 export interface FnType {
   [key: string]: (
