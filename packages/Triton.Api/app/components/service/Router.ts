@@ -3,6 +3,7 @@ import {
   requestAuthentication
 } from "@/components/authentication";
 import { servicesOAuth } from "@/config/services";
+import { ApiTokens } from "@/entity/ApiTokens";
 import { AppError } from "@/utils/log";
 import express, { Request, Response } from "express";
 
@@ -32,10 +33,12 @@ router.get("/:serviceName", async (req: Request, res: Response) => {
 
       return false;
     }
+
+    const service = await ApiTokens.getAuthTokenByName(serviceName);
     const authUrl = await requestAuthentication(
       req.query.token,
       serviceName,
-      servicesOAuth[serviceName]
+      service!
     );
     return res.redirect(authUrl);
   } catch (err) {
@@ -50,8 +53,9 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const serviceName = req.params.serviceName.toLowerCase();
+      const service = await ApiTokens.getAuthTokenByName(serviceName);
 
-      if (servicesOAuth[serviceName] === undefined) {
+      if (service === undefined) {
         res.render("error", {
           message: "WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍"
         });
@@ -68,7 +72,7 @@ router.get(
         return false;
       }
 
-      await getAccessToken(serviceName, servicesOAuth[serviceName], {
+      await getAccessToken(serviceName, service!, {
         code,
         state
       });

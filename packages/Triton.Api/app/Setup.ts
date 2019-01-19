@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 // import { createFileSync } from "fs-extra";
 import { post } from "got";
 // import { resolve } from "path";
-import { write } from "./components/vault";
+import { writeKey } from "./components/vault";
 import { apiVersion, endpoint, secrets } from "./config/vault";
 import { AppError } from "./utils/log";
 
@@ -59,7 +59,7 @@ const initVault = async () => {
       }),
       {}
     );
-    await write("keys/encrypt", { ...value });
+    await writeKey("keys/encrypt", { ...value });
   } catch (err) {
     throw AppError(err, err);
   }

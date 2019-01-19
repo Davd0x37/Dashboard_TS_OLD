@@ -31,6 +31,9 @@ export class ApiTokens extends BaseEntity {
   public clientID?: string;
 
   @Column("character varying", { length: 2048, nullable: true })
+  public redirectURL?: string;
+
+  @Column("character varying", { length: 2048, nullable: true })
   public clientSecret?: string;
 
   @Column("text", { nullable: false, array: true })

@@ -2,6 +2,13 @@ import { AES256_AR2 } from "@/components/vault";
 import { AppError } from "@/utils/log";
 import { sign, SignOptions, verify } from "jsonwebtoken";
 
+/**
+ * Generate JWT token.
+ * @param {string} payload
+ * @param {(string | Buffer)} key
+ * @param {SignOptions} options
+ * @returns {(Promise<string | null>)}
+ */
 export const genJWT = async (
   payload: string,
   key: string | Buffer,
@@ -17,6 +24,11 @@ export const genJWT = async (
   }
 };
 
+/**
+ * @param {string} token
+ * @param {(string | Buffer)} key
+ * @returns {({} | null)}
+ */
 export const verifyJWT = (token: string, key: string | Buffer): {} | null => {
   try {
     return verify(token, key);
@@ -30,7 +42,7 @@ export const verifyJWT = (token: string, key: string | Buffer): {} | null => {
  * @param {string} payload Payload to encrypt
  * @param {string} key Master key
  * @param {string} expire Expiration time
- * @returns {(Promise<string | null>)} Generated token or null if error
+ * @returns {(Promise<string | null>)} Generated token (base64) or null if error
  */
 export const genEncryptedJWT = async (
   payload: string,
@@ -40,8 +52,7 @@ export const genEncryptedJWT = async (
   try {
     const encryptPayload = await AES256_AR2.Encrypt(payload, key);
     const token = await genJWT(encryptPayload, key, { expiresIn: expire });
-    return Buffer.from(token!).toString("hex");
-    // return token
+    return Buffer.from(token!).toString("base64");
   } catch (err) {
     return AppError(err, null);
   }

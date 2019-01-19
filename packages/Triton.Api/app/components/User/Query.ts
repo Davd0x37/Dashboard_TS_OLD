@@ -4,33 +4,35 @@ import { omit } from "lodash";
 import { genEncryptedJWT, refreshTokens } from "../authentication";
 import { deleteSession, readSession, saveSession } from "../memory";
 import { requestServiceData } from "../service";
+import { decryptPass } from "../vault";
 import { fetchKey } from "../vault/Vault";
-import { decryptPass } from "./Crypto";
 import { selectTokenType, time } from "./Utils";
+import { ApiTokens } from "@/entity/ApiTokens";
 
 export default {
   /**
    * Get user from database.
-   * @param {*} _
+   * @param {*} _ context
    * @param {*} { login, password } User login and password
    * @returns {(Promise<{} | null>)} User or null if not found/bad credentials
    */
   async authenticateUser(_: any, { login, password }: any): Promise<{} | null> {
     try {
-      const key = await fetchKey("encrypt", "userAes");
-      const jwtKey = await fetchKey("encrypt", "jwt");
-      if (password === undefined || jwtKey === undefined) {
+      const { userAes, jwt } = await fetchKey("encrypt", ["userAes", "jwt"]);
+      if (password === undefined || jwt === undefined) {
         return null;
       }
 
+      // There is no need to check returned value because it will
+      // reject if not found
       const user: Readonly<User> = await User.findOneOrFail({
         where: { login }
       });
 
-      const decrypt = await decryptPass(user.password, password, key);
+      const decrypt = await decryptPass(user.password, password, userAes);
 
       if (decrypt) {
-        const token = await genEncryptedJWT(user.id, jwtKey, "2d");
+        const token = await genEncryptedJWT(user.id, jwt, "2d");
 
         // We don't need to check if sessin exists or no
         // if no, redis will return null otherwise delete previous
@@ -39,7 +41,7 @@ export default {
         await deleteSession(user.sessionId!);
         await User.updateSession(user.id, token!);
 
-        // `token!` contains `!` because jwtKey exists
+        // `token!` contains `!` because jwt exists
         const session = await saveSession(token!, user.id);
 
         const services = await Service.getServiceById(user.id);
@@ -58,7 +60,6 @@ export default {
     }
   },
 
-  // Fetch services assigned to user and select from services.ts file
   updateUserData: async (
     __: any,
     { session_id }: any
@@ -71,6 +72,7 @@ export default {
       }
 
       const tokens = await AuthTokens.getAuthTokensById(id);
+      const apiKeys = await ApiTokens.find()
       if (tokens && tokens.length < 1) {
         return null;
       }
@@ -78,11 +80,14 @@ export default {
       /**
        * For now, we consider `accessToken` as valid.
        * In future I will implement validation.
+       *
+       * @FIXME: FIX this!!! Ugly as fock. Add strategy pattern as well.
        */
       await Promise.all(
         tokens!.map(async token => {
-          const tokenType = token.tokenType;
-          const service = selectTokenType(tokenType!, token.serviceName); // servicesOAuth[token.serviceName];
+          const service = apiKeys.find(api => api.serviceName === token.serviceName)
+
+          
 
           if (tokenType === "Bearer") {
             const expired = time.expired(

@@ -3,6 +3,7 @@ import { IServiceTokens } from "@/type";
 import { AppError } from "@/utils/log";
 import { get } from "got";
 import { pick } from "lodash";
+import { ApiTokens } from "@/entity/ApiTokens";
 
 /**
  * First get user data and check if tokens are exists
@@ -20,7 +21,6 @@ export const requestServiceData = async (
   try {
     if (pickData) {
       const data = await fetchServiceData(path, accessToken);
-      console.log(pickData)
       return pick(data, pickData);
     } else {
       return fetchServiceData(path, accessToken);
@@ -66,14 +66,15 @@ export const setupServiceTokens = async (
   serviceName: string,
   tokens: IServiceTokens
 ): Promise<boolean> => {
-  try {
-    await Service.saveService(id, serviceName, "");
-    const saveTokens = await AuthTokens.saveTokens(id, serviceName, tokens);
-    const updateTokens =
-      !saveTokens && (await AuthTokens.updateTokens(id, serviceName, tokens));
+  await Service.saveService(id, serviceName, "");
+  const saveTokens = await AuthTokens.saveTokens(id, serviceName, tokens);
+  const updateTokens =
+    !saveTokens && (await AuthTokens.updateTokens(id, serviceName, tokens));
 
-    return saveTokens || updateTokens;
-  } catch (err) {
-    return AppError(err, false);
-  }
+  return saveTokens || updateTokens;
 };
+
+
+export const refreshExpiredToken = async(id: string, token: ApiTokens, service: Service) => {
+  
+}

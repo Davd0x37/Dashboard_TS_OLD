@@ -49,4 +49,4 @@ export const entityExistsThrow = (
   getConnection()
     .getRepository(ent)
     .findOneOrFail({ where: { user: { id }, serviceName } })
-    .then(_ => Promise.reject(AppError("Entity not exists", false)), _ => true);
+    .then(_ => Promise.reject(AppError("Not found", false)), _ => true);

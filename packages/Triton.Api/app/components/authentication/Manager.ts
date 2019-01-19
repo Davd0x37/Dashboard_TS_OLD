@@ -1,6 +1,6 @@
 import { setupServiceTokens } from "@/components/service";
 import { AuthTokens } from "@/entity";
-import { IServices } from "@/type";
+import { ApiTokens } from "@/entity/ApiTokens";
 import { generateRandomString } from "@/utils/gen";
 import { AppError } from "@/utils/log";
 import { queryString } from "@/utils/net";
@@ -19,13 +19,13 @@ import { basicAuth, requestTokens } from "./Utils";
  *
  * @param {string} token Generated JWT token
  * @param {string} serviceName Service name
- * @param {IServices} serviceSettings Options needed to generate authentication url
+ * @param {ApiTokens} serviceSettings Options needed to generate authentication url
  * @returns {Promise<string>} Generated query string or false if failed
  */
 export const requestAuthentication = async (
   token: string,
   serviceName: string,
-  serviceSettings: IServices
+  serviceSettings: ApiTokens
 ): Promise<string> => {
   try {
     const userID = await readSession(token);
@@ -45,11 +45,11 @@ export const requestAuthentication = async (
       throw AppError("Error occurs during setting up account!", null);
     }
 
-    return queryString(authorizeURL, {
+    return queryString(authorizeURL!, {
       client_id: clientID,
       response_type: "code",
-      scope: encodeURI(userScopes.join("+")),
-      redirect_uri: encodeURI(redirectURL),
+      scope: encodeURI(userScopes!.join("+")),
+      redirect_uri: encodeURI(redirectURL!),
       state: token,
       nonce
     });
@@ -69,13 +69,13 @@ export const requestAuthentication = async (
  * **IMPURE**
  *
  * @param {string} serviceName Service name
- * @param {IServices} serviceSettings Service options
+ * @param {ApiTokens} serviceSettings Service options
  * @param {{ code: string; state: string }} { code, state } Received code and state.
  * @returns {Promise<boolean>} True if successfully retrieved tokens or false in case of failure
  */
 export const getAccessToken = async (
   serviceName: string,
-  serviceSettings: IServices,
+  serviceSettings: ApiTokens,
   { code, state }: { code: string; state: string }
 ): Promise<boolean> => {
   try {
@@ -97,10 +97,10 @@ export const getAccessToken = async (
       return Promise.reject("Do not try this with me!");
     }
 
-    const encodedAuth = basicAuth(clientID, clientSecret);
+    const encodedAuth = basicAuth(clientID!, clientSecret!);
 
     const { body } = await requestTokens({
-      url: tokenService,
+      url: tokenService!,
       auth: encodedAuth,
       body: {
         code,
@@ -131,13 +131,13 @@ export const getAccessToken = async (
  *
  * @param {string} id User id
  * @param {string} serviceName Service name
- * @param {IServices} serviceSettings Service options
+ * @param {ApiTokens} serviceSettings Service options
  * @returns {Promise<boolean>} True if successfully received new tokens otherwise false
  */
 export const refreshTokens = async (
   id: string,
   serviceName: string,
-  serviceSettings: IServices
+  serviceSettings: ApiTokens
 ): Promise<boolean> => {
   try {
     const tokens = await AuthTokens.getAuthTokenByName(id, serviceName);
@@ -147,12 +147,12 @@ export const refreshTokens = async (
     }
 
     const encodedAuth = basicAuth(
-      serviceSettings.clientID,
-      serviceSettings.clientSecret
+      serviceSettings.clientID!,
+      serviceSettings.clientSecret!
     );
 
     const { body } = await requestTokens({
-      url: serviceSettings.tokenService,
+      url: serviceSettings.tokenService!,
       auth: encodedAuth,
       body: {
         grant_type: "refresh_token",

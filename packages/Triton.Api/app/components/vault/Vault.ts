@@ -11,12 +11,15 @@ export const unseal = async () => {
   return await vault.unseal({ secret_shares: 1, key });
 };
 
-export const fetchKey = async (key: string, sel: string): Promise<string> => {
-  const req = await vault.read(`keys/${key}`);
-  return req.data[sel];
-};
+export const fetchKey = async (
+  key: string,
+  selected: string | string[]
+): Promise<{ [key: string]: any }> =>
+  Array.isArray(selected)
+    ? await selected.reduce(reduceKeys, {})
+    : await readKey(key, selected);
 
-export const write = async (path: string, value: {}): Promise<boolean> => {
+export const writeKey = async (path: string, value: {}): Promise<boolean> => {
   try {
     await vault.write(path, value);
     return true;
@@ -24,3 +27,19 @@ export const write = async (path: string, value: {}): Promise<boolean> => {
     return AppError(err, false);
   }
 };
+
+const reduceKeys = async (prev: any, curr: any): Promise<{}> => {
+  const key = await vault.read(`keys/${curr}`);
+  return {
+    ...prev,
+    [curr]: key.data[curr]
+  };
+};
+
+const readKey = (
+  key: string,
+  selected: string
+): Promise<{ [key: string]: any }> =>
+  vault
+    .read(`keys/${key}`)
+    .then(({ data }: any) => ({ [selected]: data[selected] }));

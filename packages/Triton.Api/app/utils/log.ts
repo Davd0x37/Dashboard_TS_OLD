@@ -10,7 +10,7 @@ import { error } from "signale";
  */
 export const AppError = <T>(err: any, ret: T): T => {
   const env = process.env.NODE_ENV;
-  if (env !== "development") {
+  if (env === "test") {
     // Error only in dev mode
     error(err);
   }
