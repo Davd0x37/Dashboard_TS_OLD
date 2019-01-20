@@ -6,6 +6,6 @@ USER vernon
 ADD . /Dashboard
 WORKDIR /Dashboard
 
-# RUN yarn
-# RUN yarn lerna bootstrap
-# RUN sudo yarn lerna exec build
+RUN yarn
+RUN yarn lerna bootstrap
+RUN sudo yarn lerna exec build
