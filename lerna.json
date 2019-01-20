@@ -1,8 +1,8 @@
 {
   "packages": [
-    "packages/Triton.Api",
-    "packages/Triton.Client"
+    "packages/Triton.Api"
   ],
   "version": "1.1.0",
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "useWorkspaces": false
 }

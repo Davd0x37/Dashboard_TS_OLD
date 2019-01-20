@@ -15,13 +15,16 @@ import { unseal } from "./components/vault";
 import { igniteConnection } from "./CreateConnection";
 import { firstRun } from "./Setup";
 import { ApiTokens } from "./entity/ApiTokens";
+import { User } from "./entity";
 
 igniteConnection()
   .then(async (_: Connection) => {
 
-    const req = await ApiTokens.find()
-    const res = req.find((val) => val.serviceName === "LELELLE")
-    console.log(res)
+    const req = await User.create({avatar:"LEL",email:"LEL",password:"LELEL",login:"LEL",sessionId:"LEL",isOnline: true})
+    console.log(req)
+    // const req = await ApiTokens.find()
+    // const res = req.find((val) => val.serviceName === "LELELLE")
+    // console.log(res)
     // await firstRun();
     // await unseal();
 

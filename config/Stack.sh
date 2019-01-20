@@ -8,15 +8,8 @@ sudo yum install -y yum-utils device-mapper-persistent-data lvm2 wget
 # Install docker
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 # Install docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0-rc1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
-# Install nodejs
-# curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
-# Install yarn
-# curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-# Install rethinkdb
-# sudo wget http://download.rethinkdb.com/centos/7/`uname -m`/rethinkdb.repo \
-#           -O /etc/yum.repos.d/rethinkdb.repo
 
 # Install software
 sudo yum install -y docker-ce git epel-release certbot
@@ -24,13 +17,6 @@ sudo yum install -y docker-ce git epel-release certbot
 
 # Start docker
 sudo systemctl start docker
-
-# Setup gitlab keys
-sudo chmod 0700 ~/.ssh/config
-sudo chmod 0700 ~/.ssh/gitlab
-sudo chmod 0700 ~/.ssh/gitlab.pub
-# Add gitlab ip to known_hosts
-ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
 
 # Create dir for app
 mkdir $app_dir

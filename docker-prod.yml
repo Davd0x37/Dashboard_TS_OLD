@@ -8,7 +8,7 @@ services:
     volumes:
       - dashboard_app:/Dashboard
 
-  # BACKEND
+  # # BACKEND
   api:
     image: node:latest
     container_name: dashboard_api
@@ -17,12 +17,13 @@ services:
       - "4000:4000"
     depends_on:
       - build
+      - db
     volumes:
       - dashboard_app:/Dashboard
     networks:
       - dashboard
     environment:
-      - NODE_ENV=prod
+      NODE_ENV: production
     labels:
       - "traefik.backend=DashboardApi"
       - "traefik.docker.network=dashboard"
@@ -30,45 +31,44 @@ services:
       - "traefik.frontend.rule=Host:api.liquidash.pl"
       - "traefik.port=4000"
 
-  # FRONTEND
-  client:
-    image: nginx:stable
-    container_name: dashboard_client
-    command: nginx -c /Dashboard/config/nginx.conf -g "daemon off;"
-    depends_on:
-      - build
-    volumes:
-      - dashboard_app:/Dashboard
-    networks:
-      - dashboard
-    labels:
-      - "traefik.backend=DashboardClient"
-      - "traefik.docker.network=dashboard"
-      - "traefik.frontend.passHostHeader=true"
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:liquidash.pl"
-      - "traefik.port=443"
-      - "traefik.protocol=https"
+  # # FRONTEND
+  # client:
+  #   image: nginx:stable
+  #   container_name: dashboard_client
+  #   command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
+  #   depends_on:
+  #     - build
+  #   volumes:
+  #     - dashboard_app:/Dashboard
+  #   networks:
+  #     - dashboard
+  #   labels:
+  #     - "traefik.backend=DashboardClient"
+  #     - "traefik.docker.network=dashboard"
+  #     - "traefik.frontend.passHostHeader=true"
+  #     - "traefik.enable=true"
+  #     - "traefik.frontend.rule=Host:liquidash.pl"
+  #     - "traefik.port=443"
+  #     - "traefik.protocol=https"
 
   # DATABASE
   db:
-    image: rethinkdb:latest
+    image: postgres:latest
     container_name: dashboard_db
-    command: rethinkdb --http-port 1337 --bind all
     ports:
-      # - "1337:1337"
-      - "28015:28015"
-      - "29015:29015"
-    volumes:
-      - /usr/app/rethinkdb:/data
+      - "5432:5432"
     networks:
       - dashboard
-    labels:
-      - "traefik.backend=DashboardDB"
-      - "traefik.docker.network=dashboard"
-      - "traefik.enable=true"
-      # - "traefik.frontend.rule=Host:db.liquidash.pl"
-      # - "traefik.port=1337"
+    # restart: always
+    env_file:
+      - postgres-prod.env
+
+    # labels:
+    #   - "traefik.backend=DashboardDB"
+    #   - "traefik.docker.network=dashboard"
+    #   - "traefik.enable=true"
+    #   - "traefik.frontend.rule=Host:db.liquidash.pl"
+    #   - "traefik.port=5432"
 
   # REVERSE PROXY
   reverse-proxy:
@@ -80,7 +80,7 @@ services:
       - "443:443"
       - "8080:8080"
     volumes:
-      - /usr/app/DashboardTS/config/traefik.toml:/traefik.toml
+      - /usr/app/DashboardTS/traefik.toml:/traefik.toml
       - /var/run/docker.sock:/var/run/docker.sock
       - dashboard_app:/Dashboard
     networks:
@@ -88,8 +88,8 @@ services:
     labels:
       - "traefik.backend=DashboardReverseProxy"
       - "traefik.docker.network=dashboard"
-      # - "traefik.frontend.rule=Host:traefik.liquidash.pl"
-      # - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:traefik.liquidash.pl"
+      - "traefik.port=8080"
 volumes:
   dashboard_app:
 networks:
