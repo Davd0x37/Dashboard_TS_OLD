@@ -1,6 +1,3 @@
-import { igniteConnection } from "@/CreateConnection";
-import { AuthTokens } from "@/entity/AuthTokens";
-import { User } from "@/entity/User";
 import {
   FALSE_ID,
   SERVICE,
@@ -8,7 +5,9 @@ import {
   TOKENS_UPDATED,
   USER,
   USER_ID
-} from "../testData";
+} from "@/config/testData";
+import { igniteConnection } from "@/CreateConnection";
+import { AuthTokens, User } from "./index";
 
 beforeAll(async () => {
   await igniteConnection();
@@ -82,20 +81,6 @@ describe("Testing AuthTokens", () => {
     test("Not exists", async () => {
       const tokens = await AuthTokens.getAuthTokensById(FALSE_ID);
       expect(tokens).toBeNull();
-    });
-  });
-
-  describe("Get state key", () => {
-    test("Exists", async () => {
-      const tokens = await AuthTokens.getStateKey(USER_ID, SERVICE);
-      expect(tokens).toBe(TOKENS.state);
-      expect(tokens).not.toBeNull();
-    });
-
-    test("Not exists", async () => {
-      await AuthTokens.updateTokens(USER_ID, SERVICE, { state: undefined });
-      const state = await AuthTokens.getStateKey(USER_ID, SERVICE);
-      expect(state).toBeNull();
     });
   });
 });

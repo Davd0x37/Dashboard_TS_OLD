@@ -1,6 +1,3 @@
-import { igniteConnection } from "@/CreateConnection";
-import { Service } from "@/entity/Service";
-import { User } from "@/entity/User";
 import {
   FALSE_ID,
   SERVICE,
@@ -9,7 +6,9 @@ import {
   SERVICE_DATA_UPDATED,
   USER,
   USER_ID
-} from "../testData";
+} from "@/config/testData";
+import { igniteConnection } from "@/CreateConnection";
+import { Service, User } from "./index";
 
 beforeAll(async () => {
   await igniteConnection();

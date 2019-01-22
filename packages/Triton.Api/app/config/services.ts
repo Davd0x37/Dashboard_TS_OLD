@@ -1,5 +1,3 @@
-import { IServices } from "@/type";
-
 const env = process.env;
 
 export const servicesOAuth = {
@@ -24,7 +22,7 @@ export const servicesOAuth = {
     paths: ["https://api.spotify.com/v1/me"],
 
     requestedData: ["display_name", "email", "product", "followers.total"]
-  } as IServices,
+  },
 
   // paypalDev: {
   //   /**
@@ -56,7 +54,7 @@ export const servicesOAuth = {
   //     "language",
   //     "verified"
   //   ]
-  // } as IServices,
+  // },
 
   paypal: {
     /**
@@ -89,7 +87,7 @@ export const servicesOAuth = {
       "language",
       "verified"
     ]
-  } as IServices
+  }
 };
 
 export const servicesBasic = {

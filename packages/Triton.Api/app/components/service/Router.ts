@@ -2,7 +2,6 @@ import {
   getAccessToken,
   requestAuthentication
 } from "@/components/authentication";
-import { servicesOAuth } from "@/config/services";
 import { ApiTokens } from "@/entity/ApiTokens";
 import { AppError } from "@/utils/log";
 import express, { Request, Response } from "express";
@@ -26,20 +25,7 @@ router.get("/:serviceName", async (req: Request, res: Response) => {
     }
 
     const serviceName = req.params.serviceName.toLowerCase();
-    if (servicesOAuth[serviceName] === undefined) {
-      res.render("error", {
-        message: "WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍"
-      });
-
-      return false;
-    }
-
-    const service = await ApiTokens.getAuthTokenByName(serviceName);
-    const authUrl = await requestAuthentication(
-      req.query.token,
-      serviceName,
-      service!
-    );
+    const authUrl = await requestAuthentication(req.query.token, serviceName);
     return res.redirect(authUrl);
   } catch (err) {
     res.render("error", { message: err });
@@ -53,15 +39,6 @@ router.get(
   async (req: Request, res: Response) => {
     try {
       const serviceName = req.params.serviceName.toLowerCase();
-      const service = await ApiTokens.getAuthTokenByName(serviceName);
-
-      if (service === undefined) {
-        res.render("error", {
-          message: "WE DO NOT HAVE ANY SERVICE THAT YOU WANT 🤷‍"
-        });
-        return false;
-      }
-
       const code = req.query.code;
       const state = req.query.state;
 
@@ -72,11 +49,7 @@ router.get(
         return false;
       }
 
-      await getAccessToken(serviceName, service!, {
-        code,
-        state
-      });
-
+      await getAccessToken(serviceName, { code, state });
       res.render("success");
 
       return true;

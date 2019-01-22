@@ -1,4 +1,4 @@
-import { generateRandomString } from "@/utils/gen";
+import { generateRandomString } from "./gen";
 
 describe("Generate random string", () => {
   const size = 15;

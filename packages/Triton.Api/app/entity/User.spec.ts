@@ -1,7 +1,6 @@
+import { FALSE_ID, SERVICE, TOKENS, USER, USER_ID } from "@/config/testData";
 import { igniteConnection } from "@/CreateConnection";
-import { AuthTokens } from "@/entity/AuthTokens";
-import { User } from "@/entity/User";
-import { FALSE_ID, SERVICE, TOKENS, USER, USER_ID } from "../testData";
+import { AuthTokens, User } from "./index";
 
 beforeAll(async () => {
   await igniteConnection();
@@ -24,6 +23,7 @@ describe("Testing User", () => {
     test("Available", async () => {
       const goodUUID = await User.getById(USER_ID);
       expect(goodUUID).toMatchObject({ id: USER_ID, login: USER.login });
+      expect(goodUUID).not.toBeNull();
     });
 
     test("Unavailable", async () => {
@@ -32,28 +32,18 @@ describe("Testing User", () => {
     });
   });
 
-  describe("Get user by his ID", () => {
-    test("Correct ID", async () => {
-      const req = await User.getById(USER_ID);
-      expect(req).toMatchObject({ login: USER.login });
-      expect(req).not.toBeNull();
+  describe("Update session ID", () => {
+    test("Success", async () => {
+      const req = await User.updateSession(USER_ID, "UPDATED_SESSION_ID");
+      expect(req).toBeTruthy();
+
+      const checkSID = await User.getById(USER_ID);
+      expect(checkSID!.sessionId).toBe("UPDATED_SESSION_ID");
     });
 
-    test("Incorrect ID", async () => {
-      const req = await User.getById(FALSE_ID);
-      expect(req).toBeNull();
-    });
-  });
-
-  describe("Get user by state key", () => {
-    test("Receive user entity", async () => {
-      const req = await User.getIdByStateKey(TOKENS.state!);
-      expect(req).toBe(USER_ID);
-    });
-
-    test("Receive null", async () => {
-      const req = await User.getIdByStateKey(FALSE_ID);
-      expect(req).toBeNull();
+    test("Error", async () => {
+      const req = await User.updateSession(FALSE_ID, "FALSE_SESSION_ID");
+      expect(req).toBeFalsy();
     });
   });
 });

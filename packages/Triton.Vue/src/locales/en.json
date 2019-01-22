@@ -1,15 +1,37 @@
 {
-  "display_name": "",
-  "email": "",
-  "product": "",
+  "display_name": "Name",
+  "email": "Email",
+  "product": "Account Type",
   "followers.total": "LELEL",
+  "name": "Name",
+  "verified": "Verified",
+  "zoneinfo": "Zoneinfo",
+  "phone_number": "Phone number",
+  "language": "Language",
+
+  "spotify_color": "#1DB954",
+  "paypal_color": "#0D96D9",
+  "spotify_auth": "Authenticate Spotify",
+  "paypal_auth": "Authenticate Paypal",
 
   "Actions.RefreshData": "Refresh user data",
   "Actions.HomeLink": "Home",
-  "Actions.AuthLink" :"Authorization",
+  "Actions.AuthLink": "Authorization",
   "Actions.AdminLink": "Administration",
-  "Actions.AuthSpotify": "Authenticate Spotify",
-  "Actions.AuthPaypal": "Authenticate Paypal",
-  "Actions.DigitalOceanApiToken": "DigitalOcean Api Token",
-  "Actions.AddToken": "Add DigitalOcean Api Token"
+  "Actions.AdminAddToken": "Add token",
+  "Actions.Logout": "Logout",
+  
+  "AdminToken.SendToken": "Send token",
+  
+  "AdminToken.Form.serviceName": "Service name",
+  "AdminToken.Form.apiURL": "API Url",
+  "AdminToken.Form.tokenService": "Exchange token service Url",
+  "AdminToken.Form.authorizeURL": "Authorization token Url",
+  "AdminToken.Form.userScopes": "User scopes",
+  "AdminToken.Form.clientID": "ClientID token",
+  "AdminToken.Form.clientSecret": "Secret token",
+  "AdminToken.Form.paths": "API path",
+  "AdminToken.Form.requestedData": "Requested data",
+  "AdminToken.Form.tokenType": "Token type",
+  "AdminToken.Form.redirectURL": "Redirect Url"
 }

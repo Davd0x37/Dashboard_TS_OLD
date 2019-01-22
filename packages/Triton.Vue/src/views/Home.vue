@@ -5,16 +5,9 @@
       :key="srv.serviceName"
       :brandIcon="srv.serviceName"
       :brandTitle="srv.serviceName"
-      brandClass="paypal-plate"
-      brandColor="#0D96D9"
+      :brandColor="$t(`${srv.serviceName}_color`)"
     >
-      <VLabel
-        v-for="(val, key) in srv.data"
-        :key="key"
-        :title="$t(key)"
-        :value="val"
-        isLast="true"
-      />
+      <VLabel v-for="(val, key) in srv.data" :key="key" :title="$t(key)" :value="val"/>
     </VPlate>
     <Actions/>
   </div>
@@ -32,7 +25,7 @@ import { flattenObj } from "@/utils/obj";
 @Component({
   components: { VPlate, VLabel, Actions }
 })
-export default class Home extends Vue {
+export default class extends Vue {
   protected get services() {
     const services = this.$store.state.data.services;
     if (services === null || services === undefined) {

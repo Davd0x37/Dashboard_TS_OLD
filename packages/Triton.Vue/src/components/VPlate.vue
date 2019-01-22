@@ -4,7 +4,7 @@
       <i :class="'fab fa-'+brandIcon+' fa-2x'" :style="{color: brandColor}"/>
       <h3 class="title">{{brandTitle}}</h3>
     </header>
-    <div :class="'container ' + brandClass">
+    <div class="container">
       <div class="details">
         <slot></slot>
       </div>
@@ -19,7 +19,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 export default class VPlate extends Vue {
   @Prop() protected brandIcon!: string;
   @Prop() protected brandTitle!: string;
-  @Prop() protected brandClass!: string;
+  // @Prop() protected brandClass!: string;
   @Prop() protected brandColor!: string;
 }
 </script>
@@ -53,6 +53,13 @@ export default class VPlate extends Vue {
     border-radius: 10px;
     flex-wrap: wrap;
     padding: 25px 20px;
+
+    .details {
+      // height: 100px;
+      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
+    }
 
     .wrap {
       align-content: space-between;

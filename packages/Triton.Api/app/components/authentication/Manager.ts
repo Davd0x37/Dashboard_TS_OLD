@@ -1,10 +1,11 @@
-import { setupServiceTokens } from "@/components/service";
 import { AuthTokens } from "@/entity";
 import { ApiTokens } from "@/entity/ApiTokens";
 import { generateRandomString } from "@/utils/gen";
 import { AppError } from "@/utils/log";
 import { queryString } from "@/utils/net";
 import { readSession } from "../memory";
+import { setupServiceTokens } from "../service";
+import { fixPostgresArray } from "../service/Utils";
 import { basicAuth, requestTokens } from "./Utils";
 
 /**
@@ -19,37 +20,38 @@ import { basicAuth, requestTokens } from "./Utils";
  *
  * @param {string} token Generated JWT token
  * @param {string} serviceName Service name
- * @param {ApiTokens} serviceSettings Options needed to generate authentication url
  * @returns {Promise<string>} Generated query string or false if failed
  */
 export const requestAuthentication = async (
   token: string,
-  serviceName: string,
-  serviceSettings: ApiTokens
+  serviceName: string
 ): Promise<string> => {
   try {
     const userID = await readSession(token);
-    if (userID === null) {
-      return Promise.reject("Wrong token!1");
+    const apiTokens = await ApiTokens.getAuthTokenByName(serviceName);
+    if (
+      userID === null ||
+      apiTokens === null ||
+      apiTokens.tokenType === "Basic"
+    ) {
+      return Promise.reject(
+        "We do not have implemented this service or you passed wrong name 🤷‍"
+      );
     }
 
-    const { authorizeURL, clientID, userScopes, redirectURL } = serviceSettings;
+    const userScopes =
+      typeof apiTokens.userScopes === "string"
+        ? fixPostgresArray(apiTokens.userScopes)
+        : (apiTokens.userScopes as any);
+
     const nonce = `${Date.now() +
       Buffer.from(generateRandomString(16, true)).toString("base64")}`;
 
-    // Maybe instead of returning boolean, just throw exception?
-    const setup = await setupServiceTokens(userID, serviceName, {
-      state: token
-    });
-    if (!setup) {
-      throw AppError("Error occurs during setting up account!", null);
-    }
-
-    return queryString(authorizeURL!, {
-      client_id: clientID,
+    return queryString(apiTokens.authorizeURL!, {
+      client_id: apiTokens.clientID,
       response_type: "code",
-      scope: encodeURI(userScopes!.join("+")),
-      redirect_uri: encodeURI(redirectURL!),
+      scope: encodeURI(userScopes.join("+")),
+      redirect_uri: encodeURI(apiTokens.redirectURL!),
       state: token,
       nonce
     });
@@ -69,55 +71,52 @@ export const requestAuthentication = async (
  * **IMPURE**
  *
  * @param {string} serviceName Service name
- * @param {ApiTokens} serviceSettings Service options
  * @param {{ code: string; state: string }} { code, state } Received code and state.
  * @returns {Promise<boolean>} True if successfully retrieved tokens or false in case of failure
  */
 export const getAccessToken = async (
   serviceName: string,
-  serviceSettings: ApiTokens,
   { code, state }: { code: string; state: string }
 ): Promise<boolean> => {
   try {
-    const encryptedID = await readSession(state);
-    if (encryptedID === null) {
+    // We can skip checking state key because it is assigned to user ID saved in memory
+    // If state is incorrect it will reject on first validation
+    const userID = await readSession(state);
+    const apiTokens = await ApiTokens.getAuthTokenByName(serviceName);
+
+    if (
+      userID === null ||
+      apiTokens === null ||
+      apiTokens.tokenType === "Basic"
+    ) {
       return Promise.reject("You shall not pass!");
     }
 
-    // Destructure
-    const {
-      clientID,
-      clientSecret,
-      redirectURL,
-      tokenService
-    } = serviceSettings;
+    // const stateKey = await AuthTokens.getStateKey(userID, serviceName);
+    // if (state !== stateKey || state === null) {
+    //   return Promise.reject("Do not try this with me!");
+    // }
 
-    const stateKey = await AuthTokens.getStateKey(encryptedID, serviceName);
-    if (state !== stateKey || state === null) {
-      return Promise.reject("Do not try this with me!");
-    }
-
-    const encodedAuth = basicAuth(clientID!, clientSecret!);
+    const encodedAuth = basicAuth(apiTokens.clientID!, apiTokens.clientSecret!);
 
     const { body } = await requestTokens({
-      url: tokenService!,
+      url: apiTokens.tokenService!,
       auth: encodedAuth,
       body: {
         code,
         grant_type: "authorization_code",
-        redirect_uri: redirectURL
+        redirect_uri: apiTokens.redirectURL
       }
     });
 
     // Now we can save our new tokens and delete state key
     // It is somehow dangerous to store it for long time
     // Because we can get user id using state key
-    return AuthTokens.updateTokens(encryptedID, serviceName, {
+    return setupServiceTokens(userID, serviceName, {
       accessToken: body.access_token,
       refreshToken: body.refresh_token,
       tokenType: body.token_type,
-      expiresIn: body.expires_in,
-      state: ""
+      expiresIn: body.expires_in
     });
   } catch (err) {
     throw AppError(err, "Something went wrong!");
@@ -131,28 +130,24 @@ export const getAccessToken = async (
  *
  * @param {string} id User id
  * @param {string} serviceName Service name
- * @param {ApiTokens} serviceSettings Service options
  * @returns {Promise<boolean>} True if successfully received new tokens otherwise false
  */
 export const refreshTokens = async (
   id: string,
-  serviceName: string,
-  serviceSettings: ApiTokens
+  serviceName: string
 ): Promise<boolean> => {
   try {
     const tokens = await AuthTokens.getAuthTokenByName(id, serviceName);
+    const apiTokens = await ApiTokens.getAuthTokenByName(serviceName);
 
-    if (tokens === null || tokens.refreshToken === null) {
+    if (tokens === null || tokens.refreshToken === null || apiTokens === null) {
       return false;
     }
 
-    const encodedAuth = basicAuth(
-      serviceSettings.clientID!,
-      serviceSettings.clientSecret!
-    );
+    const encodedAuth = basicAuth(apiTokens.clientID!, apiTokens.clientSecret!);
 
     const { body } = await requestTokens({
-      url: serviceSettings.tokenService!,
+      url: apiTokens.tokenService!,
       auth: encodedAuth,
       body: {
         grant_type: "refresh_token",
@@ -164,7 +159,7 @@ export const refreshTokens = async (
       accessToken: body.access_token,
       expiresIn: body.expires_in,
       tokenType: body.token_type,
-      updateTime: new Date()
+      updateTime: new Date().toISOString()
     });
   } catch (err) {
     return AppError(err, false);

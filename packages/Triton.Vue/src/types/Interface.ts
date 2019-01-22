@@ -7,6 +7,7 @@ export interface IUserDocType {
     registerDate: string;
     isOnline: boolean;
     // role: string;
+    avServices?: string[];
     services?: [
       {
         serviceName: string;

@@ -14,48 +14,40 @@ import { Connection } from "typeorm";
 import { unseal } from "./components/vault";
 import { igniteConnection } from "./CreateConnection";
 import { firstRun } from "./Setup";
-import { ApiTokens } from "./entity/ApiTokens";
-import { User } from "./entity";
 
 igniteConnection()
   .then(async (_: Connection) => {
+    await firstRun();
+    await unseal();
 
-    const req = await User.create({avatar:"LEL",email:"LEL",password:"LELEL",login:"LEL",sessionId:"LEL",isOnline: true})
-    console.log(req)
-    // const req = await ApiTokens.find()
-    // const res = req.find((val) => val.serviceName === "LELELLE")
-    // console.log(res)
-    // await firstRun();
-    // await unseal();
+    const env = process.env.NODE_ENV;
+    // Create GraphQL server
+    const server = new GraphQLServer({
+      typeDefs: loadGQLSchema(resolve("app/graphql/Schema.gql")),
+      resolvers
+    });
 
-    // const env = process.env.NODE_ENV;
-    // // Create GraphQL server
-    // const server = new GraphQLServer({
-    //   typeDefs: loadGQLSchema(resolve("app/graphql/Schema.gql")),
-    //   resolvers
-    // });
+    server.express.set("view engine", "pug");
+    server.express.set("views", resolve("app/views"));
 
-    // server.express.set("view engine", "pug");
-    // server.express.set("views", resolve("app/views"));
+    // Add middlewares and routes
+    server.express
+      .use(helmet())
+      .use(cookieParser())
+      .use("/services", ServiceRouter);
 
-    // // Add middlewares and routes
-    // server.express
-    //   .use(helmet())
-    //   .use(cookieParser())
-    //   .use("/services", ServiceRouter);
-
-    // // Start server with/out cors
-    // server.start(
-    //   {
-    //     ...(env === "prod" && {
-    //       cors: {
-    //         origin: cors.origin,
-    //         methods: cors.methods
-    //       }
-    //     }),
-    //     playground: env === "prod" ? false : "/"
-    //   },
-    //   () => start(`Server is running!`)
-    // );
+    // Start server with/out cors
+    server.start(
+      {
+        ...(env === "prod" && {
+          cors: {
+            origin: cors.origin,
+            methods: cors.methods
+          }
+        }),
+        playground: env === "prod" ? false : "/"
+      },
+      () => start(`Server is running!`)
+    );
   })
   .catch((err: any) => fatal(err));

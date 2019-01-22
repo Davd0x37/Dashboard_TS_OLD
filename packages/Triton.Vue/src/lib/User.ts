@@ -18,6 +18,7 @@ export const signIn = async (
         email
         isOnline
         registerDate
+        avServices
         services {
           serviceName
           data
@@ -36,11 +37,15 @@ export const signIn = async (
       "email",
       "isOnline",
       "registerDate",
-      "services"
+      "services",
+      "avServices"
     );
 
     if (pickData.services === null) {
       pickData.services = [];
+    }
+    if (pickData.avServices === null) {
+      pickData.avServices = [];
     }
 
     if (addUser) {
@@ -93,6 +98,52 @@ export const register = async (
       return await signIn(login, password, true);
     }
     return false;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const refreshData = async (sessionID: string) => {
+  try {
+    const qry = gql`
+    query {
+      updateUserData(session_id: "${sessionID}") {
+        serviceName
+        data
+      }
+    }
+    `;
+    const { updateUserData } = await query(qry);
+    return updateUserData;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};
+
+export const addService = async (data: any): Promise<boolean> => {
+  try {
+    const qry = gql`
+      mutation {
+        addService(data: {
+          serviceName: "${data.serviceName}"
+          apiURL: "${data.apiURL}"
+          tokenService: "${data.tokenService}"
+          authorizeURL: "${data.authorizeURL}"
+          userScopes: ["${data.userScopes}"]
+          clientID: "${data.clientID}"
+          clientSecret: "${data.clientSecret}"
+          paths: ["${data.paths}"]
+          requestedData: ["${data.requestedData}"]
+          tokenType: "${data.tokenType}"
+          redirectURL: "${data.redirectURL}"
+        })
+      }
+    `;
+
+    const { addService } = await mutation(qry);
+    return addService;
   } catch (err) {
     console.log(err);
     return false;

@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
-    <Authenticate />
-    <Actions />
+    <Authenticate/>
+    <Actions/>
   </div>
 </template>
 
@@ -13,5 +13,5 @@ import Actions from "@/components/Actions.vue";
 @Component({
   components: { Authenticate, Actions }
 })
-export default class Auth extends Vue {}
+export default class extends Vue {}
 </script>

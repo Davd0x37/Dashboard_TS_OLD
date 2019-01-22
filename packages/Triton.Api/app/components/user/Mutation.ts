@@ -46,16 +46,9 @@ export default {
 
   addService: async (__: any, { data, update }: any): Promise<boolean> => {
     try {
-      // @TODO: Add strategy pattern for this
-      if (data.tokenType === "Bearer") {
-        if (data.clientID === null) {
-          return false;
-        }
-      }
-      if (update) {
-        return await ApiTokens.updateTokens(data);
-      }
-      return await ApiTokens.saveTokens(data);
+      return update
+        ? await ApiTokens.updateTokens(data)
+        : await ApiTokens.saveTokens(data);
     } catch (err) {
       return AppError(err, false);
     }

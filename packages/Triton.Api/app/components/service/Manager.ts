@@ -1,9 +1,11 @@
 import { AuthTokens, Service } from "@/entity";
+import { ApiTokens } from "@/entity/ApiTokens";
 import { IServiceTokens } from "@/type";
 import { AppError } from "@/utils/log";
 import { get } from "got";
 import { pick } from "lodash";
-import { ApiTokens } from "@/entity/ApiTokens";
+import Strategies from "../tokens/Strategies";
+import { fixPostgresArray } from "./Utils";
 
 /**
  * First get user data and check if tokens are exists
@@ -74,7 +76,49 @@ export const setupServiceTokens = async (
   return saveTokens || updateTokens;
 };
 
+/**
+ * Loop over tokens, refresh each of them if expired, request
+ * new data and return boolean.
+ * @TODO: Rename this shiet
+ * @param {string} id User ID
+ * @param {ApiTokens[]} keys Api tokens array
+ * @returns {((token: AuthTokens) => Promise<boolean>)} Map function
+ */
+export const mapTokens = (
+  id: string,
+  keys: ApiTokens[]
+): ((token: AuthTokens) => Promise<boolean>) => async (
+  token: AuthTokens
+): Promise<boolean> => {
+  try {
+    const service = keys.find(
+      ({ serviceName }) => serviceName === token.serviceName
+    );
+    const strategy = Strategies[token.tokenType!];
 
-export const refreshExpiredToken = async(id: string, token: ApiTokens, service: Service) => {
-  
-}
+    const refresh = await strategy.refresh(id, token);
+
+    const paths = fixPostgresArray(service!.paths);
+    const requestedData = fixPostgresArray(service!.requestedData);
+
+    const newData = await Promise.all(
+      paths.map(
+        async (path: string) =>
+          await requestServiceData(path, token.accessToken!, requestedData)
+      )
+    );
+
+    const stringified = JSON.stringify(newData);
+
+    // const encryptedData = await AES256_AR2.Encrypt(stringified, key)
+
+    return await Service.updateData(
+      id,
+      token.serviceName,
+      // encryptedData
+      stringified
+    );
+  } catch (err) {
+    return AppError(err, false);
+  }
+};

@@ -9,28 +9,27 @@
       <router-link to="/">
         <VButton id="HomeLink" :value="$t('Actions.HomeLink')" addClass="color"/>
       </router-link>
-      <router-link to="/auth">
+      <router-link to="/auth" v-if="user.session_id === ''">
         <VButton id="AuthLink" :value="$t('Actions.AuthLink')" addClass="color"/>
       </router-link>
-      <router-link to="/admin">
+      <router-link to="/admin" v-if="user.session_id !== ''">
         <VButton id="AdminLink" :value="$t('Actions.AdminLink')" addClass="color"/>
       </router-link>
-      <VButton id="RefreshData" :value="$t('Actions.RefreshData')" addClass="color"/>
-    </aside>
-    <aside class="details">
-      <VButton id="AuthSpotify" :value="$t('Actions.AuthSpotify')" addClass="color"/>
-      <VButton id="AuthPaypal" :value="$t('Actions.AuthPaypal')" addClass="color"/>
-    </aside>
-    <aside class="details">
-      <VInput
-        type="text"
-        title="Api Token"
-        id="DigitalOceanApiToken"
-        :placeholder="$t('Actions.DigitalOceanApiToken')"
+      <VButton
+        v-if="user.session_id !== ''"
+        id="RefreshData"
+        :value="$t('Actions.RefreshData')"
+        addClass="color"
+        v-on:emitClick="refresh()"
       />
-
-      <VButton id="AddToken" :value="$t('Actions.AddToken')" addClass="color"/>
+      <VButton
+        v-if="user.session_id !== ''"
+        :value="$t('Actions.Logout')"
+        addClass="color"
+        v-on:emitClick="logout()"
+      />
     </aside>
+    <slot></slot>
   </VPlate>
 </template>
 
@@ -40,6 +39,7 @@ import VPlate from "@/components/VPlate.vue";
 import VLabel from "@/components/Utils/VLabel.vue";
 import VButton from "@/components/Utils/VButton.vue";
 import VInput from "@/components/Utils/VInput.vue";
+import { refreshData } from "@/lib/User";
 
 @Component({
   components: {
@@ -50,7 +50,32 @@ import VInput from "@/components/Utils/VInput.vue";
   }
 })
 export default class Actions extends Vue {
-  protected user = this.$store.state.data
+  protected user = this.$store.state.data;
+
+  protected async refresh() {
+    const req = await refreshData(this.$store.state.data.session_id);
+    await this.$store.dispatch("UserManager", {
+      action: "UpdateServices",
+      data: {
+        services: req
+      }
+    });
+  }
+
+  protected async logout() {
+    await this.$store.dispatch("UserManager", {
+      action: "UpdateServices",
+      data: {
+        session_id: "",
+        avatar: "",
+        email: "",
+        registerDate: "",
+        isOnline: false,
+        avServices: undefined,
+        services: undefined
+      }
+    });
+  }
 }
 </script>
 
@@ -60,9 +85,8 @@ export default class Actions extends Vue {
 .actions-plate {
   display: flex;
   justify-content: space-between;
+
   .details {
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
   }
 

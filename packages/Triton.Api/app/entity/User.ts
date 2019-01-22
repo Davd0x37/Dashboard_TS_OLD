@@ -6,8 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn
 } from "typeorm";
-import { AuthTokens } from "./AuthTokens";
-import { Service } from "./Service";
+import { AuthTokens, Service } from "./index";
 
 @Entity({ name: "Users" })
 export class User extends BaseEntity {
@@ -75,11 +74,17 @@ export class User extends BaseEntity {
     }
   }
 
-  public static async updateSession(id: string, sessionId: string): Promise<boolean | false> {
+  public static async updateSession(
+    id: string,
+    sessionId: string
+  ): Promise<boolean> {
     try {
-      return await this.update({ id }, { sessionId }).then(_ => true).catch(err => AppError(err, false))
+      await this.findOneOrFail(id);
+      return await this.update({ id }, { sessionId })
+        .then(_ => true)
+        .catch(err => AppError(err, false));
     } catch (err) {
-      return AppError(err, false)
+      return AppError(err, false);
     }
   }
 }

@@ -10,26 +10,33 @@ export const UserSchema: RxJsonSchema = {
   properties: {
     session_id: {
       type: "string",
-      encrypted: true,
+      // encrypted: true,
     },
     avatar: {
-      encrypted: true,
+      // encrypted: true,
       type: "string"
     },
     email: {
-      primary: true,
+      // primary: true,
       type: "string"
     },
     registerDate: {
-      encrypted: true,
+      // encrypted: true,
       type: "string"
     },
+    avServices: {
+      // encrypted: true,
+      type: "array",
+      items: {
+        type: "string"
+      }
+    },
     isOnline: {
-      encrypted: true,
+      // encrypted: true,
       type: "boolean"
     },
     services: {
-      encrypted: true,
+      // encrypted: true,
       type: "array",
       items: {
         type: "object",

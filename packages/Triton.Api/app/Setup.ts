@@ -11,7 +11,7 @@ import { AppError } from "./utils/log";
 
 export const firstRun = async () => {
   try {
-    const exs = process.env.VAULT_EXISTS
+    const exs = process.env.VAULT_EXISTS;
 
     // After restart we don't want to create new vault
     // if (existsSync(resolve(file))) {
@@ -20,10 +20,10 @@ export const firstRun = async () => {
 
     // We can stop creating new vault
     if (exs) {
-      return false
+      return false;
     }
 
-    await createVault()
+    await createVault();
     await initVault();
 
     // createFileSync(resolve(file));
@@ -43,12 +43,12 @@ const createVault = async () => {
         type: "kv",
         version: "2"
       })
-    })
-    return req.statusCode === 204
+    });
+    return req.statusCode === 204;
   } catch (err) {
-    throw AppError(err, err)
+    throw AppError(err, err);
   }
-}
+};
 
 const initVault = async () => {
   try {

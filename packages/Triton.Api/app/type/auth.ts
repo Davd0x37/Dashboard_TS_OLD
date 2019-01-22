@@ -3,19 +3,19 @@ export interface IServiceTokens {
   readonly refreshToken?: string;
   readonly expiresIn?: number;
   readonly tokenType?: string;
-  readonly updateTime?: Date;
-  readonly state?: string;
+  readonly updateTime?: string;
 }
 
 export interface IServiceAPI {
-  serviceName: string;
-  apiURL: string;
-  tokenService: string;
-  authorizeURL: string;
-  userScopes: string[];
-  clientID: string;
-  clientSecret: string;
-  paths: string[];
-  requestedData: string[];
-  tokenType: string;
+  readonly serviceName: string;
+  readonly apiURL: string;
+  readonly tokenService: string;
+  readonly authorizeURL: string;
+  readonly userScopes: string[];
+  readonly clientID: string;
+  readonly clientSecret: string;
+  readonly paths: string[];
+  readonly requestedData: string[];
+  readonly tokenType: string;
+  readonly redirectURL: string;
 }

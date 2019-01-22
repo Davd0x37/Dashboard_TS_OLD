@@ -1,13 +1,10 @@
-import { AuthTokens, Service, User } from "@/entity";
+import { ApiTokens, AuthTokens, Service, User } from "@/entity";
 import { AppError } from "@/utils/log";
 import { omit } from "lodash";
-import { genEncryptedJWT, refreshTokens } from "../authentication";
+import { genEncryptedJWT } from "../authentication";
 import { deleteSession, readSession, saveSession } from "../memory";
-import { requestServiceData } from "../service";
-import { decryptPass } from "../vault";
-import { fetchKey } from "../vault/Vault";
-import { selectTokenType, time } from "./Utils";
-import { ApiTokens } from "@/entity/ApiTokens";
+import { mapTokens } from "../service";
+import { decryptPass, fetchKey } from "../vault";
 
 export default {
   /**
@@ -33,24 +30,29 @@ export default {
 
       if (decrypt) {
         const token = await genEncryptedJWT(user.id, jwt, "2d");
+        if (token === null) {
+          return null;
+        }
 
         // We don't need to check if sessin exists or no
         // if no, redis will return null otherwise delete previous
         // @TODO: Maybe instead of deleting just reuse existing one before it expires?
         // Or add authentication limit? 5 requests per 30 mins?
-        await deleteSession(user.sessionId!);
-        await User.updateSession(user.id, token!);
+        const del = await deleteSession(user.sessionId!);
+        const update = await User.updateSession(user.id, token!);
+        const newSession = await saveSession(user.id, token!);
 
         // `token!` contains `!` because jwt exists
-        const session = await saveSession(token!, user.id);
-
         const services = await Service.getServiceById(user.id);
+        const reqServ = await ApiTokens.find();
+        const avServices = reqServ.map(srv => srv.serviceName)
 
         return (
-          session && {
+          newSession && {
             session_id: token,
             ...omit(user, ["id", "password", "login"]),
-            services
+            services,
+            avServices
           }
         );
       }
@@ -72,65 +74,13 @@ export default {
       }
 
       const tokens = await AuthTokens.getAuthTokensById(id);
-      const apiKeys = await ApiTokens.find()
+      const apiKeys = await ApiTokens.find();
       if (tokens && tokens.length < 1) {
         return null;
       }
 
-      /**
-       * For now, we consider `accessToken` as valid.
-       * In future I will implement validation.
-       *
-       * @FIXME: FIX this!!! Ugly as fock. Add strategy pattern as well.
-       */
-      await Promise.all(
-        tokens!.map(async token => {
-          const service = apiKeys.find(api => api.serviceName === token.serviceName)
-
-          
-
-          if (tokenType === "Bearer") {
-            const expired = time.expired(
-              new Date(),
-              token.updateTime!,
-              token.expiresIn!
-            );
-
-            if (expired) {
-              const refresh = await refreshTokens(
-                id,
-                token.serviceName,
-                service
-              );
-              if (!refresh) {
-                return null;
-              }
-            }
-          }
-
-          const newData = await Promise.all(
-            service.paths.map(
-              async (path: string) =>
-                await requestServiceData(
-                  path,
-                  token.accessToken!,
-                  service.requestedData
-                )
-            )
-          );
-
-          const stringified = JSON.stringify(newData);
-
-          // const encryptedData = await AES256_AR2.Encrypt(stringified, key)
-
-          return await Service.updateData(
-            id,
-            token.serviceName,
-            // encryptedData
-            stringified
-          );
-        })
-      );
+      // Do something with it. Optimize or something.
+      await Promise.all(tokens!.map(mapTokens(id, apiKeys)));
 
       return await Service.getServiceById(id);
     } catch (err) {

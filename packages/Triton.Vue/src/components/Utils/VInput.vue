@@ -13,6 +13,7 @@
       :minlength="[minlength ? minlength : '']"
       :maxlength="[maxlength ? maxlength : '']"
       v-on:click="click"
+      :value="value"
       @input="$emit('update:value', $event.target.value)"
     />
   </div>

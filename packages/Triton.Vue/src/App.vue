@@ -18,11 +18,12 @@ import { Vue, Component } from "vue-property-decorator";
 import store from "@/store";
 
 @Component
-export default class App extends Vue {
+export default class extends Vue {
   protected AppName: string = "Dashboard";
 
   constructor() {
     super();
+
     // @ts-ignore
     this.$store.subscribeAction(async (mut, state) => {
       if (mut.type === "UserManager") {
@@ -41,6 +42,10 @@ export default class App extends Vue {
             usr!.updateUserData(mut.payload.data);
           }
         }
+        if (mut.payload.action === "UpdateServices") {
+          const usr = await this.$db.dashboard.findOne().exec();
+          usr!.updateUserData(mut.payload.data);
+        }
       }
     });
   }
@@ -53,6 +58,12 @@ export default class App extends Vue {
         data: usr!.getData()
       });
     }
+    // await this.$store.dispatch("UserManager", {
+    //   action: "UpdateServices",
+    //   data: {
+    //     services: undefined
+    //   }
+    // })
   }
 
   protected get User() {

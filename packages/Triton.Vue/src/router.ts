@@ -26,6 +26,12 @@ export default new Router({
       name: "admin",
       component: () =>
         import(/* webpackChunkName: "admin" */ "./views/Admin.vue")
+    },
+    {
+      path: "/admin/addToken",
+      name: "addToken",
+      component: () =>
+        import(/* webpackChunkName: "addToken" */ "./views/AddToken.vue")
     }
   ]
 });

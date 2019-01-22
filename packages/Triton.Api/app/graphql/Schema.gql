@@ -30,6 +30,7 @@ type User {
   isOnline: Boolean!
   registerDate: String!
   services: [Service]
+  avServices: [String]
 }
 
 input UserInput {
@@ -45,12 +46,13 @@ input ServiceInput {
   apiURL: String!
   tokenService: String
   authorizeURL: String
-  userScopes: [String!]!
+  userScopes: [String!]
   clientID: String
   clientSecret: String
-  paths: [String!]!
-  requestedData: [String!]!
+  paths: [String!]
+  requestedData: [String!]
   tokenType: String!
+  redirectURL: String
 }
 
 type Service {

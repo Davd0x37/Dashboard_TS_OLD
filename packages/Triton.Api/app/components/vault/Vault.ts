@@ -11,14 +11,6 @@ export const unseal = async () => {
   return await vault.unseal({ secret_shares: 1, key });
 };
 
-export const fetchKey = async (
-  key: string,
-  selected: string | string[]
-): Promise<{ [key: string]: any }> =>
-  Array.isArray(selected)
-    ? await selected.reduce(reduceKeys, {})
-    : await readKey(key, selected);
-
 export const writeKey = async (path: string, value: {}): Promise<boolean> => {
   try {
     await vault.write(path, value);
@@ -28,18 +20,15 @@ export const writeKey = async (path: string, value: {}): Promise<boolean> => {
   }
 };
 
-const reduceKeys = async (prev: any, curr: any): Promise<{}> => {
-  const key = await vault.read(`keys/${curr}`);
-  return {
-    ...prev,
-    [curr]: key.data[curr]
-  };
-};
-
-const readKey = (
+export const fetchKey = (
   key: string,
-  selected: string
+  selected: string | string[]
 ): Promise<{ [key: string]: any }> =>
   vault
     .read(`keys/${key}`)
-    .then(({ data }: any) => ({ [selected]: data[selected] }));
+    .then(({ data }: any) =>
+      Array.isArray(selected)
+        ? selected.reduce((prev, curr) => ({ ...prev, [curr]: data[curr] }), {})
+        : { [selected]: data[selected] }
+    )
+    .catch((err: any) => AppError(err, null));

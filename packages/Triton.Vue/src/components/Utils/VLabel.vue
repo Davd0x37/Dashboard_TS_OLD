@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style="width: 50%;">
     <p class="title">{{title}}</p>
-    <p v-bind:class="['value', noCapitalize ? 'no-capitalize' : '', isLast ? 'last' : '', addClass ? addClass : '']">
+    <p v-bind:class="['value', isLast ? 'last' : '', addClass ? addClass : '']">
       {{value}}
     </p>
   </div>
@@ -16,7 +16,7 @@ export default class VLabel extends Vue {
 
   @Prop() protected value!: string;
 
-  @Prop() protected noCapitalize?: boolean;
+  // @Prop() protected noCapitalize?: boolean;
 
   @Prop() protected isLast?: boolean;
 
@@ -43,7 +43,7 @@ export default class VLabel extends Vue {
 
 .value {
   font-weight: 500;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   @media screen and (max-width: 480px) {
     font-size: 0.7rem;
   }

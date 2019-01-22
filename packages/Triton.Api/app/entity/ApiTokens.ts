@@ -1,4 +1,3 @@
-import { entityExists } from "@/repository/Manager";
 import { IServiceAPI } from "@/type";
 import { AppError } from "@/utils/log";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
@@ -55,10 +54,15 @@ export class ApiTokens extends BaseEntity {
    * @memberof ApiTokens
    */
   public static async updateTokens(tokens: IServiceAPI): Promise<boolean> {
-    return await this.update(
-      { serviceName: tokens.serviceName },
-      { ...tokens }
-    ).then(_ => true, err => AppError(err, false));
+    try {
+      await this.findOneOrFail({ serviceName: tokens.serviceName });
+      return await this.update(
+        { serviceName: tokens.serviceName },
+        { ...tokens }
+      ).then(_ => true, err => AppError(err, false));
+    } catch (err) {
+      return AppError(err, false);
+    }
   }
 
   /**

@@ -8,11 +8,11 @@ export default new Vuex.Store({
   state: {
     data: {
       session_id: "",
-      // role: "admin",
       avatar: "",
       email: "",
       registerDate: "",
       isOnline: false,
+      avServices: undefined,
       services: undefined
     }
   },

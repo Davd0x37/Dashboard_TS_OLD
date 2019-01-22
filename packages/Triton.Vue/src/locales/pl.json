@@ -1,15 +1,37 @@
 {
-  "display_name": "",
-  "email": "",
-  "product": "",
-  "followers.total": "LELEL",
+  "display_name": "Name",
+  "email": "Email",
+  "product": "Account Type",
+  "followers.total": "Followers",
+  "name": "Nazwa",
+  "verified": "Zweryfikowane",
+  "zoneinfo": "Strefa czasowa",
+  "phone_number": "Numer telefonu",
+  "language": "Język",
+
+  "spotify_color": "#1DB954",
+  "paypal_color": "#0D96D9",
+  "spotify_auth": "Autoryzuj Spotify",
+  "paypal_auth": "Autoryzuj Paypal",
 
   "Actions.RefreshData": "Odśwież dane",
   "Actions.HomeLink": "Strona główna",
   "Actions.AuthLink": "Autoryzacja",
   "Actions.AdminLink": "Administracja",
-  "Actions.AuthSpotify": "Autoryzuj Spotify",
-  "Actions.AuthPaypal": "Autoryzuj Paypal",
-  "Actions.DigitalOceanApiToken": "DigitalOcean Api Token",
-  "Actions.AddToken": "Dodaj DigitalOcean Api Token"
+  "Actions.AdminAddToken": "Dodaj token",
+  "Actions.Logout": "Wyloguj",
+
+  "AdminToken.SendToken": "Wyślij token",
+  
+  "AdminToken.Form.serviceName": "Nazwa serwisu",
+  "AdminToken.Form.apiURL": "API Url",
+  "AdminToken.Form.tokenService": "Url serwisu wymiany tokenu",
+  "AdminToken.Form.authorizeURL": "Url autoryzacji tokenu",
+  "AdminToken.Form.userScopes": "Scope uzytkownika",
+  "AdminToken.Form.clientID": "Token ClientID",
+  "AdminToken.Form.clientSecret": "Sekretny token",
+  "AdminToken.Form.paths": "Ścieżki api",
+  "AdminToken.Form.requestedData": "Wymagane dane",
+  "AdminToken.Form.tokenType": "Typ tokenu",
+  "AdminToken.Form.redirectURL": "Url przekierowania"
 }
