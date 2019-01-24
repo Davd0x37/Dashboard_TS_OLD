@@ -66,6 +66,20 @@ export default class extends Vue {
 
   protected async addToken() {
     // window.open("http://google.com?q=" + name);
+    console.log()
+    //     const req = await addService({
+    //   serviceName: this.serviceName,
+    //   apiURL: this.apiURL,
+    //   tokenService: this.tokenService,
+    //   authorizeURL: this.authorizeURL,
+    //   userScopes: this.userScopes.replace(/\"/g, "").split(","),
+    //   clientID: this.clientID,
+    //   clientSecret: this.clientSecret,
+    //   paths: this.paths,
+    //   requestedData: this.requestedData.replace(/\"/g, "").split(","),
+    //   tokenType: this.tokenType,
+    //   redirectURL: this.redirectURL
+    // });
     const req = await addService({
       serviceName: this.serviceName,
       apiURL: this.apiURL,

@@ -10,7 +10,7 @@ import { AuthTokens, Service } from "./index";
 
 @Entity({ name: "Users" })
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("increment")
   public readonly id!: string;
 
   @Column("text", { nullable: true })

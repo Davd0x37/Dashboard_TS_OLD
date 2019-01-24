@@ -131,11 +131,11 @@ export const addService = async (data: any): Promise<boolean> => {
           apiURL: "${data.apiURL}"
           tokenService: "${data.tokenService}"
           authorizeURL: "${data.authorizeURL}"
-          userScopes: ["${data.userScopes}"]
+          userScopes: [${data.userScopes}]
           clientID: "${data.clientID}"
           clientSecret: "${data.clientSecret}"
           paths: ["${data.paths}"]
-          requestedData: ["${data.requestedData}"]
+          requestedData: [${data.requestedData}]
           tokenType: "${data.tokenType}"
           redirectURL: "${data.redirectURL}"
         })

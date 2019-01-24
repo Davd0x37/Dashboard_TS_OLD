@@ -4,7 +4,7 @@ import { omit } from "lodash";
 import { genEncryptedJWT } from "../authentication";
 import { deleteSession, readSession, saveSession } from "../memory";
 import { mapTokens } from "../service";
-import { decryptPass, fetchKey } from "../vault";
+// import { decryptPass, fetchKey } from "../vault";
 
 export default {
   /**
@@ -15,10 +15,10 @@ export default {
    */
   async authenticateUser(_: any, { login, password }: any): Promise<{} | null> {
     try {
-      const { userAes, jwt } = await fetchKey("encrypt", ["userAes", "jwt"]);
-      if (password === undefined || jwt === undefined) {
-        return null;
-      }
+      // const { userAes, jwt } = await fetchKey("encrypt", ["userAes", "jwt"]);
+      // if (password === undefined || jwt === undefined) {
+      //   return null;
+      // }
 
       // There is no need to check returned value because it will
       // reject if not found
@@ -26,13 +26,13 @@ export default {
         where: { login }
       });
 
-      const decrypt = await decryptPass(user.password, password, userAes);
+      // const decrypt = await decryptPass(user.password, password, userAes);
 
-      if (decrypt) {
-        const token = await genEncryptedJWT(user.id, jwt, "2d");
-        if (token === null) {
-          return null;
-        }
+      // if (decrypt) {
+        const token = await genEncryptedJWT(user.id, /* jwt */"TESTING", "2d");
+      //   if (token === null) {
+      //     return null;
+      //   }
 
         // We don't need to check if sessin exists or no
         // if no, redis will return null otherwise delete previous
@@ -55,8 +55,8 @@ export default {
             avServices
           }
         );
-      }
-      return null;
+      // }
+      // return null;
     } catch (err) {
       return AppError(err, null);
     }

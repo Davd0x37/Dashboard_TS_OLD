@@ -1,4 +1,4 @@
-import { AES256_AR2 } from "@/components/vault";
+// import { AES256_AR2 } from "@/components/vault";
 import { AppError } from "@/utils/log";
 import { sign, SignOptions, verify } from "jsonwebtoken";
 
@@ -50,9 +50,10 @@ export const genEncryptedJWT = async (
   expire: string
 ): Promise<string | null> => {
   try {
-    const encryptPayload = await AES256_AR2.Encrypt(payload, key);
-    const token = await genJWT(encryptPayload, key, { expiresIn: expire });
-    return Buffer.from(token!).toString("base64");
+    // const encryptPayload = await AES256_AR2.Encrypt(payload, key);
+    // const token = await genJWT(encryptPayload, key, { expiresIn: expire });
+    // return Buffer.from(token!).toString("base64");
+    return await genJWT(payload, key, { expiresIn: expire });
   } catch (err) {
     return AppError(err, null);
   }

@@ -25,46 +25,46 @@ export default class extends Vue {
     super();
 
     // @ts-ignore
-    this.$store.subscribeAction(async (mut, state) => {
-      if (mut.type === "UserManager") {
-        if (mut.payload.action === "Register") {
-          // @ts-ignore
-          await this.$db.dashboard.insert(mut.payload.data);
-          // @ts-ignore
-          // const usr = await this.$db.dashboard.findOne().exec();
-        }
-        if (mut.payload.action === "Login") {
-          // @ts-ignore
-          const usr = await this.$db.dashboard.findOne().exec();
-          if (usr === null) {
-            await this.$db.dashboard.insert(mut.payload.data);
-          } else {
-            usr!.updateUserData(mut.payload.data);
-          }
-        }
-        if (mut.payload.action === "UpdateServices") {
-          const usr = await this.$db.dashboard.findOne().exec();
-          usr!.updateUserData(mut.payload.data);
-        }
-      }
-    });
+  //   this.$store.subscribeAction(async (mut, state) => {
+  //     if (mut.type === "UserManager") {
+  //       if (mut.payload.action === "Register") {
+  //         // @ts-ignore
+  //         await this.$db.dashboard.insert(mut.payload.data);
+  //         // @ts-ignore
+  //         // const usr = await this.$db.dashboard.findOne().exec();
+  //       }
+  //       if (mut.payload.action === "Login") {
+  //         // @ts-ignore
+  //         const usr = await this.$db.dashboard.findOne().exec();
+  //         if (usr === null) {
+  //           await this.$db.dashboard.insert(mut.payload.data);
+  //         } else {
+  //           usr!.updateUserData(mut.payload.data);
+  //         }
+  //       }
+  //       if (mut.payload.action === "UpdateServices") {
+  //         const usr = await this.$db.dashboard.findOne().exec();
+  //         usr!.updateUserData(mut.payload.data);
+  //       }
+  //     }
+  //   });
   }
 
-  async created() {
-    const usr = await this.$db.dashboard.findOne().exec();
-    if (usr !== null) {
-      this.$store.dispatch("UserManager", {
-        action: "update",
-        data: usr!.getData()
-      });
-    }
-    // await this.$store.dispatch("UserManager", {
-    //   action: "UpdateServices",
-    //   data: {
-    //     services: undefined
-    //   }
-    // })
-  }
+  // async created() {
+  //   const usr = await this.$db.dashboard.findOne().exec();
+  //   if (usr !== null) {
+  //     this.$store.dispatch("UserManager", {
+  //       action: "update",
+  //       data: usr!.getData()
+  //     });
+  //   }
+  //   // await this.$store.dispatch("UserManager", {
+  //   //   action: "UpdateServices",
+  //   //   data: {
+  //   //     services: undefined
+  //   //   }
+  //   // })
+  // }
 
   protected get User() {
     return this.$store.state.data;

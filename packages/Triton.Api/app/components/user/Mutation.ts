@@ -3,23 +3,23 @@ import { ApiTokens } from "@/entity/ApiTokens";
 import { AppError } from "@/utils/log";
 import { readSession } from "../memory";
 import { setupServiceTokens } from "../service";
-import { fetchKey } from "../vault";
-import { encryptPass } from "../vault";
+// import { fetchKey } from "../vault";
+// import { encryptPass } from "../vault";
 
 export default {
   // User input is defined in graphql schema
   // We know it will be valid as long as schema contains valid fields declarations
   addUser: async (__: any, { data }: any): Promise<boolean> => {
-    const { userAes } = await fetchKey("encrypt", "userAes");
-    if (userAes === undefined) {
-      return false;
-    }
+    // const { userAes } = await fetchKey("encrypt", "userAes");
+    // if (userAes === undefined) {
+    //   return false;
+    // }
 
-    const encrypted = await encryptPass(data.password, userAes);
+    // const encrypted = await encryptPass(data.password, userAes);
     return await User.insert({
       ...data,
       registerDate: new Date(),
-      password: encrypted
+      /* : encrypted */
     })
       .then(_ => true)
       .catch(err => AppError(err, false));

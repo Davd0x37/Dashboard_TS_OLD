@@ -8,7 +8,7 @@ services:
     volumes:
       - dashboard_app:/Dashboard
 
-  # # BACKEND
+  # BACKEND
   api:
     image: node:latest
     container_name: dashboard_api
@@ -31,25 +31,33 @@ services:
       - "traefik.frontend.rule=Host:api.liquidash.pl"
       - "traefik.port=4000"
 
-  # # FRONTEND
-  # client:
-  #   image: nginx:stable
-  #   container_name: dashboard_client
-  #   command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
-  #   depends_on:
-  #     - build
-  #   volumes:
-  #     - dashboard_app:/Dashboard
-  #   networks:
-  #     - dashboard
-  #   labels:
-  #     - "traefik.backend=DashboardClient"
-  #     - "traefik.docker.network=dashboard"
-  #     - "traefik.frontend.passHostHeader=true"
-  #     - "traefik.enable=true"
-  #     - "traefik.frontend.rule=Host:liquidash.pl"
-  #     - "traefik.port=443"
-  #     - "traefik.protocol=https"
+    vault:
+      image: vault:latest
+      container_name: dashboard_vault
+      ports:
+        - "8200:8200"
+      volumes:
+        - /usr/app/DashboardTS/vault.hcl:/vault/config/vault.hcl
+
+  # FRONTEND
+  client:
+    image: nginx:stable
+    container_name: dashboard_client
+    command: nginx -c /Dashboard/nginx.conf -g "daemon off;"
+    depends_on:
+      - build
+    volumes:
+      - dashboard_app:/Dashboard
+    networks:
+      - dashboard
+    labels:
+      - "traefik.backend=DashboardClient"
+      - "traefik.docker.network=dashboard"
+      - "traefik.frontend.passHostHeader=true"
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:liquidash.pl"
+      - "traefik.port=443"
+      - "traefik.protocol=https"
 
   # DATABASE
   db:

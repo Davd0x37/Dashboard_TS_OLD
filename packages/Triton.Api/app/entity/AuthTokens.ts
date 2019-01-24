@@ -12,7 +12,7 @@ import { User } from "./User";
 
 @Entity({ name: "AuthTokens" })
 export class AuthTokens extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn("increment")
   public readonly id!: string;
 
   @ManyToOne(_ => User, user => user.tokens, { nullable: false })

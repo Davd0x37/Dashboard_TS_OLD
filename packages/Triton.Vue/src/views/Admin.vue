@@ -46,7 +46,7 @@ export default class extends Vue {
 
   protected async redirectAuth(name: string) {
     window.open(
-      `http://localhost:4000/services/${name}?token=${this.user.session_id}`
+      `https://104.248.132.7:4000/services/${name}?token=${this.user.session_id}`
     );
   }
 }
