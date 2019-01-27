@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  api:
+    environment:
+      NODE_ENV: dev
+    labels:
+      traefik.frontend.rule: "Host:api.localhost"
+
+  vault:
+    command: server -config=/Triton/config/vault.dev.hcl
+    labels:
+      traefik.frontend.rule: "Host:vault.localhost"
+
+  consul:
+    labels:
+      traefik.frontend.rule: "Host:consul.localhost"
+
+  client:
+    labels:
+      traefik.frontend.rule: "Host:localhost"
+
+  db:
+    env_file: .dev.env
+    labels:
+      traefik.frontend.rule: "Host:db.localhost"
+
+  reverse-proxy:
+    labels:
+      traefik.frontend.rule: "Host:proxy.localhost"

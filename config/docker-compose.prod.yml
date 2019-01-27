@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  api:
+    environment:
+      NODE_ENV: production
+    labels:
+      traefik.frontend.rule: "Host:api.liquidash.pl"
+
+  vault:
+    command: server -config=/Triton/config/vault.prod.hcl
+    labels:
+      traefik.frontend.rule: "Host:vault.liquidash.pl"
+
+  consul:
+    labels:
+      traefik.frontend.rule: "Host:consul.liquidash.pl"
+
+  client:
+    labels:
+      traefik.frontend.rule: "Host:liquidash.pl"
+
+  db:
+    env_file: .prod.env
+    labels:
+      traefik.frontend.rule: "Host:db.liquidash.pl"
+
+  reverse-proxy:
+    labels:
+      traefik.frontend.rule: "Host:traefik.liquidash.pl"

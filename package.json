@@ -1,11 +1,17 @@
 {
-  "name": "dashboard",
-  "version": "1.1.0",
-  "description": "Dashboard written in TypeScript",
-  "repository": "git@gitlab.com:DevDigitalNomad/DashboardTS.git",
-  "author": "DigitalNomad",
+  "name": "triton",
+  "version": "0.1.0",
+  "description": "Personal dashboard",
+  "repository": "git@gitlab.com:Vrnon/Liquidash.git",
+  "author": "Vrnon",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "docker-compose -f config/docker-compose.yml -f config/docker-compose.dev.yml up",
+    "dev:new": "docker-compose -f config/docker-compose.yml -f config/docker-compose.dev.yml up --build",
+    "build": "docker-compose -f config/docker-compose.yml -f config/docker-compose.prod.yml up",
+    "build:new": "docker-compose -f config/docker-compose.yml -f config/docker-compose.prod.yml up --build"
+  },
   "dependencies": {
     "lerna": "^3.4.3"
   }

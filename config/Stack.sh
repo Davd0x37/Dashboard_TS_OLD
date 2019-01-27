@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# ---- APP DIR ----
-app_dir="/usr/app"
-
 # Install additional tools for docker and other
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2 wget
 # Install docker
@@ -13,18 +10,10 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 # Install software
 sudo yum install -y docker-ce git epel-release certbot
-# sudo yum install -y nodejs gcc-c++ make yarn docker-ce git rethinkdb epel-release certbot
+# sudo yum install -y nodejs gcc-c++ make yarn docker-ce git epel-release certbot
 
 # Start docker
 sudo systemctl start docker
-
-# Create dir for app
-mkdir $app_dir
-cd $app_dir
-# Clone repo
-git clone git@gitlab.com:DevDigitalNomad/DashboardTS.git
-# cd DashboardTS && yarn
-
 
 # ---- GENERATING DHE key ----
 # mkdir $app_dir/secret

@@ -14,8 +14,8 @@ address = ":443"
 useXForwardedFor = true
 [entryPoints.https.tls]
 [[entryPoints.https.tls.certificates]]
-certFile = "/Dashboard/config/cert/fullchain.pem"
-keyFile = "/Dashboard/config/cert/privkey.pem"
+certFile = "/Triton/config/cert/fullchain.pem"
+keyFile = "/Triton/config/cert/privkey.pem"
 
 [api]
 dashboard = true

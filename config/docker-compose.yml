@@ -1,0 +1,138 @@
+version: "3"
+
+# Order:
+# - image
+# - container_name
+# - command
+# - ports
+# - depends_on
+# - environment
+# - env_file
+# - networks
+# - volumes
+# - labels
+# - other...
+
+services:
+  # BUILD APP ✔
+  build:
+    build: ../
+    container_name: triton.build_runner
+    volumes:
+      - triton_app:/Triton
+
+  # BACKEND ✔
+  api:
+    image: node:latest
+    container_name: triton.api
+    command: node /Triton/packages/Triton.Api/build/app/App.js
+    ports:
+      - 4000:4000
+    depends_on:
+      - build
+      - db
+    networks:
+      - triton
+    volumes:
+      - triton_app:/Triton
+    labels:
+      traefik.backend: "TritonApi"
+      traefik.docker.network: "triton"
+      traefik.enable: true
+      traefik.port: 4000
+
+  # Secrets manager ✔
+  vault:
+    image: vault:latest
+    container_name: triton.vault
+    ports:
+      - 8200:8200
+    environment:
+      VAULT_API_ADDR: "http://127.0.0.1:8200"
+    networks:
+      - triton
+    volumes:
+      - triton_app:/Triton
+    cap_add:
+      - IPC_LOCK
+    labels:
+      traefik.backend: "TritonVault"
+      traefik.docker.network: "triton"
+      traefik.port: 8200
+
+  # Health checked ✔
+  consul:
+    image: consul:latest
+    container_name: triton.consul
+    command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect=1 --config-file=/Triton/config/consul.hcl
+    ports:
+      - 9300:9300
+      - 9500:9500
+      - 9600:9600/udp
+    networks:
+      - triton
+    volumes:
+      - triton_app:/Triton
+    labels:
+      traefik.backend: "TritonConsul"
+      traefik.docker.network: "triton"
+      traefik.port: 9500
+
+  # FRONTEND ✔
+  client:
+    image: nginx:stable
+    container_name: triton.client
+    command: nginx -c /Triton/config/nginx.conf -g "daemon off;"
+    depends_on:
+      - build
+    networks:
+      - triton
+    volumes:
+      - triton_app:/Triton
+    labels:
+      traefik.backend: "TritonClient"
+      traefik.docker.network: "triton"
+      traefik.frontend.passHostHeader: true
+      traefik.enable: true
+      traefik.port: 443
+      traefik.protocol: "https"
+
+  # DATABASE ✔
+  db:
+    image: postgres:latest
+    container_name: triton.db
+    ports:
+      - 5432:5432
+    networks:
+      - triton
+    labels:
+      traefik.backend: "TritonDB"
+      traefik.docker.network: "triton"
+      traefik.enable: true
+      traefik.port: 5432
+    restart: always
+
+  # REVERSE PROXY ✔
+  reverse-proxy:
+    image: traefik
+    container_name: triton.load_balancer
+    command: --api --docker
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - triton
+    volumes:
+      - /Triton/config/traefik.toml:/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - triton_app:/Triton
+    labels:
+      traefik.backend: "TritonReverseProxy"
+      traefik.docker.network: "triton"
+      traefik.port: 8080
+
+volumes:
+  triton_app:
+networks:
+  triton:
